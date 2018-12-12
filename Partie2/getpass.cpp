@@ -21,9 +21,6 @@ int getch() {
 }
 
 
-
-
-
 string getpass(const char *prompt, bool show_asterisk=true)
 {
   const char BACKSPACE=127;
@@ -59,7 +56,7 @@ string getpass(const char *prompt, bool show_asterisk=true)
 
 int main()
 {
-  const char *correct_password="null";
+  const char *correct_password="bobette";
 
   string password=getpass("Please enter the password: ",true); // Avec asterisks
   if(password==correct_password)
@@ -73,7 +70,7 @@ int main()
   if(password==correct_password)
       cout <<"Correct password";
   else
-      cout <<"Incorrect password. Try again";
+      cout <<"Incorrect password. Try again\n";
 
   return 0;
 }

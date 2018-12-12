@@ -38,7 +38,7 @@ int main(){
 	char *sql;
 	int rc;
 	// Open the test.db file
-	rc = sqlite3_open(":memory:", &db);
+	rc = sqlite3_open(":memory:", &db); // :memory: veut dire dans la RAM, pas de .db sera crée, a la fin du programme, la database est detruite
 	if(rc != SQLITE_OK){
 		fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
 	} else {
