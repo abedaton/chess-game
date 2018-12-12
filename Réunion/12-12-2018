@@ -1,0 +1,42 @@
+Achraf : Introduction moins précis
+
+qqun : 4 Besoin système
+
+
+1.1 Objectifs
+    Jeux d'échec en ligne, [gros point de l'énoncé]
+
+1.2 Conventions du Document
+    [On enleve]
+
+1.3 Public ciblée
+    un pc, (connaissance des règles du jeu), connection internet
+
+1.4 Portée du Programme = Portabilité du programme
+    Compatibilité, portabilité -> Linux
+    Portée c'est les différents module, par exemple le programme serveur
+
+1.5 Références
+    [On enleve]
+
+(1.6 Glossaire)
+
+==> pour l'intro, voir si on continue de faire plusieurs points ou alors un seul gros point
+
+2. Règle du jeux
+2.1 suprimmé, régle ju jeu normal
+2.1 premère variante etc
+...  
+
+
+2.3 Fonctionnalité du Programme
+    [on enleve]
+
+3 Besoin
+    Fusion avec ce que Achraf a fait 
+
+4.2 Lancer partie = matchmaking
+
+==> du 3 au 4, que des use case avec explication acteur pré et post condition invariant etc...
+
+6
