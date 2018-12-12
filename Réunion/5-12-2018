@@ -1,0 +1,33 @@
+Dans le Class Diagram:
+    -Plateau de jeu en tableau normal
+
+Dans le Use Case Diagram:
+    -Suppression du bot
+
+Dons les Sequence Diagrm:
+    -Ajout d'un SD du tour d'un joueur
+    -// // // // de la gestion du serveur (à finir)
+
+Un state or activity diagramm:
+    -Seulement pour les actions du user en dehors d'un parti
+    
+Croquis graphique:
+    -Choix de jouer avec ami ou en ligne
+
+SRD:
+    -Introduction:
+        -Explixation de pourquoi, comment et quoi.
+        -Glossaire
+        -Historique des commits et des présences (pas forcement ici mais le mettre)
+        -Annexe
+        
+    -Fonction/Besion de l'utilisateur:
+        -Ce qu'il peut faire (se connecter, le menu, joueur)
+        -Ce que le serveur peut faire (gérer les utilisateur, créer un compte)
+        -Le jeu (matchmaking, etc)
+        -Non fonctionnel : Robustesse du serveur (à ajouter)
+    
+    -Les Diagrammes:
+        -Ajouter les diagrammes morcelés et à la fin gouper tout ces diagrammes 
+       
+Savoir si on doit diviser 
