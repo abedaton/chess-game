@@ -1,0 +1,8 @@
+Connexion
+
+• Acteurs: Utilisateur
+• Relation avec d'autres cas d'utilisation: /
+• Pré-conditions: L'utilisateur doit avoir lancé le programme et être connecté a internet.
+• Post-conditions: L'utilisateur est connecté au server et est envoyé au menu.
+• Cas général: L'utilisateur rentre son identifiant et son mot de passe pour ce connecter ou créer un nouveau compte.
+• Cas exceptionnels: L'utilisateur rentre un identifiant ou un mot de passe incorrecte et est invité a en réentrer un.
