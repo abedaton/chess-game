@@ -1,0 +1,32 @@
+/!\ Régler les potentiels conflits lors des merges a cause des nombreuses branches
+Impression du SRD : OK pour un premier jet, travail honnête
+-Voir comment l'évoluer
+-Glossaire un peu court (soit en faire un vrai soit le supprimer)
+-Use case
+	1er : il faut une flêche pour le extend
+	3.1 : Le use case est-il utile
+	(Ne pas trop se fier dans les anciens SRD mais plus fiare un mix avec notre sauce)
+	3.3 : Pas bcp d'option (quitter, etc)
+	=> Faire évoluer les use case, les revoir et les mettres à jour
+-Class Diagram /!\
+	Pas super complet, pas énormement d'information, manque des trucs
+	/!\ "Pièce d'echec différent du pion" : pas clair -> pas bonne idée
+	Aucune idée du plateau de jeu -> n'apparait pas dans le class diagram 
+	pg 17 : Non compréhension du choix de mettre des exemple, trop brouillon
+		L'explication ne fait pas sens sur un class diagram
+	Pas de diagramme de classe sur le serveur et le client
+
+/!\ diagramme (d'activité) vu en OS avec les relations entre le client et le serveur
+
+-Activity
+	8.2 : manque des options sinon suppression
+
+Prochaines semaines 
+-Comment on va organiser le travail
+-Qui fait quoi : une équipe client serveur (robustesse), une equipe qui bosse sur le jeu et les modes de jeu, une personne de contact entre les deux groups pour faire des liens 
+-On est pas coté sur les bdd utilisés, mais ça doit être bien fait (on peut être interrogé sur ça)
+
+PROCHAINE SEMAINE:
+-Mettre a jour le SRD
+-Un début du protocole de communication
+-Avoir un début de parti d'echec
