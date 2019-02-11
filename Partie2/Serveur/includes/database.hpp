@@ -11,23 +11,33 @@
 #include <stdio.h>
 #include <signal.h>
 #include <sqlite3.h>
+#include <stdint.h>
 
 #include <iostream>
-#include <vector>
 #include <fstream>
 #include <cstring>
 #include <string>
 #include <thread>
 #include <limits>
-#include <mutex>
+#include <vector>
 
-sqlite3* initSql();
-void addUser(sqlite3* db, std::string username, std::string password, std::string email);
-void createTable(sqlite3* db);
-bool isUsernameFree(std::string username);
-bool isLoginOk(sqlite3* db, std::string username, std::string password);
-long unsigned hashPass(std::string password);
-bool selectData(sqlite3* db, std::string sql);
+
+class Database{
+    public:
+        Database();
+        void addUser(std::string username, std::string password, std::string email);
+        bool isUsernameFree(std::string username);
+        bool isLoginOk(std::string username, std::string password);
+        void update(std::string table, std::string colName, std::string username, std::string newValue);
+        sqlite3* getdb();
+    private:
+        void createTable();
+        long unsigned hashPass(std::string password);
+        bool selectData(std::string sql);
+        static int myCallback(void* pUser, int argc, char** argv, char** columns);
+        static int callback(void* NotUsed, int argc, char** argv, char** columns);
+        sqlite3* db;
+};
 
 
 #endif

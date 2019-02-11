@@ -27,7 +27,7 @@ void Client::setup(){
 void Client::handleClient(){ //temporaire
     int answer = 0;
     while ( answer != 1 && answer != 2 ) {
-        std::cout << "Write 1 for login or 2 for register\n";
+        std::cout << "Write 1 for login or 2 for register:" << std::endl;
         std::cin >> answer;
         this->myFlush(); //magique !
     }
@@ -36,7 +36,7 @@ void Client::handleClient(){ //temporaire
 }
 
 void Client::login(){
-    int protocol = 0;
+    int protocol = 2;
 
     std::string username;
     std::string password;
@@ -57,6 +57,7 @@ void Client::login(){
             std::cout << "Invalid username or password." << std::endl;
         } else {
             std::cout << "You are now logged in !" << std::endl;
+            this->beforeGameLoop();
         }
     }
 }
@@ -102,13 +103,13 @@ void Client::letsRegister(){
 void Client::beforeGameLoop(){ //temporaire
     int answer;
     while (true){
-        std::cout << "Write 1 for exit, 2 for chat, 3 for game";
+        std::cout << "Write 1 for exit, 2 for chat, 3 for game: " << std::endl;
         std::cin >> answer;
         if (answer == 1){
             break;
         }
         else if (answer == 2){
-            ;;
+            this->chat();
         }
         else if (answer == 3){
             this->inGameLoop();
@@ -122,8 +123,8 @@ void Client::inGameLoop(){ //temporaire
     while (true){
         std::cout << "Write 1 for surrend, 2 for chat, 3 for checkmov";
         if (! listMov.empty())
-                std::cout << ",4 for mov";
-        std::cout << ".\n";
+                std::cout << ", 4 for mov";
+        std::cout << std::endl;
         std::cin >> answer;
         if (answer == 1){
             break;
@@ -141,7 +142,7 @@ void Client::inGameLoop(){ //temporaire
 }
 
 void Client::exit(){
-    int protocol = 2;
+    int protocol = 0;
 }
 /*
 void Client::findMatch(int modDeJeu, std::string name){
@@ -150,17 +151,17 @@ void Client::findMatch(int modDeJeu, std::string name){
 }
 */
 void Client::chat(){
+    int protocol = 3;
+    sendInt(protocol);
+}
+
+void Client::checkmov(){
     int protocol = 4;
     ;;
 }
 
-void Client::checkmov(){
-    int protocol = 5;
-    ;;
-}
-
 void Client::mov(){
-    int protocol = 6;
+    int protocol = 5;
     ;;
 }
 

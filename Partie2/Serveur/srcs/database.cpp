@@ -1,24 +1,20 @@
 #include "database.hpp"
 
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 static int myCallback(void* pUser, int argc, char** argv, char** columns);
 static int callback(void* NotUsed, int argc, char** argv, char** columns);
 
-sqlite3* initSql(){
-	sqlite3 *db;
-	int rc = sqlite3_open("test.db", &db);
+Database::Database(){
+	int rc = sqlite3_open("test.db", &this->db);
 	if(rc != SQLITE_OK){
-		std::cout << "Can't open database: %s\n", sqlite3_errmsg(db);
+		std::cout << "Can't open database: %s\n", sqlite3_errmsg(this->db);
 	} else {
 		std::cout << "Open database successfully\n";
 	}
 
-	createTable(db);
-
-	return db;
+	createTable();
 }
 
-void createTable(sqlite3* db){
+void Database::createTable(){
 	// create users
 	char* zErrMsg = 0;
 
@@ -26,7 +22,7 @@ void createTable(sqlite3* db){
                                                     	password BIGINT,\
                                                     	email TEXT NOT NULL)";
 
-	if (sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg) == SQLITE_OK){
+	if (sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg) == SQLITE_OK){
 		std::cout << "New table created\n";
 	} else {
 		std::cout << "This table already exists !\n";
@@ -34,14 +30,14 @@ void createTable(sqlite3* db){
 }
 
 
-void addUser(sqlite3 *db, std::string username, std::string password, std::string email){
+void Database::addUser(std::string username, std::string password, std::string email){
 	sqlite3_stmt* stmt;
 	const char* pzTest;
 
 	// Insert data item into users
 	std::string sql = "INSERT INTO users (username, password, email) VALUES (?,?,?)";
 
-	if (sqlite3_prepare(db, sql.c_str(), static_cast<int>(sql.size()), &stmt, &pzTest) == SQLITE_OK){
+	if (sqlite3_prepare(this->db, sql.c_str(), static_cast<int>(sql.size()), &stmt, &pzTest) == SQLITE_OK){
 		// Hash password
 		long unsigned int addpassword = hashPass(password);
 		// Bind the value
@@ -52,61 +48,74 @@ void addUser(sqlite3 *db, std::string username, std::string password, std::strin
 		sqlite3_step(stmt);
 		sqlite3_finalize(stmt);
 	} else {
-        std::cout << "Error: " << sqlite3_errmsg(db) << std::endl;
+        std::cout << "Error: " << sqlite3_errmsg(this->db) << std::endl;
     }
 }
 
-long unsigned hashPass(std::string password){
+long unsigned Database::hashPass(std::string password){
 	std::hash<std::string>hashFct;
 	return hashFct(password);
 }
 
-bool isUsernameFree(sqlite3* db, std::string username){
+bool Database::isUsernameFree(std::string username){
 	std::string sql = "SELECT * FROM users WHERE username = '" + username + "'";
-	return selectData(db, sql);
+	return ! selectData(sql);
 }
 
-bool isLoginOk(sqlite3* db, std::string username, std::string password){
+bool Database::isLoginOk(std::string username, std::string password){
 	long long int tpassword = static_cast<long long int>(hashPass(password));
-
+	
 	std::string sql = "SELECT * FROM users WHERE username = '" + username + "' AND password = " + std::to_string(tpassword);
-	return selectData(db, sql);
+	return selectData(sql);
 }
 
-bool selectData(sqlite3* db, std::string sql){
+bool Database::selectData(std::string sql){
 	char* zErrMsg = 0;
 	int hasResult = 0;
-	pthread_mutex_lock(&mutex);
-	int rc = sqlite3_exec(db, sql.c_str(), myCallback, &hasResult, &zErrMsg);
+	int rc = sqlite3_exec(this->db, sql.c_str(), this->myCallback, &hasResult, &zErrMsg);
+
 	if (rc != SQLITE_OK) {
-		std::cout << "Error on isLoginOk: " << sqlite3_errmsg(db) << std::endl;
-		pthread_mutex_unlock(&mutex);
+		std::cout << "Error on isLoginOk: " << sqlite3_errmsg(this->db) << std::endl;
+		sqlite3_free(zErrMsg);
 		return false;
 	} else {
 		if(!hasResult) {
-			pthread_mutex_unlock(&mutex);
 			std::cout << "Wrong username or password\n";
 			return false;
 		} else{
-			pthread_mutex_unlock(&mutex);
 			std::cout << __LINE__ << " Login is OK\n";
 			return true;
 		}
 	}
 }
 
+void Database::update(std::string table, std::string colName, std::string username, std::string newValue){
+	char* zErrMsg = 0;
+	std::string sql = "UPDATE " + table + " SET " + colName + " = '" + newValue + "' WHERE username = '" + username + "';";
+	std::cout << sql << std::endl;
+	int rc = sqlite3_exec(this->db, sql.c_str(), this->callback, 0, &zErrMsg);
+	if (rc != SQLITE_OK){
+		std::cout << "Error on Update: " << sqlite3_errmsg(this->db) << std::endl;
+		sqlite3_free(zErrMsg);
+	}
+}
 
-static int myCallback(void* pUser, int argc, char** argv, char** columns){
+
+int Database::myCallback(void* pUser, int argc, char** argv, char** columns){
 	int *flag = static_cast<int*>(pUser);
     *flag = 1;
     return 0;
 }
 
-static int callback(void* NotUsed, int argc, char** argv, char** columns){
+int Database::callback(void* NotUsed, int argc, char** argv, char** columns){
 	int i;
 	for (i = 0; i < argc; i++){
 		printf("%s = %s\n", columns[i], argv[i] ? argv[i] : "NULL");
 	}
 	printf("\n");
 	return 0;
+}
+
+sqlite3* Database::getdb (){
+	return this->db;
 }

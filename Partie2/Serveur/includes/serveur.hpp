@@ -2,7 +2,7 @@
 #ifndef SERVEUR_HPP
 #define SERVEUR_HPP
 
-#include "database.hpp"
+#include "user.hpp"
 
 
 class Serveur {
@@ -12,24 +12,9 @@ class Serveur {
     private:
         void sShutdown();
         void mainLoop();
-        void menu();
-        void matchMakingLoop() ;//temporaire
         void setup();
-        void handleClient(int client_sock);
-
-        static void* handleClientTmp(void* tmp);
-
-        void isAlive(int client_sock);
         void* handleCommand();
-        void kickClient(int sock_client);
-        void checkLogin(int client_sock);
-        void letsRegister(int client_sock);
-
-
-        void sendInt(int num, int clientSock);
-        int recvInt(int clientSock);
-        std::string recvStr(int client_sock);
-
+ 
 
         std::string _ip;
         short unsigned int _port;
@@ -37,18 +22,15 @@ class Serveur {
         int _serv_sock;
         unsigned int _addrlen;
 
-        std::vector<int> _clients;
+        std::vector<int*> _clients;
 
-        sqlite3 *db;
+        Database* db;
         sqlite3_stmt* stmt;
         std::string sql;
         char* zErrMsg = 0; // voir site sqlite
 
-};
-struct tmp {
-        Serveur* obj ;
-        int sock;
-};
+        MatchMaking* match = new MatchMaking();
 
+};
 
 #endif
