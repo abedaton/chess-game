@@ -1,0 +1,13 @@
+-Faire une classe requête pour les protocoles (en forme d'arbre pour simplifier les différents protocoles)
+-Le manque d'internet est un faux problème
+-Pour l'emplacement du jeu, le serveur gère tout => plus de sécurité
+                          , tout mettre chez le joueur => aléger les opération du serveur
+-Le client bouge chez lui, il envoie le move puis envoie chez le serveur qui va accepter ou pas le move
+    -Le client doit avoir une grille aussi, si on ne mets rien chez le client => bcp plus de communication 
+    -Keno préférence : Alléger les communication réseaux => donc un jeu chez le client  
+=> Une équipe qui repasse le code pour nettoyer le code de Quentin et pour placer les send et le recv afin d'orienté le code en réseau
+=> Standardiser les inputs 
+
+
+Objectif semaine prochaine : 
+    Le merge avec le serveur
