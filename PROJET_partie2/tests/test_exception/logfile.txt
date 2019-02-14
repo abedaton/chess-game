@@ -1,3 +1,0 @@
-before myexception
-MyException(MY EXECPT!)
-myexception catched
