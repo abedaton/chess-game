@@ -1,0 +1,47 @@
+legende;francais;anglais;neerlandais
+pe_a_depl;veuillez indiquer la piece a deplacer;please give the piece to move;geef alstublieft het schaakstuk dat u wenst te verplaatsen
+retry;erreur veuillez reessayer;error please retry;fout herbegin alstublieft
+move_pe_oth;vous ne pouvez pas deplacer une piece qui ne vous appartient pas;you can't move a piece that doesn't belong to you;u kunt een schaakstuk die niet van u is niet bewegen
+empty;cette case est vide;this space is empty;dit vakje is leeg
+depl_pe;veuillez indiquer le deplacement de la piece ;please give the mouvement of the piece;geef de verplaatsing of het schaakstuk alstublieft
+ou;ou;or;of
+ret;pour retourner;to return;om terug te gaan
+roc;pour faire un roc;to do a roc;om een roc te doen
+cap_pe_self;vous ne pouvez pas capturer une piece qui vous appartient ;you can't capture a piece that belong to you;u kunt uw eigen schaakstuk niet vangen
+illegal_move;cette piece ne peut pas se deplacer de cette facon;this piece can't move like that;dit shaakstuk kan zo niet bewegen
+your_turn;c'est a votre tour;it's your turn;het is uw beurt
+co_ext;la coordonée sort du plateau;the coordinate goes outside the board;de coordinaten zijn buiten het bord
+co_inv;la coordonee est invalide;the coordinate is invalid;de coordinaten zijn ongeldig
+vict;VICTOIRE DE;VICTORY OF;VICTORIE OF
+fin_match;MATCH FINI;MATCH ENDED;WEDSTRIJD GEEINDIGT
+roc_pe;veuillez indiquer la piece avec laquelle faire le roc;please give the piece witch you want to roc with;geef het schaakstuk met degene u wilt een  roc doen
+roc_oth;roc impossible avec une piece qui ne vous apartenant pas;impossible roc with a piece that doesn't belong to you;roc onmogelijk met een shaakstuk die niet van u is
+roc_empty;roc impossible avec une case vide;impossible roc with an empty space;roc onmogelijk met een leeg vakje
+roc_imp_chess;cette piece ne peut pas effectuer de roc avec;this piece can't do a roc with;dit shaakstuk can geen roc doen met
+chess_roi;un roi;a king;een koning
+chess_tour;une tour;a tower;een toren
+roc_pe_imp;cette piece ne peut pas effectuer de roc;this piece cant do a roc;dit shaakstuk kan geen roc doen
+Symbole_T;T;R;T
+Symbole_Fou;Fou;B;L
+Symbole_P;P;P;Pi
+Symbole_D;D;Q;D
+Symbole_R;R;Ki;Ko
+Symbole_Che;Che;Kn;Pa
+Symbole_Fon;Fon;Hu;O
+Symbole_G;G;G;B
+Symbole_Fa;Fa;Ha;V
+Symbole_Cha;Cha;C;Ka
+Nom_T;Tour;Rook;Toren
+Nom_Fou;Fou;Bishops;Loper
+Nom_P;Pion;Pawn;Pion
+Nom_D;Dame;Queen;Dame
+Nom_R;Roi;King;Koning
+Nom_Che;Chevallier;Knight;Paard
+Nom_Fon;Fonctionnaire;Huygens;Officieel
+Nom_G;Garde;Guard;Bewaker
+Nom_Fa;Faucon;Hawk;Valk
+Nom_Cha;Chancellier;Chancellor;Kancelier
+choix_evolve;Veuillez choisir une evolution parmis;Please choose between;Kies hieruit alsustublieft
+et;et;and;en
+mode_echec;ECHEC!;CHECKMATE IN ONE MOVE!;SCHAAKMAT IN EEN BEWEGING!
+mode_echec_et_mat;ECHEC ET MAT!;CHECKMATE!;SCHAAKMAT!
