@@ -1,0 +1,8 @@
+User(only_player)
+User(only_player)
+Bot(player2)
+B2
+liste deplacements : liste capture : B3
+(1,1) --> (1,2)
+mouvement valide
+Update Pion !
