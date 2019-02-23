@@ -17,6 +17,7 @@ void ClassicChess::initialise_board(){
 }
 
 void ClassicChess::initialise_low_pieces(){ 
+	/* mise en place des pieces pour le joeur se trouvant en bas du tableau */
 
 	Player* own = get_low_player();
 	
@@ -73,6 +74,7 @@ void ClassicChess::initialise_low_pieces(){
 }
 
 void ClassicChess::initialise_high_pieces(){
+	/* mise en place des pieces pour le joeur se trouvant en haut du tableau */
 
 	Player* own = get_high_player();
 		
@@ -128,13 +130,18 @@ void ClassicChess::initialise_high_pieces(){
 
 }
 
-std::string ClassicChess::affichage_plateau(){
+void ClassicChess::affichage(){
+	/* fonction affaichant le tableau de jeu ainsi que les joueurs l'entourant */
 	
-	return (this->get_plateau()->adaptive_affichage("Symbole_","",this->get_dico(),this->get_langue())).str();
+	Affichage* aff = new Affichage(this->get_plateau(), this->get_dico(),"Symbole_","",this->get_langue(),this->get_low_player(), this->get_high_player(),"*" ,"");
 	
+	this->get_active_player()->send_msg(aff->get_affichage(),true);
 }
 
 std::pair<bool,BitypeVar<Chesspiece*>> ClassicChess::normal_output_check(std::string in,std::string out){
+	/* normal en oposition avec roc_output_check,
+	 * output designe la 2e partie de la selectiond de piece c.a.d. le choix de la destination de la piecesélectionné */
+	
 	bool res;
 	bool valid = this->verify_validity_input(out);
 	Chesspiece* cap_piece;
@@ -181,6 +188,10 @@ std::pair<bool,BitypeVar<Chesspiece*>> ClassicChess::normal_output_check(std::st
 }
 
 Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChess::out_input(std::string in, BitypeVar<Chesspiece*> in_pe){
+	
+	/* out designe la 2e partie de la selectiond de piece c.a.d. le choix de la destination de la piece sélectionné (en in)
+	 * boucle while gèrant toutes les possibilités concernat ce choix de destination*/
+	
 	BitypeVar<Chesspiece*> dst;
 	std::pair<int,int> conv;
 	std::pair<bool,BitypeVar<Chesspiece*>> norm_paire;
@@ -232,6 +243,10 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChe
 			part_b = norm_paire.first;
 			dst = norm_paire.second;
 		}
+		
+		if (not(part_b) and not(correspond) and not(end_game)){this->get_active_player()->send_error_msg();} // si on ne sort pas de la  boucle (ret ignoré) alors on le signal
+		// important pour serveur plustard
+		
 	}
 
 	Trinome<bool,bool,bool>* trinome_bool_res = new Trinome<bool,bool,bool>(again,correspond,end_game);
@@ -241,6 +256,9 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChe
 }
 
 void ClassicChess::execute(){
+	
+	/* fonction principale du jeu, boucle d'execution qui est lancé pour débuté le jeu et qui lorsque se termine termine le jeu*/
+	
 	bool end = false;
 	Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<bool,bool>>* coords;
 	
@@ -272,6 +290,10 @@ void ClassicChess::execute(){
 		
 		abandon = bool_info.first;
 		switch_pos = bool_info.second;
+		
+		this->get_active_player()->send_confirm_msg(in,false);
+		if (switch_pos == true){this->get_active_player()->send_confirm_msg("roc",false);}
+		this->get_active_player()->send_confirm_msg(out,false);
 		
 		if (not abandon){
 			end = check_end_game(adv_pe_out, switch_pos);

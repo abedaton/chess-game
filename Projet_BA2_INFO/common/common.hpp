@@ -1,12 +1,13 @@
-
+/*
 #include <iostream>
 #include <string>
-#include <utility>
 #include <iostream>
 #include <fstream>
+#include <vector>
+*/
+#include <utility>
 #include <sys/types.h>
 #include <dirent.h>
-#include <vector>
 #include <sstream>
 
 #include "../BitypeVar/BitypeVar.hpp"
@@ -59,4 +60,20 @@ BitypeVar<Type>* intel_min_max(BitypeVar<Type>* val_one,BitypeVar<Type>* val_two
 	} //peu importe, les 2 sont false
 		
 	return res;
+}
+
+template<typename Type>
+bool is_in_vect(std::vector<Type>* vect, Type elem){
+	/* fonction déterminant si un element se trouve dans un vecteur (de même type) */
+	bool res = false;
+	
+	long long unsigned int i=0;
+	while(i<vect->size() and res == false){
+		
+		if ((*vect)[i] == elem){res = true;}
+		
+		i++;
+		}
+	return res;
+	
 }

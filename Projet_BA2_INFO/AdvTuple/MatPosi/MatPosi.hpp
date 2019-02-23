@@ -1,4 +1,8 @@
 
+#include <iostream>
+#include <utility>
+#include <sstream>
+
 #include "Posi/Posi.cpp"
 
 class MatPosi: public Posi{

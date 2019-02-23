@@ -2,19 +2,13 @@
 #ifndef SERVEUR_HPP
 #define SERVEUR_HPP
 
-//#include "includes/user.hpp"
-#include "User/User.cpp"
-
 #include <iostream>
 #include <string>
-//#include <vector>
 
-//#include "../ClassicChess/ClassicChess.cpp"
+#include "User/User.cpp"
 
 //#include "includes/database.hpp"
 //#include "includes/matchMaking.hpp"
-
-//#include "game.hpp"
 
 class Serveur {
     public:

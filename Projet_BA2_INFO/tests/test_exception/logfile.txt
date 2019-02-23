@@ -1,3 +1,4 @@
 before myexception
 MyException(MY EXECPT!)
+MY EXECPT!
 myexception catched

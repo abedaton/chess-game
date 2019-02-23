@@ -1,6 +1,6 @@
 
-#include <iostream>
-#include <string>
+//#include <iostream>
+//#include <string>
 
 #include "../../common/MyException/MyException.cpp"
 
@@ -14,6 +14,7 @@ int main(){
 		mout<<"after myexception"<<std::endl;
 	}
 	catch(MyException& e){
+		mout<<e.what()<<std::endl;
 		mout<<"myexception catched"<<std::endl;
 	}
 	

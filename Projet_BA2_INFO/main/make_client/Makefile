@@ -3,9 +3,7 @@ CXXFLAGS = -std=c++11 -ggdb3 -Wpedantic -Wall -Wextra -Wconversion -Wsign-conver
 LDFLAGS = -pthread -lsqlite3 
 
 IDIRC = ../../Client/includes/
-IDIRS = ../../Serveur/includes/
 SRCSDIRC = ../../Client/srcs/*
-SRCSDIRS = ../../Serveur/srcs/*
 
 all:
 	$(CXX) $(CXXFLAGS) $(SRCSDIRC) -I $(IDIRC) $(LDFLAGS) -o cli

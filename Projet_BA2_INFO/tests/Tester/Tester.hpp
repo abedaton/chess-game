@@ -1,9 +1,10 @@
 
-#include <iostream>
-#include <vector>
-#include <string>
+//#include <iostream>
+//#include <vector>
+//#include <string>
 
-#include "../../Plateau/Plateau.cpp"
+#include "../../Affichage/Affichage.cpp"
+
 
 class Tester{
     private:

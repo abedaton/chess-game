@@ -3,6 +3,25 @@
 
 extern MyOstream mout;
 
+// --------------------------------- HORS DICO ------------------------------------------------------------------------------
+
+Dico* make_dico(std::string csv_path){
+	
+	Dico* dico = new Dico();
+
+	std::string csv_filename = get_first_file_of_dir(csv_path,".csv");
+	
+	if (csv_filename == ""){throw MyException(&mout, "PAS DE FICHIER CSV! POUR LE DICTIONNAIRE");}
+	
+	std::stringstream ss;
+	ss << csv_path << '/'<< csv_filename;
+	
+	dico->load(ss.str());
+	
+	return dico;
+
+}
+
 // ------------DICO--------------------------------------------------------------------------------------------
 
 Dico::Dico() : CsvReader() {} //*< Constructor

@@ -7,6 +7,7 @@ extern MyOstream mout;
 
 template <typename Type>
 bool verifier_type_pe(BitypeVar<Chesspiece*> adv_pe){
+	/* fonction permettant de définir si la piece (pouvant être None) donnée est du type donnée par le template */
 	Chesspiece* pe;
 	bool res = false;
 	
@@ -21,6 +22,7 @@ bool verifier_type_pe(BitypeVar<Chesspiece*> adv_pe){
 
 template <typename Type>
 bool verifier_type_pe(Chesspiece* pe){
+	/* fonction permettant de définir si la piece donnée est du type donnée par le template */
 	bool res;
 
 	if(Type* v = dynamic_cast<Type*>(pe)){
@@ -34,6 +36,11 @@ bool verifier_type_pe(Chesspiece* pe){
 }
 
 bool check_end_game(BitypeVar<Chesspiece*> adv_pe, bool switch_pos){
+	
+	/* fonction qui vérifie si la derniere piece prise etait un roi
+	 * la piece prise étant la piece sur la 2e case (la case destination) selectionné lors d'un mouvement.
+	 * le cas du roc étant implémenté comme une prise (selection de sa case comme "destination" [2e case selectionné]) est refusé */
+	
 	bool end_game;
 	
 	if (not(switch_pos)){
@@ -45,6 +52,10 @@ bool check_end_game(BitypeVar<Chesspiece*> adv_pe, bool switch_pos){
 }
 
 BitypeVar<int>* detect_ennemy_pion_in_vect(std::vector<BitypeVar<Chesspiece*>> vect, Player* owner){
+	
+	/* fonction vérifiant si une piece ennemie se trouve dans le vecteur donné en paramètre
+	 * piece ennemie = piece dont le propriétaire est différent de celui donné en paramètre */
+	
 	BitypeVar<Chesspiece*> elem;
 	bool found = false;
 	
@@ -66,6 +77,8 @@ BitypeVar<int>* detect_ennemy_pion_in_vect(std::vector<BitypeVar<Chesspiece*>> v
 }
 
 BitypeVar<Chesspiece*>* select_king(std::vector<Chesspiece*>* vect,Player* owner){
+	
+	/* fonction qui renvoi le roi du joeuer donné en paramètre se situant dans la liste */
 	long long unsigned int i=0;
 	bool found = false;	
 	BitypeVar<Chesspiece*>* res = new BitypeVar<Chesspiece*>();
@@ -85,7 +98,14 @@ BitypeVar<Chesspiece*>* select_king(std::vector<Chesspiece*>* vect,Player* owner
 }
 
 BitypeVar<std::pair<int,int>>* calculate_move_between_zones(MatPosi* begin, MatPosi* end){
-	// fonction crée pour amelioration roque
+	/* fonction utile pour calculer les positions se situant entre 2 positions,
+	 * cette fonction détermine le facteur multiplicatif de direction du mouvement
+	 * (par conséquent indique la direcion du mouvement souhaité)
+	 * 
+	 * ex: si horizontal se sera (1,0) comme 1 en x et 0 en y
+	 * 
+	 * limitations: pêut seulment détecter si les 2 positions sor sur une ligne horizontale,verticale ou diagonale */
+	 // fonction crée pour amelioration roque
 	
 	bool lig,col;
 	std::pair<int,int> paire;
@@ -137,6 +157,7 @@ BitypeVar<std::pair<int,int>>* calculate_move_between_zones(MatPosi* begin, MatP
 }
 
 std::pair<int,int> calc_roc_destinations(bool gauche_isking,std::vector<MatPosi>* between_vect){
+	/* fonction qui calucule la destination du roi et de la tour suite a un roc, peu import si c'est un prtit ou grand roque */
 		
 	int taille = int(between_vect->size());
 	
@@ -171,6 +192,8 @@ std::pair<int,int> calc_roc_destinations(bool gauche_isking,std::vector<MatPosi>
 }
 
 std::vector<MatPosi*>* calc_king_move_path(bool king_isleft,int king_dest,std::vector<MatPosi>* between_vect){
+	/* fonction qui calucule les cases que le roi doit parcourir lors d'un roque,
+	 * (utile pour vérifier si il est danger lors de son trajet)*/
 	
 	std::vector<MatPosi*>* res = new std::vector<MatPosi*>();
 	
@@ -190,6 +213,7 @@ std::vector<MatPosi*>* calc_king_move_path(bool king_isleft,int king_dest,std::v
 }
 
 std::pair<MatPosi*,MatPosi*> sort_two_mpos(MatPosi* mpos_one,MatPosi* mpos_two){
+	/* fonction qui classe 2 MatPosi, celui le plus a gauche est le 1e elemnt du retour, celui le plus a droite le second */
 	
 	MatPosi* mpos_gauche;
 	MatPosi* mpos_droite;
@@ -212,6 +236,12 @@ std::pair<MatPosi*,MatPosi*> sort_two_mpos(MatPosi* mpos_one,MatPosi* mpos_two){
 }
 
 BitypeVar<std::vector<MatPosi>*>* calc_zones_between_zones(MatPosi* begin, MatPosi* end, Player* player){ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	/* fonction qui calcule les positions réele se situant entre 2 positions
+	 * 
+	 * ex: entre (0,4) et (0,7) il y a (0,5) et (0,6)
+	 * 
+	 * limitations: pêut seulment détecter si les 2 positions sor sur une ligne horizontale,verticale ou diagonale
+	 */
 	
 	// fonction crée pour amelioration roque
 	
@@ -274,20 +304,6 @@ BitypeVar<std::vector<MatPosi>*>* calc_zones_between_zones(MatPosi* begin, MatPo
 	
 }
 
-bool in_vect(std::vector<std::string>* vect, std::string elem){
-	bool res = false;
-	
-	long long unsigned int i=0;
-	while(i<vect->size() and res == false){
-		
-		if ((*vect)[i] == elem){res = true;}
-		
-		i++;
-		}
-	return res;
-	
-}
-
 //--------------------BaseChess----------------------------------------------------------------------------------------------------
 
 BaseChess::BaseChess(Player* p_low,Player* p_high,Dico* dict , std::string lang) : plateau(nullptr) , low_player(p_low), high_player(p_high), active_player(p_low), dico(dict), langue(lang) {
@@ -298,6 +314,8 @@ Player* BaseChess::get_low_player(){return this->low_player;}
 Player* BaseChess::get_high_player(){return this->high_player;}
 
 Player* BaseChess::get_other_player(Player* play){
+	/* fonction permettant de recuperer l'autre joueur de la partie (l'opossant de clui donné en paramètre) */
+	
 	if (play == this->get_low_player()){return this->get_high_player();}
 	else if (play == this->get_high_player()){return this->get_low_player();}
 	else{throw MyException(&mout, "probleme get other player");}
@@ -311,6 +329,8 @@ void  BaseChess::set_low_player(Player* l){this->low_player = l;}
 void  BaseChess::set_high_player(Player* h){this->high_player = h;}
 
 int BaseChess::get_player_row(Player* player){
+	/* fonction permettant de savoir la ligne de départ (sur le plateau) d'un joueur donné en paramètre) */
+	
 	if (player == get_low_player()){return 0;}
 	else if (player == get_high_player()){return this->get_plateau()->get_taille()-1;}
 	else{throw MyException(&mout, "probleme player cote plateau");}
@@ -325,6 +345,9 @@ std::string BaseChess::get_langue(){return this->langue;}
 void BaseChess::set_langue(std::string lang) {this->langue = lang;}
 
 void BaseChess::initial_set_piece(Chesspiece* pe,Player* own,std::string mov){
+	/* fonction servant a placer avant que la partie commence les piece d'echec sur le tableau,
+	 * c'est a ce moement qu'on leur attribue un propriétaire */
+	
 	pe->set_owner(own);
 	
 	std::stringstream ss;
@@ -336,12 +359,16 @@ void BaseChess::initial_set_piece(Chesspiece* pe,Player* own,std::string mov){
 }
 
 void BaseChess::initialisation(){
+	/* fonction regroupant toutes les actions a faire avant que la partie commence */
+	
 	this->initialise_board();
 	this->initialise_low_pieces();
 	this->initialise_high_pieces();
 }
 
 void BaseChess::show_bitype_vect(std::vector<BitypeVar<Chesspiece*>> vect){
+	/* fonction affichant une vecteur de cases (BitypeVar contenant une piece d'echec)
+	 * si la case est vide None est affiché */
 	std::stringstream ss_glob;
 	
 	BitypeVar<Chesspiece*> elem;
@@ -349,7 +376,7 @@ void BaseChess::show_bitype_vect(std::vector<BitypeVar<Chesspiece*>> vect){
 	for(long long unsigned int i=0;i<vect.size();i++){
 		if (vect[i].get_state() == true){
 			
-			// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! probleme mout vs std::cout avec heritage --> complexe! --> demander a prof
+			// !!!!!!!!!!!!!!!!!!!!!!!!!! probleme mout vs std::cout avec heritage --> complexe! --> demander a prof
 			//(probleme avec mout<<*(vect[i].get_var())) 
 			//solution
 			std::stringstream ss;
@@ -366,29 +393,28 @@ void BaseChess::show_bitype_vect(std::vector<BitypeVar<Chesspiece*>> vect){
 }
 
 BitypeVar<std::vector<MatPosi>*>* BaseChess::calculate_zones_between_zones(MatPosi* begin, MatPosi* end){
+	/* surcharge de fonction permettant d'ommetre le Player*, qui sera par default le joueur actif */
 	
 	return calc_zones_between_zones(begin, end, this->get_active_player());
 	
 }
 
 void BaseChess::changement_langue_input(){
+	/* fonction gêrant le changement de langue demandé par le joueur,
+	 * langue servant pour tous le affichages de textes */
 	
 	std::vector<std::string> languages = this->get_dico()->get_possible_laguages();
 	
 	bool valid = false;
 	std::string inp_lang;
 	
-	this->get_active_player()->send_msg(languages[0]);
-	
 	while (not valid){
 		std::stringstream deb_ss;
-		//deb_ss<<this->get_dico()->search(this->get_langue(),"choix_evolve")<<": ";
-		deb_ss<<"Veuillez indiquer la nouvelle langue a selectionner"<<": ";
+		deb_ss<<this->get_dico()->search(this->get_langue(),"select_lang")<<": ";
 		for(long long unsigned int i=0;i<languages.size();i++){
 			std::string langue = ((languages)[i]);
 			deb_ss<<langue;
-			//this->get_dico()->search(this->get_langue(),langue)
-			
+						
 			if (i < languages.size()-2){deb_ss<<", ";}
 			else if (i == languages.size()-2){deb_ss<<" "<<this->get_dico()->search(this->get_langue(),"et")<<" ";}
 			else if (i == languages.size()-1){deb_ss<<std::endl;}
@@ -397,7 +423,7 @@ void BaseChess::changement_langue_input(){
 		this->get_active_player()->send_msg(deb_ss.str());
 			
 		inp_lang = this->get_active_player()->recieve_msg();
-		valid = in_vect(&languages, inp_lang);
+		valid = is_in_vect(&languages, inp_lang);
 	}
 			
 	this->set_langue(inp_lang);
@@ -405,78 +431,84 @@ void BaseChess::changement_langue_input(){
 }
 
 Trinome<bool,bool,bool>* BaseChess::check_in_for_special_symbol(std::string inp,bool ret_accept){
+	/* fonction verifiant si l'input IN est un string particulier (appéle symbole ici)
+	 * et qui effectue des actions particuliere solon celle trouvé */
 		
-		bool found = true, go_back = false, end_game = false;
-		
-		if ( (ret_accept == true) and (inp == "ret") ){go_back = true;}
-		else if (inp == "end") {end_game = true;}
-		else if (inp == "lang"){this->changement_langue_input();}
-		else{found = false;}
-		
-		Trinome<bool,bool,bool>* res = new Trinome<bool,bool,bool>(found,go_back,end_game);
-		return res;
+	bool found = true, go_back = false, end_game = false;
+	
+	if ( (ret_accept == true) and (inp == "ret") ){go_back = true;}
+	else if (inp == "end") {end_game = true;}
+	else if (inp == "lang"){this->changement_langue_input();}
+	else{found = false;}
+	
+	Trinome<bool,bool,bool>* res = new Trinome<bool,bool,bool>(found,go_back,end_game);
+	return res;
 		
 }
 
 Trinome<Quadrinome<bool,bool,bool,bool>*, BitypeVar<Chesspiece*>, std::string > BaseChess::check_out_for_special_symbol(BitypeVar<Chesspiece*> in_pe, std::string inp,bool roc_accept){
+	/* fonction verifiant si l'input OUT est un string particulier (appéle symbole ici)
+	 * et qui effectue des actions particuliere solon celle trouvé */
 	
-		Chesspiece* pe_in;
-		if (in_pe.get_state() == true){
-			pe_in = in_pe.get_var();
-		}
-		else{throw MyException(&mout,"IN invaldie alors que demande de OUT");}
+	Chesspiece* pe_in;
+	if (in_pe.get_state() == true){
+		pe_in = in_pe.get_var();
+	}
+	else{throw MyException(&mout,"IN invaldie alors que demande de OUT");}
+		
+	BitypeVar<Chesspiece*> dst;
+	
+	bool found = true, go_back = false, end_game = false, correspond = false;
+	std::string out = inp;
+	
+	if (inp == "ret"){go_back = true;}
+	else if (inp == "end") {end_game = true;}
+	
+	else if ((roc_accept == false) and (inp == "liste_depl")) {
+		this->get_active_player()->send_msg("liste deplacements : ");
+		this->show_possible_mouvement(pe_in, "depl");
+		
+	}
+	else if ((roc_accept == false) and (inp == "liste_capt")) {
+		this->get_active_player()->send_msg("liste capture : ");
+		this->show_possible_mouvement(pe_in, "capt");
+		
+	}
+	
+	else if (inp == "lang"){this->changement_langue_input();}
+	
+	else if ((roc_accept == true) and (inp == "roc")){
+		if (roc_accept == true){
+			Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* roc_trinome = this->roc_output_check(in_pe);
 			
-		BitypeVar<Chesspiece*> dst;
-		
-		bool found = true, go_back = false, end_game = false, correspond = false;
-		std::string out = inp;
-		
-		if (inp == "ret"){go_back = true;}
-		else if (inp == "end") {end_game = true;}
-		
-		else if ((roc_accept == false) and (inp == "liste_depl")) {
-			this->get_active_player()->send_msg("liste deplacements : ");
-			this->show_possible_mouvement(pe_in, "depl");
+			//
+			
+			Trinome<bool,bool,bool>* trinome_bool_res = roc_trinome->get_first();
+			go_back = trinome_bool_res->get_first();
+			correspond = trinome_bool_res->get_second();
+			end_game = trinome_bool_res->get_third();
+			
+			dst = roc_trinome->get_second();
+			out = roc_trinome->get_third();				
+			//
+			
 			
 		}
-		else if ((roc_accept == false) and (inp == "liste_capt")) {
-			this->get_active_player()->send_msg("liste capture : ");
-			this->show_possible_mouvement(pe_in, "capt");
-			
-		}
-		
-		else if (inp == "lang"){this->changement_langue_input();}
-		
-		else if ((roc_accept == true) and (inp == "roc")){
-			if (roc_accept == true){
-				Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* roc_trinome = this->roc_output_check(in_pe);
-				
-				//
-				
-				Trinome<bool,bool,bool>* trinome_bool_res = roc_trinome->get_first();
-				go_back = trinome_bool_res->get_first();
-				correspond = trinome_bool_res->get_second();
-				end_game = trinome_bool_res->get_third();
-				
-				dst = roc_trinome->get_second();
-				out = roc_trinome->get_third();				
-				//
-				
-				
-			}
-			else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"roc_pe_imp"),true);}
-		}
-		
-		else{found = false;}
-		
-		Quadrinome<bool,bool,bool,bool>* info_res = new Quadrinome<bool,bool,bool,bool>(found,go_back,correspond,end_game);
-		Trinome<Quadrinome<bool,bool,bool,bool>*, BitypeVar<Chesspiece*>, std::string > res = Trinome<Quadrinome<bool,bool,bool,bool>*, BitypeVar<Chesspiece*>, std::string >(info_res,dst,out);
-		
-		return res;
+		else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"roc_pe_imp"),true);}
+	}
+	
+	else{found = false;}
+	
+	Quadrinome<bool,bool,bool,bool>* info_res = new Quadrinome<bool,bool,bool,bool>(found,go_back,correspond,end_game);
+	Trinome<Quadrinome<bool,bool,bool,bool>*, BitypeVar<Chesspiece*>, std::string > res = Trinome<Quadrinome<bool,bool,bool,bool>*, BitypeVar<Chesspiece*>, std::string >(info_res,dst,out);
+	
+	return res;
 		
 }
 
-Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_input(std::string first_comment, std::string second_comment,std::string third_comment,bool ret_accept){
+Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_input(Interpret* first_comment, Interpret* second_comment,Interpret* third_comment,bool ret_accept){
+	/* l'input IN est l'input déterminant principalement la piece a sellectionner dans le tableau */
+	
 	BitypeVar<Chesspiece*> dst;
 	std::pair<int,int> conv;
 	Chesspiece* cap_piece;
@@ -485,12 +517,12 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 	bool end_game = false;
 	
 	bool symbol_found;
-	bool part_a;
+	bool part_a = false;
 	
 	std::string in = "";
 	while (not part_a and not go_back and not end_game){
 		
-		this->get_active_player()->send_msg(first_comment,true);
+		this->get_active_player()->send_msg(first_comment->get_text(this->get_langue()),true);
 		
 		in = this->get_active_player()->recieve_msg();
 		
@@ -512,12 +544,12 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 					cap_piece = dst.get_var();
 					//mout<<"propio = "<<cap_piece->get_owner()<<std::endl;
 					if (cap_piece->get_owner() != get_active_player()){
-						this->get_active_player()->send_msg(second_comment,true);
+						this->get_active_player()->send_msg(second_comment->get_text(this->get_langue()),true);
 						again = true;
 					}
 				}
 				else{
-					this->get_active_player()->send_msg(third_comment,true);
+					this->get_active_player()->send_msg(third_comment->get_text(this->get_langue()),true);
 					again = true;
 				}
 					
@@ -529,6 +561,10 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 			go_back = symbol_info->get_second();
 			end_game = symbol_info->get_third();
 		}
+		
+		if (not part_a and not end_game){this->get_active_player()->send_error_msg();} // si on ne sort pas de la  boucle (ret ignoré) alors on le signal
+		// important pour serveur plustard
+		
 	}
 	
 	Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* res = new Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>(in,dst,std::make_pair(go_back,end_game));
@@ -536,38 +572,83 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 	return res;
 }
 
-Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_input(std::string first_comment, std::string second_comment,std::string third_comment){
+Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_input(Interpret* first_comment, Interpret* second_comment,Interpret* third_comment){
+	/* surchage de fonction permettant d'ommetre le bool indiuant si un retour en arrière est permis */
 	return this->in_input(first_comment, second_comment,third_comment,false);
 }
 
 Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_depl_input(){
-		
-	std::stringstream ss_one,ss_two,ss_three;
-	ss_one << this->get_dico()->search(this->get_langue(),"pe_a_depl")<<std::endl;
-	ss_one << this->get_dico()->search(this->get_langue(),"ou")<<" end "<<this->get_dico()->search(this->get_langue(),"end")<<std::endl;
-	ss_one << this->get_dico()->search(this->get_langue(),"ou")<<" lang "<<this->get_dico()->search(this->get_langue(),"lang");
 	
-	ss_two << this->get_dico()->search(this->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_langue(),"move_pe_oth");
-	ss_three << this->get_dico()->search(this->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_langue(),"empty");
+	/* depl en opossition avec roc, en effet cette fonction demnade un input de type IN et définit des messages d'erreurs différentes de sa variante roc */
 	
-	return this->in_input(ss_one.str(), ss_two.str(), ss_three.str());
+	Interpret* interpret_one = new Interpret(this->get_dico());
+	
+	interpret_one->add_text("pe_a_depl", true, true);
+	interpret_one->add_text("ou", false, true);
+	interpret_one->add_text(" end ", false, false);
+	interpret_one->add_text("end", true, true);
+	
+	interpret_one->add_text("ou", false, true);
+	interpret_one->add_text(" lang ", false, false);
+	interpret_one->add_text("lang", false, true);
+	
+	
+	Interpret* interpret_two = new Interpret(this->get_dico());
+	
+	interpret_two->add_text("retry", false, true);
+	interpret_two->add_text(", ", false, false);
+	interpret_two->add_text("move_pe_oth", false, true);
+	
+	
+	Interpret* interpret_three = new Interpret(this->get_dico());
+	
+	interpret_three->add_text("retry", false, true);
+	interpret_three->add_text(", ", false, false);
+	interpret_three->add_text("empty", false, true);
+	
+	return this->in_input(interpret_one, interpret_two, interpret_three);
 }
 
 Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_roc_input(){
 	
-	std::stringstream ss_one,ss_two,ss_three;
-	ss_one << this->get_dico()->search(this->get_langue(),"roc_pe")<<std::endl;
-	ss_one << this->get_dico()->search(this->get_langue(),"ou")<<" ret "<<this->get_dico()->search(this->get_langue(),"ret")<<std::endl;
-	ss_one << this->get_dico()->search(this->get_langue(),"ou")<<" end "<<this->get_dico()->search(this->get_langue(),"end")<<std::endl;
-	ss_one << this->get_dico()->search(this->get_langue(),"ou")<<" lang "<<this->get_dico()->search(this->get_langue(),"lang");
+	/* roc en opossition avec depl, en effet cette fonction demnade un input de type IN et définit des messages d'erreurs différentes de sa variante depl */
 	
-	ss_two << this->get_dico()->search(this->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_langue(),"roc_oth");
-	ss_three << this->get_dico()->search(this->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_langue(),"roc_empty");
+	Interpret* interpret_one = new Interpret(this->get_dico());
+	
+	interpret_one->add_text("roc_pe", true, true);
+	interpret_one->add_text("ou", false, true);
+	interpret_one->add_text(" ret ", false, false);
+	interpret_one->add_text("ret", true, true);
+	
+	interpret_one->add_text("ou", false, true);
+	interpret_one->add_text(" end ", false, false);
+	interpret_one->add_text("end", true, true);
+	
+	interpret_one->add_text("ou", false, true);
+	interpret_one->add_text(" lang ", false, false);
+	interpret_one->add_text("lang", false, true);
 		
-	return this->in_input(ss_one.str(), ss_two.str(), ss_three.str(),true);
+	
+	Interpret* interpret_two = new Interpret(this->get_dico());
+	
+	interpret_two->add_text("retry", false, true);
+	interpret_two->add_text(", ", false, false);
+	interpret_two->add_text("roc_oth", false, true);
+	
+	
+	Interpret* interpret_three = new Interpret(this->get_dico());
+	
+	interpret_three->add_text("retry", false, true);
+	interpret_three->add_text(", ", false, false);
+	interpret_three->add_text("roc_empty", false, true);
+		
+	return this->in_input(interpret_one, interpret_two, interpret_three,true);
 }
 
 bool BaseChess::check_illegal_move(std::string in,std::string out){
+	/* fonction qui vérifie si un mouvement est autorisé, si nécéssaire affiche un message d'echec,
+	 * revoi un bool pour indiquer si l'input doit e^tre recommancé */
+	
 	bool again;
 	if (not(this->verify_move(in,out))){
 		
@@ -584,6 +665,8 @@ bool BaseChess::check_illegal_move(std::string in,std::string out){
 
 
 bool BaseChess::verify_possible_roc(Roi* roi,Tour* tour){
+	/* fonction qui ércupère les positions du roi et de la tour passé en paramètre et qu les transmet a une fonction qui calcule
+	 * si un roc est permis */
 	
 	MatPosi mpos_roi = MatPosi(*(roi->get_posi()));
 	MatPosi mpos_tour = MatPosi(*(tour->get_posi()));
@@ -595,6 +678,7 @@ bool BaseChess::verify_possible_roc(Roi* roi,Tour* tour){
 }
 
 Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess::roc_first_pe_is_waiting(Chesspiece* pe){
+	/* fonction qui est la 2e partie de la verification du roc, c'est une partie qui se déroule alors que la 1e piece du roc a déjà été selectionné et validé */
 	
 	bool correspond = false;
 	bool go_back = false;
@@ -646,10 +730,7 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 
 				if (correspond == false){this->get_active_player()->send_msg("ROC IMPOSSIBLE!",true);} // <------------------------------------------------------------------------------------------------------------------ AJOUTER A DICO????
 				else{
-					
-					// rajouter des verifiations !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					// notamment positionnement
-					
+					// verfication de deplacement
 					if (in_is_king == true){
 						
 						if(tour->get_has_moved() == true){
@@ -688,6 +769,8 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 }
 
 Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess::roc_output_check(BitypeVar<Chesspiece*> in_pe){
+	/* fonction lancé suite a une demande de roc en ayant spécifié une piece sur deux */
+	
 	Chesspiece* in_piece;
 	Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* res;
 
@@ -698,14 +781,14 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 			if (roi->get_has_moved() == false){
 				res = this->roc_first_pe_is_waiting(roi);
 			}
-			else{this->get_active_player()->send_msg("LE ROI DU ROC NE PEUT PAS AVOIR BOUGÉ!!!",true);} // -------------------------------------------------------------------------
+			else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"roc_king_no_perm_move"),true);}
 		}
 		
 		else if(Tour* tour = dynamic_cast<Tour*>(in_piece)) {
 			if (tour->get_has_moved() == false){
 				res = this->roc_first_pe_is_waiting(tour);
 			}
-			else{this->get_active_player()->send_msg("LA TOUR DU ROC NE PEUT PAS AVOIR BOUGÉ!!!",true);} // ----------------------------------------------------------------
+			else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"roc_tower_no_perm_move"),true);}
 		}
 		
 		else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"roc_pe_imp"),true);}
@@ -717,16 +800,23 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 }
 
 void BaseChess::show_depl_possibles(Chesspiece* pe){
+	/* fonction qui s'occupe d'afficher les liste de deplacements et de captures possibles
+	 * paramètre d'entree : une piece d'echec
+	 * */
 	
-	mout<<"liste deplacements : ";
+	mout<<this->get_dico()->search(this->get_langue(),"liste_depl")<<" : ";
 	this->show_possible_mouvement(pe, "depl");
 	
-	mout<<"liste capture : ";
+	mout<<this->get_dico()->search(this->get_langue(),"liste_capt")<<" : ";
 	this->show_possible_mouvement(pe, "capt");
 	
 }
 
 void BaseChess::show_depl_possibles(std::string str_co){
+	/* fonction qui s'occupe d'afficher les liste de deplacements et de captures possibles
+	 * paramètre d'entree : une coordonée de piece d'echec
+	 * */
+	 
 	BitypeVar<Chesspiece*> zone;
 	Chesspiece* pe;
 	
@@ -739,6 +829,7 @@ void BaseChess::show_depl_possibles(std::string str_co){
 }
 
 Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<bool,bool>>* BaseChess::ask_for_input(){
+	/* fonction principale des inputs, en effet c'est la fonction qui gêre la demande d'input au joueur (in, out) */
 	
 	std::stringstream ss;
 	ss<<this->get_active_player()<<" "<<this->get_dico()->search(this->get_langue(),"your_turn")<<"!"<<std::endl;
@@ -1182,29 +1273,13 @@ void BaseChess::show_possible_mouvement(Chesspiece* pe ,std::string mode){
 	ss<<"[";
 	for(long long unsigned int i=0;i<vect->size();i++){
 		std::string temp = (*vect)[i]->to_string();
-		if (not(in_vect(stock,temp))){
+		if (not(is_in_vect(stock,temp))){
 			if (i != 0){ss<<", ";}
 			ss<<temp;
 			stock->push_back(temp);
 		}
 	}
 	ss<<"]";
-	
-	this->get_active_player()->send_msg(ss.str(),true);
-}
-
-void BaseChess::affichage(){
-	
-	std::stringstream ss;
-	
-	ss<<std::endl;
-	ss<<"["<<this->get_high_player()<<"]"<<std::endl;
-	ss<<std::endl;
-	
-	ss<<this->affichage_plateau()<<std::endl;
-	
-	ss<<std::endl;
-	ss<<"["<<this->get_low_player()<<"]"<<std::endl;
 	
 	this->get_active_player()->send_msg(ss.str(),true);
 }
@@ -1546,7 +1621,6 @@ bool BaseChess::verify_kings(){
 }
 
 std::vector<Chesspiece*>* BaseChess::get_kings(){
-	
 	// le serveur manipule un plateau,
 	// le plateau ne doit pas connaitre ce qu'il contient pour exister
 	

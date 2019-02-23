@@ -1,7 +1,7 @@
 
-#include <iostream>
-#include <string>
-#include <vector>
+//#include <iostream>
+//#include <string>
+//#include <vector>
 
 #include "Human/Human.cpp"
 
@@ -23,3 +23,5 @@ class Bot: public Player{
 	private:
 		virtual std::string get_type_prefix() const override;
 };
+
+Bot* make_bot(std::string, std::string, std::string);

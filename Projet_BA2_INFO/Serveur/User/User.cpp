@@ -74,62 +74,16 @@ std::string User::recvStr(){
 
 //------------------------
 
-Dico* make_dico(){
-	
-	Dico* dico = new Dico();
-	
-	std::string csv_path = "../../csv";
-	std::string csv_filename = get_first_file_of_dir(csv_path,".csv");
-	
-	if (csv_filename == ""){throw MyException(&mout, "PAS DE FICHIER CSV! POUR LE DICTIONNAIRE");}
-	
-	std::stringstream ss;
-	ss << csv_path << '/'<< csv_filename;
-	
-	dico->load(ss.str());
-	
-	return dico;
-
-}
-
-Bot* make_bot(std::string name_bot,std::string tag_bot){
-	
-	Bot* bot = new Bot(name_bot);
-	
-	CsvReader* reader = new CsvReader();
-	
-	std::string csv_path = "../../bots_csv";
-	
-	std::string csv_filename = get_first_file_of_dir(csv_path,".csv");
-	
-	if (csv_filename == ""){throw MyException(&mout, "PAS DE FICHIER CSV! POUR LE BOT");}
-	
-	std::stringstream ss;
-	ss << csv_path << '/'<< csv_filename;
-	
-	reader->load(ss.str());
-	
-	std::vector<std::string> vect = reader->search_col(tag_bot);
-	
-	vect.erase(vect.begin());
-	
-	bot->set_moves(vect);
-	
-	return bot;
-	
-	
-}
-
 void User::launch_classic_game(User* player_one,User* player_two, std::string langue){
 	
 	mout<<(*player_one)<<std::endl;
 	mout<<(*player_two)<<std::endl;
 	
-	Dico* dico = make_dico();
+	Dico* dico = make_dico("../../csv");
 	
 	(void) player_two;
 	
-	Bot* bot_player = make_bot("player2","bot_un");
+	Bot* bot_player = make_bot("player2","bot_un","../../bots_csv");
 	
 	mout<<(*bot_player)<<std::endl;
 
@@ -155,21 +109,9 @@ std::string User::get_type_prefix() const{
 	return "User";
 }
 
-void User::send_msg(std::string msg, bool endline){
+void User::send_confirm_msg(std::string msg, bool endline){
 	
-	std::string output;
-	std::stringstream ss;
-	
-	if (endline == false){
-		output = msg;
-	}
-	else{
-		std::stringstream ss;
-		ss<<msg<<std::endl;
-		output = ss.str();
-	}
-	
-	//std::cout<<"OUT"<<std::endl;
-	
+	std::string output = this->msg_compaction(msg,endline);
+		
 	this->out(output);
 }

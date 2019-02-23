@@ -49,3 +49,8 @@ end;pour abandonner la partie;to abandon the game;om het spel op the geven
 liste_depl;pour afficher la liste de déplacements possibles de la piece;to show the movement list of the piece;om de verplaatsing lijst van het shaakstuk te tonen
 liste_capt;pour afficher la liste de capture possibles de la piece;to show the capture list of the piece;om de vang lijst van het shaakstuk te tonen
 lang;pour changer la langue;to change the language;om de taal te veranderen
+select_lang;Veuillez indiquer la nouvelle langue a selectionner;Please give the new language to use;Geef alstublieft de nieuwe taal te gebruiken
+roc_king_no_perm_move;le roi du roc ne peut pas avoir bougé!;the king of the roc can't have moved;de koning of de roc kan niet bewogen hebben
+roc_tower_no_perm_move;la tour du roc ne peut pas avoir bougé!;the tower of the roc can't have moved;de toren of de roc kan niet bewogen hebben
+liste_depl;liste deplacements;movement list;beweging lijst
+liste_capt;liste capture;capture list;vang lijst

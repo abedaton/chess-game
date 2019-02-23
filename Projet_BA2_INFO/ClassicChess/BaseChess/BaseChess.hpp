@@ -6,7 +6,29 @@
 #include <sstream>      // std::stringstream
 #include <cmath>
 
-#include "../../Plateau/Plateau.cpp"
+#include "../../Affichage/Affichage.cpp"
+
+template <typename Type>
+bool verifier_type_pe(BitypeVar<Chesspiece*>);
+
+template <typename Type>
+bool verifier_type_pe(Chesspiece*);
+
+bool check_end_game(BitypeVar<Chesspiece*>, bool);
+
+BitypeVar<int>* detect_ennemy_pion_in_vect(std::vector<BitypeVar<Chesspiece*>>, Player*);
+
+BitypeVar<Chesspiece*>* select_king(std::vector<Chesspiece*>*,Player*);
+
+BitypeVar<std::pair<int,int>>* calculate_move_between_zones(MatPosi*, MatPosi*);
+
+std::pair<int,int> calc_roc_destinations(bool, std::vector<MatPosi>*);
+
+std::vector<MatPosi*>* calc_king_move_path(bool, int, std::vector<MatPosi>*);
+
+std::pair<MatPosi*,MatPosi*> sort_two_mpos(MatPosi*, MatPosi*);
+
+BitypeVar<std::vector<MatPosi>*>* calc_zones_between_zones(MatPosi*, MatPosi*, Player*);
 
 class BaseChess{
     private:
@@ -61,8 +83,8 @@ class BaseChess{
 		Trinome<bool,bool,bool>* check_in_for_special_symbol(std::string,bool);
 		Trinome<Quadrinome<bool,bool,bool,bool>*, BitypeVar<Chesspiece*>, std::string > check_out_for_special_symbol(BitypeVar<Chesspiece*>, std::string,bool);
 		
-		Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* in_input(std::string,std::string,std::string,bool);
-		Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* in_input(std::string,std::string,std::string);
+		Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* in_input(Interpret*,Interpret*,Interpret*,bool);
+		Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* in_input(Interpret*,Interpret*,Interpret*);
 		Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* in_depl_input();
 		Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* in_roc_input();
 		
@@ -115,8 +137,7 @@ class BaseChess{
 		
 		void show_possible_mouvement(Chesspiece*, std::string);
 		
-		virtual std::string affichage_plateau() = 0;
-		void affichage();
+		virtual void affichage() = 0;
 		
 		Chesspiece* ask_evolution_input(std::vector<Chesspiece*>*);
 		void check_evolution();

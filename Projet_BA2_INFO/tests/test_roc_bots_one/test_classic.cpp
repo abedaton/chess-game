@@ -6,52 +6,6 @@
 
 MyOstream mout("logfile.txt");
 
-Dico* make_dico(){
-	
-	Dico* dico = new Dico();
-	
-	std::string csv_path = "../../csv";
-	std::string csv_filename = get_first_file_of_dir(csv_path,".csv");
-	
-	if (csv_filename == ""){throw MyException(&mout, "PAS DE FICHIER CSV! POUR LE DICTIONNAIRE");}
-	
-	std::stringstream ss;
-	ss << csv_path << '/'<< csv_filename;
-	
-	dico->load(ss.str());
-	
-	return dico;
-
-}
-
-Bot* make_bot(std::string name_bot,std::string tag_bot){
-	
-	Bot* bot = new Bot(name_bot);
-	
-	CsvReader* reader = new CsvReader();
-	
-	std::string csv_path = "../../bots_csv";
-	
-	std::string csv_filename = get_first_file_of_dir(csv_path,".csv");
-	
-	if (csv_filename == ""){throw MyException(&mout, "PAS DE FICHIER CSV! POUR LE BOT");}
-	
-	std::stringstream ss;
-	ss << csv_path << '/'<< csv_filename;
-	
-	reader->load(ss.str());
-	
-	std::vector<std::string> vect = reader->search_col(tag_bot);
-	
-	vect.erase(vect.begin());
-		
-	bot->set_moves(vect);
-	
-	return bot;
-	
-	
-}
-
 void two_humans_main(std::string langue){
 	
 	Human* player_one = new Human("player1");
@@ -61,7 +15,7 @@ void two_humans_main(std::string langue){
 	mout<<(*player_one)<<std::endl;
 	mout<<(*player_two)<<std::endl;
 	
-	Dico* dico = make_dico();
+	Dico* dico = make_dico("../../csv");
 
 	ClassicChess* serv = new ClassicChess(player_one,player_two,dico,langue);
 	
@@ -73,12 +27,12 @@ void human_and_bot_main(std::string langue){
 	
 	Human* player_one = new Human("player1");
 	
-	Bot* player_two = make_bot("player2","bot_un");
+	Bot* player_two = make_bot("player2","bot_un","../../bots_csv");
 	
 	mout<<(*player_one)<<std::endl;
 	mout<<(*player_two)<<std::endl;
 	
-	Dico* dico = make_dico();
+	Dico* dico = make_dico("../../csv");
 	
 	ClassicChess* serv = new ClassicChess(player_one,player_two,dico,langue);
 	
@@ -87,14 +41,14 @@ void human_and_bot_main(std::string langue){
 
 void two_bots(std::string langue){
 	
-	Bot* player_one = make_bot("player1","bot_two");
+	Bot* player_one = make_bot("player1","bot_two","../../bots_csv");
 	
-	Bot* player_two = make_bot("player2","bot_un");
+	Bot* player_two = make_bot("player2","bot_un","../../bots_csv");
 	
 	mout<<(*player_one)<<std::endl;
 	mout<<(*player_two)<<std::endl;
 	
-	Dico* dico = make_dico();
+	Dico* dico = make_dico("../../csv");
 		
 	ClassicChess* serv = new ClassicChess(player_one,player_two,dico,langue);
 	

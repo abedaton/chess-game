@@ -1,11 +1,18 @@
-
+/*
 #include <iostream>
 #include <vector>
 #include <utility>
 #include <string>
 #include <sstream>      // std::stringstream
+*/
 
 #include "../Pieces/Pieces.cpp"
+
+bool detect_pair_in_list_of_pairs(std::vector<std::pair<int,int>>, std::pair<int,int>);
+bool detect_pair_in_list_of_double_pairs(std::vector<std::pair<std::pair<int,int>,AdvTuple>>, std::pair<int,int>);
+std::string adaptive_mode(BitypeVar<Chesspiece*>, std::string);
+std::vector<std::vector<BitypeVar<Chesspiece*>>>* make_board(int);
+
 
 class Plateau{
     private:
@@ -21,8 +28,6 @@ class Plateau{
         
         friend std::ostream& operator<< (std::ostream &s,Plateau &c);
         friend std::ostream& operator<< (std::ostream &s,Plateau* c);
-        
-        std::stringstream adaptive_affichage(std::string,std::string,Dico*,std::string);
         
         int get_taille();
         

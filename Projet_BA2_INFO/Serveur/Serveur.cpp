@@ -46,9 +46,7 @@ void Serveur::mainLoop(){
                     std::cout << "resize" << std::endl;
                 }
                 this->_clients.at(static_cast<unsigned long int>(tmpClient-1)) = tmpClient;
-                User* tmpUser = new User(tmpClient); // <------ new important pour polymorphisme!---------------------------------------------------------------------------------------
-            } else {
-                std::cout << "Error.. socket == -1" << std::endl;
+                User* tmpUser = new User(tmpClient); // <------ new important pour polymorphisme!-(Quentin)-(importance du new démontré à mathieu)-------- mathieu: Tu ne serais pas un peu très con.
             }
         }
     }

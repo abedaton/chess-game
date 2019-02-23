@@ -4,6 +4,9 @@ T
 Tester Tour
 Chesspiece()
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -40,6 +43,12 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -76,12 +85,18 @@ Chesspiece()
 |   T    |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (0,0) --> (1,1)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -118,11 +133,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (0,0) --> (1,0)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -160,11 +181,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (1,0) --> (1,1)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -202,6 +229,9 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 
 ********************************************************************************************************************
@@ -215,6 +245,9 @@ Fou
 
 Tester Fous
 Chesspiece()
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -252,6 +285,12 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -289,12 +328,18 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (0,0) --> (1,1)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -330,12 +375,18 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (1,1) --> (2,1)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -372,11 +423,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (1,1) --> (4,4)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -414,11 +471,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (4,4) --> (5,3)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -456,11 +519,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (5,3) --> (2,6)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -498,6 +567,9 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 
 ********************************************************************************************************************
@@ -511,6 +583,9 @@ P
 
 Tester Pion
 Chesspiece()
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -548,6 +623,12 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -585,6 +666,9 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (3,1) --> (3,3)
 mouvement valide
@@ -592,6 +676,9 @@ Update Pion !
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -627,12 +714,18 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (3,3) --> (3,5)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -668,6 +761,9 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (3,3) --> (3,4)
@@ -676,6 +772,9 @@ Update Pion !
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -711,12 +810,18 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (3,4) --> (4,4)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -752,6 +857,9 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 
@@ -767,6 +875,9 @@ D
 Tester Dame
 Chesspiece()
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -803,6 +914,12 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -840,11 +957,17 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (0,0) --> (1,1)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -882,11 +1005,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (1,1) --> (1,3)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -924,11 +1053,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (1,3) --> (3,3)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -966,11 +1101,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (3,3) --> (1,3)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -1008,11 +1149,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (1,3) --> (0,4)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -1050,6 +1197,9 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 
 ********************************************************************************************************************
@@ -1063,6 +1213,9 @@ R
 
 Tester Roi
 Chesspiece()
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -1100,6 +1253,12 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -1136,12 +1295,18 @@ Chesspiece()
 |   R    |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (0,0) --> (2,2)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -1178,11 +1343,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (0,0) --> (1,1)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -1220,11 +1391,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (1,1) --> (2,1)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -1262,11 +1439,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (2,1) --> (2,2)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -1304,6 +1487,9 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 
 ********************************************************************************************************************
@@ -1318,6 +1504,9 @@ Che
 Tester Chevalier
 Chesspiece()
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -1354,6 +1543,12 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -1375,7 +1570,7 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 |        |        |        |        |        |        |        |        |
-|        |        |        |  Che   |        |        |        |        |   4
+|        |        |        |  Cav   |        |        |        |        |   4
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 |        |        |        |        |        |        |        |        |
@@ -1390,6 +1585,9 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (3,3) --> (4,5)
@@ -1397,6 +1595,9 @@ mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -1409,7 +1610,7 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 |        |        |        |        |        |        |        |        |
-|        |        |        |        |  Che   |        |        |        |   6
+|        |        |        |        |  Cav   |        |        |        |   6
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 |        |        |        |        |        |        |        |        |
@@ -1433,12 +1634,18 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (4,5) --> (5,3)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -1459,7 +1666,7 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 |        |        |        |        |        |        |        |        |
-|        |        |        |        |        |  Che   |        |        |   4
+|        |        |        |        |        |  Cav   |        |        |   4
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 |        |        |        |        |        |        |        |        |
@@ -1474,12 +1681,18 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (5,3) --> (5,4)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -1500,7 +1713,7 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 |        |        |        |        |        |        |        |        |
-|        |        |        |        |        |  Che   |        |        |   4
+|        |        |        |        |        |  Cav   |        |        |   4
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 |        |        |        |        |        |        |        |        |
@@ -1515,12 +1728,18 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (5,3) --> (4,3)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -1541,7 +1760,7 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 |        |        |        |        |        |        |        |        |
-|        |        |        |        |        |  Che   |        |        |   4
+|        |        |        |        |        |  Cav   |        |        |   4
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 |        |        |        |        |        |        |        |        |
@@ -1556,6 +1775,9 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 
@@ -1571,6 +1793,9 @@ Fon
 Tester Fonctionnaire
 Chesspiece()
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -1607,6 +1832,12 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -1644,11 +1875,17 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (1,1) --> (1,6)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -1686,12 +1923,18 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (1,6) --> (6,6)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -1727,12 +1970,18 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (6,6) --> (2,6)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -1768,12 +2017,18 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (6,6) --> (1,1)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -1809,6 +2064,9 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 
@@ -1824,6 +2082,9 @@ G
 Tester Garde
 Chesspiece()
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -1860,6 +2121,12 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -1896,12 +2163,18 @@ Chesspiece()
 |   G    |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (0,0) --> (2,2)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -1938,11 +2211,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (0,0) --> (1,1)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -1980,11 +2259,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (1,1) --> (2,1)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -2022,11 +2307,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (2,1) --> (2,2)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -2064,6 +2355,9 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 
 ********************************************************************************************************************
@@ -2077,6 +2371,9 @@ Fa
 
 Tester Faucon
 Chesspiece()
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -2114,6 +2411,12 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -2150,12 +2453,18 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (1,1) --> (1,2)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -2192,11 +2501,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (1,1) --> (1,3)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -2234,12 +2549,18 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (1,3) --> (1,6)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -2275,12 +2596,18 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (1,6) --> (1,1)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -2316,12 +2643,18 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 (1,6) --> (2,5)
 IMMOBILE : pas de mouvement!
 comportement attendu? OK!
 
+
+[Human(Test_player)] ()
+
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
@@ -2358,11 +2691,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (1,6) --> (4,3)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -2400,6 +2739,9 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 
 ********************************************************************************************************************
@@ -2413,6 +2755,9 @@ Cha
 
 Tester Chancellier
 Chesspiece()
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -2450,6 +2795,12 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -2487,11 +2838,17 @@ Chesspiece()
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (3,3) --> (4,5)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -2529,11 +2886,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (4,5) --> (5,3)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -2571,11 +2934,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (5,3) --> (5,4)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -2613,11 +2982,17 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
 
+[Human(Test_player)] ()
+
+
 
 (5,4) --> (4,4)
 mouvement valide
 MOUVEMENT : la piece se deplace!
 comportement attendu? OK!
+
+
+[Human(Test_player)] ()
 
     A        B        C        D        E        F        G        H     
 |        |        |        |        |        |        |        |        |
@@ -2654,6 +3029,9 @@ comportement attendu? OK!
 |        |        |        |        |        |        |        |        |   1
 |        |        |        |        |        |        |        |        |
 |--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(Test_player)] ()
+
 
 
 

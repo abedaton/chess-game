@@ -50,9 +50,9 @@ void Player::send_msg(std::string msg,bool endline){
 	std::string nom_play = this->get_name();
 	(void)nom_play;
 	
-	mout<<msg;
+	std::string res_msg = msg_compaction(msg,endline);
 	
-	if (endline == true){mout<<std::endl;}
+	mout<<res_msg;
 		
 }
 
@@ -67,4 +67,32 @@ std::string Player::recieve_msg(){
 	
 	return msg;
 
+}
+
+void Player::send_confirm_msg(std::string msg,bool endline){
+	
+	std::string res_msg = this->msg_compaction(msg,endline);
+	(void)res_msg;
+	
+}
+
+void Player::send_confirm_msg(std::string msg){
+	this->send_confirm_msg(msg,false);	
+}
+
+void Player::send_error_msg(){ // a redefinir plustard
+	
+	bool nothing = true;
+	(void)nothing;
+	
+}
+
+std::string Player::msg_compaction(std::string msg,bool endline){
+	
+	std::stringstream ss;
+	
+	ss<<msg;
+	if (endline == true){ss<<std::endl;}
+	
+	return ss.str();
 }

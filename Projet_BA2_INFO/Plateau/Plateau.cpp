@@ -31,40 +31,6 @@ bool detect_pair_in_list_of_double_pairs(std::vector<std::pair<std::pair<int,int
 	return found;
 }
 
-std::string make_ligne(std::string s,int taille_voulue,int taille){
-	std::string res;
-	
-	for(int i=0;i<taille;i++){
-		res += "|";
-		for(int j=0;j<taille_voulue;j++){res += s;}
-	}
-	
-	res += "|";
-	
-	return res;
-}
-
-std::string crea_ligne_lettres(int limite,int taille_voulue){
-	std::string alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	std::string res;
-		
-	res = "";
-	for(int i=0;i<limite;i++){
-		
-		int taille_reste = taille_voulue-1; // 1 = taille alph[i]
-		int av = taille_reste/2;
-		int ap = taille_reste - av;
-		
-		res += " ";
-		for(int j=0;j<av;j++){res += " ";}
-		res += alph[i];
-		for(int m=0;m<ap;m++){res += " ";}
-		}
-	res += " ";
-	
-	return res;
-}
-
 std::string adaptive_mode(BitypeVar<Chesspiece*> out,std::string mode){
 	if (mode == ""){ // deduire mode
 		// verifier si case vide ou remplie
@@ -121,7 +87,9 @@ Plateau::Plateau(const Plateau& plat): taille(plat.taille), board(nullptr){
 std::ostream& operator <<(std::ostream &s,Plateau &c){
 	/* affchage d'un Plateau */
 	
-	s<<(c.adaptive_affichage("","",nullptr,"")).str();
+	(void)c;
+	
+	s<<"Plateau()";
 
     return s;
 }
@@ -132,95 +100,6 @@ std::ostream& operator <<(std::ostream &s,Plateau* c){
     s<<(*c);
     return s;
 }
-
-std::stringstream Plateau::adaptive_affichage(std::string pre ,std::string suf ,Dico* dico, std::string lang){
-	
-	std::stringstream s;
-	
-	std::vector<std::vector<BitypeVar<Chesspiece*>>>* plat = this->board;
-	
-	int taille_voulue_hor = 8;
-	int taille_voulue_ver = 2;
-		
-	std::string big_l = make_ligne("-",taille_voulue_hor,int(plat->size())) + "-\n";
-	std::string big_l_vide = make_ligne(" ",taille_voulue_hor,int(plat->size())) + "\n";
-	std::string letter_line = crea_ligne_lettres(int(plat->size()),taille_voulue_hor);
-	
-	int ver_av = taille_voulue_ver/2;
-	int ver_ap = taille_voulue_ver - ver_av;
-	
-	std::stringstream ss;
-	
-	s << letter_line << "\n" << big_l_vide;
-
-	for(long long unsigned int i=0;i<plat->size();i++){
-		
-		s<<big_l;
-		for(int k=0;k<ver_av;k++){s<<big_l_vide;}
-		s<<"|";
-		
-		long long unsigned int new_i = plat->size()-1-i;
-		for(long long unsigned int j=0;j<((*plat)[i]).size();j++){
-			
-			ss.clear();//clear any bits set
-			ss.str(std::string());
-			
-			BitypeVar<Chesspiece*> elem = ((*plat)[new_i])[j];
-			Chesspiece* piece = elem.get_var();
-			if (elem.get_state() == true){
-				
-				std::stringstream temp_ss;
-				temp_ss<<pre<<*(piece)<<suf;
-				
-				if (dico != nullptr){
-					ss<<dico->search(lang,temp_ss.str());
-				}
-				else{ss<<temp_ss.str();}
-			}
-			
-			else {ss<<" ";}
-			
-			std::string str_elem;
-			str_elem = ss.str();
-			int elem_size = int(str_elem.length());
-			int taille_reste = taille_voulue_hor - elem_size;
-			int hor_av = taille_reste/2;
-			int hor_ap = taille_reste - hor_av;
-			
-			for(int m=0;m<hor_av;m++){s<<" ";}
-			
-			if (elem.get_state() == true){
-				
-				std::stringstream temp_s;
-				temp_s<<pre<<*(piece)<<suf;
-				
-				if (dico != nullptr){
-					s<<dico->search(lang,temp_s.str());
-				}
-				else{s<<temp_s.str();}
-			}
-			else {s<<" ";}
-			
-			for(int n=0;n<hor_ap;n++){s<<" ";}
-			
-			s<<"|";
-				
-		}
-		
-		std::string str_numb = std::to_string(new_i+1);
-		int numb_size = int(str_numb.size());
-		int numb_reste = taille_voulue_hor-numb_size;
-        int numb_av = numb_reste/2;
-        for(int p=0;p<numb_av;p++){s<<" ";}
-		s<<str_numb;
-
-		s<<"\n";
-		for(int o=0;o<ver_ap;o++){s<<big_l_vide;}
-	}
-	s<<big_l;
-    
-    return s;
-	}
 
 int Plateau::get_taille(){return this->taille;}
 

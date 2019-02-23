@@ -1,7 +1,9 @@
-
+/*
 #include <iostream>
 #include <string>
 #include <vector>
+*/
+
 #include "Trinome/Trinome.hpp"
 
 template<typename T1, typename T2, typename T3, typename T4>

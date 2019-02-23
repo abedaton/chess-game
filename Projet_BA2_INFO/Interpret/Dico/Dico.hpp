@@ -1,9 +1,10 @@
-
+/*
 #include <iostream>
 #include <istream>
 #include <string>
 #include <vector>
 #include <fstream>
+*/
 
 #include "CsvReader/CsvReader.cpp"
 
@@ -22,3 +23,5 @@ class Dico: public CsvReader{
         std::vector<std::string> get_possible_laguages();
         std::string search(std::string, std::string);
 };
+
+Dico* make_dico(std::string);

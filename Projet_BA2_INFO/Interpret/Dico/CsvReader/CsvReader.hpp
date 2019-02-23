@@ -1,12 +1,21 @@
-
+/*
 #include <iostream>
 #include <string>
-#include <istream>
 #include <string>
 #include <vector>
 #include <fstream>
+*/
+
+#include <istream>
 
 #include "../../../common/common.cpp"
+
+enum class CSVState;
+std::vector<std::string> readCSVRow(const std::string&);
+std::vector<std::vector<std::string>> readCSV(std::istream&);
+std::vector<std::vector<std::string>> invert_tableau(std::vector<std::vector<std::string>>);
+void affichage_tableau(std::vector<std::vector<std::string>>);
+
 
 class CsvReader{
     private:

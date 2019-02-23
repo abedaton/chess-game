@@ -39,8 +39,8 @@ class User: public Human{
 	public: // temporaire plustard private (sauf in et out biensur!)
 
         virtual std::string next_input() override;
-        virtual void send_msg(std::string,bool) override;
-        using Human::send_msg;
+        virtual void send_confirm_msg(std::string,bool) override;
+        using Human::send_confirm_msg;
     
     private:
 		virtual std::string get_type_prefix() const override;

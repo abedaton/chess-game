@@ -32,6 +32,15 @@ std::string Tester::get_posi_ini(){
 }
 
 std::pair<int,int> Tester::execute(){
+	
+	Human* test_player = new Human("Test_player");
+	
+	this->get_pe()->set_owner(test_player);
+	
+	Dico* dict = make_dico("../../csv");
+	
+	Affichage* aff = new Affichage(this->get_plateau(), dict,"Symbole_","","francais",test_player, test_player,"*" ,"");
+	
 	int tot_cnt = 0;
 	int passed_cnt = 0;
 	
@@ -46,7 +55,8 @@ std::pair<int,int> Tester::execute(){
 	Plateau* plat;
 	plat = this->get_plateau();
 	
-	mout<<*(plat)<<std::endl;
+	//mout<<*(plat)<<std::endl;
+	mout<<aff->get_affichage()<<std::endl;
 	mout<<std::endl;
 	
 	MatPosi* mpos_initial = new MatPosi(this->get_posi_ini());
@@ -54,7 +64,8 @@ std::pair<int,int> Tester::execute(){
 	
 	plat->set_piece(transf_ini,this->get_pe()); // !
 	
-	mout<<*(plat)<<std::endl;
+	//mout<<*(plat)<<std::endl;
+	mout<<aff->get_affichage()<<std::endl;
 	mout<<std::endl;
 	
 	std::pair<int,int> transf_action_in;
@@ -92,7 +103,8 @@ std::pair<int,int> Tester::execute(){
 		}
 	
 	mout<<std::endl;
-	mout<<*(plat)<<std::endl;
+	//mout<<*(plat)<<std::endl;
+	mout<<aff->get_affichage()<<std::endl;
 	mout<<std::endl;
 		
 	}
