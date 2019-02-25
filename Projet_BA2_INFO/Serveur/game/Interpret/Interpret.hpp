@@ -12,6 +12,10 @@
 #include "Dico/Dico.cpp"
 
 class Interpret{
+	/* classe crée dans le but d'instantanément pouvoir changer la langue du texte,
+	 * cette classe stocke des commandes qu'elle peut executer lorsqu'on lui demande,
+	 * puisque le texte n'est pas préposs et lors de chaque demande les commandes sont a nouveau lue
+	 * des changements peuvent avoir eu lieu */
 	private:
 		Dico* dico;
 		std::vector<Trinome<std::string,bool,bool>*>* text_list;

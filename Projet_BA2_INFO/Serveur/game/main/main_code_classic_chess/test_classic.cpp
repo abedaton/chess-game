@@ -7,6 +7,7 @@
 MyOstream mout("logfile.txt");
 
 void two_humans_main(std::string langue){
+	/* fonction peremttant de lancer une partie classique avec 2 joueurs humains */
 	
 	Human* player_one = new Human("player1");
 	
@@ -24,6 +25,7 @@ void two_humans_main(std::string langue){
 }
 
 void human_and_bot_main(std::string langue){
+	/* fonction peremttant de lancer une partie classique avec 1 joueurs humains et un bot de test*/
 	
 	Human* player_one = new Human("player1");
 	
@@ -40,6 +42,7 @@ void human_and_bot_main(std::string langue){
 }
 
 int main(){
+	/* fonction principale */
 	
 	// "anglais" , "francais" , "neerlandais"
 	

@@ -863,9 +863,12 @@ Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,Bity
 bool BaseChess::verify_validity_input(std::string inp){
 	/* fonction qui vérifie si un input est valide, c.a.d si elle est bien composé d'une partie lettre suivi d'une paretie chiffre,
 	 * sans autres parasites */
+	 
+	MatPosi mpos;
+	bool valid_coord = mpos.isvalid_coord(inp);
 		
 	bool res = false;
-	if (isvalid_coord(inp)){
+	if (valid_coord == true){
 		if (this->verify_in_board(inp)){res = true;}
 		else{
 			std::stringstream ss_one;
@@ -1807,10 +1810,8 @@ bool BaseChess::check_danger_mouvement_and_path(std::pair<int,int> paire_origi, 
 	 
 	bool keep = false;
 	bool valid;
-	std::pair<bool,std::string> ins_p;
-	
-	ins_p = this->get_plateau()->isvalid_move(paire_origi, paire, mode);
-	valid = ins_p.first;
+		
+	valid = this->get_plateau()->isvalid_move(paire_origi, paire, mode);
 	
 	//mout << "valid"<<valid<<std::endl;
 	

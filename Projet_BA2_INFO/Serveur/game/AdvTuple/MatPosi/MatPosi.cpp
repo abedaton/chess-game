@@ -14,14 +14,14 @@ MatPosi::MatPosi(std::string s) : Posi(0,0) {
 		
 	std::string alph = this->get_alphabet();
 	
-	std::string letter = std::string(1, s[0]); //zero
-	
-	std::size_t colonne = alph.find(letter);
+	std::string letter = this->get_letter_part_of_string(s);
+	std::size_t colonne = this->get_col_from_string(letter);
 	this->set_col(int(colonne));
 	
-	std::string reste = s.substr(1);
-	int ligne = std::stoi(reste) - 1;
-	this->set_lig(ligne);
+	std::string reste = this->get_number_part_of_string(s);
+	int ligne = this->get_lig_from_string(reste);
+	
+	this->set_lig(ligne);	
 	
 } //*< Constructor
 
@@ -118,4 +118,51 @@ bool MatPosi::operator>=( const MatPosi* mp ) const {
 	return (*this >= *mp);
 }
 
-std::string MatPosi::get_alphabet(){return "ABCDEFGHIJKLMNPQRSTUVWXYZ";}
+std::string MatPosi::get_alphabet(){return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";}
+
+std::string MatPosi::get_letter_part_of_string(std::string s){
+	std::string letter = std::string(1, s[0]);
+	return letter;
+}
+
+std::string MatPosi::get_number_part_of_string(std::string s){
+	std::string reste = s.substr(1);
+	return reste;
+}
+
+std::size_t MatPosi::get_col_from_string(std::string letter){
+	std::size_t colonne = this->get_alphabet().find(letter)%26;
+	return colonne;
+}
+
+int MatPosi::get_lig_from_string(std::string reste){
+	int ligne = std::stoi(reste) - 1;
+	return ligne;
+}
+
+bool MatPosi::isvalid_coord(std::string s){
+	/* fonction calculant si un string s est est une coordonée matricielle valide */
+	
+	bool res = false;
+	
+	if (s.size() >= 2) {
+		
+		std::string letter = this->get_letter_part_of_string(s);
+		std::size_t colonne = this->get_col_from_string(letter);
+		
+		if (colonne != std::string::npos){
+			std::string reste = this->get_number_part_of_string(s);
+			try {
+				int ligne = this->get_lig_from_string(reste);
+				(void)ligne;
+				res = true;
+			}
+			catch (const std::invalid_argument& ia) {
+				(void)ia;
+				res = false;
+			}
+		}
+	}
+	
+	return res;
+}

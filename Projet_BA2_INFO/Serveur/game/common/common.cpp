@@ -19,34 +19,6 @@ bool is_prime(int n ){
 	return res;
 }
 
-bool isvalid_coord(std::string s){
-	/* fonction calculant si un string s est est une coordonée matricielle valide */
-	
-	bool res = false;
-	
-	std::string alph = "ABCDEFGHIJKLMNPQRSTUVWXYZ";
-	
-	if (s.size() >= 2) {
-	
-		std::string letter = std::string(1, s[0]); //zero
-		std::size_t colonne = alph.find(letter);
-		if (colonne != std::string::npos){
-			std::string reste = s.substr(1);
-			try {
-				int ligne = std::stoi(reste) - 1;
-				(void)ligne;
-				res = true;
-			}
-			catch (const std::invalid_argument& ia) {
-				(void)ia;
-				res = false;
-			}
-		}
-	}
-	
-	return res;
-}
-	
 std::vector<std::string>* os_list_dir(const std::string& name){
 	/* fonction équivalent a os.listdir() en python:
 	 * --> parcours les fichiers et dossiers d'un dossier donné et retorune un vecteur de leurs noms

@@ -21,8 +21,6 @@ extern MyOstream mout;
 
 bool is_prime(int);
 
-bool isvalid_coord(std::string);
-
 std::vector<std::string>* os_list_dir(const std::string&);
 
 std::string get_first_file_of_dir(const std::string&,std::string);
@@ -30,6 +28,8 @@ std::string get_first_file_of_dir(const std::string&,std::string);
 
 template<typename Type>
 BitypeVar<Type>* intel_max_part(BitypeVar<Type>* val_one,BitypeVar<Type>* val_two){
+	/* fonction qui est envoyé en pointeur a intel_min_max
+	 * fonction de recuperation du maximum qui gère le None */
 	
 	BitypeVar<Type>* res;
 	
@@ -44,6 +44,8 @@ BitypeVar<Type>* intel_max_part(BitypeVar<Type>* val_one,BitypeVar<Type>* val_tw
 
 template<typename Type>
 BitypeVar<Type>* intel_min_part(BitypeVar<Type>* val_one,BitypeVar<Type>* val_two){
+	/* fonction qui est envoyé en pointeur a intel_min_max
+	 * fonction de recuperation du minimum qui gère le None */
 	
 	BitypeVar<Type>* res;
 	
@@ -64,7 +66,9 @@ using FunctionType = BitypeVar<Type>* (*)(BitypeVar<Type>*,BitypeVar<Type>*); //
 template<typename Type>
 BitypeVar<Type>* intel_min_max(BitypeVar<Type>* val_one,BitypeVar<Type>* val_two,FunctionType<Type> func_part){
 	/* fonction retournant soit le maximum soit le minimum (des 2 premiers paramètres données) en fonction " func_part " d'une fonction externe donné en paramètre
-	 * fonction gêrant aussi le cas des variable a None */
+	 * fonction gêrant aussi le cas des variable a None
+	 * 
+	 * utilisation de la technique de pointeurs vers des fonctions pour éviter des doublons de code*/
 	 
 	 /* template <typename Type> 
 	  * using FunctionType = BitypeVar<Type>* (*)(BitypeVar<Type>*,BitypeVar<Type>*);*/
@@ -91,12 +95,16 @@ BitypeVar<Type>* intel_min_max(BitypeVar<Type>* val_one,BitypeVar<Type>* val_two
 }
 
 template<typename Type>
-BitypeVar<Type>* intel_min(BitypeVar<Type>* val_one,BitypeVar<Type>* val_two){	
+BitypeVar<Type>* intel_min(BitypeVar<Type>* val_one,BitypeVar<Type>* val_two){
+	/* fonction de recuperation du minimum qui gère le None */
+	
 	return intel_min_max(val_one,val_two,intel_min_part);
 }
 
 template<typename Type>
 BitypeVar<Type>* intel_max(BitypeVar<Type>* val_one,BitypeVar<Type>* val_two){	
+	/* fonction de recuperation du maximum qui gère le None */
+	
 	return intel_min_max(val_one,val_two,intel_max_part);
 }
 
