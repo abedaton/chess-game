@@ -1,18 +1,9 @@
-﻿GESTION CHECK ROI
------------------- 
-
-- interdire de mettre en echec son propre roi !!!!
-
-LE ROC
+﻿LE ROC
 ------
-
 - ajouter liste roc (+ ajouter la verification d'avance si un roc est possible --> nettoyage de liste )
-- message d'echec de roc
-- AJOUTER LIMITATION DE POSITIONS POUR ROC
 
 LE PAT
 -------
-
 -implemnter le "pat"
 
 LANGUAGE
@@ -23,24 +14,16 @@ VECTOR
 ------
 replacer les occurence de std::vector<...> par VECTOR
 
-
 PAIRE
 -----
 replacer les occurence de std::pair<...,...> par PAIRE
-
-MINUSCULES
-----------
-faire en sorte que MATPOSI accepte les minuscules
 
 Optimisations et autres:
 ------------------------
 
 - stocker la locaisation des rois sur le plateau
-- si serie de deplacement bloquée --> bloquer les suivantes
- (ex : pour le fou si 1e case en diagonale impossisble --> 2e aussi (de la même ligne) (ex: G5,H6)
+- si serie de deplacement bloquée --> bloquer les suivantes (ex : pour le fou si 1e case en diagonale impossisble --> 2e aussi (de la même ligne) (ex: G5,H6)
 (- paramètre de succeptibilité de doublons pour chaque classe piece) [le créteur met dans la classe piece si des doublons peuvent survenir]
-- matrice creuse pour plateau
 - nettoyage code
 (- utiliser MatPosi partout au lieu de string et paire<int,int>)
-- commenter code
 
