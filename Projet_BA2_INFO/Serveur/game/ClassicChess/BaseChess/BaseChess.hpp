@@ -175,25 +175,25 @@ class BaseChess{
 		
 		BitypeVar<MatPosi*>* in_endangered_part(std::pair<int,int>, Player*, int, std::string);			
 		BitypeVar<MatPosi*>* is_endangered(MatPosi*,Player*);
+		BitypeVar<MatPosi*>* is_endangered(MatPosi*);
 		
 		bool check_more_than_one_danger(MatPosi*,Player*);
 		bool check_more_than_one_danger(MatPosi*);
 		
-		std::vector<MatPosi*>* get_zones_between(std::pair<int,int>, std::pair<int,int> , std::string);
-		
 		std::vector<MatPosi*>* recup_zones_between_part(std::vector<std::pair<int,int>>*, MatPosi*, MatPosi*); // ,Plateau*  static
 		std::vector<MatPosi*>* recup_zones_between(std::pair<int,int>, AdvTuple, std::pair<int,int>);
 		
-		bool check_between_part(std::vector<std::pair<int,int>>*, MatPosi*, MatPosi*); // ,Plateau*  static		
-		bool check_between(std::pair<int,int>, AdvTuple, std::pair<int,int>);
+		std::vector<MatPosi*>* get_zones_between(std::pair<int,int>, std::pair<int,int> , std::string);
+		
+		bool check_between_is_empty_part(std::vector<std::pair<int,int>>*, MatPosi*, MatPosi*); // ,Plateau*  static		
+		bool check_between_is_empty(std::pair<int,int>, AdvTuple, std::pair<int,int>);
 		
 		bool check_non_active_player_king(Chesspiece*);
 		
 		bool verify_kings();
 		std::vector<Chesspiece*>* get_kings();
-		BitypeVar<MatPosi*>* is_endangered(MatPosi*);
 		
-		bool en_danger(std::pair<int,int>, AdvTuple, std::pair<int,int>, std::string);
+		bool check_danger_mouvement_and_path(std::pair<int,int>, AdvTuple, std::pair<int,int>, std::string);
 		
 };
 #endif

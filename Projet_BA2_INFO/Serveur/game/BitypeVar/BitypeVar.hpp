@@ -7,6 +7,9 @@
 
 template<typename Type>
 class BitypeVar{
+	/* classe permettant la recréation du None de python,
+	 * basiquement une variable avec un bool caché qui indique si oui ou non la variable est cencé être a None */
+	
     private:
 		bool state;
         Type var;
@@ -21,10 +24,10 @@ class BitypeVar{
         template<typename T>
         friend std::ostream& operator<< (std::ostream &s,BitypeVar<T> &c);
         
-        /*
-        template<class T>
-        friend std::ostream& operator<< (std::ostream &s,BitypeVar<T>* c);
-        */
+        
+        //template<class T>
+        //friend std::ostream& operator<< (std::ostream &s,BitypeVar<T>* c);
+        
         
         bool get_state();
         Type get_var();
@@ -34,21 +37,24 @@ class BitypeVar{
         
 };
 
-template<typename Type>
-std::ostream& operator <<(std::ostream &s,BitypeVar<Type> &c){
-	/* affchage d'un BitypeVar<Type> */
+template<typename T>
+std::ostream& operator <<(std::ostream &s,BitypeVar<T> &c){
+	/* affchage d'un BitypeVar<T> */
 	
-	Type variable;
+	T variable;
 	variable = c.get_var();
 	
-    s<<"BitypeVar("<<"state:"<<c.get_state()<<" ,var:"<<variable<<")";
+	bool status = c.get_state();
+	
+    s<<"BitypeVar("<<"state:"<<status<<" ,var:"<<variable<<")";
     return s;
 }
 
+
 /*
-template<typename Type>
-std::ostream& operator <<(std::ostream &s,BitypeVar<Type>* c){
-	// affchage d'un BitypeVar<Type> 
+template<typename T> // ------------------------------------------------------- problème incomphrehensible, Triniome fonctionne alors que fait de la même façon
+std::ostream& operator <<(std::ostream &s,BitypeVar<T>* c){
+	// affchage d'un BitypeVar<T> 
     s<<(*c);
     return s;
 }
