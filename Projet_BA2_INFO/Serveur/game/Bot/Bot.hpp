@@ -13,7 +13,7 @@ class Bot: public Player{
 		std::vector<std::string> move_list;
 	
 	public:
-        Bot(std::string); //*< Constructor
+        Bot(std::string,std::string); //*< Constructor
         Bot() noexcept = default; //*< Constructor
         virtual ~Bot() noexcept = default; //Destructor
         Bot(const Bot&);

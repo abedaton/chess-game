@@ -11,9 +11,10 @@
 class Player{
     private:
 		std::string name;
+		std::string langue;
 	
 	public:
-        Player(std::string); //*< Constructor
+        Player(std::string,std::string); //*< Constructor
         Player() noexcept = default; //*< Constructor
         virtual ~Player() noexcept = default; //Destructor
         Player(const Player&);
@@ -24,6 +25,9 @@ class Player{
         
         std::string get_name() const;
         void set_name(std::string);
+        
+        std::string get_langue() const;
+		void set_langue(std::string);
         
         virtual std::string next_input() = 0;
         

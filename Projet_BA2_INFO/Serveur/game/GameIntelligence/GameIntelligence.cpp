@@ -24,7 +24,7 @@ void GameIntelligence::make_classic_game(Player* player_one, Player* player_two,
 void GameIntelligence::make_classic_game_human_and_bot(std::string langue,std::string tag_bot){
 	/* fonction peremttant de lancer une partie classique avec 1 joueurs humains et un bot de test */
 	
-	Human* player_one = new Human("player1");
+	Human* player_one = new Human("player1",langue);
 	
 	Bot* player_two = make_bot("player2",tag_bot,"../../bots_csv");
 	
@@ -45,9 +45,9 @@ void GameIntelligence::make_classic_game_two_bots(std::string langue, std::strin
 void GameIntelligence::make_classic_game_two_humans(std::string langue){
 	/* fonction peremttant de lancer une partie classique avec 2 joueurs humains */
 	
-	Human* player_one = new Human("player1");
+	Human* player_one = new Human("player1",langue);
 	
-	Human* player_two = new Human("player2");
+	Human* player_two = new Human("player2",langue);
 	
 	this->make_classic_game(player_one,player_two,langue);
 }

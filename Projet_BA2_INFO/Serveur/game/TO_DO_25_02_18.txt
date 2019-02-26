@@ -4,11 +4,7 @@
 
 LE PAT
 -------
--implemnter le "pat"
-
-LANGUAGE
-----------
-langue potentiellement différente pour chaque player --> stockage de langue dans les players
+-implementer le "pat"
 
 VECTOR
 ------

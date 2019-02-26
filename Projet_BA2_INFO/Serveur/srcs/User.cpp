@@ -1,6 +1,6 @@
 # include "../includes/User.hpp"
 
-//User::User(int client_sock) : Human("") ,_clientSock(client_sock){
+//User::User(int client_sock) : _clientSock(client_sock){
 //	pthread_t clientThread;
 //    pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
 //}
@@ -12,7 +12,7 @@ User::User(int client_sock) :_clientSock(client_sock){
 }
 
 
-// User::User(const User& user): Human(user), _clientSock(user._clientSock) {}
+// User::User(const User& user): _clientSock(user._clientSock) {}
 User::User(const User& user): _clientSock(user._clientSock) {}
 
 //void User::startGame(AbstractGame* game, bool turn){

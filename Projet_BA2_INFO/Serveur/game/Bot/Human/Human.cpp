@@ -1,7 +1,8 @@
 
 #include "Human.hpp"
 
-Human::Human(std::string nom) : Player(nom) {} //*< Constructor
+Human::Human(std::string nom,std::string lang) : Player(nom,lang) {} //*< Constructor
+Human::Human() : Player("","") {} //*< Constructor
 
 Human::Human(const Human& human): Player(human) {}
 

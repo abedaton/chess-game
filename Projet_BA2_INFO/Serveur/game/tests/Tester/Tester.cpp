@@ -33,13 +33,15 @@ std::string Tester::get_posi_ini(){
 
 std::pair<int,int> Tester::execute(){
 	
-	Human* test_player = new Human("Test_player");
+	std::string langue = "francais";
+	
+	Human* test_player = new Human("Test_player",langue);
 	
 	this->get_pe()->set_owner(test_player);
 	
 	Dico* dict = make_dico("../../csv");
 	
-	Affichage* aff = new Affichage(this->get_plateau(), dict,"Symbole_","","francais",test_player, test_player,"*" ,"");
+	Affichage* aff = new Affichage(this->get_plateau(), dict,"Symbole_","",langue,test_player, test_player,"*" ,"");
 	
 	int tot_cnt = 0;
 	int passed_cnt = 0;

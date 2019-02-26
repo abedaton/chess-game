@@ -94,9 +94,6 @@ class BaseChess{
 		
 		Dico* get_dico();
 		
-		std::string get_langue();
-		void set_langue(std::string);
-		
 		void initial_set_piece(Chesspiece*,Player*,std::string);
 		void initialisation();
 		virtual void initialise_board() = 0;

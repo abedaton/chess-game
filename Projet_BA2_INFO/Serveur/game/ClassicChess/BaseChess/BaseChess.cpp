@@ -317,8 +317,8 @@ void BaseChess::set_plateau(Plateau* plat){this->plateau = plat;}
 
 Dico* BaseChess::get_dico(){return this->dico;}
 
-std::string BaseChess::get_langue(){return this->langue;}
-void BaseChess::set_langue(std::string lang) {this->langue = lang;}
+//std::string BaseChess::get_langue(){return this->langue;}
+//void BaseChess::set_langue(std::string lang) {this->langue = lang;}
 
 void BaseChess::initial_set_piece(Chesspiece* pe,Player* own,std::string mov){
 	/* fonction servant a placer avant que la partie commence les piece d'echec sur le tableau,
@@ -386,13 +386,13 @@ void BaseChess::changement_langue_input(){
 	
 	while (not valid){
 		std::stringstream deb_ss;
-		deb_ss<<this->get_dico()->search(this->get_langue(),"select_lang")<<": ";
+		deb_ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"select_lang")<<": ";
 		for(long long unsigned int i=0;i<languages.size();i++){
 			std::string langue = ((languages)[i]);
 			deb_ss<<langue;
 						
 			if (i < languages.size()-2){deb_ss<<", ";}
-			else if (i == languages.size()-2){deb_ss<<" "<<this->get_dico()->search(this->get_langue(),"et")<<" ";}
+			else if (i == languages.size()-2){deb_ss<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),"et")<<" ";}
 			else if (i == languages.size()-1){deb_ss<<std::endl;}
 		}
 			
@@ -402,7 +402,7 @@ void BaseChess::changement_langue_input(){
 		valid = is_in_vect(&languages, inp_lang);
 	}
 			
-	this->set_langue(inp_lang);
+	this->get_active_player()->set_langue(inp_lang);
 
 }
 
@@ -470,7 +470,7 @@ Trinome<Quadrinome<bool,bool,bool,bool>*, BitypeVar<Chesspiece*>, std::string > 
 			
 			
 		}
-		else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"roc_pe_imp"),true);}
+		else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"roc_pe_imp"),true);}
 	}
 	
 	else{found = false;}
@@ -498,7 +498,7 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 	std::string in = "";
 	while (not part_a and not go_back and not end_game){
 		
-		this->get_active_player()->send_msg(first_comment->get_text(this->get_langue()),true);
+		this->get_active_player()->send_msg(first_comment->get_text(this->get_active_player()->get_langue()),true);
 		
 		in = this->get_active_player()->recieve_msg();
 		
@@ -520,12 +520,12 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 					cap_piece = dst.get_var();
 					//mout<<"propio = "<<cap_piece->get_owner()<<std::endl;
 					if (cap_piece->get_owner() != get_active_player()){
-						this->get_active_player()->send_msg(second_comment->get_text(this->get_langue()),true);
+						this->get_active_player()->send_msg(second_comment->get_text(this->get_active_player()->get_langue()),true);
 						again = true;
 					}
 				}
 				else{
-					this->get_active_player()->send_msg(third_comment->get_text(this->get_langue()),true);
+					this->get_active_player()->send_msg(third_comment->get_text(this->get_active_player()->get_langue()),true);
 					again = true;
 				}
 					
@@ -623,7 +623,7 @@ bool BaseChess::check_illegal_move(std::string in,std::string out){
 	if (not(this->verify_move(in,out))){
 		
 		std::stringstream ss;
-		ss<<this->get_dico()->search(this->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_langue(),"illegal_move")<<"!"<<std::endl;
+		ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_active_player()->get_langue(),"illegal_move")<<"!"<<std::endl;
 		this->get_active_player()->send_msg(ss.str());
 		
 		again = true;
@@ -698,7 +698,7 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 				
 				correspond = this->verify_possible_roc(roi,tour);
 
-				if (correspond == false){this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"not_pos_roc"),true);}
+				if (correspond == false){this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"not_pos_roc"),true);}
 				else{
 					
 					// verfication de deplacement
@@ -706,14 +706,14 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 						
 						if(tour->get_has_moved() == true){
 							correspond = false;
-							this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"roc_tower_no_perm_move"),true);
+							this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"roc_tower_no_perm_move"),true);
 						}
 					}
 					else{
 						
 						if(roi->get_has_moved() == true){
 							correspond = false;
-							this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"roc_king_no_perm_move"),true);
+							this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"roc_king_no_perm_move"),true);
 						}
 					}
 				}
@@ -722,8 +722,8 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 				
 				std::stringstream ss;
 				
-				if (in_is_tour == true){ss<<this->get_dico()->search(this->get_langue(),"roc_imp_chess")<<" "<<this->get_dico()->search(this->get_langue(),"chess_tour")<<std::endl;}
-				else{ss<<this->get_dico()->search(this->get_langue(),"roc_imp_chess")<<" "<<this->get_dico()->search(this->get_langue(),"chess_roi")<<std::endl;}
+				if (in_is_tour == true){ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"roc_imp_chess")<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),"chess_tour")<<std::endl;}
+				else{ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"roc_imp_chess")<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),"chess_roi")<<std::endl;}
 				
 				this->get_active_player()->send_msg(ss.str());
 				
@@ -752,17 +752,17 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 			if (roi->get_has_moved() == false){
 				res = this->roc_first_pe_is_waiting(roi);
 			}
-			else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"roc_king_no_perm_move"),true);}
+			else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"roc_king_no_perm_move"),true);}
 		}
 		
 		else if(Tour* tour = dynamic_cast<Tour*>(in_piece)) {
 			if (tour->get_has_moved() == false){
 				res = this->roc_first_pe_is_waiting(tour);
 			}
-			else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"roc_tower_no_perm_move"),true);}
+			else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"roc_tower_no_perm_move"),true);}
 		}
 		
-		else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"roc_pe_imp"),true);}
+		else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"roc_pe_imp"),true);}
 		
 	}
 	// else case vide (d'office non-selectionnable !)
@@ -775,10 +775,10 @@ void BaseChess::show_depl_possibles(Chesspiece* pe){
 	 * paramètre d'entree : une piece d'echec
 	 * */
 	
-	mout<<this->get_dico()->search(this->get_langue(),"liste_depl")<<" : ";
+	mout<<this->get_dico()->search(this->get_active_player()->get_langue(),"liste_depl")<<" : ";
 	this->show_possible_mouvement(pe, "depl");
 	
-	mout<<this->get_dico()->search(this->get_langue(),"liste_capt")<<" : ";
+	mout<<this->get_dico()->search(this->get_active_player()->get_langue(),"liste_capt")<<" : ";
 	this->show_possible_mouvement(pe, "capt");
 	
 }
@@ -803,7 +803,7 @@ Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,Bity
 	/* fonction principale des inputs, en effet c'est la fonction qui gêre la demande d'input au joueur (in, out) */
 	
 	std::stringstream ss;
-	ss<<this->get_active_player()<<" "<<this->get_dico()->search(this->get_langue(),"your_turn")<<"!"<<std::endl;
+	ss<<this->get_active_player()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),"your_turn")<<"!"<<std::endl;
 	this->get_active_player()->send_msg(ss.str());
 	
 	Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* out_p;
@@ -868,13 +868,13 @@ bool BaseChess::verify_validity_input(std::string inp){
 		if (this->verify_in_board(inp)){res = true;}
 		else{
 			std::stringstream ss_one;
-			ss_one<<this->get_dico()->search(this->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_langue(),"co_ext")<<std::endl;
+			ss_one<<this->get_dico()->search(this->get_active_player()->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_active_player()->get_langue(),"co_ext")<<std::endl;
 			this->get_active_player()->send_msg(ss_one.str());
 		}
 	}
 	else{
 		std::stringstream ss_two;
-		ss_two<<this->get_dico()->search(this->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_langue(),"co_inv")<<std::endl;
+		ss_two<<this->get_dico()->search(this->get_active_player()->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_active_player()->get_langue(),"co_inv")<<std::endl;
 		this->get_active_player()->send_msg(ss_two.str());
 	}
 	return res;
@@ -1297,16 +1297,16 @@ Chesspiece* BaseChess::ask_evolution_input(std::vector<Chesspiece*>* vect){
 		
 		std::stringstream deb_ss;
 		
-		deb_ss<<this->get_dico()->search(this->get_langue(),"choix_evolve")<<": ";
+		deb_ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"choix_evolve")<<": ";
 		for(long long unsigned int i=0;i<vect->size();i++){
 			
 			std::stringstream temp_ss;
 			temp_ss<<"Nom_"<<*((*vect)[i]);
 
-			deb_ss<<this->get_dico()->search(this->get_langue(),temp_ss.str());
+			deb_ss<<this->get_dico()->search(this->get_active_player()->get_langue(),temp_ss.str());
 			
 			if (i < vect->size()-2){deb_ss<<", ";}
-			else if (i == vect->size()-2){deb_ss<<" "<<this->get_dico()->search(this->get_langue(),"et")<<" ";}
+			else if (i == vect->size()-2){deb_ss<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),"et")<<" ";}
 			else if (i == vect->size()-1){deb_ss<<std::endl;}
 		
 		}
@@ -1323,15 +1323,15 @@ Chesspiece* BaseChess::ask_evolution_input(std::vector<Chesspiece*>* vect){
 			std::stringstream ss;
 			ss<<"Nom_"<<*((*vect)[j]);
 			
-			end_ss<<in<<"VS"<<this->get_dico()->search(this->get_langue(),ss.str())<<std::endl;
-			if (in == this->get_dico()->search(this->get_langue(),ss.str())){
+			end_ss<<in<<"VS"<<this->get_dico()->search(this->get_active_player()->get_langue(),ss.str())<<std::endl;
+			if (in == this->get_dico()->search(this->get_active_player()->get_langue(),ss.str())){
 				found = true;
 				res = (*vect)[j];
 			}
 			
 			j++;
 		}
-		if (found == false){end_ss<<this->get_dico()->search(this->get_langue(),"retry")<<std::endl;}
+		if (found == false){end_ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"retry")<<std::endl;}
 		
 		this->get_active_player()->send_msg(end_ss.str());
 		
@@ -1477,7 +1477,7 @@ BitypeVar<MatPosi*>* BaseChess::is_endangered(MatPosi* mpos_zone, Player* limita
 BitypeVar<MatPosi*>* BaseChess::is_endangered(MatPosi* mpos_zone){
 	/* fonction surchargée, permettant d'ommetre le Human indiquant le type de danger */
 	
-	Human* player = new Human("");
+	Human* player = new Human();
 	
 	return this->is_endangered(mpos_zone,player);
 }
@@ -1501,7 +1501,7 @@ bool BaseChess::check_more_than_one_danger(MatPosi* mpos_zone, Player* limitator
 bool BaseChess::check_more_than_one_danger(MatPosi* mpos_zone){
 	/* fonction surchargée, permettant d'ommetre le Human indiquant le type de danger */
 		
-	Human* player = new Human("");
+	Human* player = new Human();
 	
 	return this->check_more_than_one_danger(mpos_zone, player);
 }
@@ -1712,8 +1712,8 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 		}
 		//else{mode_echec_et_mat = false;}
 		
-		if (not(mode_echec_et_mat)){ss<<this->get_dico()->search(this->get_langue(),"mode_echec")<<std::endl;}
-		else{ss<<this->get_dico()->search(this->get_langue(),"mode_echec_et_mat")<<std::endl;}
+		if (not(mode_echec_et_mat)){ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"mode_echec")<<std::endl;}
+		else{ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"mode_echec_et_mat")<<std::endl;}
 	}
 	
 	this->get_active_player()->send_msg(ss.str());
@@ -1770,7 +1770,7 @@ bool BaseChess::verify_kings(){
 	}
 	else{
 		std::stringstream ss;
-		ss<<this->get_dico()->search(this->get_langue(),"vict")<<" "<<get_non_active_player()<<" ! (previson avant le deplacement reel)"<<std::endl;
+		ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"vict")<<" "<<get_non_active_player()<<" ! (previson avant le deplacement reel)"<<std::endl;
 		this->get_active_player()->send_msg(ss.str());
 	}
 	

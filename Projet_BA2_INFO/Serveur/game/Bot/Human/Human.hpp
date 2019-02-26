@@ -10,8 +10,8 @@
 
 class Human: public Player{
 	public:
-        Human(std::string); //*< Constructor
-        Human() noexcept = default; //*< Constructor
+        Human(std::string,std::string); //*< Constructor
+        Human(); //*< Constructor //noexcept = default
         virtual ~Human() noexcept = default; //Destructor
         Human(const Human&);
         Human& operator= (const Human&) noexcept = default;

@@ -136,7 +136,7 @@ void ClassicChess::initialise_high_pieces(){
 void ClassicChess::affichage(){
 	/* fonction affaichant le tableau de jeu ainsi que les joueurs l'entourant */
 	
-	Affichage* aff = new Affichage(this->get_plateau(), this->get_dico(),"Symbole_","",this->get_langue(),this->get_low_player(), this->get_high_player(),"*" ,"");
+	Affichage* aff = new Affichage(this->get_plateau(), this->get_dico(),"Symbole_","",this->get_active_player()->get_langue(),this->get_low_player(), this->get_high_player(),"*" ,"");
 	
 	this->get_active_player()->send_msg(aff->get_affichage(),true);
 }
@@ -164,7 +164,7 @@ std::pair<bool,BitypeVar<Chesspiece*>> ClassicChess::normal_output_check(std::st
 			if (cap_piece->get_owner() == get_active_player()){ // piece de soi-meme
 				
 				std::stringstream ss;
-				ss<<this->get_dico()->search(this->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_langue(),"cap_pe_self")<<std::endl;
+				ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_active_player()->get_langue(),"cap_pe_self")<<std::endl;
 				this->get_active_player()->send_msg(ss.str());
 				
 				again = true;
@@ -212,13 +212,13 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChe
 	while (not(part_b) and not(again) and not(correspond) and not(end_game)){
 		
 		std::stringstream ss_menu;
-		ss_menu<<this->get_dico()->search(this->get_langue(),"depl_pe")<<" "<<in<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_langue(),"ou")<<" ret "<<this->get_dico()->search(this->get_langue(),"ret")<<std::endl;
-		if (roc_accept == true){ss_menu<<this->get_dico()->search(this->get_langue(),"ou")<<" roc "<<this->get_dico()->search(this->get_langue(),"roc")<<std::endl;}
-		ss_menu<<this->get_dico()->search(this->get_langue(),"ou")<<" end "<<this->get_dico()->search(this->get_langue(),"end")<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_langue(),"ou")<<" liste_depl "<<this->get_dico()->search(this->get_langue(),"liste_depl")<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_langue(),"ou")<<" liste_capt "<<this->get_dico()->search(this->get_langue(),"liste_capt")<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_langue(),"ou")<<" lang "<<this->get_dico()->search(this->get_langue(),"lang")<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"depl_pe")<<" "<<in<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" ret "<<this->get_dico()->search(this->get_active_player()->get_langue(),"ret")<<std::endl;
+		if (roc_accept == true){ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" roc "<<this->get_dico()->search(this->get_active_player()->get_langue(),"roc")<<std::endl;}
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" end "<<this->get_dico()->search(this->get_active_player()->get_langue(),"end")<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" liste_depl "<<this->get_dico()->search(this->get_active_player()->get_langue(),"liste_depl")<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" liste_capt "<<this->get_dico()->search(this->get_active_player()->get_langue(),"liste_capt")<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" lang "<<this->get_dico()->search(this->get_active_player()->get_langue(),"lang")<<std::endl;
 		
 		this->get_active_player()->send_msg(ss_menu.str());
 		
@@ -299,7 +299,7 @@ bool ClassicChess::execute_step(){
 	this->check_evolution();
 	
 	if (not(end)){end = this->verify_kings();}
-	else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"mode_echec_et_mat"),true);} // si arret par consequences automatiquement echec et mat (pas possible de pat)
+	else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"mode_echec_et_mat"),true);} // si arret par consequences automatiquement echec et mat (pas possible de pat)
 	
 	this->affichage();
 	
@@ -310,8 +310,8 @@ bool ClassicChess::execute_step(){
 		
 		std::stringstream ss;
 		
-		ss<<this->get_dico()->search(this->get_langue(),"vict")<<" "<<get_active_player()<<" !"<<std::endl;
-		ss<<this->get_dico()->search(this->get_langue(),"fin_match")<<"!"<<std::endl;
+		ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"vict")<<" "<<get_active_player()<<" !"<<std::endl;
+		ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"fin_match")<<"!"<<std::endl;
 		
 		this->get_active_player()->send_msg(ss.str());
 	}

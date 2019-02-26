@@ -3,7 +3,7 @@
 
 // -------------------------CHESSPIECE----------------------------------------------
 
-Chesspiece::Chesspiece() : limite(0), position(nullptr), liste_depl(nullptr), liste_capt(nullptr), depl(nullptr), owner(new Human("")), capt(nullptr),updt_needed(false), has_moved(false) {
+Chesspiece::Chesspiece() : limite(0), position(nullptr), liste_depl(nullptr), liste_capt(nullptr), depl(nullptr), owner(new Human()), capt(nullptr),updt_needed(false), has_moved(false) {
 	this->depl = new Decoder(this);
 	this->capt = new Decoder(this);
 	} //*< Constructor

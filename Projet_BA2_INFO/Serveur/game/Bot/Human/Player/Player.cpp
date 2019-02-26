@@ -2,7 +2,7 @@
 #include "Player.hpp"
 
 
-Player::Player(std::string s) : name(s){} //*< Constructor
+Player::Player(std::string nom, std::string lang) : name(nom), langue(lang) {} //*< Constructor
 
 std::ostream& operator <<(std::ostream &s,Player &c){
 	/* affchage d'un Player */
@@ -16,13 +16,16 @@ std::ostream& operator <<(std::ostream &s,Player* c){
     return s;
 }
 
-Player::Player(const Player& play): name(play.get_name()) {}
+Player::Player(const Player& play): name(play.get_name()), langue(play.get_langue()) {}
 
 std::string Player::get_name() const {return this->name;}
 
 void Player::set_name(std::string nom){
 	this->name = nom;
 }
+
+std::string Player::get_langue() const {return this->langue;}
+void Player::set_langue(std::string lang) {this->langue = lang;}
 
 bool Player::operator==( const Player& p ) const {
 	return (p.get_name() == this->get_name());
