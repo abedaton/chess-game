@@ -186,27 +186,4 @@ void User::launch_classic_game(User* player_one,User* player_two, std::string la
 	classic_game->execute();
 	
 }
-
-
-std::string User::next_input(){
-	
-	//std::cout<<"IN"<<std::endl;
-	
-	return this->in();
-	
-}
-
-std::string User::get_type_prefix() const{
-	
-	//std::cout<<"PREFIX"<<std::endl;
-	
-	return "User";
-}
-
-void User::send_confirm_msg(std::string msg, bool endline){
-	
-	std::string output = this->msg_compaction(msg,endline);
-		
-	this->out(output);
-}
 */

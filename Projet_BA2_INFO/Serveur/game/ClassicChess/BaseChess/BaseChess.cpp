@@ -537,10 +537,6 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 			go_back = symbol_info->get_second();
 			end_game = symbol_info->get_third();
 		}
-		
-		if (not part_a and not end_game){this->get_active_player()->send_error_msg();} // si on ne sort pas de la  boucle (ret ignoré) alors on le signal
-		// important pour serveur plustard
-		
 	}
 	
 	Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* res = new Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>(in,dst,std::make_pair(go_back,end_game));
@@ -621,7 +617,7 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 
 bool BaseChess::check_illegal_move(std::string in,std::string out){
 	/* fonction qui vérifie si un mouvement est autorisé, si nécéssaire affiche un message d'echec,
-	 * revoi un bool pour indiquer si l'input doit e^tre recommancé */
+	 * revoi un bool pour indiquer si l'input doit être recommancé */
 	
 	bool again;
 	if (not(this->verify_move(in,out))){

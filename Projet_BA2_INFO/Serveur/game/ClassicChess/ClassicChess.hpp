@@ -19,7 +19,7 @@ class ClassicChess: public BaseChess{
         ClassicChess(const ClassicChess&) noexcept = default;
         ClassicChess& operator= (const ClassicChess&) noexcept = default;
         
-        void execute() override;
+        bool execute_step() override;
         
 	protected:
 		

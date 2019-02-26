@@ -74,7 +74,7 @@ class BaseChess{
         BaseChess& operator= (const BaseChess&) noexcept = default;
         
         // pas d'interactions avec le jeu, il gère tout --> peu de fonctions publiques
-        virtual void execute() = 0;
+        virtual bool execute_step() = 0;
         
 	protected:
 		Player* get_low_player();

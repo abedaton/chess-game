@@ -24,7 +24,7 @@
 
 
 
-class User: public AbstractUser, public Human{
+class User: public AbstractUser{
 	public:
 		User(int client_sock);
 		virtual ~User() = default;		
@@ -35,10 +35,6 @@ class User: public AbstractUser, public Human{
 		std::string in();
 		void out(std::string str);
 		void exit();
-		
-		//virtual std::string next_input() override;
-        //virtual void send_confirm_msg(std::string,bool) override;
-        //using Human::send_confirm_msg;
 	
 	private:
 		int _clientSock;
@@ -64,9 +60,7 @@ class User: public AbstractUser, public Human{
         std::string recvStr();
 
 		static void* run(void* tmp);
-		
-		//virtual std::string get_type_prefix() const override;
-		
+	
 };
 
 enum Protocol : int {

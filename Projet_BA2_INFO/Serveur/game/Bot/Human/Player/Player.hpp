@@ -37,11 +37,6 @@ class Player{
         virtual void send_msg(std::string);
         virtual std::string recieve_msg();
         
-        virtual void send_confirm_msg(std::string,bool);
-        virtual void send_confirm_msg(std::string);
-        
-        virtual void send_error_msg();
-        
     private:
 		virtual std::string get_type_prefix() const;
 		
