@@ -1,0 +1,27 @@
+-2 points :
+    serveur fait des propositions au client
+    client qui demande au serveur
+-Gérer la possobilité de joueur à 2
+OBJECTIF DE LA SEMAINE : réussis
+Le jeu gère tout
+Version actuelle:
+    User se comporte comme un protocol
+    Le jeu n'intéragit que avec le client
+    Le client a un while true pour receive 
+
+=> Se mettre d'accord sur le protocol de communication, qui est indépendant du jeu (pas de prise en compte des modes de jeux par exemple)
+=> Le client possède aussi une version du jeun avec ses régles
+    => Rien n'est imposé 
+=> pas oubliez le chat
+
+-Revoir la distribution du travail
+
+Objectif semaine prochaine :
+    -pouvoir jouer le jeux d'echec
+    -minimum 2 variantes
+    -liste d'amis
+    -chat
+
+____________________________________________
+
+
