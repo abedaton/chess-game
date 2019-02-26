@@ -1,0 +1,17 @@
+Reste l'implémentation des variantes
+
+-Faire une bonne répartition des tâches 
+-Rajouter les fonctionalités au jeu 
+
+=> Gérer les problèmes de links 
+
+DEADLINE : samedi 02/03 23h59
+Défense oral le jeudi 07/03 entre 10h et 12h
+
+__________________________________________________
+
+User différent entre les client et le serveur (généralisation et modification de fonction)
+Jeu dans le client return un mov, qui sera envoyé au serveur qui le communiquera à son propre jeu 
+    -on réduit le nombre de communication 
+Pour le client, on pourrai avec cette méthode pouvoir incorporer le chat plus facilement, en demandant si le client veut chatter ou bien veut jouer
+ 
