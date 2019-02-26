@@ -246,10 +246,6 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChe
 			part_b = norm_paire.first;
 			dst = norm_paire.second;
 		}
-		
-		if (not(part_b) and not(correspond) and not(end_game)){this->get_active_player()->send_error_msg();} // si on ne sort pas de la  boucle (ret ignoré) alors on le signal
-		// important pour serveur plustard
-		
 	}
 
 	Trinome<bool,bool,bool>* trinome_bool_res = new Trinome<bool,bool,bool>(again,correspond,end_game);
@@ -258,11 +254,13 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChe
 	return res;
 }
 
-void ClassicChess::execute(){
+bool ClassicChess::execute_step(){
 	
 	/* fonction principale du jeu, boucle d'execution qui est lancé pour débuté le jeu et qui lorsque se termine termine le jeu*/
 	
 	bool end = false;
+	bool abandon = false;
+	
 	Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<bool,bool>>* coords;
 	
 	std::pair<std::string,BitypeVar<Chesspiece*>> in_couple,out_couple;
@@ -275,54 +273,47 @@ void ClassicChess::execute(){
 	std::pair<bool,bool> bool_info;
 	
 	this->affichage();
+
+	coords = this->ask_for_input();
+	in_couple = coords->get_first();
+	in = in_couple.first;
+	adv_pe_in = in_couple.second;
 	
-	bool abandon = false;
 	
-	while (not(end)and not abandon){
-		coords = this->ask_for_input();
-		in_couple = coords->get_first();
-		in = in_couple.first;
-		adv_pe_in = in_couple.second;
-		
-		
-		out_couple = coords->get_second();
-		out = out_couple.first;
-		adv_pe_out = out_couple.second;
-		
-		bool_info = coords->get_third();
-		
-		abandon = bool_info.first;
-		switch_pos = bool_info.second;
-		
-		this->get_active_player()->send_confirm_msg(in,false);
-		if (switch_pos == true){this->get_active_player()->send_confirm_msg("roc",false);}
-		this->get_active_player()->send_confirm_msg(out,false);
-		
-		if (not abandon){
-			end = check_end_game(adv_pe_out, switch_pos);
-		
-			// ici on suppose que input correcte puisque apres les verification
-			this->exec_move(in,out,switch_pos);
-		}
-		
-		this->check_evolution();
-		
-		if (not(end)){end = this->verify_kings();}
-		else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"mode_echec_et_mat"),true);} // si arret par consequences automatiquement echec et mat (pas possible de pat)
-		
-		this->affichage();
-		
-		if (not end and not abandon){this->change_active_player();}
-		else{
-			
-			if (abandon == true){this->change_active_player();}
-			
-			std::stringstream ss;
-			
-			ss<<this->get_dico()->search(this->get_langue(),"vict")<<" "<<get_active_player()<<" !"<<std::endl;
-			ss<<this->get_dico()->search(this->get_langue(),"fin_match")<<"!"<<std::endl;
-			
-			this->get_active_player()->send_msg(ss.str());
-		}
+	out_couple = coords->get_second();
+	out = out_couple.first;
+	adv_pe_out = out_couple.second;
+	
+	bool_info = coords->get_third();
+	
+	abandon = bool_info.first;
+	switch_pos = bool_info.second;
+	
+	if (not abandon){
+		end = check_end_game(adv_pe_out, switch_pos);
+	
+		// ici on suppose que input correcte puisque apres les verification
+		this->exec_move(in,out,switch_pos);
 	}
+	
+	this->check_evolution();
+	
+	if (not(end)){end = this->verify_kings();}
+	else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"mode_echec_et_mat"),true);} // si arret par consequences automatiquement echec et mat (pas possible de pat)
+	
+	this->affichage();
+	
+	if (not end and not abandon){this->change_active_player();}
+	else{
+		
+		if (abandon == true){this->change_active_player();}
+		
+		std::stringstream ss;
+		
+		ss<<this->get_dico()->search(this->get_langue(),"vict")<<" "<<get_active_player()<<" !"<<std::endl;
+		ss<<this->get_dico()->search(this->get_langue(),"fin_match")<<"!"<<std::endl;
+		
+		this->get_active_player()->send_msg(ss.str());
+	}
+	return (end or abandon);
 }

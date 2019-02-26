@@ -25,9 +25,8 @@ class Client: AbstractClient {
 		void recvMessage() override;
 	private:
 		Request* _request;
+		//AbstractChess* _game
 		bool _gameStart;
-		//bool _myTurn;
-		//std::vector<int> _listMov;
 
 		void firstWindow();
 		bool registerWindow();
@@ -38,7 +37,6 @@ class Client: AbstractClient {
 		
 		static void myFlush();
 
-
         void setup(std::string ip);
         void handleClient();
 		void sShutdown();
@@ -48,7 +46,6 @@ class Client: AbstractClient {
         void sendInt(int num);
 		std::string recvStr();
         int _clientSock;
-        struct sockaddr_in _servAddr;
 };
 
 

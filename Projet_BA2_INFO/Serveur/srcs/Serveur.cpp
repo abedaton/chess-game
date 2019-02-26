@@ -15,16 +15,12 @@ void Serveur::setup(){
     if ((this->_serv_sock = socket(AF_INET, SOCK_STREAM, 0)) == 0){
         std::cout << "Error: " << strerror(errno) << std::endl;
         this->sShutdown();
-    } else {
-        std::cout << "Socket created !" << std::endl;
     }
 
     if (bind(this->_serv_sock, reinterpret_cast<struct sockaddr*>(&this->_address), this->_addrlen) < 0){
         std::cout << "Error on bind: " << strerror(errno) << std::endl;
         this->sShutdown();
-    } else {
-        std::cout << "Bind successfull !" << std::endl;
-    }
+    } 
 
     if (listen(this->_serv_sock, 3) < 0){
         std::cout << "Error: " << strerror(errno) << std::endl;
@@ -44,8 +40,7 @@ void Serveur::mainLoop(){
             std::cout << "Nouvelle connexion et le socket est : " << tmpClient << std::endl;
             if (tmpClient != -1){
                 if (static_cast<size_t>(tmpClient) > this->_clients.size()){
-                     this->_clients.resize(static_cast<size_t>(tmpClient));       
-                    std::cout << "resize" << std::endl;
+                     this->_clients.resize(static_cast<size_t>(tmpClient));
                 }
                 this->_clients.at(static_cast<unsigned long int>(tmpClient-1)) = tmpClient;
                 User* tmpUser = new User(tmpClient, db, match); // <------ new important pour polymorphisme! - Quentin

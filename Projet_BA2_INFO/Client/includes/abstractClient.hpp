@@ -8,7 +8,6 @@ class AbstractClient{
 		virtual void startingGame(bool playerTurn) = 0;
 		virtual void opponentMov(int coord1, int coord2, bool lose) = 0;
 		virtual void recvMessage() = 0;
-		//virtual std::vector<int> getListMov() = 0;
 };
 
 #endif

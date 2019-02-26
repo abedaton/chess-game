@@ -20,9 +20,9 @@ void MatchMaking::startLoop(){
             pool.erase(pool.begin());
             AbstractUser* player2 = pool.at(0);
             pool.erase(pool.begin());
-            AbstractGame* game = new Game(player1, player2); //// 
-            player1->startGame(game, true);
-            player2->startGame(game, false);
+            //AbstractGame* game = new Game(player1, player2); //// 
+            //player1->startGame(game, true);
+            //player2->startGame(game, false);
         }
     }
 }

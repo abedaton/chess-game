@@ -63,19 +63,18 @@ void Request::findMatch(int modDeJeu){
 //	return listMov;
 //}
 
-void Request::mov(int coord1, int coord2){
+void Request::mov(std::string mov){
 	waitForProcess();
-    int protocol = 6;
+    int protocol = 5;
 	sendInt(protocol);
-	sendInt(coord1);
-	sendInt(coord2);
+	sendStr(mov);
 	endProcess();
 }
 
 void Request::surrend(){
 	waitForProcess();
-	//int protocol = 7;
-	//TO DO
+	int protocol = 6;
+	sendInt(protocol);
 	endProcess();
 }
 
@@ -178,7 +177,6 @@ int Request::recvInt(int flag){
     } else {
         this->error();
     }
-    //return ntohs(tmpAnswer);
 }
 
 void Request::sendStr(std::string str){

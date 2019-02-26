@@ -4,6 +4,9 @@
 //
 
 std::string make_ligne(std::string s,int taille_voulue,int taille){
+	/* fonction créant une ligne des taille voulu rempli d'un type de caractère s
+	 * entrecoupés a des intervalle taille de barres vericales (|) */
+	 
 	std::string res;
 	
 	for(int i=0;i<taille;i++){
@@ -17,6 +20,8 @@ std::string make_ligne(std::string s,int taille_voulue,int taille){
 }
 
 std::string crea_ligne_lettres(int limite,int taille_voulue){
+	/* fonction créant une legende de lettres sur une ligne*/
+	 
 	std::string alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	std::string res;
 		
@@ -67,6 +72,8 @@ int Affichage::get_taille_case_hor(){return this->taille_case_hor;}
 int Affichage::get_taille_case_ver(){return this->taille_case_ver;}
 
 std::string Affichage::get_player_symbol(Player* play){
+	/* fonction récuperant le symbole associé au joeur pour distinguer ces piece de celle de l'adversaire
+	 * ex : "*" */
 	
 	if (play == this->get_high_player()){return this->get_high_player_symbol();}
 	else if (play == this->get_low_player()){return this->get_low_player_symbol();}
@@ -75,6 +82,7 @@ std::string Affichage::get_player_symbol(Player* play){
 }
 
 std::string Affichage::affichage_player(Player* play){
+	/* fonction affichant le joueur et son symbole sur une ligne */
 	
 	std::string symb = this->get_player_symbol(play);
 	
@@ -89,6 +97,7 @@ std::string Affichage::affichage_player(Player* play){
 }
 
 std::string Affichage::make_big_ligne(){
+	/* fonction creant une ligne sur base de "-" et de "|" */
 	
 	std::stringstream ss;
 	
@@ -100,6 +109,7 @@ std::string Affichage::make_big_ligne(){
 }
 
 std::string Affichage::make_big_ligne_vide(){
+	/* fonction creant une ligne sur base de " " (espaces vide) et de "|" */
 	
 	std::stringstream ss;
 	
@@ -111,6 +121,7 @@ std::string Affichage::make_big_ligne_vide(){
 }
 
 std::string Affichage::get_affichage_line(int i,int new_i){
+	/* fonction creant une ligne avec au centre de chaque case le symbole de la pice s'y trouvant */
 	
 	std::stringstream s;
 	
@@ -172,12 +183,9 @@ std::string Affichage::get_affichage_line(int i,int new_i){
 }
 
 std::string Affichage::affichage_plateau(){
-	
-	//std::string pre ,std::string suf ,Dico* dico, std::string lang
+	/* fonction assemblant toutes les parties du plateau ensemble affin de pouvoir renvoyer un plateau complet */
 		
 	std::stringstream s;
-	
-	//std::vector<std::vector<BitypeVar<Chesspiece*>>>* plat = this->board;
 	
 	int taille_voulue_hor = this->get_taille_case_hor(); //8;
 	int taille_voulue_ver = this->get_taille_case_ver(); //2;
@@ -216,6 +224,7 @@ std::string Affichage::affichage_plateau(){
 }
 
 std::string Affichage::get_affichage(){
+	/* fonction d'affichage principal, affiche le plateau et les 2 joeurs a leur coté respectif */
 	
 	std::stringstream ss;
 	

@@ -15,8 +15,8 @@ void Client::connectionError(){
 }
 
 void Client::startingGame(bool playerTurn){
+	//this->_game->setmyTurn(playerTurn);
 	this->_gameStart = true;
-	//this->_myTurn = playerTurn;
 }
 
 void Client::opponentMov(int coord1, int coord2, bool lose){
@@ -167,50 +167,27 @@ bool Client::selectGameModeWindow(){
 }
 
 void Client::gameWindow(){
-//	//this->_lose = false;
-//	std::string answer;
-//    std::vector<int> listMov;
-//	int coord1;
-//	int coord2;
-//    while (true){
-//        std::cout << "Enter 1 for surrend, 2 for chat, 3 for checkmov";
-//        if (! listMov.empty())
-//                std::cout << ", 4 for mov";
-//        std::cout << std::endl;
-//        std::cin >> answer;
-//		myFlush();
-//        if (strcmp(answer.c_str(),"1")){
-//			this->_request->surrend();
-//            break;
-//        }
-//        else if (strcmp(answer.c_str(),"2")){
-//            ;;
-//        }
-//        else if (strcmp(answer.c_str(),"3") && this->_myTurn){ //getMov
-//			std::cout << "Enter the letter of the colomne and the number of the line (ex: 'B3'): ";
-//			std::cin >> answer;
-//			myFlush();
-//			//if ( check with regex ){
-//				//coord1 = convertStringToCoord(answer);
-//				//listMov = this->_request->getMov(coord);
-//			//}
-//        }
-//        else if(!listMov.empty() && strcmp(answer.c_str(),"4") && this->_myTurn){ //mov
-//			coord2 = -1;
-//			while (std::find(listMov.begin(), listMov.end(), coord2) != listMov.end()){
-//				std::cout << "Enter the letter of the colomne and the number of the line (ex: 'B3'): ";
-//				std::cin >> answer;
-//				myFlush();
-//				//coord2 = convertStringToCoord(answer);
-//			}
-//			this->_myTurn = false;
-//			//this->_bord->updateMov();
-//			this->_request->mov(coord1,coord2);
-//        }
-//		else{
-//			std::cout << "Please wait your turn." << std::endl;
-//		}
-//    }
+	std::string answer;
+	int coord1;
+	int coord2;
+    while (true){
+        std::cout << "Enter 1 for surrend, 2 for chat, 3 for play" << std::endl;
+        std::cin >> answer;
+		myFlush();
+        if (strcmp(answer.c_str(),"1")){
+			this->_request->surrend();
+            break;
+        }
+        else if (strcmp(answer.c_str(),"2")){
+            ;;
+        }
+        else if (strcmp(answer.c_str(),"3")){
+			//std::string mov = this->game->execTurn();
+			//this->request->mov(mov);
+			//if(this->game->end())
+			//	  break;
+        }
+    }
 }
 
 void Client::myFlush(){

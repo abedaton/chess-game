@@ -30,9 +30,8 @@ class Request{
         //more fct for chat
 		//more fct for friend
 		//more fct for stat
-        //std::vector<int> getMov(int coord); //OLD
-        void mov(int coord1, int coord2);
         void surrend();
+        void mov(std::string mov);
         //more fct for game
     private:
 		std::mutex _mutex;

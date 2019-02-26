@@ -31,9 +31,11 @@ class Database{
         void addUser(std::string username, std::string password, std::string email);
         bool isUsernameFree(std::string username);
         bool isLoginOk(std::string username, std::string password);
-        void update(std::string table, std::string colName, std::string username, std::string newValue);
+        void updateInfo(std::string table, std::string colName, std::string username, std::string newValue);
+        void updateUserLog(std::string table, int logged);
+        void updateUserDisc(std::string table);
         sqlite3* getdb();
-        void createInfoTable(std::string username);
+        void createInfoTable(std::string username, int socket);
     private:
         void createTable();
         long unsigned hashPass(std::string password);

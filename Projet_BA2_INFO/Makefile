@@ -12,4 +12,4 @@ serveur:
 .PHONY: clean
 
 clean:
-	rm serv cli
+	rm cli serv

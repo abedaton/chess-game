@@ -12,7 +12,6 @@ Chesspiece::Chesspiece(const Chesspiece& pe) : limite(pe.limite), position(pe.po
 	
 std::ostream& operator <<(std::ostream &s,Chesspiece &c){
 	/* affchage d'un Chesspiece */
-	//(void)c; // elimine le warning unused varaible sans ajouter des erreurs (enlever &c genere des ambiguités)
     s<<c.get_name(); //"Chesspiece()"
     return s;
 }
@@ -85,25 +84,6 @@ void Chesspiece::set_update_needed(bool up){this->updt_needed = up;}
 bool Chesspiece::get_update_needed(){return this->updt_needed;}
 
 void Chesspiece::make_capt_list(){this->set_liste_capt(this->get_liste_depl());}
-
-// ----------------HORS DECODER--------------------------------------------------------------
-
-/*
-void cond_add(std::vector<std::pair<int,int>>* vect, std::pair<int,int> paire){
-	bool found = false;
-	long long unsigned int i = 0;
-	while (i < vect->size() and found == false){
-		std::pair<int,int> elem;
-		elem = (*vect)[i];
-		if ((elem.first == paire.first) and (elem.second == paire.second)){found = true;}
-		
-		i++;
-	}
-	
-	if (found == false){vect->push_back(paire);}
-	
-}
-*/
 
 // -------------------------DECODER----------------------------------------------
 

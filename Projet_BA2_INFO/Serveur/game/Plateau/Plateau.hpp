@@ -41,8 +41,8 @@ class Plateau{
         void set_piece(std::pair<int,int>,Chesspiece*);
         BitypeVar<Chesspiece*> get_piece(std::pair<int,int>) const;
         
-        std::pair<bool,std::string> isvalid_move(std::pair<int,int>,std::pair<int,int>);
-        std::pair<bool,std::string> isvalid_move(std::pair<int,int>,std::pair<int,int>,std::string);
+        bool isvalid_move(std::pair<int,int>,std::pair<int,int>,std::string);
+        bool isvalid_move(std::pair<int,int>,std::pair<int,int>);
         
         bool move(std::pair<int,int>,std::pair<int,int>);
         bool switch_positions(std::pair<int,int>,std::pair<int,int>);

@@ -6,6 +6,7 @@ extern MyOstream mout;
 // --------------------------------- HORS DICO ------------------------------------------------------------------------------
 
 Dico* make_dico(std::string csv_path){
+	/* fonction qui s'occupe de généré un dico */
 	
 	Dico* dico = new Dico();
 
@@ -47,6 +48,8 @@ void Dico::show(){
 std::vector<std::string> Dico::get_ver_legende(){return this->get_tableau()[0];}
 
 std::vector<std::string> Dico::get_possible_laguages(){
+	/* fonction qui permet de recuperer les langues que ce dico peut comprendre
+	 * (en fonction de sa legende)*/
 	
 	std::vector<std::string> legende = this->get_hor_legende();
 	legende.erase(legende.begin());
@@ -55,6 +58,7 @@ std::vector<std::string> Dico::get_possible_laguages(){
 }
 
 std::string Dico::search(std::string langue, std::string rch){
+	/* fonction de recherche de tag dans le dictionnaire dans une certaine langue spécifé */
 	
 	std::vector<std::string> legende;
 	std::vector<std::string> lang_vect;

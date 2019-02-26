@@ -22,16 +22,16 @@ class User: public AbstractUser, public Human{
 	public:
 		User(int client_sock, Database* db, MatchMaking* match);
 		virtual ~User() = default;		
-        User(const User&);
-        User& operator= (const User&) noexcept = default;
+        User(const User&) = delete;
+        User& operator= (const User&) noexcept = delete;
 
-		//void startGame(AbstractGame*, bool) override;
+		void startGame(AbstractGame*, bool) override;
 		std::string in();
 		void out(std::string str);
 		void exit();
 		
-		//virtual std::string next_input() override;
-        //virtual void send_confirm_msg(std::string,bool) override;
+		//std::string next_input() override;
+        //void send_confirm_msg(std::string,bool) override;
         //using Human::send_confirm_msg;
 	
 	private:
@@ -39,20 +39,18 @@ class User: public AbstractUser, public Human{
 		Database* _db;
 		MatchMaking* _match;
 		AbstractGame* _game;
+		User* _opponent;
 
 		std::mutex _mutex;
 		std::string name;
-		bool isLog;
-		bool inGame;
-		bool UserTurn;
 		
 		void handleClient();
 		void checkLogin();
 		void letsRegister();
 		void chat();
 		void waitForMatch();
-		//void getMov(); //OLD
-		void mov(); //tmp
+		void mov();
+		void surrend();
 		
 		inline void waitForProcess();
 		inline void endProcess();
@@ -73,7 +71,7 @@ class User: public AbstractUser, public Human{
 };
 
 enum Protocol : int {
-	PASS = 0, REGISTER, LOGIN, TODO, WAITFORMATCH, GETMOV, MOV
+	PASS = 0, REGISTER, LOGIN, TODO, WAITFORMATCH, MOV, SURREND
 };
 
 #endif

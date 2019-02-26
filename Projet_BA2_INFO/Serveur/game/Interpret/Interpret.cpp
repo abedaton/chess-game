@@ -27,6 +27,7 @@ std::ostream& operator <<(std::ostream &s,Interpret* c){
 Dico* Interpret::get_dico(){return this->dico;}
 
 void Interpret::add_text(std::string text, bool endline, bool is_dict_tag){
+	/* fonction qui permet d'ajouter une commande a cet Interpret qui sera lue lors de la demande de texte */
 	
 	Trinome<std::string,bool,bool>* trinome = new Trinome<std::string,bool,bool>(text,endline,is_dict_tag);
 	this->text_list->push_back(trinome);
@@ -34,6 +35,7 @@ void Interpret::add_text(std::string text, bool endline, bool is_dict_tag){
 }
 
 std::string Interpret::get_text(std::string langue){
+	/* fonction qui récupère le texte de tout les commandes envoyer a cet Interpret */
 	
 	std::vector<Trinome<std::string,bool,bool>*>* vect = this->text_list;
 	

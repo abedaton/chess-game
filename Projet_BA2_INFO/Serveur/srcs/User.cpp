@@ -1,30 +1,18 @@
 # include "../includes/User.hpp"
 
-//User::User(int client_sock) : Human("") ,_clientSock(client_sock){
-//	pthread_t clientThread;
-//    pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
-//}
-User::User(int client_sock, Database* db, MatchMaking* match) : _clientSock(client_sock), _db(db), _match(match){
+User::User(int client_sock, Database* db, MatchMaking* match) : _clientSock(client_sock), _db(db), _match(match), _opponent(nullptr){
 	pthread_t clientThread;
     pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
 }
 
-
-// User::User(const User& user): Human(user), _clientSock(user._clientSock) {}
-User::User(const User& user): _clientSock(user._clientSock) {}
-
-//void User::startGame(AbstractGame* game, bool turn){
-	
-	//this->set_name("only_player");
-	
-	//this->launch_classic_game(this,this,"francais");
-	
-	//Game(this,this);
-//}
-
+void User::startGame(AbstractGame* game, bool turn){
+    this->_game = game;
+	int protocol = 20;
+    sendInt(protocol);
+    sendInt(static_cast<int>(turn));
+}
 
 void User::letsRegister() {
-    std::cout << "letsRegister" << std::endl;
     std::string username = recvStr();
     std::string password = recvStr();
     std::string email = recvStr();
@@ -33,9 +21,8 @@ void User::letsRegister() {
         this->_db->addUser(username, password, email);
         std::cout << "register successfull" << std::endl;
         this->name = username;
-        this->isLog = true;
         this->sendInt(1);
-        this->_db->createInfoTable(username);
+        this->_db->createInfoTable(username, this->_clientSock);
     }
     else{
          this->sendInt(0);
@@ -43,18 +30,14 @@ void User::letsRegister() {
 }
 
 void User::checkLogin() {
-    std::cout << "checking login" << std::endl;
     std::string username = recvStr();
     std::string password = recvStr();
 
     if (this->_db->isLoginOk(username,password)){
-        std::cout << "yup" << std::endl;
         this->name = username;
-        this->isLog = true;
         this->sendInt(1);
-        this->_db->createInfoTable(username);
+        this->_db->updateUserLog(username, this->_clientSock);
     } else {
-        std::cout << "nope" << std::endl;
         this->sendInt(0);
     }
 }
@@ -65,8 +48,16 @@ void User::chat(){
 
 void User::waitForMatch(){
     int gameMod = recvInt();
-    //int elo = this->db->getElo(this->name));
     this->_match->waitForMatch(this, gameMod);
+}
+
+void User::mov(){
+    std::string mov = recvStr();
+    //To Do
+}
+
+void User::surrend(){
+    //To Do
 }
 
 void User::out(std::string str){
@@ -82,6 +73,7 @@ std::string User::in(){
 void User::exit() {
     close(this->_clientSock);
     std::cout << "exiting.." << std::endl;
+    this->_db->updateUserDisc(this->name);
     pthread_exit(0);
 }
 
@@ -112,12 +104,9 @@ void User::handleClient(){
             case WAITFORMATCH: //4
                 this->waitForMatch();
                 break;    
-           // case GETMOV: //5
-           //     this->getMov();
-           //     break;
-           // case MOV: //6
-           //     this->mov();
-           //     break;
+            case MOV: //5
+                this->mov();
+                break;
             default:
                 this->exit();
                 end = true;
@@ -132,7 +121,6 @@ void User::handleClient(){
 }
 
 void  User::waitForProcess(){
-    std::cout << "lock" << std::endl;
     this->_mutex.lock();
 }
 
@@ -192,7 +180,7 @@ void User::updateInfo(){
 
 }
 
-//------------------------
+//------------------------ ???
 /*
 void User::launch_classic_game(User* player_one,User* player_two, std::string langue){
 	

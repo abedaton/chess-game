@@ -3,6 +3,7 @@
 // ---------------------- HORS classe BOT ------------------------------
 
 Bot* make_bot(std::string name_bot,std::string tag_bot,std::string csv_path){
+	/* fonction perlmettant de crée un bot */
 	
 	Bot* bot = new Bot(name_bot);
 	
@@ -52,6 +53,7 @@ std::string Bot::next_input(){
 }
 
 void Bot::set_moves(std::vector<std::string> vect){
+	/* fonction peremttant de donner au bot les mouvement qu'ild evra executer dans l'orde */
 	
 	this->move_list = vect;
 	
