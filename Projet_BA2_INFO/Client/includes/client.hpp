@@ -22,6 +22,7 @@ class Client: AbstractClient {
         void connectionError() override;
 		void startingGame(bool playerTurn) override;
 		void opponentMov(int coord1, int coord2, bool lose) override;
+		void recvMessage() override;
 	private:
 		Request* _request;
 		bool _gameStart;

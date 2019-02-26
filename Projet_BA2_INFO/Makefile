@@ -9,4 +9,7 @@ client:
 serveur:
 	make -C $(SERVEURDIR)
 
-.PHONY: client serveur all 
+.PHONY: clean
+
+clean:
+	rm serv cli

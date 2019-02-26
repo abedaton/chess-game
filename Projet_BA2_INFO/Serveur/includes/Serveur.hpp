@@ -8,9 +8,6 @@
 #include <iostream>
 #include <string>
 
-//#include "includes/database.hpp"
-//#include "includes/matchMaking.hpp"
-
 class Serveur {
     public:
         Serveur();

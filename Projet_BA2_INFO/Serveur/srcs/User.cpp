@@ -4,9 +4,7 @@
 //	pthread_t clientThread;
 //    pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
 //}
-User::User(int client_sock) :_clientSock(client_sock){
-	this->_db = new Database();
-	this->_match = new MatchMaking();
+User::User(int client_sock, Database* db, MatchMaking* match) : _clientSock(client_sock), _db(db), _match(match){
 	pthread_t clientThread;
     pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
 }
@@ -37,6 +35,7 @@ void User::letsRegister() {
         this->name = username;
         this->isLog = true;
         this->sendInt(1);
+        this->_db->createInfoTable(username);
     }
     else{
          this->sendInt(0);
@@ -53,6 +52,7 @@ void User::checkLogin() {
         this->name = username;
         this->isLog = true;
         this->sendInt(1);
+        this->_db->createInfoTable(username);
     } else {
         std::cout << "nope" << std::endl;
         this->sendInt(0);
@@ -93,15 +93,13 @@ void* User::run(void* tmp){
 }
 
 void User::handleClient(){
-    std::cout << "handleClient" << std::endl;
     bool end = false;
     Protocol protocol;
 	while (true){
-        protocol = static_cast<Protocol>(this->recvInt());
+        waitForProcess();
+        protocol = static_cast<Protocol>(this->recvInt(MSG_DONTWAIT));
         switch (protocol){
-            case EXIT: //0
-                this->exit();
-                end = true;
+            case PASS: //0
                 break;
             case REGISTER: //1
                 this->letsRegister();
@@ -109,7 +107,7 @@ void User::handleClient(){
             case LOGIN: //2
                 this->checkLogin();
                 break;
-            case PASS: //3
+            case TODO: //3
                 break;
             case WAITFORMATCH: //4
                 this->waitForMatch();
@@ -125,11 +123,23 @@ void User::handleClient(){
                 end = true;
                 break;
         }
+        endProcess();
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
         if (end){
             break;
         }
     }
 }
+
+void  User::waitForProcess(){
+    std::cout << "lock" << std::endl;
+    this->_mutex.lock();
+}
+
+void  User::endProcess(){
+    this->_mutex.unlock();
+}
+
 
 void User::sendInt(int num){
     uint16_t convertedNum = htons(static_cast<uint16_t>(num));
@@ -148,6 +158,18 @@ int User::recvInt(){
     return ntohs(Answer);
 }
 
+int User::recvInt(int flag){
+    uint16_t Answer;
+    int res = recv(this->_clientSock, &Answer, sizeof(uint16_t), flag);
+    if (res > 0){
+        return ntohs(Answer);
+    } else if (res < 0){
+        return 0;
+    } else {
+        this->exit();
+    }
+}
+
 void User::sendStr(std::string str){
     this->sendInt(static_cast<int>(str.size()));
     if (send(this->_clientSock, str.c_str(), str.size(), 0) <= 0){
@@ -164,6 +186,10 @@ std::string User::recvStr(){
     }
     std::string str(buffer.begin(), buffer.end());
     return str;
+}
+
+void User::updateInfo(){
+
 }
 
 //------------------------

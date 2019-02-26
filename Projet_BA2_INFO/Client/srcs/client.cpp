@@ -1,7 +1,7 @@
 #include "client.hpp"
 
 Client::Client(){
-	this->_request = new Request();
+	this->_request = new Request(this);
 	firstWindow();
 }
 
@@ -23,12 +23,17 @@ void Client::opponentMov(int coord1, int coord2, bool lose){
 	;;//to do
 }
 
+void Client::recvMessage(){
+	;;//to do
+}
+
 void Client::firstWindow(){
 	bool log = false;
 	bool exit = false;
 	char answer;
 	while(! log && !exit){
-		while ( answer != '1' && answer != '2' ) {
+		answer = ' ';
+		while ( answer != '1' && answer != '2' && answer != '3' ) {
 			std::cout << "Write 1 for login, 2 for register or 3 for exit:" << std::endl;
 			std::cin >> answer;
 			this->myFlush();
@@ -63,7 +68,8 @@ bool Client::registerWindow(){
         if (password != password2){
             std::cout << "Password does not match!" << std::endl;
             continue;
-        }
+        
+		}
         if (! std::regex_match(email.begin(), email.end(), regEmail)){
 			std::cout << "Invalid email." << std::endl;
 			continue;
@@ -72,13 +78,15 @@ bool Client::registerWindow(){
 			return true;
 		else{
 			char answer;
-			std::cout << "Write 1 for continue or 2 for exit: ";
+			std::cout << "Invalide Username.\n Write 1 for continue or 2 to go back: ";
 			std::cin >> answer;
+			this->myFlush();
 			while (answer != '1' && answer != '2'){
-				std::cout << "Please write 1 for continue or 2 for exit: ";
+				std::cout << "Please write 1 for continue or 2 to go back: ";
 				std::cin >> answer;
+				this->myFlush();
 			}
-			if (answer != '2')
+			if (answer == '2')
 				return false;
 		}
     }
@@ -99,13 +107,15 @@ bool Client::logInWindow(){
 		else{
 			char answer;
 			std::cout << "Invalid username or password." << std::endl;
-			std::cout << "Write 1 for continue or 2 for exit: ";
+			std::cout << "Write 1 for continue or 2 to go back: ";
 			std::cin >> answer;
+			myFlush();
 			while (answer != '1' && answer != '2'){
-				std::cout << "Please write 1 for continue or 2 for exit: ";
+				std::cout << "Please write 1 for continue or 2 to go back: ";
 				std::cin >> answer;
+				myFlush();
 			}
-			if (answer != '2')
+			if (answer == '2')
 				return false;
 		}
     }

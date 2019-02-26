@@ -36,6 +36,8 @@ void Serveur::setup(){
 
 void Serveur::mainLoop(){
     std::thread cmdThread(&Serveur::handleCommand, *this);
+    Database* db = new Database();
+	MatchMaking* match = new MatchMaking();
     int tmpClient;
     while (true){
         if ((tmpClient = accept(this->_serv_sock, reinterpret_cast<struct sockaddr*>(&this->_address), reinterpret_cast<socklen_t*>(&this->_addrlen))) >= 0){
@@ -46,7 +48,7 @@ void Serveur::mainLoop(){
                     std::cout << "resize" << std::endl;
                 }
                 this->_clients.at(static_cast<unsigned long int>(tmpClient-1)) = tmpClient;
-                User* tmpUser = new User(tmpClient); // <------ new important pour polymorphisme! - Quentin
+                User* tmpUser = new User(tmpClient, db, match); // <------ new important pour polymorphisme! - Quentin
             }
         }
     }

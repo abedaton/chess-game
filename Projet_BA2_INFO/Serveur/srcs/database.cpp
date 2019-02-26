@@ -117,3 +117,16 @@ int Database::callback(void* NotUsed, int argc, char** argv, char** columns){
 sqlite3* Database::getdb (){
 	return this->db;
 }
+
+
+void Database::createInfoTable(std::string username){
+	std::string sql = "CREATE TABLE IF NOT EXISTS " + username + " (username TEXT NOT NULL UNIQUE,\
+                                                    	socket INT,\
+                                                    	loggedIn BOOLEAN NOT NULL)";
+	char* zErrMsg = 0;
+	if (sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg) == SQLITE_OK){
+		std::cout << "New table " + username + " created\n";
+	} else {
+		std::cout << "Table " + username + " already exists (should never happen)!\n";
+	}
+}

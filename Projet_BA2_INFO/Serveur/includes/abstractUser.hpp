@@ -11,7 +11,7 @@ class AbstractUser{
         virtual std::string in() = 0; // méthode avec les quelle le jeu peux interagire avec le joueur
         virtual void out(std::string) = 0;
 
-        //virtual void startGame(AbstractGame*, bool) = 0; //for matchMaking
+        virtual void startGame(AbstractGame*, bool) = 0; //for matchMaking
 };
 
 #endif

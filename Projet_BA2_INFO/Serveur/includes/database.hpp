@@ -22,6 +22,7 @@
 #include <thread>
 #include <limits>
 #include <vector>
+#include <chrono>
 
 
 class Database{
@@ -32,6 +33,7 @@ class Database{
         bool isLoginOk(std::string username, std::string password);
         void update(std::string table, std::string colName, std::string username, std::string newValue);
         sqlite3* getdb();
+        void createInfoTable(std::string username);
     private:
         void createTable();
         long unsigned hashPass(std::string password);

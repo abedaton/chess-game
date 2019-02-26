@@ -1,6 +1,6 @@
 #include "request.hpp"
 
-Request::Request(){
+Request::Request(AbstractClient* client): _client(client){
 	setup();
 	pthread_create(&this->_listenerThread, NULL, &Request::run, static_cast<void*>(this));
 }
@@ -8,13 +8,6 @@ Request::Request(){
 Request::~Request(){
 	pthread_cancel(this->_listenerThread);
 	close(this->_clientSock);
-}
-
-void Request::exit(){ ;//utile?
-	waitForProcess();
-    int protocol = 0;
-	sendInt(protocol);
-	endProcess();
 }
 
 int Request::letsRegister(std::string username,std::string password, std::string email){
@@ -106,28 +99,45 @@ void* Request::run(void* tmp){
     static_cast<Request*>(tmp)->listener();
     return NULL;
 }
-
 void Request::listener(){
 	int protocol;
-	while (true){
+    while (true){
 		waitForProcess();
-        protocol = recvInt(MSG_PEEK);
+        protocol = recvInt(MSG_DONTWAIT);
         switch (protocol){
 			case (0):
                 break;
             case (20):
-				//
+				startingGame();
                 break;
             case (21):
-                //
+                opponentMov();
+                break;
+			case (22):
+                recvMessage();
                 break;
             default:
 				std::cout << "bad recive in listener: " << protocol << std::endl;
                 break;
         }
 		endProcess();
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
+}
+
+void Request::startingGame(){
+	int turn = recvInt();
+	this->_client->startingGame(turn);
+}
+
+void Request::opponentMov(){
+	//To Do
+	//this->_client->opponentMov(int, int, bool);
+}
+
+void Request::recvMessage(){
+	//To Do
+	this->_client->recvMessage();
 }
 
 void Request::error(){
@@ -151,15 +161,24 @@ inline void Request::endProcess(){
 }
 
 int Request::recvInt(){
-	return recvInt(MSG_WAITALL);
-}
-
-int Request::recvInt(int flag){
-	uint16_t tmpAnswer;
-    if (recv(this->_clientSock, &tmpAnswer, sizeof(uint16_t), flag) <= 0){
+    uint16_t tmpAnswer;
+    if (recv(this->_clientSock, &tmpAnswer, sizeof(uint16_t), MSG_WAITALL) <= 0){
         this->error();
     }
     return ntohs(tmpAnswer);
+}
+
+int Request::recvInt(int flag){
+	uint16_t Answer;
+    int res = recv(this->_clientSock, &Answer, sizeof(uint16_t), flag);
+    if (res > 0){
+        return ntohs(Answer);
+    } else if (res < 0){
+        return 0;
+    } else {
+        this->error();
+    }
+    //return ntohs(tmpAnswer);
 }
 
 void Request::sendStr(std::string str){

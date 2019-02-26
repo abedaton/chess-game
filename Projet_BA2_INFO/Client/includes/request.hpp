@@ -21,9 +21,8 @@
 
 class Request{
     public:
-        Request();
+        Request(AbstractClient* client);
         ~Request();
-        void exit();
         int letsRegister(std::string username,std::string password, std::string email);
         int login(std::string username,std::string password);
         void findMatch(int modDeJeu);
@@ -42,11 +41,14 @@ class Request{
         std::string _ipServ;
         int _clientSock;
         struct sockaddr_in _servAddr;
-		AbstractClient* client;
+		AbstractClient* _client;
 
         void setup();
 		static void* run(void*);
 		void listener();
+        void startingGame();
+        void opponentMov();
+        void recvMessage();
 		void error();
 		inline void waitForProcess();
 		inline void endProcess();

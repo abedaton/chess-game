@@ -4,12 +4,11 @@
 
 #include <vector>
 #include <pthread.h>
-//#include "../game/abstractGame.hpp"
 
 #include "abstractGame.hpp"
 #include "abstractUser.hpp"
 
-#include "../game/ClassicChess/ClassicChess.hpp"
+#include "../game/ClassicChess/ClassicChess.cpp"
 
 class MatchMaking{
 	public:
