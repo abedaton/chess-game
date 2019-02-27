@@ -31,6 +31,7 @@ PlatPosi::PlatPosi(int first,BitypeVar<int> second,BitypeVar<int> row_s) : MatPo
 	this->set_lig(lig);
 			
 	this->check_if_out_plat();
+	
 
 } //*< Constructor
 

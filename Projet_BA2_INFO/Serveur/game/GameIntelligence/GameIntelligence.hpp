@@ -25,7 +25,8 @@ class GameIntelligence{
         void make_classic_game_human_and_bot(std::string,std::string);
         void make_classic_game_two_bots(std::string,std::string,std::string);
         void make_classic_game_two_humans(std::string);
-        void make_classic_game_two_humanservs(std::string);
+        void make_classic_game_two_silenced_humans(std::string);
+        
         
         void execute_game();
 };

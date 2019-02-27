@@ -17,7 +17,7 @@ hierarchie
 partie plateau contient une serie de dossiers étant le tronc prinipal d'includes
 (mis dans un seul dossier au lieu d'en profondeur pour éviter de faire trop de couches)
 
-les branches parrallelles sont mis en profondeurs
+les branches parrallelles et familles sont mis en profondeurs, donc regroupés dans des fichiers
 
 (pour bien saisr la structure regarder le diagramme des includes d'avant
 [avec cette structure de dossier on peut dorénavent s'en passer])

@@ -52,12 +52,12 @@ void GameIntelligence::make_classic_game_two_humans(std::string langue){
 	this->make_classic_game(player_one,player_two,langue);
 }
 
-void GameIntelligence::make_classic_game_two_humanservs(std::string langue){
+void GameIntelligence::make_classic_game_two_silenced_humans(std::string langue){
 	/* fonction peremttant de lancer une partie classique avec 2 joueurs humains */
 	
-	HumanServ* player_one = new HumanServ("player1",langue);
+	SilencedHuman* player_one = new SilencedHuman("player1",langue);
 	
-	HumanServ* player_two = new HumanServ("player2",langue);
+	SilencedHuman* player_two = new SilencedHuman("player2",langue);
 	
 	this->make_classic_game(player_one,player_two,langue);
 }
