@@ -271,4 +271,23 @@ bool Plateau::verify_in_board(std::pair<int,int> paire){
 bool Plateau::is_empty_location(std::pair<int,int> paire){
 	/* fonction qui vérifie si a une coordonée ne se trouve pas une piece */
 	return (not(this->get_piece(paire)).get_state());
+}
+
+
+
+
+/*
+//prémises d'itérateur
+
+
+BitypeVar<Chesspiece*> Plateau::begin(){
+	
+}
+
+BitypeVar<Chesspiece*> Plateau::end(){ }
+
+BitypeVar<Chesspiece*> Plateau::next(){
+	
 	}
+
+*/

@@ -7,7 +7,7 @@
 #ifndef PIECES_HPP
 #define PIECES_HPP
 
-#include "../Chesspiece/Chesspiece.cpp"
+#include "Chesspiece/Chesspiece.cpp"
 
 class Tour: public Chesspiece{
 	public:

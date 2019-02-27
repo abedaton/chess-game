@@ -5,7 +5,7 @@
 //#include <string>
 //#include <vector>
 
-#include "Human/Human.cpp"
+#include "HumanServ/HumanServ.cpp"
 
 class Bot: public Player{
 	private:

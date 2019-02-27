@@ -29,8 +29,8 @@ class BitypeVar{
         //friend std::ostream& operator<< (std::ostream &s,BitypeVar<T>* c);
         
         
-        bool get_state();
-        Type get_var();
+        bool get_state() const;
+        Type get_var() const;
         
         void set_state(bool);
         void set_var(Type);
@@ -67,10 +67,10 @@ template<typename Type>
 BitypeVar<Type>::BitypeVar(bool b, Type t) : state(b), var(t) {}
 
 template<typename Type>
-bool BitypeVar<Type>::get_state(){return this->state;}
+bool BitypeVar<Type>::get_state() const {return this->state;}
 
 template<typename Type>
-Type BitypeVar<Type>::get_var(){return this->var;}
+Type BitypeVar<Type>::get_var() const {return this->var;}
 
 template<typename Type>
 void BitypeVar<Type>::set_state(bool etat){this->state = etat;}

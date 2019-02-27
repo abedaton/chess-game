@@ -50,6 +50,11 @@ class Plateau{
         bool verify_in_board(std::pair<int,int>);
         
         bool is_empty_location(std::pair<int,int>);
+        
+        // ajout pour iterator
+        BitypeVar<Chesspiece*> begin();
+        BitypeVar<Chesspiece*> end();
+        BitypeVar<Chesspiece*> next();
 
 };
 #endif

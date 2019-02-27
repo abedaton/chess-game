@@ -5,7 +5,7 @@
 //#include <vector>
 //#include <string>
 
-#include "../Bot/Bot.cpp"
+#include "../../Bot/Bot.cpp"
 
 class Decoder;
 

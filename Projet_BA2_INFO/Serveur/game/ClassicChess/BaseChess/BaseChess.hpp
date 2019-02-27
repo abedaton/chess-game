@@ -167,7 +167,8 @@ class BaseChess{
 		
 		bool can_escape_position(Chesspiece* ,std::string);
 		
-		//experiences
+		bool can_actif_player_move();
+
 		bool more_dangers_part(std::pair<int,int>, Player*, int, std::string);
 		
 		BitypeVar<MatPosi*>* in_endangered_part(std::pair<int,int>, Player*, int, std::string);			

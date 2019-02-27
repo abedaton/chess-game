@@ -9,7 +9,7 @@
 #ifndef INTERPRET_HPP
 #define INTERPRET_HPP
 
-#include "Dico/Dico.cpp"
+#include "../Dico/Dico.cpp"
 
 class Interpret{
 	/* classe crée dans le but d'instantanément pouvoir changer la langue du texte,

@@ -775,10 +775,12 @@ void BaseChess::show_depl_possibles(Chesspiece* pe){
 	 * paramètre d'entree : une piece d'echec
 	 * */
 	
-	mout<<this->get_dico()->search(this->get_active_player()->get_langue(),"liste_depl")<<" : ";
+	this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"liste_depl"),false);
+	this->get_active_player()->send_msg(" : ",false);
 	this->show_possible_mouvement(pe, "depl");
 	
-	mout<<this->get_dico()->search(this->get_active_player()->get_langue(),"liste_capt")<<" : ";
+	this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"liste_capt"),false);
+	this->get_active_player()->send_msg(" : ",false);
 	this->show_possible_mouvement(pe, "capt");
 	
 }
@@ -1402,6 +1404,36 @@ bool BaseChess::can_escape_position(Chesspiece* pe ,std::string mode){
 	}
 	
 	return escape;
+}
+
+bool BaseChess::can_actif_player_move(){
+	/* fonction implémenté en vue du pat */ 
+	
+	int taille = this->get_plateau()->get_taille();
+		
+	bool escape = false;
+		
+	int lig = 0;
+	while(lig<taille and not escape){ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (plustard iterateur iterator(plateau))
+		int col=0;
+		while(col<taille and not escape){			
+			MatPosi* mpos = new MatPosi(col,lig);
+			std::pair<int,int> paire = mpos->to_pair();
+			
+			if (not(this->get_plateau()->is_empty_location(paire))){
+				Chesspiece* pe = this->get_plateau()->get_piece(paire).get_var();
+				if (this->get_active_player() == pe->get_owner()){
+					
+					escape = this->can_escape_position(pe ,"depl");
+					if (not(escape)){escape = this->can_escape_position(pe ,"capt");}
+					
+				}
+			}
+		}
+	}
+	
+	return escape;
+	
 }
 
 bool BaseChess::more_dangers_part(std::pair<int,int> paire_zone, Player* limitator,int taille,std::string mode){
