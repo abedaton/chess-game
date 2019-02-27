@@ -41,6 +41,7 @@
         "condition_variable": "cpp",
         "mutex": "cpp",
         "bitset": "cpp",
-        "deque": "cpp"
+        "deque": "cpp",
+        "numeric": "cpp"
     }
 }

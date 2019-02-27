@@ -77,6 +77,7 @@ class BaseChess{
         virtual bool execute_step() = 0;
         
 	protected:
+		bool check_pat();
 		Player* get_low_player();
 		Player* get_high_player();
 		Player* get_other_player(Player*);

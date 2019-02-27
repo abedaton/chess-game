@@ -1,36 +1,60 @@
 #include "../includes/matchMaking.hpp"
+#define TIME 10
+
+
 
 MatchMaking::MatchMaking(){
-    pthread_t gameThread;
-    #pragma GCC diagnostic push
-    #pragma GCC diagnostic ignored "-Wzero-as-null-pointer-constant"
-    pthread_create(&gameThread, NULL, &MatchMaking::run, static_cast<void*>(this));
-    #pragma GCC diagnostic pop
+    struct matchMod* mMod;
+    for(int i = 1; i<5; ++i){
+        pthread_t thread;
+        mMod = static_cast<struct matchMod*>(malloc(sizeof(struct matchMod)));
+        (*mMod).match = this;
+        (*mMod).mod = i;
+        pthread_create(&thread, NULL, &MatchMaking::run, static_cast<void*>(mMod));
+    }
 }
 
 void* MatchMaking::run(void* tmp){
-    static_cast<MatchMaking*>(tmp)->startLoop();
+    struct matchMod* structMatch = static_cast<struct matchMod*>(tmp);
+    structMatch->match->poolSort(structMatch->mod);
     return NULL;
 }
 
-void MatchMaking::startLoop(){
+void MatchMaking::poolSort(int gameMod){
     while(true){
-        if (pool.size() > 1){
-            AbstractUser* player1 = pool.at(0);
-            pool.erase(pool.begin());
-            AbstractUser* player2 = pool.at(0);
-            pool.erase(pool.begin());
-            //AbstractGame* game = new Game(player1, player2); //// 
+        if (pools[gameMod-1].size() > 1){
+            int first, second;
+            //random en fonction de la size
+
+            srand((unsigned int)time(NULL));
+
+            first = rand() % pools[gameMod-1].size();
+            AbstractUser* player1 = pools[gameMod-1].at(first);
+            pools[gameMod-1].erase(pools[gameMod-1].begin());
+
+            second = rand() % pools[gameMod-1].size();
+            AbstractUser* player2 = pools[gameMod-1].at(second);
+            pools[gameMod-1].erase(pools[gameMod-1].begin()+1);
+            
+            //AbstractGame* game = new AbstractGame(player1, player2);
+            ///!\// Game* game = new Game(player1, player2, gameMod);
             //player1->startGame(game, true);
             //player2->startGame(game, false);
         }
+
     }
 }
 
+//initialisation des vecteur pour les différents modes de jeu
+void MatchMaking::initPool(int size){
+  for(int i = 0; i<size; ++i){
+    std::vector<AbstractUser*> v;
+    pools.push_back(v);
+  }
+}
+
+
+//On ajoute le joueur en fonction de son mode de jeu
 void MatchMaking::waitForMatch(AbstractUser* player,int gameMod){
-    
-    
-    if (gameMod == 1){
-        pool.push_back(player);
-    }
+  pools[gameMod-1].push_back(player);
 }

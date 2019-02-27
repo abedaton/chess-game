@@ -9,6 +9,10 @@ extern MyOstream mout;
 
 //-----------------------HORS CLASSE BaseChess-----------------------------------------------
 
+bool BaseChess::check_pat(){
+
+}
+
 bool check_end_game(BitypeVar<Chesspiece*> adv_pe, bool switch_pos){
 	
 	/* fonction qui vérifie si la derniere piece prise etait un roi
@@ -279,6 +283,10 @@ BitypeVar<std::vector<MatPosi>*>* calc_zones_between_zones(MatPosi* begin, MatPo
 }
 
 //--------------------BaseChess----------------------------------------------------------------------------------------------------
+
+bool BaseChess::check_pat(){
+	
+}
 
 BaseChess::BaseChess(Player* p_low,Player* p_high,Dico* dict , std::string lang) : plateau(nullptr) , low_player(p_low), high_player(p_high), active_player(p_low), dico(dict), langue(lang) {
 	//this->initialisation(); /!\ impossible de le mettre cette fonction ici car contructeur appelé par fils, par conséquent utilisation de fonction virtuelle pure dans ce cas.
