@@ -51,6 +51,7 @@ class Plateau{
         bool verify_in_board(std::pair<int,int>);
         
         bool is_empty_location(std::pair<int,int>);
+        bool is_empty_location(int);
         
         int begin_position();
         int end_position();

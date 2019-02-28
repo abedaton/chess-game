@@ -1468,7 +1468,31 @@ BitypeVar<MatPosi*>* BaseChess::in_endangered_part(std::pair<int,int> paire_zone
 	 * (ou dans le cas d'une case vide si elle est menacée par n'importe qu'elle piece, si oui elle la retourne) */
 	 
 	BitypeVar<MatPosi*>* danger = new BitypeVar<MatPosi*>();
+
+/*
+	int cnt = this->get_plateau()->begin_position();
+	int end_cnt = this->get_plateau()->end_position();
 	
+	// créer le ppos
+	
+	while (cnt <= end_cnt and danger->get_state() == false){
+		
+		// update valeurs des ppos;
+		
+		if (not(this->get_plateau()->is_empty_location(paire))){
+			if ((limitator->get_name() == "") or ((limitator->get_name() != "") and (limitator == this->get_plateau()->get_piece(paire).get_var()->get_owner()))){
+				bool compl_danger = this->complete_danger_test(paire,paire_zone,mode);
+				danger->set_state(compl_danger);
+				danger->set_var(mpos);
+			}
+		}
+		cnt++;
+	return danger;
+		
+	}
+*/
+
+
 	int lig = 0;
 	while(lig<taille and danger->get_state() == false){ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (plustard iterateur iterator(plateau))
 		int col=0;
@@ -1491,6 +1515,7 @@ BitypeVar<MatPosi*>* BaseChess::in_endangered_part(std::pair<int,int> paire_zone
 	return danger;
 	
 }
+
 
 BitypeVar<MatPosi*>* BaseChess::is_endangered(MatPosi* mpos_zone, Player* limitator){ // pe owner
 	/* fonction qui vérifie si la piece est menacée par une piece adverse, si oui elle la retourne.

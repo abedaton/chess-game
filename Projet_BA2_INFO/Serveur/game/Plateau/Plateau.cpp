@@ -284,6 +284,11 @@ bool Plateau::is_empty_location(std::pair<int,int> paire){
 	return (not(this->get_piece(paire)).get_state());
 }
 
+bool Plateau::is_empty_location(int sum_coords){
+	/* fonction qui vérifie si a une coordonée ne se trouve pas une piece */
+	return (not(this->get_piece(sum_coords)).get_state());
+}
+
 int Plateau::begin_position(){return 0;}
 int Plateau::end_position(){
 	
@@ -291,3 +296,5 @@ int Plateau::end_position(){
 	
 	return (plat_size*plat_size)-1; // -1 car commence a 0
 }
+
+//PlatPosi* Plateau::convert_coord(int sum_coords){return 0;}
