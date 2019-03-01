@@ -1440,25 +1440,31 @@ bool BaseChess::can_actif_player_move(){
 	int taille = this->get_plateau()->get_taille();
 		
 	bool escape = false;
+
+	int cnt = this->get_plateau()->begin_position();
+	int end_cnt = this->get_plateau()->end_position();
 		
-	int lig = 0;
-	while(lig<taille and not escape){ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (plustard iterateur iterator(plateau))
-		int col=0;
-		while(col<taille and not escape){			
-			MatPosi* mpos = new MatPosi(col,lig);
-			std::pair<int,int> paire = mpos->to_pair();
-			
-			if (not(this->get_plateau()->is_empty_location(paire))){
-				Chesspiece* pe = this->get_plateau()->get_piece(paire).get_var();
-				if (this->get_active_player() == pe->get_owner()){
-					
-					escape = this->can_escape_position(pe ,"depl");
-					if (not(escape)){escape = this->can_escape_position(pe ,"capt");}
-					
-				}
+	BitypeVar<int>* bit = new BitypeVar<int>(false,0);
+	BitypeVar<int>* plat_size = new BitypeVar<int>(true,taille);
+
+	while (cnt <= end_cnt and not escape){
+		
+		PlatPosi* ppos = new PlatPosi(cnt,*bit,*plat_size);
+		std::pair<int,int> paire = ppos->to_pair();
+		delete ppos;
+		
+		if (not(this->get_plateau()->is_empty_location(paire))){
+			Chesspiece* pe = this->get_plateau()->get_piece(paire).get_var();
+			if (this->get_active_player() == pe->get_owner()){
+				
+				escape = this->can_escape_position(pe ,"depl");
+				if (not(escape)){escape = this->can_escape_position(pe ,"capt");}
+				
 			}
 		}
+		cnt++;
 	}
+	
 	
 	return escape;
 	
@@ -1470,23 +1476,28 @@ bool BaseChess::more_dangers_part(std::pair<int,int> paire_zone, Player* limitat
 	 * (ou dans le cas d'une case vide si elle est menacée par n'importe qu'elle piece) */
 		
 	int count = 0;
-	int lig = 0;
-	while(lig<taille and count < 2){ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (plustard iterateur iterator(plateau))
-		int col=0;
-		while(col<taille and count < 2){			
-			MatPosi* mpos = new MatPosi(col,lig);
-			std::pair<int,int> paire = mpos->to_pair();
-			
-			if (not(this->get_plateau()->is_empty_location(paire))){				
-				if ((limitator->get_name() == "") or ((limitator->get_name() != "") and (limitator == this->get_plateau()->get_piece(paire).get_var()->get_owner()))){
-					bool compl_danger = this->complete_danger_test(paire,paire_zone,mode);
-					if (compl_danger == true){count +=1;}
-				}
+	
+	int cnt = this->get_plateau()->begin_position();
+	int end_cnt = this->get_plateau()->end_position();
+		
+	BitypeVar<int>* bit = new BitypeVar<int>(false,0);
+	BitypeVar<int>* plat_size = new BitypeVar<int>(true,taille);
+	
+	while (cnt <= end_cnt and count < 2){
+				
+		PlatPosi* ppos = new PlatPosi(cnt,*bit,*plat_size);
+		std::pair<int,int> paire = ppos->to_pair();
+		delete ppos;
+		
+		if (not(this->get_plateau()->is_empty_location(paire))){				
+			if ((limitator->get_name() == "") or ((limitator->get_name() != "") and (limitator == this->get_plateau()->get_piece(paire).get_var()->get_owner()))){
+				bool compl_danger = this->complete_danger_test(paire,paire_zone,mode);
+				if (compl_danger == true){count +=1;}
 			}
-			col++;
 		}
-		lig++;
+		cnt++;
 	}
+
 	return (count >= 2);
 }
 
@@ -1497,15 +1508,18 @@ BitypeVar<MatPosi*>* BaseChess::in_endangered_part(std::pair<int,int> paire_zone
 	 
 	BitypeVar<MatPosi*>* danger = new BitypeVar<MatPosi*>();
 
-/*
 	int cnt = this->get_plateau()->begin_position();
 	int end_cnt = this->get_plateau()->end_position();
-	
-	// créer le ppos
-	
-	while (cnt <= end_cnt and danger->get_state() == false){
 		
-		// update valeurs des ppos;
+	BitypeVar<int>* bit = new BitypeVar<int>(false,0);
+	BitypeVar<int>* plat_size = new BitypeVar<int>(true,taille); // this->get_plateau()->get_taille()
+
+	while (cnt <= end_cnt and danger->get_state() == false){
+				
+		PlatPosi* ppos = new PlatPosi(cnt,*bit,*plat_size);
+		std::pair<int,int> paire = ppos->to_pair();
+		MatPosi* mpos = ppos;
+		delete ppos;
 		
 		if (not(this->get_plateau()->is_empty_location(paire))){
 			if ((limitator->get_name() == "") or ((limitator->get_name() != "") and (limitator == this->get_plateau()->get_piece(paire).get_var()->get_owner()))){
@@ -1515,35 +1529,9 @@ BitypeVar<MatPosi*>* BaseChess::in_endangered_part(std::pair<int,int> paire_zone
 			}
 		}
 		cnt++;
-	return danger;
-		
-	}
-*/
-
-
-	int lig = 0;
-	while(lig<taille and danger->get_state() == false){ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (plustard iterateur iterator(plateau))
-		int col=0;
-		while(col<taille and danger->get_state() == false){			
-			MatPosi* mpos = new MatPosi(col,lig);
-			
-			std::pair<int,int> paire = mpos->to_pair();
-			
-			if (not(this->get_plateau()->is_empty_location(paire))){
-				if ((limitator->get_name() == "") or ((limitator->get_name() != "") and (limitator == this->get_plateau()->get_piece(paire).get_var()->get_owner()))){
-					bool compl_danger = this->complete_danger_test(paire,paire_zone,mode);
-					danger->set_state(compl_danger);
-					danger->set_var(mpos);
-				}
-			}
-			col++;
-		}
-		lig++;
 	}
 	return danger;
-	
 }
-
 
 BitypeVar<MatPosi*>* BaseChess::is_endangered(MatPosi* mpos_zone, Player* limitator){ // pe owner
 	/* fonction qui vérifie si la piece est menacée par une piece adverse, si oui elle la retourne.
@@ -1741,9 +1729,11 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 	//--
 	bool escape = false;
 	if (mode_echec == true){ // deteter aussi le PAT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! si roi est seul piece restante du jouer et qu'il ne peut plus bouger --> pat !!!!!!!!!!!!!!!!!!!!!!!!
-		//(sauf roc car si echec --> roc pas permis sinon inutile a verifier car roc ne peut pas empecher echec ou echec et mat (voir regles))
-		
+				
 		escape = this->can_escape_position(pe ,"depl");
+		
+		// verifier si le roi peu s'écchapper --> tester toutes les methodes de déplacments
+		//(sauf roc car si echec --> roc pas permis sinon inutile a verifier car roc ne peut pas empecher echec ou echec et mat (voir regles))
 		
 		if (not(escape)){escape = this->can_escape_position(pe ,"capt");}
 		ss<<"depl_esacpe? "<<escape<<std::endl;
@@ -1868,18 +1858,16 @@ bool BaseChess::verify_kings(){
 std::vector<Chesspiece*>* BaseChess::get_kings(){
 	/* fonction permettant de recuperer les roi des deux joueurs sur le plateau */
 	
-	int taille = this->get_plateau()->get_taille();
 	std::vector<Chesspiece*>* res = new std::vector<Chesspiece*>();
 	
-	for(int lig=0;lig<taille;lig++){ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (plustard iterateur iterator(plateau))
-		for(int col=0;col<taille;col++){
-			
-			MatPosi* mposi = new MatPosi(col,lig);
-			BitypeVar<Chesspiece*> dst = this->get_plateau()->get_piece(mposi->to_pair());
-			
-			if (verifier_type_pe<Roi>(dst) == true){
-				res->push_back(dst.get_var());
-			}
+	int cnt = this->get_plateau()->begin_position();
+	int end_cnt = this->get_plateau()->end_position();
+	
+	for(;cnt <= end_cnt;cnt++){ // 1e case for vide --> ok, car pas besoin d'initialiser cnt car déjà fait avant (noter simplement cnt sert a rien et génère un warning)
+		
+		BitypeVar<Chesspiece*> dst = this->get_plateau()->get_piece(cnt);
+		if (verifier_type_pe<Roi>(dst) == true){
+			res->push_back(dst.get_var());
 		}
 	}
 	return res;
