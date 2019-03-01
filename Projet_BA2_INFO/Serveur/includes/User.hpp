@@ -18,14 +18,14 @@
 
 
 
-class User: public AbstractUser, public Human{
+class User: public AbstractUser{
 	public:
 		User(int client_sock, Database* db, MatchMaking* match);
 		virtual ~User() = default;		
         User(const User&) = delete;
         User& operator= (const User&) noexcept = delete;
 
-		void startGame(AbstractGame*, bool) override;
+		void startGame(BaseChess*, AbstractUser*, bool) override;
 		std::string in();
 		void out(std::string str);
 		void exit();
@@ -38,8 +38,8 @@ class User: public AbstractUser, public Human{
 		int _clientSock;
 		Database* _db;
 		MatchMaking* _match;
-		AbstractGame* _game;
-		User* _opponent;
+		BaseChess* _game;
+		AbstractUser* _opponent;
 
 		std::mutex _mutex;
 		std::string name;

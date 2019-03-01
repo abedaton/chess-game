@@ -12,8 +12,10 @@
 #include <regex>
 
 #include "request.hpp"
+//#include "../../Serveur/game/ClassicChess/ClassicChess.cpp"
 
 #define PORT 5555
+
 
 class Client: AbstractClient {
     public:
@@ -47,6 +49,5 @@ class Client: AbstractClient {
 		std::string recvStr();
         int _clientSock;
 };
-
 
 #endif

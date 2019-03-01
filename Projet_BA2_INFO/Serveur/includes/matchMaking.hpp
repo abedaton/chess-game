@@ -10,8 +10,6 @@
 #include "abstractGame.hpp"
 #include "abstractUser.hpp"
 
-#include "../game/ClassicChess/ClassicChess.cpp"
-
 
 class MatchMaking{
 	public:
@@ -21,7 +19,7 @@ class MatchMaking{
     private:
         static void* run(void*);
 				//classic  = 0, trapist 1, dark 2, anti 3
-        std::vector<std::vector<AbstractUser*>> pools;
+        std::vector<std::vector<AbstractUser*> > pools;
 				void initPool(int size = 4);
         void poolSort(int mod);
 };

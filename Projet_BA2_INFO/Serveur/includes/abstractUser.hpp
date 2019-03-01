@@ -3,12 +3,13 @@
 #define ABSTRACTUSER_HPP
 
 #include <string>
+#include "../game/ClassicChess/ClassicChess.cpp"
 
 class AbstractGame;
 
-class AbstractUser{
+class AbstractUser : public Human{
     public:
-        virtual void startGame(AbstractGame*, bool) = 0;
+        virtual void startGame(BaseChess*, AbstractUser*, bool) = 0;
 };
 
 #endif

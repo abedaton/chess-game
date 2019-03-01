@@ -160,8 +160,8 @@ bool Client::selectGameModeWindow(){
 	if (answer == '5')
 		return false;
 	else{
-		this->_request->findMatch(static_cast<int>(answer));
-		;;//set bord
+		this->_request->findMatch(atoi(&answer));
+		;;//set game
 		return true;
 	}
 }
@@ -182,10 +182,11 @@ void Client::gameWindow(){
             ;;
         }
         else if (strcmp(answer.c_str(),"3")){
-			//std::string mov = this->game->execTurn();
-			//this->request->mov(mov);
-			//if(this->game->end())
-			//	  break;
+			// std::string mov = this->game->execute_step(std::string);
+			// this->request->mov(mov);
+			// if(this->game->end())
+			// 	  break;
+			// turn + Check_and_do_move
         }
     }
 }

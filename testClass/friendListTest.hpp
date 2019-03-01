@@ -10,12 +10,14 @@
 
 class FriendList{
     public:
+        FriendList();
         std::string getString();
         void setString(std::string string);
         int _a;
         int _b;
-        void addEdge(std::vector<int> adj[], int u, int v);
-        void printGraph(std::vector<int> adj[], int v);
+        void addEdge(std::vector<std::vector<int> > adj, int u, int v);
+        void printGraph(std::vector<std::vector<int> > adj, int v);
+        std::vector<std::vector<int> > adj;
     private:
         std::string _john;
 };

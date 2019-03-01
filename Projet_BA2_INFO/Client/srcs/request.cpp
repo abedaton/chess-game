@@ -140,7 +140,7 @@ void Request::recvMessage(){
 }
 
 void Request::error(){
-	//this->client->connectionError();
+	this->_client->connectionError();
 }
 
 inline void Request::waitForProcess(){

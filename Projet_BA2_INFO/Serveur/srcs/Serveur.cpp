@@ -26,7 +26,6 @@ void Serveur::setup(){
         std::cout << "Error: " << strerror(errno) << std::endl;
         this->sShutdown();
     }
-
     this->mainLoop();
 }
 

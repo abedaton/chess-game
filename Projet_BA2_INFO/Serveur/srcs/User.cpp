@@ -5,11 +5,14 @@ User::User(int client_sock, Database* db, MatchMaking* match) : _clientSock(clie
     pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
 }
 
-void User::startGame(AbstractGame* game, bool turn){
+void User::startGame(BaseChess* game, AbstractUser* oppenent, bool turn){
     this->_game = game;
+    this->_opponent = oppenent;
 	int protocol = 20;
     sendInt(protocol);
     sendInt(static_cast<int>(turn));
+    std::cout << "startGame" << std::endl;
+    
 }
 
 void User::letsRegister() {
@@ -48,6 +51,7 @@ void User::chat(){
 
 void User::waitForMatch(){
     int gameMod = recvInt();
+    std::cout << gameMod << std::endl;
     this->_match->waitForMatch(this, gameMod);
 }
 
