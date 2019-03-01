@@ -57,6 +57,10 @@ std::pair<MatPosi*,MatPosi*> sort_two_mpos(MatPosi*, MatPosi*);
 
 BitypeVar<std::vector<MatPosi>*>* calc_zones_between_zones(MatPosi*, MatPosi*, Player*);
 
+bool is_elem_in_vect(std::vector<MatPosi*>*,MatPosi*);
+
+std::vector<MatPosi*>* get_path_intesection(std::vector<std::vector<MatPosi*>*>*);
+
 class BaseChess{
     private:
 		Plateau* plateau;
