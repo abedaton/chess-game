@@ -5,7 +5,7 @@
 //    pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
 //}
 User::User(int client_sock) :_clientSock(client_sock){
-	this->_db = new Database();
+	this->_db = new    Database();
 	this->_match = new MatchMaking();
 	pthread_t clientThread;
     pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
@@ -83,6 +83,23 @@ std::string User::in(){
 void User::exit() {
     close(this->_clientSock);
     std::cout << "exiting.." << std::endl;
+ 
+    int i = 0;   
+    bool found = false;
+    while(found == false && i < onlineUsers.size())
+    {
+        if(onlineUsers[i] != this)
+            i++;
+        else
+            {
+                found = true;
+                onlineUsers.erase(onlineUsers.begin() + i);
+            }
+    }
+    
+    
+    
+
     pthread_exit(0);
 }
 
@@ -94,13 +111,36 @@ std::string User::getName()
 }
 
 
+//------------------------------------------------------------------------------
+//toutes les fonctions par rapport a la liste d'amis implémentées ici:
+//------------------------------------------------------------------------------
+User* User::findUserByName(std::string name)
+{
+    User * res = nullptr;
+    int i = 0;
+    while(i < onlineUsers.size() && res == nullptr)
+   {
+        if(name == onlineUsers[i]->getName())
+            res = onlineUsers[i];
+        i++;
+    }
+
+    return res;
+}
+
+
+/*
+note findUserByName est un mauvais moyen pour trouver si un joueur est toujours en ligne
+je pense que ce serait mieux de juste supprimer de la variable membre friends
+ au fur et à mesure qu'un joueur se deconnecte
+*/
 void User::listOnlineFriends()
 {
     sendInt(friends.size());
     for(int i = 0; i < friends.size(); i++)
     {
-        //todo check si ils sont tjr connectés
-        sendStr(friends[i]->getName());
+        if(findUserByName(friends[i]->getName()) != nullptr) //on regarde si il est toujours en ligne
+            sendStr(friends[i]->getName());
     }
 }
 
@@ -111,9 +151,53 @@ void User::addFriendToList(User *new_friend)
 
 
 
+void User::addFriend()
+{
+    
+    std::string nameOfUserToAdd = recvStr();
+    std::cout << name << "is trying to add " << nameOfUserToAdd << std::endl;
+    User* userToAdd = findUserByName(nameOfUserToAdd);
+    userToAdd->sendfriendRequestNotification(this);
+}
+
+void User::sendfriendRequestNotification(User *userAdding)
+{
+    sendInt(NEWFRIENDREQUEST);
+    sendStr(userAdding->getName());
+
+    int answer = recvInt();
+    if(answer == 1)
+    {
+        std::cout << "he accepted the request " << std::endl;
+        userAdding->addFriendToList(this);
+        this->addFriendToList(userAdding);
+        //sauvgarder dans la bdd ici ?
+    }
+
+}
+
+void removeFromFriends(User *userToRemove)
+{
+    
+}
+
+void User::removeFriend()
+{
+    std::string nameOfUserToDelete = recvStr();
+    //on supprime dans le sdeux
+    User *otherUser = findUserByName(nameOfUserToDelete);
 
 
+}
 
+void User::dbgSetName()
+{
+    name = recvStr();
+    std::cout << "name was received" << name.c_str() << std::endl;
+    //pwnd_ignore = recvStr();
+    //sendInt(1);
+    std::cout << name.c_str() << "just connected \n " << std::endl;
+}
 
 
 
@@ -124,12 +208,15 @@ void* User::run(void* tmp){
     return NULL;
 }
 
+
+
 void User::handleClient(){
     std::cout << "handleClient" << std::endl;
     bool end = false;
     Protocol protocol;
-	while (true){
+    while (true){
         protocol = static_cast<Protocol>(this->recvInt());
+        std::cout << "protocol received: " << protocol << "  " << ADDFRIEND <<std::endl;
         switch (protocol){
             case EXIT: //0
                 this->exit();
@@ -139,7 +226,8 @@ void User::handleClient(){
                 this->letsRegister();
                 break;
             case LOGIN: //2
-                this->checkLogin();
+                //this->checkLogin();
+                dbgSetName();
                 break;
             case PASS: //3
                 break;
@@ -155,9 +243,15 @@ void User::handleClient(){
             
             case LISTONLINEFRIENDS: 
                 this->listOnlineFriends();
+                //std::cout<< "yeah received " << recvInt() << std::endl;
+                break;
+            case ADDFRIEND:
+                addFriend();
                 break;
 
-
+            case REMOVEFRIEND:
+                removeFriend();
+                break;
 
             default:
                 this->exit();
@@ -194,15 +288,48 @@ void User::sendStr(std::string str){
     }
 }
 
+/*
 std::string User::recvStr(){
     int len_str = recvInt(); //probleme avec ce code si len_str est negatif ca va crash le serveur non? 
+    std::cout << "length is :" << len_str << std::endl;
     std::vector<char> buffer(static_cast<long unsigned int>(len_str));
     if (recv(this->_clientSock, &buffer[0], buffer.size(), MSG_WAITALL) <= 0){
         std::cout << "Bad recvStr, client disconnected : " << std::endl;
         this->exit();
     }
+    
+
     std::string str(buffer.begin(), buffer.end());
     return str;
+}
+*/
+
+std::string User::recvStr()
+{
+    std::string res;
+    int size = this->recvInt();
+    if(size > 0)
+    {
+        char *str = new char[size+1];
+        std::cout << "size "  << size << std::endl;
+        std::memset(str, 0, size+1);
+
+        if(recv(this->_clientSock, str, size, MSG_WAITALL) <= 0)
+        {   
+            std::cout << " failed  " << std::endl;
+            this->exit();
+            
+        }
+
+        res = str;
+        delete[] str;
+    }
+    else{
+        res = "error";
+    }
+    
+    std::cout<< res.c_str() <<  "was received len:" << size << std::endl;
+    return res;
 }
 
 //------------------------
