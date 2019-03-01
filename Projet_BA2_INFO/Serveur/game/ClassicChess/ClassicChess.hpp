@@ -13,7 +13,7 @@
 
 class ClassicChess: public BaseChess{
 	public:
-        ClassicChess(Player*,Player*,Dico*,std::string); //*< Constructor
+        ClassicChess(Player*,Player*,Dico*); //*< Constructor
         ClassicChess() noexcept = default; //*< Constructor
         ~ClassicChess() noexcept = default; //Destructor
         ClassicChess(const ClassicChess&) noexcept = default;

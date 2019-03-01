@@ -8,14 +8,14 @@ void GameIntelligence::set_game(BaseChess* jeu){
 	this->game = jeu;
 }
 
-void GameIntelligence::make_classic_game(Player* player_one, Player* player_two, std::string langue){
+void GameIntelligence::make_classic_game(Player* player_one, Player* player_two){
 	
 	mout<<player_one<<std::endl;
 	mout<<player_two<<std::endl;
 	
 	Dico* dico = make_dico("../../csv");
 	
-	ClassicChess* serv = new ClassicChess(player_one,player_two,dico,langue);
+	ClassicChess* serv = new ClassicChess(player_one,player_two,dico);
 	
 	this->set_game(serv);
 
@@ -28,18 +28,18 @@ void GameIntelligence::make_classic_game_human_and_bot(std::string langue,std::s
 	
 	Bot* player_two = make_bot("player2",tag_bot,"../../bots_csv");
 	
-	this->make_classic_game(player_one,player_two,langue);
+	this->make_classic_game(player_one,player_two);
 	
 }
 
-void GameIntelligence::make_classic_game_two_bots(std::string langue, std::string tag_bot_one, std::string tag_bot_two){
+void GameIntelligence::make_classic_game_two_bots(std::string tag_bot_one, std::string tag_bot_two){
 	/* fonction peremttant de lancer une partie classique avec 2 bots de test */
 	
 	Bot* player_one = make_bot("player1",tag_bot_one,"../../bots_csv");
 	
 	Bot* player_two = make_bot("player2",tag_bot_two,"../../bots_csv");
 	
-	this->make_classic_game(player_one,player_two,langue);
+	this->make_classic_game(player_one,player_two);
 }
 
 void GameIntelligence::make_classic_game_two_humans(std::string langue){
@@ -49,7 +49,7 @@ void GameIntelligence::make_classic_game_two_humans(std::string langue){
 	
 	Human* player_two = new Human("player2",langue);
 	
-	this->make_classic_game(player_one,player_two,langue);
+	this->make_classic_game(player_one,player_two);
 }
 
 void GameIntelligence::make_classic_game_two_silenced_humans(std::string langue){
@@ -59,7 +59,7 @@ void GameIntelligence::make_classic_game_two_silenced_humans(std::string langue)
 	
 	SilencedHuman* player_two = new SilencedHuman("player2",langue);
 	
-	this->make_classic_game(player_one,player_two,langue);
+	this->make_classic_game(player_one,player_two);
 }
 
 void GameIntelligence::execute_game(){

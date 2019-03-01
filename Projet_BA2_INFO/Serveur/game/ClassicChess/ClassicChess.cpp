@@ -8,7 +8,7 @@ extern MyOstream mout;
 
 //--------------------ClassicChess----------------------------------------------------------------------------------------------------
 
-ClassicChess::ClassicChess(Player* p_low, Player* p_high, Dico* dict, std::string lang) : BaseChess(p_low,p_high,dict,lang){
+ClassicChess::ClassicChess(Player* p_low, Player* p_high, Dico* dict) : BaseChess(p_low,p_high,dict){
 	this->initialisation();
 } //*< Constructor
 

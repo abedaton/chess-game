@@ -68,10 +68,9 @@ class BaseChess{
 		Player* high_player;
 		Player* active_player;
 		Dico* dico;
-		std::string langue;
 
 	public:
-        BaseChess(Player*,Player*,Dico*,std::string); //*< Constructor
+        BaseChess(Player*,Player*,Dico*); //*< Constructor
         BaseChess() noexcept = default; //*< Constructor
         virtual ~BaseChess() noexcept = default; //Destructor
         BaseChess(const BaseChess&) noexcept = default;

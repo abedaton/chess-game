@@ -320,7 +320,7 @@ std::vector<MatPosi*>* get_path_intesection(std::vector<std::vector<MatPosi*>*>*
 
 //--------------------BaseChess----------------------------------------------------------------------------------------------------
 
-BaseChess::BaseChess(Player* p_low,Player* p_high,Dico* dict , std::string lang) : plateau(nullptr) , low_player(p_low), high_player(p_high), active_player(p_low), dico(dict), langue(lang) {
+BaseChess::BaseChess(Player* p_low,Player* p_high,Dico* dict) : plateau(nullptr) , low_player(p_low), high_player(p_high), active_player(p_low), dico(dict){
 	//this->initialisation(); /!\ impossible de le mettre cette fonction ici car contructeur appelé par fils, par conséquent utilisation de fonction virtuelle pure dans ce cas.
 	// a mettre dans le constructeur du fils !!!
 	
