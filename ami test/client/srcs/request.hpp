@@ -31,12 +31,14 @@ class Request{
         
 
 
-
-        //Les fonctions pour liste d'amis d'ici
+    
         bool listOnlineFriends();
+        bool addFriend(std::string name);
+        void removeFriend(std::string name);
+        void recvFriendAddNotification();
 
 
-        
+
 
         //more fct for chat
 		//more fct for friend
@@ -54,6 +56,8 @@ class Request{
         struct sockaddr_in _servAddr;
 		AbstractClient* client;
 
+        
+
         void setup();
 		static void* run(void*);
 		void listener();
@@ -65,13 +69,18 @@ class Request{
         int recvInt();
 		int recvInt(int flag);
         void sendInt(int num);
+
+
+        
+
+
         //recvUint(); ?
 };
 
 
 enum Protocol : int {
     EXIT = 0, REGISTER, LOGIN, PASS, WAITFORMATCH, GETMOV, MOV, 
-    LISTONLINEFRIENDS, ADDFRIEND, REMOVEFRIEND
+    LISTONLINEFRIENDS, ADDFRIEND, REMOVEFRIEND, NEWFRIENDREQUEST
 };
 
 #endif
