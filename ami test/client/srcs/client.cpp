@@ -1,12 +1,26 @@
 #include "client.hpp"
 
+
 Client::Client(){
 	this->_request = new Request(); //pq dynamiquement ?
+	//firstWindow();
+}
+
+//pour aller plus vite dans les tests
+void Client::Run(std::string n )
+{
+	std::cout<< "sending:" << n << std::endl;
+	_request->login(n,"ignore");
 	firstWindow();
 }
 
+
+
+
+
 Client::~Client(){
 	std::cout << "Destructor"  << std::endl;
+	//delete this->_requests; ???????
 }
 
 void Client::connectionError(){
@@ -21,6 +35,13 @@ void Client::startingGame(bool playerTurn){
 
 void Client::opponentMov(int coord1, int coord2, bool lose){
 	;;//to do
+}
+
+
+
+void Client::firstWindow(){
+	
+	friendsWindow();
 }
 
 
@@ -55,32 +76,73 @@ void Client::listOnlineFriends()
 }
 
 
+//use mutex pour voir liste d'amis
 void Client::friendsWindow()
 {
 	unsigned int res = 0;
-	/*const char *action_type[] = {"Ajouter un ami", "Lister tous les amis connectés" };
-
-	std::cout << "Que désirez vous faire?: " << std::endl;
-	std::cout << "1) Ajouter un ami: " << std::endl;
-	std::cout << "2) Lister tous les amis connectés: " << std::endl;
-
-	std::cin >> res;
-	while(res == 0 || res > 2)
-	{	
-		std::cout << "Choix invalide veuillez réessayer:" << std::endl;
-		std::cin >> res;
-	}*/
-	res = 2;
-
-	if(res == 2)
-		listOnlineFriends();
-
 	
+	while(res != 7)
+	{
+		std::cout << "Que désirez vous faire?: " << std::endl;
+		std::cout << "1) Ajouter un ami " << std::endl;
+		std::cout << "2) Lister tous les amis connectés " << std::endl;
+		std::cout << "3) Supprimer un ami " << std::endl;
+		std::cout << "4) Consulter mes demandes d'amis/de parties " << std::endl;
+		std::cout << "5) Proposer à un ami de faire une partie " << std::endl;
+		std::cout << "6) Chat avec des amis " << std::endl;
+		std::cout << "7) Retourner au menu principal " << std::endl;
+
+		std::cin >> res;
+		while(res == 0 || res > 7)
+		{	
+			std::cout << "Choix invalide veuillez réessayer:" << std::endl;
+			std::cin >> res;
+		}
+		
+
+		switch (res)
+		{
+			case 1:
+			
+				std::string friendName;
+				std::cout<< "Veuillez entrer le nom de l'ami à ajouter: ";
+				std::cin >> friendName;
+				if(!_request->addFriend(friendName))
+					std::cout << friendName << " n'existe pas " << std::endl;
+				
+				break;
+
+			case 2:
+				_request->listOnlineFriends();
+
+			case 3:
+				_request->listOnlineFriends();
+
+			case 4:
+			
+				std::cout << "écrivez \"exit\" pour revenir au menu" <<std::endl;
+				std::string tmp;
+				while(tmp != "exit")
+					std::cin >> tmp;
+				break;
+			case 5:
+				break;
+
+			case 6:
+				break;
+			case 7:
+				break;
+
+
+			else
+			{
+				std::cout << "Choix invalide veuillez réessayer:" << std::endl;
+			}
+		}
+	}
 }
 
-void Client::firstWindow(){
-	friendsWindow();
-}
+
 
 
 
