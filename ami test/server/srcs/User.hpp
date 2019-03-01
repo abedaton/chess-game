@@ -36,8 +36,13 @@ class User: public AbstractUser{
 		void out(std::string str);
 		void exit();
 		std::string getName();
-		void setName(const char *new_name) { name = new_name;}
+		
 
+		void sendfriendRequestNotification(User *userAdding); //private ?
+		void removeFromFriends(User *userToRemove);
+
+
+		void dbgSetName();
 	private:
 		int _clientSock;
 		Database* _db;
@@ -71,10 +76,16 @@ class User: public AbstractUser{
 
    		private:
         std::vector<User*> friends; //todo: meilleure data structure
-        User *findUserByID(int id);
+        //std::vector<User*> *users_online;
+        
+        User *findUserByName(std::string name);
         void listOnlineFriends();
-        void deleteFriend(int id_of_user_to_delete);
-        void addFriend(int id_of_user_to_add);
+        //void deleteFriend(std::string name_of_user_to_add);
+        void addFriend();
+        void removeFriend();
+        
+        void sendAcceptNotification(User *acceptedUser);
+
 
         //notifications to send dans bdd ou seulement en ligne
         //comment contacter clients en ligne comment contacter client 
@@ -87,8 +98,11 @@ class User: public AbstractUser{
 };
 
 enum Protocol : int {
-	EXIT = 0, REGISTER, LOGIN, PASS,WAITFORMATCH, GETMOV, MOV, 
-	LISTONLINEFRIENDS, ADDFRIEND, REMOVEFRIEND
+    EXIT = 0, REGISTER, LOGIN, PASS, WAITFORMATCH, GETMOV, MOV, 
+    LISTONLINEFRIENDS, ADDFRIEND, REMOVEFRIEND, NEWFRIENDREQUEST
 };
+
+extern std::vector<User*> onlineUsers;
+
 
 #endif
