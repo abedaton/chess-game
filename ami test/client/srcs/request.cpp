@@ -35,10 +35,11 @@ int Request::login(std::string username,std::string password){
     int protocol = 2;
     sendInt(protocol);
     sendStr(username);
-    sendStr(password);
-	int res = recvInt();
-	endProcess();
-    return res;
+    /*sendStr(password);
+	int res = recvInt();*/
+	std::cout << "was ended \n";
+    endProcess();
+    return 1;
 }
 
 void Request::chat(){
@@ -87,27 +88,63 @@ void Request::surrend(){
 }
 
 
-
+void Request::removeFriend(std::string name)
+{
+    sendInt(REMOVEFRIEND);
+    sendStr(name);
+}
 
 //Fonctions par rapport aux liste d'amis ici:
 
 bool Request::listOnlineFriends()
 {
+    waitForProcess();
     bool res;
     sendInt(LISTONLINEFRIENDS);
     int friendsOnline = recvInt();
-    if(friendsOnline >= 0)
-    {
-        std::cout << "Vous avez: " << friendsOnline <<  "ami(s) en ligne" << std::endl; 
-        for(int i = 0; i < friendsOnline; i++)
-            std::cout << recvStr() << "is online " << std::endl;
-    }
-    else
-        res = false;
+  
+    std::cout << "Vous avez: " << friendsOnline <<  "ami(s) en ligne" << std::endl; 
+    for(int i = 0; i < friendsOnline; i++)
+        std::cout << recvStr() << " is online " << std::endl;
+    
+   
+
+    //sendInt(445);
+    endProcess();
     return res;
 }
 
+bool Request::addFriend(std::string name)
+{
+    std::cout << "addfriend was called" << std::endl;
+    waitForProcess();
+    sendInt(ADDFRIEND);
+    sendStr(name);
+    std::cout << "Vous avez ajouté: \"" << name << "\" à votre liste d'amis veuillez attendre sa réponse" << std::endl;
+    std::cin >> name; //to wait
+    endProcess();
+    return true;
+}
 
+
+void Request::recvFriendAddNotification()
+{
+    std::cout << "\n" << recvStr() << " souhaite vous ajouter en ami: " << std::endl;
+    char res;
+    while(res != 1 && res != 2)
+    {
+        std::cout << "veuillez appuyer sur y pour l'accepter, n pour le refuser: ";
+        std::cin >> res;
+        std::cout <<  "aaaaaaaaaa  " << res;
+    }
+
+    
+    char toSend[2];
+    std::memset(toSend, 0, 2);
+    toSend[0] = res;
+    sendStr(toSend);
+    //sendInt(res);
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////PRIVIET
 void Request::setup(){
@@ -130,28 +167,38 @@ void* Request::run(void* tmp){
     return NULL;
 }
 
+
 void Request::listener(){
-	int protocol;
-	while (true){
-		waitForProcess();
-        protocol = recvInt(MSG_PEEK);
+    int protocol;
+    while (true){
+        waitForProcess();
+        protocol = recvInt(MSG_DONTWAIT);
         switch (protocol){
-			case (0):
+            case (0):
                 break;
-            case (20):
-				//
+           /* case (20):
+                startingGame();
                 break;
             case (21):
-                //
+                opponentMov();
+                break;*/
+            /*case (22):
+                recvMessage();
+                break;*/
+
+            case (NEWFRIENDREQUEST):
+                recvFriendAddNotification();
                 break;
             default:
-				std::cout << "bad recive in listener: " << protocol << std::endl;
+                std::cout << "bad recive in listener: " << protocol << std::endl;
                 break;
         }
-		endProcess();
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        endProcess();
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
 }
+
+
 
 void Request::error(){
 	//this->client->connectionError();
