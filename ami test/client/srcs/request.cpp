@@ -94,8 +94,17 @@ void Request::surrend(){
 //------------------------------------------------------------------------------
 void Request::removeFriend(std::string name)
 {
+    waitForProcess();
     sendInt(REMOVEFRIEND);
     sendStr(name);
+
+    int res = recvInt();
+    if(res == 0)
+        std::cout << "L'utilisateur à supprimer n'a pas été trouvé " << std::endl;
+    else
+        std::cout << "L'utilisateur a correctement été supprimé" << std::endl;
+    endProcess();
+
 }
 
 
@@ -103,7 +112,6 @@ void Request::removeFriend(std::string name)
 bool Request::listOnlineFriends()
 {
     waitForProcess();
-    bool res;
     sendInt(LISTONLINEFRIENDS);
     int friendsOnline = recvInt();
   
@@ -113,7 +121,7 @@ bool Request::listOnlineFriends()
     
    
     endProcess();
-    return res;
+    return true;
 }
 
 /*
@@ -123,7 +131,6 @@ mes demandes d'amis pour l'accepter et le serveur se charge du reste.
 */
 bool Request::addFriend(std::string name)
 {
-    std::cout << "addfriend was called" << std::endl;
     waitForProcess();
     sendInt(ADDFRIEND);
     sendStr(name);
