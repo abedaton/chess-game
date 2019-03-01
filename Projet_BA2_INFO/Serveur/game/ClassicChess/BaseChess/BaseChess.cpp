@@ -278,6 +278,46 @@ BitypeVar<std::vector<MatPosi>*>* calc_zones_between_zones(MatPosi* begin, MatPo
 	
 }
 
+bool is_elem_in_vect(std::vector<MatPosi*>* vect,MatPosi* elem){
+	
+	bool found = false;
+	
+	long long unsigned int i=0;
+	while(i<vect->size() and not found){
+		if (*elem == (*((*vect)[i]))){found = true;}
+		i++;
+	}
+	
+	return found;
+}
+
+
+std::vector<MatPosi*>* get_path_intesection(std::vector<std::vector<MatPosi*>*>* vect){
+	
+	std::vector<MatPosi*>* res = new std::vector<MatPosi*>();
+	
+	for(long long unsigned int i=0;i<((*vect)[0])->size();i++){
+		
+		std::vector<MatPosi*> small_vect = *((*vect)[0]);
+		MatPosi* elem = (small_vect[i]);
+		
+		bool common = true;
+		long long unsigned int j=0;
+		
+		while(j<vect->size() and common == true){
+			
+			if(not is_elem_in_vect((*vect)[j],elem)){common = false;}
+			j++;
+		}
+		
+		if (common == true){res->push_back(elem);}
+	}
+	
+	
+	return res;
+	
+}
+
 //--------------------BaseChess----------------------------------------------------------------------------------------------------
 
 BaseChess::BaseChess(Player* p_low,Player* p_high,Dico* dict , std::string lang) : plateau(nullptr) , low_player(p_low), high_player(p_high), active_player(p_low), dico(dict), langue(lang) {
@@ -1242,11 +1282,13 @@ std::vector<MatPosi*>* BaseChess::check_possible_mouvement(Chesspiece* pe ,std::
 	return res;
 }
 
-BitypeVar<AdvTuple*>* BaseChess::find_linking_advtuple(std::pair<int,int> pair_in, std::pair<int,int> pair_out, std::string mode){
-	/* fonction qui récupère trouve l'Advtuple liant les 2 coordonées via la recheche de la 2e coordonnes dans la liste de deplacement de mla premiere
+BitypeVar<std::vector<AdvTuple*>*>* BaseChess::find_linking_advtuple(std::pair<int,int> pair_in, std::pair<int,int> pair_out, std::string mode){
+	/* fonction qui récupère trouve les Advtuples liant les 2 coordonées via la recheche de la 2e coordonnes dans la liste de deplacement de la premiere
 	 * (il y a concervation de l'advtuple originel pour chaque deplacement possible généré) */
-	BitypeVar<AdvTuple*>* found;
+	BitypeVar<std::vector<AdvTuple*>*>* found;
 	BitypeVar<Chesspiece*> tup_in = this->get_plateau()->get_piece(pair_in);
+	
+	std::vector<AdvTuple*>* res = new std::vector<AdvTuple*>();
 	
 	if (tup_in.get_state() == true){
 		Chesspiece* pe_in = tup_in.get_var();
@@ -1255,7 +1297,7 @@ BitypeVar<AdvTuple*>* BaseChess::find_linking_advtuple(std::pair<int,int> pair_i
 		
 		std::vector<std::pair<std::pair<int,int>,AdvTuple>> vect = pe_in->algo(mode);
 		
-		found = new BitypeVar<AdvTuple*>();
+		found = new BitypeVar<std::vector<AdvTuple*>*>();
 		found->set_state(false);
 		
 		long long unsigned int i=0;
@@ -1263,8 +1305,9 @@ BitypeVar<AdvTuple*>* BaseChess::find_linking_advtuple(std::pair<int,int> pair_i
 			MatPosi* mpos_elem = new MatPosi(vect[i].first);
 			
 			if (*mpos_elem == *mpos_out){
-				found->set_var(&(vect[i].second));
-				found->set_state(true);
+				//found->set_var(&(vect[i].second));
+				if (found->get_state() == false){found->set_state(true);}
+				res->push_back(&(vect[i].second));
 			}
 			
 			i++;
@@ -1272,21 +1315,34 @@ BitypeVar<AdvTuple*>* BaseChess::find_linking_advtuple(std::pair<int,int> pair_i
 	}
 	else{throw MyException(&mout, "demande de find_linking_advtuple() sur case vide en entree !");}
 	
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! plusieurs Advtuples sont possible !!!! A ADAPTER (ou considerer qu'un seul suffit)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	found->set_var(res);
+	
 	return found;
 }
 
 bool BaseChess::complete_danger_test(std::pair<int,int> pair_in, std::pair<int,int> pair_out, std::string mode){
 	/* fonction qui recerche si le mouvement d'une piece est sécurisé (en terme de danger d'être capturée) */
 	bool keep = false;
-	BitypeVar<AdvTuple*>* bit_var = this->find_linking_advtuple(pair_in, pair_out, mode);
+	BitypeVar<std::vector<AdvTuple*>*>* bit_var = this->find_linking_advtuple(pair_in, pair_out, mode);
 	
-	//mout << "link advt"<<*bit_var<<std::endl;
-
+	//mout << "link advt state check";
+	
 	if (bit_var->get_state() == true){
-		AdvTuple adv_tup = *(bit_var->get_var());
-		keep = this->check_danger_mouvement_and_path(pair_in, adv_tup, pair_out, mode);
-		//mout << "result keep"<<keep<<std::endl;
+		
+		std::vector<AdvTuple*>* advtuples_vect = bit_var->get_var();
+
+		long long unsigned int i=0;
+		while (i<advtuples_vect->size() and keep == false){ // si un chemin sécurisé cela suffit
+			
+			AdvTuple adv_tup = *((*advtuples_vect)[i]);
+			
+			//mout << "link advt"<<adv_tup<<std::endl;
+			
+			keep = this->check_danger_mouvement_and_path(pair_in, adv_tup, pair_out, mode);
+			//mout << "result keep"<<keep<<std::endl;
+		
+			i++;
+		}
 	}
 	
 	return keep;
@@ -1632,24 +1688,34 @@ std::vector<MatPosi*>* BaseChess::recup_zones_between(std::pair<int,int> begin, 
 	
 }
 
-std::vector<MatPosi*>* BaseChess::get_zones_between(std::pair<int,int> begin, std::pair<int,int> end, std::string mode){
+std::vector<std::vector<MatPosi*>*>* BaseChess::get_zones_between(std::pair<int,int> begin, std::pair<int,int> end, std::string mode){
 	/* fonction qui recupere les cases contenu entres 2 positions dans un plateau.
 	 * en ayant cherché au préalable d'Advtuple utile pour les reliès*/
 	
+	std::vector<std::vector<MatPosi*>*>* result = new std::vector<std::vector<MatPosi*>*>();
+	
 	std::vector<MatPosi*>* res = new std::vector<MatPosi*>();
 	
-	BitypeVar<AdvTuple*>* bit_adv = find_linking_advtuple(begin,end,mode); //
+	BitypeVar<std::vector<AdvTuple*>*>* bit_adv = find_linking_advtuple(begin,end,mode); //
 	
 	if (bit_adv->get_state() == true){ //
 		
-		AdvTuple* adv_tup = bit_adv->get_var();
-		
-		res = this->recup_zones_between(begin, *adv_tup, end);
+		std::vector<AdvTuple*>* advtuples_vect = bit_adv->get_var();
 
+		long long unsigned int i=0;
+		while (i<advtuples_vect->size()){ // si un chemin sécurisé cela suffit
+			
+			AdvTuple* adv_tup = (*advtuples_vect)[i];
+		
+			res = this->recup_zones_between(begin, *adv_tup, end);
+			result->push_back(res);
+					
+			i++;
+		}
 	}
 	else{throw MyException(&mout,"mouvement impossible entre ces 2 positions!!!");}
 	
-	return res;		
+	return result;		
 }
 
 bool BaseChess::check_between_is_empty_part(std::vector<std::pair<int,int>>* temp_vect, MatPosi* mposi_origi, MatPosi* mposi_end){
@@ -1765,13 +1831,21 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 				}
 				else{
 					//allie peut-il s'interposer?
-					bool blocked = false;
 					
-					std::vector<MatPosi*>* zones_between_vect = this->get_zones_between(mpos_menace->to_pair(), mpos->to_pair(), "capt");
+					
+					std::vector<std::vector<MatPosi*>*>* zones_between_vect_vect = this->get_zones_between(mpos_menace->to_pair(), mpos->to_pair(), "capt");
+					
+					// plusieurs vecteur = plusieur chemin que la menace peut emprunté --> il faut tous pouvoir les bloquer
+					// --> chercher les intersections !!!
+					
+					
+					std::vector<MatPosi*>* intersect_vect = get_path_intesection(zones_between_vect_vect);
+
+					bool blocked = false;
 					long long unsigned int i=0;
-					while(i<zones_between_vect->size() and not(blocked)){
+					while(i<intersect_vect->size() and not(blocked)){
 						
-						MatPosi* mpos_zone = (*zones_between_vect)[i];
+						MatPosi* mpos_zone = (*intersect_vect)[i];
 						
 						BitypeVar<MatPosi*>* dangerzone = this->is_endangered(mpos_zone,this->get_non_active_player());
 						blocked = dangerzone->get_state();
@@ -1782,6 +1856,7 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 					ss<<"une pe peut-elle bloquer la menace? "<<blocked<<std::endl;
 					
 					if (not(blocked)){mode_echec_et_mat = true;}
+					
 				}
 			}
 		}

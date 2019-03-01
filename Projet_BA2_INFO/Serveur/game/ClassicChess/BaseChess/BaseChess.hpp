@@ -162,7 +162,7 @@ class BaseChess{
 		bool verify_move(std::pair<int,int>, std::pair<int,int>);
 		
 		std::vector<MatPosi*>* check_possible_mouvement(Chesspiece*, std::string);
-		BitypeVar<AdvTuple*>* find_linking_advtuple(std::pair<int,int>, std::pair<int,int>, std::string);
+		BitypeVar<std::vector<AdvTuple*>*>* find_linking_advtuple(std::pair<int,int>, std::pair<int,int>, std::string);
 		bool complete_danger_test(std::pair<int,int> , std::pair<int,int> , std::string);
 		
 		void show_possible_mouvement(Chesspiece*, std::string);
@@ -188,7 +188,7 @@ class BaseChess{
 		std::vector<MatPosi*>* recup_zones_between_part(std::vector<std::pair<int,int>>*, MatPosi*, MatPosi*); // ,Plateau*  static
 		std::vector<MatPosi*>* recup_zones_between(std::pair<int,int>, AdvTuple, std::pair<int,int>);
 		
-		std::vector<MatPosi*>* get_zones_between(std::pair<int,int>, std::pair<int,int> , std::string);
+		std::vector<std::vector<MatPosi*>*>* get_zones_between(std::pair<int,int>, std::pair<int,int> , std::string);
 		
 		bool check_between_is_empty_part(std::vector<std::pair<int,int>>*, MatPosi*, MatPosi*); // ,Plateau*  static		
 		bool check_between_is_empty(std::pair<int,int>, AdvTuple, std::pair<int,int>);
