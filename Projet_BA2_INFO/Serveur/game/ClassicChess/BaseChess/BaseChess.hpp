@@ -74,7 +74,7 @@ class BaseChess{
         BaseChess& operator= (const BaseChess&) noexcept = default;
         
         // pas d'interactions avec le jeu, il gère tout --> peu de fonctions publiques
-        virtual bool execute_step() = 0;
+        virtual std::pair<bool,std::string> execute_step() = 0;
         
 	protected:
 		Player* get_low_player();
@@ -93,6 +93,13 @@ class BaseChess{
 		void set_plateau(Plateau*);
 		
 		Dico* get_dico();
+		
+		std::string get_ret_symbol() const;
+		std::string get_roc_symbol() const;
+		std::string get_end_symbol() const;
+		std::string get_lang_symbol() const;
+		std::string get_liste_depl_symbol() const;
+		std::string get_liste_capt_symbol() const;
 		
 		void initial_set_piece(Chesspiece*,Player*,std::string);
 		void initialisation();

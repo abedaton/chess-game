@@ -213,12 +213,12 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChe
 		
 		std::stringstream ss_menu;
 		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"depl_pe")<<" "<<in<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" ret "<<this->get_dico()->search(this->get_active_player()->get_langue(),"ret")<<std::endl;
-		if (roc_accept == true){ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" roc "<<this->get_dico()->search(this->get_active_player()->get_langue(),"roc")<<std::endl;}
-		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" end "<<this->get_dico()->search(this->get_active_player()->get_langue(),"end")<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" liste_depl "<<this->get_dico()->search(this->get_active_player()->get_langue(),"liste_depl")<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" liste_capt "<<this->get_dico()->search(this->get_active_player()->get_langue(),"liste_capt")<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" lang "<<this->get_dico()->search(this->get_active_player()->get_langue(),"lang")<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_ret_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_ret_symbol())<<std::endl;
+		if (roc_accept == true){ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_roc_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_roc_symbol())<<std::endl;}
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_end_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_end_symbol())<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_liste_depl_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_liste_depl_symbol())<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_liste_capt_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_liste_capt_symbol())<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_lang_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_lang_symbol())<<std::endl;
 		
 		this->get_active_player()->send_msg(ss_menu.str());
 		
@@ -254,7 +254,7 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChe
 	return res;
 }
 
-bool ClassicChess::execute_step(){
+std::pair<bool,std::string> ClassicChess::execute_step(){
 	
 	/* fonction principale du jeu, boucle d'execution qui est lancé pour débuté le jeu et qui lorsque se termine termine le jeu*/
 	
@@ -315,5 +315,14 @@ bool ClassicChess::execute_step(){
 		
 		this->get_active_player()->send_msg(ss.str());
 	}
-	return (end or abandon);
+	
+	std::string result_sep = ";";
+	std::stringstream ss;
+	ss<<in<<result_sep;
+	if (switch_pos == true){ss<<this->get_roc_symbol()<<result_sep;}
+	ss<<out;
+	
+	std::pair<bool,std::string> result = std::make_pair((end or abandon),ss.str());
+	
+	return result;
 }

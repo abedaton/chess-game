@@ -317,8 +317,12 @@ void BaseChess::set_plateau(Plateau* plat){this->plateau = plat;}
 
 Dico* BaseChess::get_dico(){return this->dico;}
 
-//std::string BaseChess::get_langue(){return this->langue;}
-//void BaseChess::set_langue(std::string lang) {this->langue = lang;}
+std::string BaseChess::get_ret_symbol() const {return "ret";}
+std::string BaseChess::get_roc_symbol() const {return "roc";}
+std::string BaseChess::get_end_symbol() const {return "end";}
+std::string BaseChess::get_lang_symbol() const {return "lang";}
+std::string BaseChess::get_liste_depl_symbol() const {return "liste_depl";}
+std::string BaseChess::get_liste_capt_symbol() const {return "liste_capt";}
 
 void BaseChess::initial_set_piece(Chesspiece* pe,Player* own,std::string mov){
 	/* fonction servant a placer avant que la partie commence les piece d'echec sur le tableau,
@@ -412,9 +416,9 @@ Trinome<bool,bool,bool>* BaseChess::check_in_for_special_symbol(std::string inp,
 		
 	bool found = true, go_back = false, end_game = false;
 	
-	if ( (ret_accept == true) and (inp == "ret") ){go_back = true;}
-	else if (inp == "end") {end_game = true;}
-	else if (inp == "lang"){this->changement_langue_input();}
+	if ( (ret_accept == true) and (inp == this->get_ret_symbol()) ){go_back = true;}
+	else if (inp == this->get_end_symbol()) {end_game = true;}
+	else if (inp == this->get_lang_symbol()){this->changement_langue_input();}
 	else{found = false;}
 	
 	Trinome<bool,bool,bool>* res = new Trinome<bool,bool,bool>(found,go_back,end_game);
@@ -437,23 +441,23 @@ Trinome<Quadrinome<bool,bool,bool,bool>*, BitypeVar<Chesspiece*>, std::string > 
 	bool found = true, go_back = false, end_game = false, correspond = false;
 	std::string out = inp;
 	
-	if (inp == "ret"){go_back = true;}
-	else if (inp == "end") {end_game = true;}
+	if (inp == this->get_ret_symbol()){go_back = true;}
+	else if (inp == this->get_end_symbol()) {end_game = true;}
 	
-	else if ((roc_accept == false) and (inp == "liste_depl")) {
+	else if ((roc_accept == false) and (inp == this->get_liste_depl_symbol())) {
 		this->get_active_player()->send_msg("liste deplacements : ");
 		this->show_possible_mouvement(pe_in, "depl");
 		
 	}
-	else if ((roc_accept == false) and (inp == "liste_capt")) {
+	else if ((roc_accept == false) and (inp == this->get_liste_capt_symbol())) {
 		this->get_active_player()->send_msg("liste capture : ");
 		this->show_possible_mouvement(pe_in, "capt");
 		
 	}
 	
-	else if (inp == "lang"){this->changement_langue_input();}
+	else if (inp == this->get_lang_symbol()){this->changement_langue_input();}
 	
-	else if ((roc_accept == true) and (inp == "roc")){
+	else if ((roc_accept == true) and (inp == this->get_roc_symbol())){
 		if (roc_accept == true){
 			Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* roc_trinome = this->roc_output_check(in_pe);
 			
@@ -556,12 +560,22 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 	
 	interpret_one->add_text("pe_a_depl", true, true);
 	interpret_one->add_text("ou", false, true);
-	interpret_one->add_text(" end ", false, false);
-	interpret_one->add_text("end", true, true);
+	
+	// " end "
+	interpret_one->add_text(" ", false, false);
+	interpret_one->add_text(this->get_end_symbol(), false, false);
+	interpret_one->add_text(" ", false, false);
+
+	interpret_one->add_text(this->get_end_symbol(), true, true);
 	
 	interpret_one->add_text("ou", false, true);
-	interpret_one->add_text(" lang ", false, false);
-	interpret_one->add_text("lang", false, true);
+	
+	// " lang "
+	interpret_one->add_text(" ", false, false);
+	interpret_one->add_text(this->get_lang_symbol(), false, false);
+	interpret_one->add_text(" ", false, false);
+	
+	interpret_one->add_text(this->get_lang_symbol(), false, true);
 	
 	
 	Interpret* interpret_two = new Interpret(this->get_dico());
@@ -587,17 +601,31 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 	
 	interpret_one->add_text("roc_pe", true, true);
 	interpret_one->add_text("ou", false, true);
-	interpret_one->add_text(" ret ", false, false);
-	interpret_one->add_text("ret", true, true);
+	
+	// " ret "
+	interpret_one->add_text(" ", false, false);
+	interpret_one->add_text(this->get_ret_symbol(), false, false);
+	interpret_one->add_text(" ", false, false);
+	
+	interpret_one->add_text(this->get_ret_symbol(), true, true);
 	
 	interpret_one->add_text("ou", false, true);
-	interpret_one->add_text(" end ", false, false);
-	interpret_one->add_text("end", true, true);
+	
+	// " end "
+	interpret_one->add_text(" ", false, false);
+	interpret_one->add_text(this->get_end_symbol(), false, false);
+	interpret_one->add_text(" ", false, false);
+	
+	interpret_one->add_text(this->get_end_symbol(), true, true);
 	
 	interpret_one->add_text("ou", false, true);
-	interpret_one->add_text(" lang ", false, false);
-	interpret_one->add_text("lang", false, true);
-		
+	
+	// " lang "
+	interpret_one->add_text(" ", false, false);
+	interpret_one->add_text(this->get_lang_symbol(), false, false);
+	interpret_one->add_text(" ", false, false);
+
+	interpret_one->add_text(this->get_lang_symbol(), false, true);
 	
 	Interpret* interpret_two = new Interpret(this->get_dico());
 	
@@ -775,11 +803,11 @@ void BaseChess::show_depl_possibles(Chesspiece* pe){
 	 * paramètre d'entree : une piece d'echec
 	 * */
 	
-	this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"liste_depl"),false);
+	this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),this->get_liste_depl_symbol()),false);
 	this->get_active_player()->send_msg(" : ",false);
 	this->show_possible_mouvement(pe, "depl");
 	
-	this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"liste_capt"),false);
+	this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),this->get_liste_capt_symbol()),false);
 	this->get_active_player()->send_msg(" : ",false);
 	this->show_possible_mouvement(pe, "capt");
 	

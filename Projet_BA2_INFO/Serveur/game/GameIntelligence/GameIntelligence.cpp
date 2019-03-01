@@ -65,7 +65,9 @@ void GameIntelligence::make_classic_game_two_silenced_humans(std::string langue)
 void GameIntelligence::execute_game(){
 	bool end = false;
 	while (not end){
-		end = this->get_game()->execute_step();
+		std::pair<bool,std::string> result = this->get_game()->execute_step();
+		end = result.first;
+		//std::cout<<"RESULTAT ENVOYE: "<<result.second<<std::endl;
 	}
 	
 }
