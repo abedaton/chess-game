@@ -86,6 +86,8 @@ void User::exit() {
  
     int i = 0;   
     bool found = false;
+    
+    //on enleve l'utilisateur du vector des joueurs connectés
     while(found == false && i < onlineUsers.size())
     {
         if(onlineUsers[i] != this)
@@ -98,8 +100,6 @@ void User::exit() {
     }
     
     
-    
-
     pthread_exit(0);
 }
 
@@ -119,12 +119,11 @@ User* User::findUserByName(std::string name)
     User * res = nullptr;
     int i = 0;
     while(i < onlineUsers.size() && res == nullptr)
-   {
+    {
         if(name == onlineUsers[i]->getName())
             res = onlineUsers[i];
         i++;
     }
-
     return res;
 }
 
@@ -150,14 +149,19 @@ void User::addFriendToList(User *new_friend)
 }
 
 
-
 void User::addFriend()
 {
-    
     std::string nameOfUserToAdd = recvStr();
-    std::cout << name << "is trying to add " << nameOfUserToAdd << std::endl;
+    std::cout << name << " désire ajouter " << nameOfUserToAdd << std::endl;
     User* userToAdd = findUserByName(nameOfUserToAdd);
-    userToAdd->sendfriendRequestNotification(this);
+    if(userToAdd != nullptr)
+    {
+       sendInt(1);
+       userToAdd->sendfriendRequestNotification(this);
+       
+    }
+    else
+        sendInt(0);
 }
 
 void User::sendfriendRequestNotification(User *userAdding)
@@ -165,10 +169,10 @@ void User::sendfriendRequestNotification(User *userAdding)
     sendInt(NEWFRIENDREQUEST);
     sendStr(userAdding->getName());
 
-    int answer = recvInt();
-    if(answer == 1)
+    std::string answer = recvStr();
+    if(answer == "y")
     {
-        std::cout << "he accepted the request " << std::endl;
+        std::cout << "a accepte la requete de " << std::endl;
         userAdding->addFriendToList(this);
         this->addFriendToList(userAdding);
         //sauvgarder dans la bdd ici ?
@@ -176,17 +180,19 @@ void User::sendfriendRequestNotification(User *userAdding)
 
 }
 
-void removeFromFriends(User *userToRemove)
+void User::removeFromFriends(User *userToRemove)
 {
-    
+
 }
 
 void User::removeFriend()
 {
     std::string nameOfUserToDelete = recvStr();
-    //on supprime dans le sdeux
+    
+    //on supprime dans les deux listes
     User *otherUser = findUserByName(nameOfUserToDelete);
-
+    otherUser->removeFromFriends(this);
+    removeFromFriends(otherUser);
 
 }
 
@@ -315,7 +321,6 @@ std::string User::recvStr()
 
         if(recv(this->_clientSock, str, size, MSG_WAITALL) <= 0)
         {   
-            std::cout << " failed  " << std::endl;
             this->exit();
         }
 
