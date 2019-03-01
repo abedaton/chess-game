@@ -88,13 +88,17 @@ void Request::surrend(){
 }
 
 
+
+//------------------------------------------------------------------------------
+//toutes les fonctions par rapport a la liste d'amis implémentées ici:
+//------------------------------------------------------------------------------
 void Request::removeFriend(std::string name)
 {
     sendInt(REMOVEFRIEND);
     sendStr(name);
 }
 
-//Fonctions par rapport aux liste d'amis ici:
+
 
 bool Request::listOnlineFriends()
 {
@@ -108,12 +112,15 @@ bool Request::listOnlineFriends()
         std::cout << recvStr() << " is online " << std::endl;
     
    
-
-    //sendInt(445);
     endProcess();
     return res;
 }
 
+/*
+Retourne vrai/faux selon le fait que l'utilisateur existe ou pas.
+l'autre client (qu'on ajoute) doit aller dans le menu consulter 
+mes demandes d'amis pour l'accepter et le serveur se charge du reste.
+*/
 bool Request::addFriend(std::string name)
 {
     std::cout << "addfriend was called" << std::endl;
@@ -121,9 +128,11 @@ bool Request::addFriend(std::string name)
     sendInt(ADDFRIEND);
     sendStr(name);
     std::cout << "Vous avez ajouté: \"" << name << "\" à votre liste d'amis veuillez attendre sa réponse" << std::endl;
-    std::cin >> name; //to wait
+    std::cin >> name; 
+    bool res = recvInt();
+    std::cout << "res was :" << res ;
     endProcess();
-    return true;
+    return res;
 }
 
 
@@ -131,11 +140,10 @@ void Request::recvFriendAddNotification()
 {
     std::cout << "\n" << recvStr() << " souhaite vous ajouter en ami: " << std::endl;
     char res;
-    while(res != 1 && res != 2)
+    while(res != 'y' && res != 'n')
     {
         std::cout << "veuillez appuyer sur y pour l'accepter, n pour le refuser: ";
         std::cin >> res;
-        std::cout <<  "aaaaaaaaaa  " << res;
     }
 
     
@@ -143,7 +151,6 @@ void Request::recvFriendAddNotification()
     std::memset(toSend, 0, 2);
     toSend[0] = res;
     sendStr(toSend);
-    //sendInt(res);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////PRIVIET
