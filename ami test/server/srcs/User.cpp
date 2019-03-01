@@ -148,7 +148,10 @@ void User::addFriendToList(User *new_friend)
     friends.push_back(new_friend);
 }
 
-
+/*
+il me reste encore un bug a trouver/fix dans addFriend mais la structure globale
+de la liste d'amis reste la meme 
+*/
 void User::addFriend()
 {
     std::string nameOfUserToAdd = recvStr();
@@ -182,7 +185,18 @@ void User::sendfriendRequestNotification(User *userAdding)
 
 void User::removeFromFriends(User *userToRemove)
 {
-
+    int i = 0;
+    bool found = false;
+    while(i < friends.size() && found == false)
+    {
+        if(friends[i] == userToRemove)
+        {
+            found = true;
+            friends.erase(friends.begin() + i);
+        }
+        else
+            i++;
+    }
 }
 
 void User::removeFriend()
@@ -191,9 +205,15 @@ void User::removeFriend()
     
     //on supprime dans les deux listes
     User *otherUser = findUserByName(nameOfUserToDelete);
-    otherUser->removeFromFriends(this);
-    removeFromFriends(otherUser);
-
+    if(otherUser != nullptr)
+    {
+        sendInt(1);
+        otherUser->removeFromFriends(this);
+        removeFromFriends(otherUser);
+        
+    }
+    else
+        sendInt(0);
 }
 
 void User::dbgSetName()
