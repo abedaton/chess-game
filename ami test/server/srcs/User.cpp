@@ -311,14 +311,12 @@ std::string User::recvStr()
     if(size > 0)
     {
         char *str = new char[size+1];
-        std::cout << "size "  << size << std::endl;
         std::memset(str, 0, size+1);
 
         if(recv(this->_clientSock, str, size, MSG_WAITALL) <= 0)
         {   
             std::cout << " failed  " << std::endl;
             this->exit();
-            
         }
 
         res = str;
@@ -328,7 +326,6 @@ std::string User::recvStr()
         res = "error";
     }
     
-    std::cout<< res.c_str() <<  "was received len:" << size << std::endl;
     return res;
 }
 
