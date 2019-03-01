@@ -22,7 +22,9 @@ class Client: AbstractClient {
         void connectionError() override;
 		void startingGame(bool playerTurn) override;
 		void opponentMov(int coord1, int coord2, bool lose) override;
-	private:
+	
+        void Run(std::string n); //pour debug
+    private:
 		Request* _request;
 		bool _gameStart;
 		//bool _myTurn;
@@ -57,6 +59,7 @@ class Client: AbstractClient {
     	bool addFriend(int id_to_add);
     	bool removeFriend(int id_to_remove);
     	bool inviteFriendToPlay(int id_to_invite);
+        std::string name;
 
 };
 
