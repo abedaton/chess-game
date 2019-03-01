@@ -108,7 +108,8 @@ void Client::friendsWindow()
 			std::cin >> friendName;
 			if(!_request->addFriend(friendName))
 				std::cout << friendName << " n'existe pas " << std::endl;
-				
+			else
+				std::cout<< "La demande d'ami a été envoytée" << std::endl;	
 		}
 
 		else if(res == 2)
@@ -125,14 +126,25 @@ void Client::friendsWindow()
 		}
 		else if(res == 4)
 		{
+			//todo implementer une mutex ? car on ne peut pas faire 2 cin en meme temps donc oblige 
+			//de sleep pour recevoir les requetes du serveur
+			
+			/*
 			std::cout << "écrivez \"exit\" pour revenir au menu" <<std::endl;
 			std::string tmp;
 			while(tmp != "exit")
-				std::cin >> tmp;
+				std::cin >> tmp;*/
+			std::this_thread::sleep_for(std::chrono::milliseconds(10000));
 		}		
 			
 		else if(res ==5)
-			;
+		{
+			/*
+			1. call listonlinefriends pour montrer tous les amis disponibles
+			2. laiser l'utilisateur choisir l'ami puis l'inviter à la partie
+			*/
+
+		}
 
 		else if(res ==6)
 			;
