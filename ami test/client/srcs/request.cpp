@@ -135,7 +135,7 @@ bool Request::addFriend(std::string name)
     sendInt(ADDFRIEND);
     sendStr(name);
     std::cout << "Vous avez ajouté: \"" << name << "\" à votre liste d'amis veuillez attendre sa réponse" << std::endl;
-    std::cin >> name; 
+    //std::cin >> name; 
     bool res = recvInt();
     std::cout << "res was :" << res ;
     endProcess();
