@@ -80,12 +80,12 @@ class User: public AbstractUser{
         
         User *findUserByName(std::string name);
         void listOnlineFriends();
-        //void deleteFriend(std::string name_of_user_to_add);
+      
         void addFriend();
         void removeFriend();
         
-        void sendAcceptNotification(User *acceptedUser);
-
+    
+        void recvFriendRequestAnswer();
 
         //notifications to send dans bdd ou seulement en ligne
         //comment contacter clients en ligne comment contacter client 
@@ -99,7 +99,7 @@ class User: public AbstractUser{
 
 enum Protocol : int {
     EXIT = 0, REGISTER, LOGIN, PASS, WAITFORMATCH, GETMOV, MOV, 
-    LISTONLINEFRIENDS, ADDFRIEND, REMOVEFRIEND, NEWFRIENDREQUEST
+    LISTONLINEFRIENDS, ADDFRIEND, REMOVEFRIEND, NEWFRIENDREQUEST, FRIENDREQUESTANSWER
 };
 
 extern std::vector<User*> onlineUsers;
