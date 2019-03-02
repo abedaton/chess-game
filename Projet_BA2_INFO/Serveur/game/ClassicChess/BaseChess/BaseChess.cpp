@@ -318,9 +318,18 @@ std::vector<MatPosi*>* get_path_intesection(std::vector<std::vector<MatPosi*>*>*
 	
 }
 
+bool is_roquable(Chesspiece* pe){
+	
+	bool res = false;
+	
+	if(verifier_type_pe<Roi>(pe) or verifier_type_pe<Tour>(pe)){res = true;}
+	
+	return res;
+}
+
 //--------------------BaseChess----------------------------------------------------------------------------------------------------
 
-BaseChess::BaseChess(Player* p_low,Player* p_high,Dico* dict) : plateau(nullptr) , low_player(p_low), high_player(p_high), active_player(p_low), dico(dict){
+BaseChess::BaseChess(Player* p_low,Player* p_high,Dico* dict) : plateau(nullptr) , low_player(p_low), high_player(p_high), active_player(p_low), dico(dict), action_cnt(0){
 	//this->initialisation(); /!\ impossible de le mettre cette fonction ici car contructeur appelé par fils, par conséquent utilisation de fonction virtuelle pure dans ce cas.
 	// a mettre dans le constructeur du fils !!!
 	
@@ -343,6 +352,9 @@ Player* BaseChess::get_non_active_player(){return this->get_other_player(this->g
 void  BaseChess::set_active_player(Player* a){this->active_player = a;}
 void  BaseChess::set_low_player(Player* l){this->low_player = l;}
 void  BaseChess::set_high_player(Player* h){this->high_player = h;}
+
+int BaseChess::get_action_cnt() const {return this->action_cnt;}
+void BaseChess::inc_action_cnt(){this->action_cnt += 1;}
 
 int BaseChess::get_player_row(Player* player){
 	/* fonction permettant de savoir la ligne de départ (sur le plateau) d'un joueur donné en paramètre) */
@@ -526,12 +538,48 @@ Trinome<Quadrinome<bool,bool,bool,bool>*, BitypeVar<Chesspiece*>, std::string > 
 		
 }
 
-Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_input(Interpret* first_comment, Interpret* second_comment,Interpret* third_comment,bool ret_accept){
-	/* l'input IN est l'input déterminant principalement la piece a sellectionner dans le tableau */
+std::pair<bool,BitypeVar<Chesspiece*>> BaseChess::check_in_validity_non_symbol(std::string in,std::string second_comment,std::string third_comment){
 	
 	BitypeVar<Chesspiece*> dst;
-	std::pair<int,int> conv;
 	Chesspiece* cap_piece;
+	
+	bool part_a;
+				
+	bool again = false;
+	bool valid = this->verify_validity_input(in);
+	
+	if (valid == true){
+		MatPosi* mpos_in = new MatPosi(in);
+		dst = this->get_plateau()->get_piece(mpos_in->to_pair());
+		
+		if (dst.get_state() == true){
+			cap_piece = dst.get_var();
+			//mout<<"propio = "<<cap_piece->get_owner()<<std::endl;
+			if (cap_piece->get_owner() != get_active_player()){
+				this->get_active_player()->send_msg(second_comment,true);
+				again = true;
+			}
+		}
+		else{
+			this->get_active_player()->send_msg(third_comment,true);
+			again = true;
+		}
+			
+		part_a = not(again);
+	}
+	else{part_a = false;}
+	
+	std::pair<bool,BitypeVar<Chesspiece*>> paire = std::make_pair(part_a,dst);
+	
+	return paire;
+	
+}
+
+Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_input(Interpret* first_comment, Interpret* second_comment,Interpret* third_comment,bool ret_accept){
+	/* l'input IN est l'input déterminant principalement la piece a sellectionner dans le tableau */
+	BitypeVar<Chesspiece*> dst;
+	
+	std::pair<int,int> conv;
 	
 	bool go_back = false;
 	bool end_game = false;
@@ -550,32 +598,14 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 		symbol_found = symbol_info->get_first();
 		
 		if (symbol_found == false){
-
-			bool valid,again;
-				
-			again = false;
-			valid = this->verify_validity_input(in);
 			
-			if (valid == true){
-				MatPosi* mpos_in = new MatPosi(in);
-				dst = this->get_plateau()->get_piece(mpos_in->to_pair());
-				
-				if (dst.get_state() == true){
-					cap_piece = dst.get_var();
-					//mout<<"propio = "<<cap_piece->get_owner()<<std::endl;
-					if (cap_piece->get_owner() != get_active_player()){
-						this->get_active_player()->send_msg(second_comment->get_text(this->get_active_player()->get_langue()),true);
-						again = true;
-					}
-				}
-				else{
-					this->get_active_player()->send_msg(third_comment->get_text(this->get_active_player()->get_langue()),true);
-					again = true;
-				}
-					
-				part_a = not(again);
-			}
-			else{part_a = false;}
+			std::string second_com = second_comment->get_text(this->get_active_player()->get_langue());
+			std::string third_com = third_comment->get_text(this->get_active_player()->get_langue());
+			
+			std::pair<bool,BitypeVar<Chesspiece*>> non_symbol_rep = this->check_in_validity_non_symbol(in,second_com,third_com);
+			part_a = non_symbol_rep.first;
+			dst = non_symbol_rep.second;
+
 		}
 		else{		
 			go_back = symbol_info->get_second();
@@ -715,6 +745,54 @@ bool BaseChess::verify_possible_roc(Roi* roi,Tour* tour){
 	
 }
 
+bool BaseChess::check_roc_validity(Roi* roi,Tour* tour, BitypeVar<Chesspiece*> dst, bool in_is_king, bool in_is_tour){
+	
+	bool correspond = false;
+	
+	if (in_is_king == true){correspond = verifier_type_pe<Tour>(dst);}
+	else{correspond = verifier_type_pe<Roi>(dst);}
+
+	if (correspond == true){
+		
+		if (in_is_king == true){tour = dynamic_cast<Tour*>(dst.get_var());}
+		else{roi = dynamic_cast<Roi*>(dst.get_var());}
+		
+		correspond = this->verify_possible_roc(roi,tour);
+
+		if (correspond == false){this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"not_pos_roc"),true);}
+		else{
+			
+			// verfication de deplacement
+			if (in_is_king == true){
+				
+				if(tour->get_has_moved() == true){
+					correspond = false;
+					this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"roc_tower_no_perm_move"),true);
+				}
+			}
+			else{
+				
+				if(roi->get_has_moved() == true){
+					correspond = false;
+					this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"roc_king_no_perm_move"),true);
+				}
+			}
+		}
+	}
+	else{
+		
+		std::stringstream ss;
+		
+		if (in_is_tour == true){ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"roc_imp_chess")<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),"chess_tour")<<std::endl;}
+		else{ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"roc_imp_chess")<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),"chess_roi")<<std::endl;}
+		
+		this->get_active_player()->send_msg(ss.str());
+		
+	}
+	
+	return correspond;
+}
+
 Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess::roc_first_pe_is_waiting(Chesspiece* pe){
 	/* fonction qui est la 2e partie de la verification du roc, c'est une partie qui se déroule alors que la 1e piece du roc a déjà été selectionné et validé */
 	
@@ -731,16 +809,14 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 	bool in_is_king;
 	bool in_is_tour;
 	
+	bool ok_roc = is_roquable(pe);
+	if (not ok_roc){throw MyException(&mout,"piece roc ni roi ni tour!");}
+	
 	in_is_king = verifier_type_pe<Roi>(pe);
-	if (in_is_king == true){
-		in_is_tour = false;
-		roi = dynamic_cast<Roi*>(pe);
-	}
-	else{
-		in_is_tour = verifier_type_pe<Tour>(pe);
-		if (in_is_tour){tour = dynamic_cast<Tour*>(pe);}
-		else{throw MyException(&mout,"piece roc ni roi ni tour!");}
-	}
+	in_is_tour = not in_is_king;
+	
+	if (in_is_king == true){roi = dynamic_cast<Roi*>(pe);}
+	else{tour = dynamic_cast<Tour*>(pe);}
 	
 	bool end_game = false;
 	while (not(correspond) and not(go_back) and not(end_game)){
@@ -755,47 +831,8 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 		if (not(go_back) and not(end_game)){
 		
 			dst = roc_trinome->get_second();
-			
-			if (in_is_king == true){correspond = verifier_type_pe<Tour>(dst);}
-			else{correspond = verifier_type_pe<Roi>(dst);}
-
-			if (correspond == true){
-				
-				if (in_is_king == true){tour = dynamic_cast<Tour*>(dst.get_var());}
-				else{roi = dynamic_cast<Roi*>(dst.get_var());}
-				
-				correspond = this->verify_possible_roc(roi,tour);
-
-				if (correspond == false){this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"not_pos_roc"),true);}
-				else{
-					
-					// verfication de deplacement
-					if (in_is_king == true){
-						
-						if(tour->get_has_moved() == true){
-							correspond = false;
-							this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"roc_tower_no_perm_move"),true);
-						}
-					}
-					else{
-						
-						if(roi->get_has_moved() == true){
-							correspond = false;
-							this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"roc_king_no_perm_move"),true);
-						}
-					}
-				}
-			}
-			else{
-				
-				std::stringstream ss;
-				
-				if (in_is_tour == true){ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"roc_imp_chess")<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),"chess_tour")<<std::endl;}
-				else{ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"roc_imp_chess")<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),"chess_roi")<<std::endl;}
-				
-				this->get_active_player()->send_msg(ss.str());
-				
-			}
+			correspond = this->check_roc_validity(roi,tour, dst, in_is_king, in_is_tour);
+			//
 		}
 	}
 	

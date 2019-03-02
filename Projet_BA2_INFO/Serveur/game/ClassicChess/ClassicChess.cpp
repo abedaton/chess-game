@@ -254,40 +254,60 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChe
 	return res;
 }
 
-std::pair<bool,std::string> ClassicChess::execute_step(){
+std::vector<std::string>* split_string(std::string s,std::string delim){
 	
-	/* fonction principale du jeu, boucle d'execution qui est lancé pour débuté le jeu et qui lorsque se termine termine le jeu*/
+	std::vector<std::string>* vect = new std::vector<std::string>();
 	
-	bool end = false;
-	bool abandon = false;
+	long long unsigned int start = 0;
+    long long unsigned int end = s.find(delim);
+    while (end != std::string::npos){
+		vect->push_back(s.substr(start, end - start));
+        start = end + delim.length();
+        end = s.find(delim, start);
+    }
+	vect->push_back(s.substr(start, end));
 	
-	Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<bool,bool>>* coords;
+	return vect;
 	
-	std::pair<std::string,BitypeVar<Chesspiece*>> in_couple,out_couple;
-	bool switch_pos;
+}
+
+Trinome<std::string,std::string,bool>* ClassicChess::decode_merged_string(std::string merged_string){
+	
+	Trinome<std::string,std::string,bool>* res_trinome = new Trinome<std::string,std::string,bool>();
+	
+	std::vector<std::string>* res_vect = split_string(merged_string,";");
 	
 	std::string in,out;
-	BitypeVar<Chesspiece*> adv_pe_in;
-	BitypeVar<Chesspiece*> adv_pe_out;
+	bool switch_pos = false;
 	
-	std::pair<bool,bool> bool_info;
+	if (res_vect->size() == 2){
+		
+		in = (*res_vect)[0];
+		out = (*res_vect)[1];
+	}
 	
-	this->affichage();
+	else if (res_vect->size() == 3){
+		
+		in = (*res_vect)[0];
+		out = (*res_vect)[2];
+		
+		if ((*res_vect)[1] != this->get_roc_symbol()){throw MyException(&mout,"symbole invalide !");}
+		else {switch_pos = true;}
 
-	coords = this->ask_for_input();
-	in_couple = coords->get_first();
-	in = in_couple.first;
-	adv_pe_in = in_couple.second;
+	}
+	else {throw MyException(&mout,"merged_string invalide !");}
 	
+	res_trinome->set_first(in);
+	res_trinome->set_second(out);
+	res_trinome->set_third(switch_pos);
 	
-	out_couple = coords->get_second();
-	out = out_couple.first;
-	adv_pe_out = out_couple.second;
+	return res_trinome;
 	
-	bool_info = coords->get_third();
+}
+
+bool ClassicChess::exec_step(std::string in, std::string out, BitypeVar<Chesspiece*> adv_pe_out, bool switch_pos,bool abandon){
 	
-	abandon = bool_info.first;
-	switch_pos = bool_info.second;
+	bool end;
 	
 	if (not abandon){
 		end = check_end_game(adv_pe_out, switch_pos);
@@ -316,13 +336,118 @@ std::pair<bool,std::string> ClassicChess::execute_step(){
 		this->get_active_player()->send_msg(ss.str());
 	}
 	
-	std::string result_sep = ";";
-	std::stringstream ss;
-	ss<<in<<result_sep;
-	if (switch_pos == true){ss<<this->get_roc_symbol()<<result_sep;}
-	ss<<out;
+	this->inc_action_cnt();
+
+	return end;
+
+}
+
+std::pair<bool,std::string> ClassicChess::execute_step(){
 	
-	std::pair<bool,std::string> result = std::make_pair((end or abandon),ss.str());
+	/* fonction principale du jeu, boucle d'execution qui est lancé pour débuté le jeu et qui lorsque se termine termine le jeu*/
+	
+	bool end = false;
+	bool abandon = false;
+	
+	Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<bool,bool>>* coords;
+	
+	std::pair<std::string,BitypeVar<Chesspiece*>> in_couple,out_couple;
+	bool switch_pos;
+	
+	std::string in,out;
+	BitypeVar<Chesspiece*> adv_pe_in;
+	BitypeVar<Chesspiece*> adv_pe_out;
+	
+	std::pair<bool,bool> bool_info;
+	
+	if (this->get_action_cnt() == 0){this->affichage();}
+
+	coords = this->ask_for_input();
+	in_couple = coords->get_first();
+	in = in_couple.first;
+	adv_pe_in = in_couple.second;
+	
+	out_couple = coords->get_second();
+	out = out_couple.first;
+	adv_pe_out = out_couple.second;
+	
+	bool_info = coords->get_third();
+	
+	abandon = bool_info.first;
+	switch_pos = bool_info.second;
+	
+	//
+	end = this->exec_step(in, out, adv_pe_out, switch_pos, abandon);
+	//
+	
+	std::string result_sep = ";";
+	std::stringstream ss_res;
+	ss_res<<in<<result_sep;
+	if (switch_pos == true){ss_res<<this->get_roc_symbol()<<result_sep;}
+	ss_res<<out;
+	
+	std::pair<bool,std::string> result = std::make_pair((end or abandon),ss_res.str());
 	
 	return result;
 }
+
+std::pair<bool,bool> ClassicChess::execute_step(std::string merged_coords){
+	
+	Trinome<std::string,std::string,bool>* res_trinome = this->decode_merged_string(merged_coords);
+	
+	std::string in = res_trinome->get_first();
+	std::string out = res_trinome->get_second();
+	bool switch_pos = res_trinome->get_third();
+
+	bool ok = false;
+	bool end = false;
+	
+	std::pair<bool,BitypeVar<Chesspiece*>> in_paire = check_in_validity_non_symbol(in,"",""); // verify in //les commentaires sont inutiles ici
+	bool in_isvalid = in_paire.first;
+	
+	if (in_isvalid == true){
+		
+		BitypeVar<Chesspiece*> in_bit = in_paire.second;
+		
+		if (in_bit.get_state() == false){throw MyException(&mout,"IN invalide car non-attribué");}
+	
+		if(switch_pos == true){
+			// verify roc
+			Chesspiece* in_pe = in_bit.get_var();
+			bool ok_roc = is_roquable(in_pe);
+			
+			if (ok_roc){ok = true;}
+			
+			// ------------------------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			
+			ok = true;
+		}
+		else{
+			std::pair<bool,BitypeVar<Chesspiece*>> out_paire = normal_output_check(in,out); // verify out
+			ok = out_paire.first;
+		}
+		
+		if (ok == true){
+						
+			MatPosi* mpos = new MatPosi(out);
+			BitypeVar<Chesspiece*> adv_pe_out = this->get_plateau()->get_piece(mpos->to_pair()); // recup de piece de out
+			delete mpos;
+			
+			end = this->exec_step(in, out, adv_pe_out, switch_pos, false); //abandon est tjs false ici
+		}
+	}
+	
+	std::pair<bool,bool> result = std::make_pair(ok,end);
+	
+	return result;
+	
+}
+
+std::pair<bool,bool> ClassicChess::execute_step(std::string merged_coords,std::string player_name){
+	
+	if (this->get_active_player()->get_name() != player_name){throw MyException(&mout,"execution impossible, ce n'est pas le tour de ce joueur");}
+	
+	return this->execute_step(merged_coords);
+	
+}
+
