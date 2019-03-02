@@ -4,7 +4,22 @@
 
 extern MyOstream mout;
 
-//MyOstream mout("logfile.txt"); // ???
+std::vector<std::string>* split_string(std::string s,std::string delim){
+	
+	std::vector<std::string>* vect = new std::vector<std::string>();
+	
+	long long unsigned int start = 0;
+    long long unsigned int end = s.find(delim);
+    while (end != std::string::npos){
+		vect->push_back(s.substr(start, end - start));
+        start = end + delim.length();
+        end = s.find(delim, start);
+    }
+	vect->push_back(s.substr(start, end));
+	
+	return vect;
+	
+}
 
 //--------------------ClassicChess----------------------------------------------------------------------------------------------------
 
@@ -252,23 +267,6 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChe
 	Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* res = new Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>(out,dst,trinome_bool_res);
 	
 	return res;
-}
-
-std::vector<std::string>* split_string(std::string s,std::string delim){
-	
-	std::vector<std::string>* vect = new std::vector<std::string>();
-	
-	long long unsigned int start = 0;
-    long long unsigned int end = s.find(delim);
-    while (end != std::string::npos){
-		vect->push_back(s.substr(start, end - start));
-        start = end + delim.length();
-        end = s.find(delim, start);
-    }
-	vect->push_back(s.substr(start, end));
-	
-	return vect;
-	
 }
 
 Trinome<std::string,std::string,bool>* ClassicChess::decode_merged_string(std::string merged_string){

@@ -22,8 +22,8 @@ class ClassicChess: public BaseChess{
         ClassicChess& operator= (const ClassicChess&) noexcept = default;
         
         std::pair<bool,std::string> execute_step() override;
-        std::pair<bool,bool> execute_step(std::string);
-        std::pair<bool,bool> execute_step(std::string, std::string);
+        std::pair<bool,bool> execute_step(std::string) override;
+        std::pair<bool,bool> execute_step(std::string, std::string) override;
         
 	protected:
 		

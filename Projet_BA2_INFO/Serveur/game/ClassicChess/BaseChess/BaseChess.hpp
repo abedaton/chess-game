@@ -81,6 +81,8 @@ class BaseChess{
         
         // pas d'interactions avec le jeu, il gère tout --> peu de fonctions publiques
         virtual std::pair<bool,std::string> execute_step() = 0;
+        virtual std::pair<bool,bool> execute_step(std::string) = 0;
+        virtual std::pair<bool,bool> execute_step(std::string, std::string) = 0;
         
 	protected:
 		Player* get_low_player();
