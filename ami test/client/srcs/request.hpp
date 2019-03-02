@@ -13,11 +13,25 @@
 #include <sys/select.h>
 #include <errno.h>
 #include <chrono>
+#include <queue> 
 
 #include "abstractClient.hpp"
 
 #define PORT 5555
 #define IP "0.0.0.0"
+
+
+
+struct FriendRequests
+{
+public:
+    std::string name;
+};
+
+struct GameRequests
+{
+
+};
 
 class Request{
     public:
@@ -37,7 +51,7 @@ class Request{
         void removeFriend(std::string name);
         void recvFriendAddNotification();
 
-
+        void proceedGameAndFriendRequests();
 
 
         //more fct for chat
@@ -70,7 +84,7 @@ class Request{
 		int recvInt(int flag);
         void sendInt(int num);
 
-
+        std::queue<FriendRequests> friendRequests;
         
 
 
