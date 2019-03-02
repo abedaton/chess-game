@@ -107,6 +107,30 @@ void Request::removeFriend(std::string name)
 
 }
 
+void Request::proceedGameAndFriendRequests()
+{
+    std::cout << "Vous avez " << friendRequests.size() << " demandes d'amis " << std::endl;
+    while(friendRequests.size() > 0)
+    {
+        FriendRequests newPotentialFriend = friendRequests.front();
+        friendRequests.pop();
+        
+        std::cout << newPotentialFriend.name << " souhaite vous ajouter en ami: " << std::endl;
+        char res;
+        while(res != 'y' && res != 'n')
+        {
+            std::cout << "veuillez appuyer sur y pour l'accepter, n pour le refuser: ";
+            std::cin >> res;
+        }
+
+    
+        char toSend[2] = {0, 0};
+        
+        toSend[0] = res;
+        sendStr(toSend);
+    }
+    
+}
 
 
 bool Request::listOnlineFriends()
@@ -142,22 +166,12 @@ bool Request::addFriend(std::string name)
     return res;
 }
 
-
+//todo thread safe friendRequests?
 void Request::recvFriendAddNotification()
 {
-    std::cout << "\n" << recvStr() << " souhaite vous ajouter en ami: " << std::endl;
-    char res;
-    while(res != 'y' && res != 'n')
-    {
-        std::cout << "veuillez appuyer sur y pour l'accepter, n pour le refuser: ";
-        std::cin >> res;
-    }
-
-    
-    char toSend[2];
-    std::memset(toSend, 0, 2);
-    toSend[0] = res;
-    sendStr(toSend);
+    FriendRequests newPotentialFriend;
+    newPotentialFriend.name = recvStr();
+    friendRequests.push(newPotentialFriend);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////PRIVIET
