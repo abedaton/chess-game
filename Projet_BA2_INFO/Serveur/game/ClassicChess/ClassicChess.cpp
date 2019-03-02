@@ -410,17 +410,48 @@ std::pair<bool,bool> ClassicChess::execute_step(std::string merged_coords){
 		BitypeVar<Chesspiece*> in_bit = in_paire.second;
 		
 		if (in_bit.get_state() == false){throw MyException(&mout,"IN invalide car non-attribué");}
+		
+		MatPosi* mpos = new MatPosi(out);
+		BitypeVar<Chesspiece*> out_bit = this->get_plateau()->get_piece(mpos->to_pair());
+		delete mpos;
 	
 		if(switch_pos == true){
+			
+			if (out_bit.get_state() == false){throw MyException(&mout,"OUT invalide car non-attribué alors que dans roc");}
+			
 			// verify roc
 			Chesspiece* in_pe = in_bit.get_var();
 			bool ok_roc = is_roquable(in_pe);
 			
-			if (ok_roc){ok = true;}
-			
-			// ------------------------------------------------------------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			
-			ok = true;
+			if (ok_roc){
+				
+				bool in_is_king,in_is_tour;
+				
+				Roi* roi;
+				Tour* tour;
+				
+				bool good_type_in_pe = true;
+				
+				if (verifier_type_pe<Roi>(in_pe)){
+					in_is_king = true;
+					in_is_tour = false;
+				}
+				else if (verifier_type_pe<Tour>(in_pe)){
+					in_is_king = true;
+					in_is_tour = false;
+				}
+				else{
+					ok = false;
+					good_type_in_pe = false;
+				}
+				
+				if(good_type_in_pe == true){
+					if (in_is_king == true){roi = dynamic_cast<Roi*>(in_pe);}
+					else{tour = dynamic_cast<Tour*>(in_pe);}
+					
+					ok = this->check_roc_validity(roi,tour, out_bit, in_is_king, in_is_tour);
+				}
+			}
 		}
 		else{
 			std::pair<bool,BitypeVar<Chesspiece*>> out_paire = normal_output_check(in,out); // verify out
