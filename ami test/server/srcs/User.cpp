@@ -149,8 +149,7 @@ void User::addFriendToList(User *new_friend)
 }
 
 /*
-il me reste encore un bug a trouver/fix dans addFriend mais la structure globale
-de la liste d'amis reste la meme 
+normalement plus de (gros) bug prevenez moi (matias) si vous en trouvé
 */
 void User::addFriend()
 {
@@ -165,6 +164,22 @@ void User::addFriend()
     }
     else
         sendInt(0);
+
+}
+
+void User::recvFriendRequestAnswer()
+{
+    User *userAdding = findUserByName(recvStr());
+    std::string answer = recvStr();
+    if(userAdding)
+    {
+        if(answer == "y")
+        {
+            std::cout << "a accepte la requete de " << std::endl;
+            userAdding->addFriendToList(this);
+            this->addFriendToList(userAdding);
+        }
+    }
 }
 
 void User::sendfriendRequestNotification(User *userAdding)
@@ -172,7 +187,7 @@ void User::sendfriendRequestNotification(User *userAdding)
     sendInt(NEWFRIENDREQUEST);
     sendStr(userAdding->getName());
 
-    std::string answer = recvStr();
+    /*std::string answer = recvStr();
     if(answer == "y")
     {
         std::cout << "a accepte la requete de " << std::endl;
@@ -181,6 +196,7 @@ void User::sendfriendRequestNotification(User *userAdding)
         //sauvgarder dans la bdd ici ?
     }
 
+    std::cout << name << "  left sendfriendRequestNotification" <<std::endl;*/
 }
 
 void User::removeFromFriends(User *userToRemove)
@@ -268,7 +284,6 @@ void User::handleClient(){
             
             case LISTONLINEFRIENDS: 
                 this->listOnlineFriends();
-                //std::cout<< "yeah received " << recvInt() << std::endl;
                 break;
             case ADDFRIEND:
                 addFriend();
@@ -278,6 +293,9 @@ void User::handleClient(){
                 removeFriend();
                 break;
 
+            case FRIENDREQUESTANSWER:
+                recvFriendRequestAnswer();
+                break;
             default:
                 this->exit();
                 end = true;
