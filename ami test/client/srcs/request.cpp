@@ -123,7 +123,9 @@ void Request::proceedGameAndFriendRequests()
             std::cin >> res;
         }
 
-    
+        
+        sendInt(FRIENDREQUESTANSWER);
+        sendStr(newPotentialFriend.name);
         char toSend[2] = {0, 0};
         
         toSend[0] = res;
@@ -141,7 +143,7 @@ bool Request::listOnlineFriends()
   
     std::cout << "Vous avez: " << friendsOnline <<  "ami(s) en ligne" << std::endl; 
     for(int i = 0; i < friendsOnline; i++)
-        std::cout << recvStr() << " is online " << std::endl;
+        std::cout << recvStr() << " est en ligne " << std::endl;
     
    
     endProcess();
