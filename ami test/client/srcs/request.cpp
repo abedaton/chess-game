@@ -116,7 +116,7 @@ void Request::proceedGameAndFriendRequests()
         friendRequests.pop();
         
         std::cout << newPotentialFriend.name << " souhaite vous ajouter en ami: " << std::endl;
-        char res;
+        char res = 0;
         while(res != 'y' && res != 'n')
         {
             std::cout << "veuillez appuyer sur y pour l'accepter, n pour le refuser: ";
