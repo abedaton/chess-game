@@ -126,15 +126,7 @@ void Client::friendsWindow()
 		}
 		else if(res == 4)
 		{
-			//todo implementer une mutex ? car on ne peut pas faire 2 cin en meme temps donc oblige 
-			//de sleep pour recevoir les requetes du serveur
-			
-			/*
-			std::cout << "écrivez \"exit\" pour revenir au menu" <<std::endl;
-			std::string tmp;
-			while(tmp != "exit")
-				std::cin >> tmp;*/
-			//std::this_thread::sleep_for(std::chrono::milliseconds(10000));
+		
 			_request->proceedGameAndFriendRequests();
 		}		
 			
