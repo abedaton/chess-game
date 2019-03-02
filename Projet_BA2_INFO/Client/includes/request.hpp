@@ -55,6 +55,7 @@ class Request{
         int recvInt();
 		int recvInt(int flag);
         void sendInt(int num);
+        std::string recvStr();
 };
 
 #endif

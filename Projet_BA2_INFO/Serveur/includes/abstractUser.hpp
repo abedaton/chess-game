@@ -7,7 +7,7 @@
 
 class AbstractGame;
 
-class AbstractUser : public Human{
+class AbstractUser : public Human{ // plustard apres du merge plus d'heritage de Human !!!
     public:
         virtual void startGame(BaseChess*, AbstractUser*, bool) = 0;
 };

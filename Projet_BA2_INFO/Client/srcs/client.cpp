@@ -1,4 +1,4 @@
-#include "client.hpp"
+#include "../includes/client.hpp"
 
 Client::Client(){
 	this->_request = new Request(this);
@@ -15,12 +15,14 @@ void Client::connectionError(){
 }
 
 void Client::startingGame(bool playerTurn){
-	//this->_game->setmyTurn(playerTurn);
+	std::cout << "Game is starting. Please press a random key to continue" << std::endl;
+	this->_myTurn = playerTurn;
 	this->_gameStart = true;
 }
 
-void Client::opponentMov(int coord1, int coord2, bool lose){
-	;;//to do
+void Client::opponentMov(std::string mov){
+	this->_myTurn = false;
+	//this->_game->execute_step(mov, this->_Username);
 }
 
 void Client::recvMessage(){
@@ -74,8 +76,11 @@ bool Client::registerWindow(){
 			std::cout << "Invalid email." << std::endl;
 			continue;
         }
-		if (this->_request->letsRegister(username,password,email))
+		if (this->_request->letsRegister(username,password,email)){
+			std::cout << "You are now logged in !" << std::endl;
+			this->_Username = username;
 			return true;
+		}
 		else{
 			char answer;
 			std::cout << "Invalide Username.\n Write 1 for continue or 2 to go back: ";
@@ -102,6 +107,7 @@ bool Client::logInWindow(){
         password = getpass("Password (password will not be shown) :");
         if(this->_request->login(username,password)){
 			std::cout << "You are now logged in !" << std::endl;
+			this->_Username = username;
 			return true;
 		}
 		else{
@@ -125,25 +131,26 @@ void Client::menuWindow(){
 	char answer;
 	bool waitForGame = false;
     while (true){
-		if (this->_gameStart){
-			gameWindow();
-			waitForGame = false;
-		}
         std::cout << "Enter 1 for exit, 2 for chat";
 		if (!waitForGame)
 			std::cout <<", 3 for game";
 		std::cout << ": " << std::endl;
         std::cin >> answer;
 		myFlush();
-        if (answer == '1'){
-            break;
-        }
-        else if (answer == '2'){
-            ;;// To Do
-        }
-        else if (answer == '3' && !waitForGame){
-            waitForGame = selectGameModeWindow();
-        }
+		if (this->_gameStart){
+			gameWindow();
+			waitForGame = false;
+		} else{
+        	if (answer == '1'){
+        	    break;
+        	}
+        	else if (answer == '2'){
+        	    ;;// To Do
+        	}
+        	else if (answer == '3' && !waitForGame){
+        	    waitForGame = selectGameModeWindow();
+        	}
+		}
     }
 }
 
@@ -161,15 +168,29 @@ bool Client::selectGameModeWindow(){
 		return false;
 	else{
 		this->_request->findMatch(atoi(&answer));
-		;;//set game
+		switch (answer){
+			case '1':
+				//this->_game = new ClassicChess(new SilencedHuman(player2->get_name(),"francais"),new SilencedHuman(player2->get_name(),"francais"), new Dico(), "francais");
+				break;
+			case '2':
+				//this->_game = new ClassicChess();
+				break;
+			case '3':
+				//this->_game = new ClassicChess();
+				break;
+			case '4':
+				//this->_game = new ClassicChess();
+				break;
+			default:
+				break;
+		}
 		return true;
 	}
 }
 
 void Client::gameWindow(){
 	std::string answer;
-	int coord1;
-	int coord2;
+	std::pair<std::string, bool> returnP;
     while (true){
         std::cout << "Enter 1 for surrend, 2 for chat, 3 for play" << std::endl;
         std::cin >> answer;
@@ -182,11 +203,15 @@ void Client::gameWindow(){
             ;;
         }
         else if (strcmp(answer.c_str(),"3")){
-			// std::string mov = this->game->execute_step(std::string);
-			// this->request->mov(mov);
-			// if(this->game->end())
-			// 	  break;
-			// turn + Check_and_do_move
+			if (this->_myTurn){
+				//returnP = this->game->execute_step(this->_Username);
+				//this->request->mov(std::get<std::string>(returnP));
+				//if(std::get<bool>(returnP))
+				// 	  break;
+				this->_myTurn = false;
+			} else{
+				std::cout << "It is not your turn" << std::endl;
+			}
         }
     }
 }

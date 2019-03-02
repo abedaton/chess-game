@@ -40,15 +40,23 @@ void MatchMaking::poolSort(int gameMod){
             pools[gameMod-1].erase(pools[gameMod-1].begin() + second);
             std::cout << "SECOND PLAYER SELECTED" << std::endl;
 
+			//SilencedHuman* play_one = new SilencedHuman(player1->get_name(),"francais"); // plustard apres du merge
+			//SilencedHuman* play_two = new SilencedHuman(player2->get_name(),"francais"); // plustard apres du merge
+			
+			// francais peut être remplacé de votre coté par un player->get_langue() // faut voir si vous l'implémenter
 
             //AbstractGame* game = new AbstractGame(player1, player2);
             BaseChess* game;
             switch(gameMod){
                 case 1:
+					
                     game = new ClassicChess(player1, player2, new Dico(), "francais");
+                    //game = new ClassicChess(play_one, play_two, new Dico()); // plustard apres du merge
+                    
                     break;
                 default:
                     game = new ClassicChess(player1, player2, new Dico(), "francais"); // tmp
+                    //game = new ClassicChess(play_one, play_two, new Dico()); // plustard apres du merge
                     break;
             }
             std::cout << "Launching Game" << std::endl;

@@ -8,6 +8,7 @@ User::User(int client_sock, Database* db, MatchMaking* match) : _clientSock(clie
 void User::startGame(BaseChess* game, AbstractUser* oppenent, bool turn){
     this->_game = game;
     this->_opponent = oppenent;
+    this->_myTurn = turn;
 	int protocol = 20;
     sendInt(protocol);
     sendInt(static_cast<int>(turn));
@@ -80,6 +81,8 @@ void User::exit() {
     this->_db->updateUserDisc(this->name);
     pthread_exit(0);
 }
+
+//std::string User::get_name() const{return this->name;} // plustard apres du merge
 
 //Privet
 

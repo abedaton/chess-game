@@ -1,4 +1,4 @@
-#include "request.hpp"
+#include "../includes/request.hpp"
 
 Request::Request(AbstractClient* client): _client(client){
 	setup();
@@ -130,8 +130,8 @@ void Request::startingGame(){
 }
 
 void Request::opponentMov(){
-	//To Do
-	//this->_client->opponentMov(int, int, bool);
+	std::string mov = recvStr();
+	//this->_client->opponentMov(mov);
 }
 
 void Request::recvMessage(){
@@ -184,4 +184,14 @@ void Request::sendStr(std::string str){
     if (send(this->_clientSock, str.c_str(), str.size(), 0) <= 0){
         this->error();
     }
+}
+
+std::string Request::recvStr(){
+    int len_str = recvInt();
+    std::vector<char> buffer(static_cast<long unsigned int>(len_str));
+    if (recv(this->_clientSock, &buffer[0], buffer.size(), MSG_WAITALL) <= 0){
+        this->error();
+    }
+    std::string str(buffer.begin(), buffer.end());
+    return str;
 }

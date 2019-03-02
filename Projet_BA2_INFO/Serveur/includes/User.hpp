@@ -29,6 +29,7 @@ class User: public AbstractUser{
 		std::string in();
 		void out(std::string str);
 		void exit();
+		//std::string get_name() const; // plustard apres du merge
 		
 		//std::string next_input() override;
         //void send_confirm_msg(std::string,bool) override;
@@ -40,6 +41,7 @@ class User: public AbstractUser{
 		MatchMaking* _match;
 		BaseChess* _game;
 		AbstractUser* _opponent;
+		bool _myTurn;
 
 		std::mutex _mutex;
 		std::string name;

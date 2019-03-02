@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <regex>
 
-#include "request.hpp"
+#include "../srcs/request.cpp"
 //#include "../../Serveur/game/ClassicChess/ClassicChess.cpp"
 
 #define PORT 5555
@@ -23,12 +23,14 @@ class Client: AbstractClient {
         ~Client();
         void connectionError() override;
 		void startingGame(bool playerTurn) override;
-		void opponentMov(int coord1, int coord2, bool lose) override;
+		void opponentMov(std::string mov) override;
 		void recvMessage() override;
 	private:
 		Request* _request;
-		//AbstractChess* _game
+		//AbstractChess* _game;
+		std::string _Username;
 		bool _gameStart;
+		bool _myTurn;
 
 		void firstWindow();
 		bool registerWindow();
