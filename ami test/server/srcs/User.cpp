@@ -216,12 +216,11 @@ void User::removeFriend()
         sendInt(0);
 }
 
+//juste une fonction debug utilisée à fin de ne pas avoir à register des nouveaux utilisateurs, a ignorer
 void User::dbgSetName()
 {
     name = recvStr();
     std::cout << "name was received" << name.c_str() << std::endl;
-    //pwnd_ignore = recvStr();
-    //sendInt(1);
     std::cout << name.c_str() << "just connected \n " << std::endl;
 }
 
@@ -242,7 +241,7 @@ void User::handleClient(){
     Protocol protocol;
     while (true){
         protocol = static_cast<Protocol>(this->recvInt());
-        std::cout << "protocol received: " << protocol << "  " << ADDFRIEND <<std::endl;
+        std::cout << "protocol received: " << protocol << " from: " << name << std::endl;
         switch (protocol){
             case EXIT: //0
                 this->exit();
