@@ -90,14 +90,143 @@ void User::mov(){
     }
 }
 
+
+
 void User::exit() {
     close(this->_clientSock);
     std::cout << "exiting.." << std::endl;
+    int i = 0;   
+    bool found = false;
+    
+    //on enleve l'utilisateur du vector des joueurs connectés
+    while(found == false && i < onlineUsers.size())
+    {
+        if(onlineUsers[i] != this)
+            i++;
+        else
+            {
+                found = true;
+                onlineUsers.erase(onlineUsers.begin() + i);
+            }
+    }
+    
+    pthread_exit(0);
     this->_db->updateUserDisc(this->name);
     pthread_exit(0);
 }
 
 std::string User::get_name() const{return this->name;}
+
+std::string User::getName()
+{
+    return this->name;
+}
+User* User::findUserByName(std::string name)
+{
+    User * res = nullptr;
+    int i = 0;
+    while(i < onlineUsers.size() && res == nullptr)
+    {
+        if(name == onlineUsers[i]->getName())
+            res = onlineUsers[i];
+        i++;
+    }
+    return res;
+}
+
+
+/*
+note findUserByName est un mauvais moyen pour trouver si un joueur est toujours en ligne
+je pense que ce serait mieux de juste supprimer de la variable membre friends
+ au fur et à mesure qu'un joueur se deconnecte
+*/
+void User::listOnlineFriends()
+{
+    sendInt(friends.size());
+    for(int i = 0; i < friends.size(); i++)
+    {
+        if(findUserByName(friends[i]->getName()) != nullptr) //on regarde si il est toujours en ligne
+            sendStr(friends[i]->getName());
+    }
+}
+
+void User::addFriendToList(User *new_friend)
+{
+    friends.push_back(new_friend);
+}
+
+/*
+normalement plus de (gros) bug prevenez moi (matias) si vous en trouvez
+*/
+void User::addFriend()
+{
+    std::string nameOfUserToAdd = recvStr();
+    std::cout << name << " désire ajouter " << nameOfUserToAdd << std::endl;
+    User* userToAdd = findUserByName(nameOfUserToAdd);
+    if(userToAdd != nullptr)
+    {
+       sendInt(1);
+       userToAdd->sendfriendRequestNotification(this);
+       
+    }
+    else
+        sendInt(0);
+
+}
+
+void User::recvFriendRequestAnswer()
+{
+    User *userAdding = findUserByName(recvStr());
+    std::string answer = recvStr();
+    if(userAdding)
+    {
+        if(answer == "y")
+        {
+            std::cout << "a accepte la requete de " << std::endl;
+            userAdding->addFriendToList(this);
+            this->addFriendToList(userAdding);
+        }
+    }
+}
+
+void User::sendfriendRequestNotification(User *userAdding)
+{
+    sendInt(NEWFRIENDREQUEST);
+    sendStr(userAdding->getName());
+}
+
+void User::removeFromFriends(User *userToRemove)
+{
+    int i = 0;
+    bool found = false;
+    while(i < friends.size() && found == false)
+    {
+        if(friends[i] == userToRemove)
+        {
+            found = true;
+            friends.erase(friends.begin() + i);
+        }
+        else
+            i++;
+    }
+}
+
+void User::removeFriend()
+{
+    std::string nameOfUserToDelete = recvStr();
+    
+    //on supprime dans les deux listes
+    User *otherUser = findUserByName(nameOfUserToDelete);
+    if(otherUser != nullptr)
+    {
+        sendInt(1);
+        otherUser->removeFromFriends(this);
+        removeFromFriends(otherUser);
+        
+    }
+    else
+        sendInt(0);
+}
 
 //Privet
 
@@ -129,6 +258,18 @@ void User::handleClient(){
                 break;    
             case MOV: //5
                 this->mov();
+                break;
+            case LISTONLINEFRIENDS: 
+                this->listOnlineFriends();
+                break;
+            case ADDFRIEND:
+                addFriend();
+                break;
+            case REMOVEFRIEND:
+                removeFriend();
+                break;
+            case FRIENDREQUESTANSWER:
+                recvFriendRequestAnswer();
                 break;
             default:
                 this->exit();

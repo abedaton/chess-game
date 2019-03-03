@@ -63,6 +63,8 @@ std::vector<MatPosi*>* get_path_intesection(std::vector<std::vector<MatPosi*>*>*
 
 bool is_roquable(Chesspiece*);
 
+std::vector<std::string>* split_string(std::string, std::string);
+
 class BaseChess{
     private:
 		Plateau* plateau;
@@ -73,7 +75,7 @@ class BaseChess{
 		int action_cnt;
 
 	public:
-        BaseChess(Player*,Player*,Dico*); //*< Constructor
+        BaseChess(Player*,Player*,Player*,Dico*); //*< Constructor
         BaseChess() noexcept = default; //*< Constructor
         virtual ~BaseChess() noexcept = default; //Destructor
         BaseChess(const BaseChess&) noexcept = default;

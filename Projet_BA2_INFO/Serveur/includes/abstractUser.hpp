@@ -4,6 +4,7 @@
 
 #include <string>
 #include "../game/ClassicChess/ClassicChess.cpp"
+#include "../game/DarkChess/DarkChess.cpp"
 
 class AbstractGame;
 

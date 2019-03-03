@@ -29,7 +29,7 @@ class Affichage{
 	public:
         Affichage(Plateau*, Dico*,std::string,std::string,std::string,Player*,Player*,std::string,std::string); //*< Constructor
         Affichage() noexcept = default; //*< Constructor
-        ~Affichage() noexcept = default; //Destructor
+        virtual ~Affichage() noexcept = default; //Destructor
         Affichage(const Affichage&) noexcept = default;
         Affichage& operator= (const Affichage&) noexcept = default;
         
@@ -38,7 +38,7 @@ class Affichage{
         
         std::string get_affichage();
         
-    private:
+    protected:
 		Plateau* get_plateau();
         Dico* get_dico();
 		std::string get_dico_prefix();
@@ -56,7 +56,7 @@ class Affichage{
         std::string make_big_ligne();
         std::string make_big_ligne_vide();
         
-        std::string get_affichage_line(int, int);
+        virtual std::string get_affichage_line(int, int);
         
         std::string affichage_plateau();
         

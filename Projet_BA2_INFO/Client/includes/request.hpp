@@ -13,11 +13,17 @@
 #include <sys/select.h>
 #include <errno.h>
 #include <chrono>
+#include <queue>
 
 #include "abstractClient.hpp"
 
 #define PORT 5555
 #define IP "0.0.0.0"
+
+struct FriendRequests
+{
+    std::string name;
+};
 
 class Request{
     public:
@@ -33,6 +39,13 @@ class Request{
         void surrend();
         void mov(std::string mov);
         //more fct for game
+
+        bool listOnlineFriends();
+        bool addFriend(std::string name);
+        void removeFriend(std::string name);
+        void recvFriendAddNotification();
+        void proceedGameAndFriendRequests();
+
     private:
 		std::mutex _mutex;
 		pthread_t _listenerThread;
@@ -56,6 +69,15 @@ class Request{
 		int recvInt(int flag);
         void sendInt(int num);
         std::string recvStr();
+
+        std::queue<FriendRequests> friendRequests;
 };
+
+enum Protocol : int {
+    EXIT = 0, REGISTER, LOGIN, PASS, WAITFORMATCH, GETMOV, MOV, 
+    LISTONLINEFRIENDS, ADDFRIEND, REMOVEFRIEND, NEWFRIENDREQUEST, 
+    FRIENDREQUESTANSWER, RECVMESSAGE, SENDMESSAGE
+};
+
 
 #endif

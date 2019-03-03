@@ -26,13 +26,17 @@ void Client::startingGame(bool playerTurn){
 	switch (this->_gameMod){
 		case 1:
 			if (playerTurn) {
-				this->_game = new ClassicChess(player1, player2, dico);
+				this->_game = new ClassicChess(player1, player2, player1, dico);
 			} else {
-				this->_game = new ClassicChess(player2, player1, dico);
+				this->_game = new ClassicChess(player2, player1, player1, dico);
 			}
 			break;
 		case 2:
-			//this->_game = new ClassicChess();
+			if (playerTurn) {
+				this->_game = new DarkChess(player1, player2, player1, dico);
+			} else {
+				this->_game = new DarkChess(player2, player1, player1, dico);
+			}
 			break;
 		case 3:
 			//this->_game = new ClassicChess();
@@ -48,6 +52,77 @@ void Client::startingGame(bool playerTurn){
 void Client::opponentMov(std::string mov){
 	this->_game->execute_step(mov, "Opponent");
 	this->_myTurn = true;
+}
+
+void Client::friendsWindow()
+{
+	unsigned int res = 0;
+	
+	while(res != 7)
+	{
+		std::cout << "Que désirez vous faire?: " << std::endl;
+		std::cout << "1) Ajouter un ami " << std::endl;
+		std::cout << "2) Lister tous les amis connectés " << std::endl;
+		std::cout << "3) Supprimer un ami " << std::endl;
+		std::cout << "4) Consulter mes demandes d'amis/de parties " << std::endl;
+		std::cout << "5) Proposer à un ami de faire une partie " << std::endl;
+		std::cout << "6) Chat avec des amis " << std::endl;
+		std::cout << "7) Retourner au menu principal " << std::endl;
+
+		std::cin >> res;
+		while(res == 0 || res > 7)
+		{	
+			std::cout << "Choix invalide veuillez réessayer:" << std::endl;
+			std::cin >> res;
+		}
+		
+		if(res == 1)
+		{
+			std::string friendName;
+			std::cout<< "Veuillez entrer le nom de l'ami à ajouter: ";
+			std::cin >> friendName;
+			if(!_request->addFriend(friendName))
+				std::cout << friendName << " n'existe pas " << std::endl;
+			else
+				std::cout<< "La demande d'ami a été envoytée" << std::endl;	
+		}
+
+		else if(res == 2)
+		{			
+			_request->listOnlineFriends();
+		}	
+
+		else if(res == 3)
+		{
+			std::string friendName;
+			std::cout<< "Veuillez entrer le nom de l'ami à supprimer: ";
+			std::cin >> friendName;
+			_request->removeFriend(friendName);
+		}
+		else if(res == 4)
+		{
+			_request->proceedGameAndFriendRequests();
+		}		
+			
+		else if(res ==5)
+		{
+			/*
+			1. call listonlinefriends pour montrer tous les amis disponibles
+			2. laiser l'utilisateur choisir l'ami puis l'inviter à la partie
+			*/
+
+		}
+
+		else if(res ==6)
+			;//chatWindow();
+			
+		else if(res == 7)
+			;
+
+		else
+			std::cout << "Choix invalide veuillez réessayer:" << std::endl;
+			
+	}
 }
 
 void Client::firstWindow(){
@@ -152,7 +227,7 @@ void Client::menuWindow(){
 	char answer;
 	bool waitForGame = false;
     while (true){
-        std::cout << "Enter 1 for exit";//,(2 for chat)";
+        std::cout << "Enter 1 for exit 2 for friend list";//,(2 for chat)";
 		if (!waitForGame)
 			std::cout <<", 3 for game";
 		std::cout << ": " << std::endl;
@@ -166,7 +241,7 @@ void Client::menuWindow(){
         	    break;
         	}
         	else if (answer == '2'){
-        	    //To Do
+        	    friendsWindow();
         	}
         	else if (answer == '3' && !waitForGame){
         	    waitForGame = selectGameModeWindow();

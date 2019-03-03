@@ -35,7 +35,10 @@ bool ClassicChess::check_pat(){
 	return escape;
 }
 
-ClassicChess::ClassicChess(Player* p_low, Player* p_high, Dico* dict) : BaseChess(p_low,p_high,dict){
+ClassicChess::ClassicChess(Player* p_low, Player* p_high,Player* deb_player, Dico* dict) : BaseChess(p_low,p_high,deb_player,dict){
+	
+	if((deb_player != p_low) and (deb_player != p_high)){throw MyException(&mout,"joueur devant commencé inconnnu!");}
+	
 	this->initialisation();
 } //*< Constructor
 
@@ -52,54 +55,54 @@ void ClassicChess::initialise_low_pieces(){
 	Player* own = get_low_player();
 	
 	//ligne 1
-	// Tour* tour_un = new Tour();
-	// this->initial_set_piece(tour_un,own,"A1");
+	 Tour* tour_un = new Tour();
+	 this->initial_set_piece(tour_un,own,"A1");
 	
-	// Chevalier* cheval_un = new Chevalier();
-	// this->initial_set_piece(cheval_un,own,"B1");
+	 Chevalier* cheval_un = new Chevalier();
+	 this->initial_set_piece(cheval_un,own,"B1");
 	
-	// Fous* fou_un = new Fous();
-	// this->initial_set_piece(fou_un,own,"C1");
+	 Fous* fou_un = new Fous();
+	 this->initial_set_piece(fou_un,own,"C1");
 	
 	Dame* dame = new Dame();
-	this->initial_set_piece(dame,own,"B5");
+	this->initial_set_piece(dame,own,"D1");
 	
 	Roi* roi = new Roi();
-	this->initial_set_piece(roi,own,"C5");
+	this->initial_set_piece(roi,own,"E1");
 	
-	// Fous* fou_deux = new Fous();
-	// this->initial_set_piece(fou_deux,own,"F1");
+	 Fous* fou_deux = new Fous();
+	 this->initial_set_piece(fou_deux,own,"F1");
 	
-	// Chevalier* cheval_deux = new Chevalier();
-	// this->initial_set_piece(cheval_deux,own,"G1");
+	 Chevalier* cheval_deux = new Chevalier();
+	 this->initial_set_piece(cheval_deux,own,"G1");
 	
-	// Tour* tour_deux = new Tour();
-	// this->initial_set_piece(tour_deux,own,"H1");
+	 Tour* tour_deux = new Tour();
+	 this->initial_set_piece(tour_deux,own,"H1");
 	
 	// //ligne 2
-	// Pion* pion_un = new Pion("up");
-	// this->initial_set_piece(pion_un,own,"A2");
+	 Pion* pion_un = new Pion("up");
+	 this->initial_set_piece(pion_un,own,"A2");
 	
-	// Pion* pion_deux = new Pion("up");
-	// this->initial_set_piece(pion_deux,own,"B2");
+	 Pion* pion_deux = new Pion("up");
+	 this->initial_set_piece(pion_deux,own,"B2");
 	
-	// Pion* pion_trois = new Pion("up");
-	// this->initial_set_piece(pion_trois,own,"C2");
+	 Pion* pion_trois = new Pion("up");
+	 this->initial_set_piece(pion_trois,own,"C2");
 	
-	// Pion* pion_quatre = new Pion("up");
-	// this->initial_set_piece(pion_quatre,own,"D2");
+	 Pion* pion_quatre = new Pion("up");
+	 this->initial_set_piece(pion_quatre,own,"D2");
 	
-	// Pion* pion_cinq = new Pion("up");
-	// this->initial_set_piece(pion_cinq,own,"E2");
+	 Pion* pion_cinq = new Pion("up");
+	 this->initial_set_piece(pion_cinq,own,"E2");
 	
-	// Pion* pion_six = new Pion("up");
-	// this->initial_set_piece(pion_six,own,"F2");
+	 Pion* pion_six = new Pion("up");
+	 this->initial_set_piece(pion_six,own,"F2");
 	
-	// Pion* pion_sept = new Pion("up");
-	// this->initial_set_piece(pion_sept,own,"G2");
+	 Pion* pion_sept = new Pion("up");
+	 this->initial_set_piece(pion_sept,own,"G2");
 	
-	// Pion* pion_huit = new Pion("up");
-	// this->initial_set_piece(pion_huit,own,"H2");
+	 Pion* pion_huit = new Pion("up");
+	 this->initial_set_piece(pion_huit,own,"H2");
 
 }
 
@@ -109,54 +112,54 @@ void ClassicChess::initialise_high_pieces(){
 	Player* own = get_high_player();
 		
 	//ligne 8
-	// Tour* tour_un = new Tour();
-	// this->initial_set_piece(tour_un,own,"A8");
+	Tour* tour_un = new Tour();
+	this->initial_set_piece(tour_un,own,"A8");
 	
-	// Chevalier* cheval_un = new Chevalier();
-	// this->initial_set_piece(cheval_un,own,"B8");
+	Chevalier* cheval_un = new Chevalier();
+	this->initial_set_piece(cheval_un,own,"B8");
 	
-	// Fous* fou_un = new Fous();
-	// this->initial_set_piece(fou_un,own,"C8");
+	Fous* fou_un = new Fous();
+	this->initial_set_piece(fou_un,own,"C8");
 	
-	// Dame* dame = new Dame();
-	// this->initial_set_piece(dame,own,"D8");
+	Dame* dame = new Dame();
+	this->initial_set_piece(dame,own,"D8");
 	
 	Roi* roi = new Roi();
-	this->initial_set_piece(roi,own,"A8");
+	this->initial_set_piece(roi,own,"E8");
 	
-	// Fous* fou_deux = new Fous();
-	// this->initial_set_piece(fou_deux,own,"F8");
+	Fous* fou_deux = new Fous();
+	this->initial_set_piece(fou_deux,own,"F8");
 	
-	// Chevalier* cheval_deux = new Chevalier();
-	// this->initial_set_piece(cheval_deux,own,"G8");
+	Chevalier* cheval_deux = new Chevalier();
+	this->initial_set_piece(cheval_deux,own,"G8");
 	
-	// Tour* tour_deux = new Tour();
-	// this->initial_set_piece(tour_deux,own,"H8");
+	Tour* tour_deux = new Tour();
+	this->initial_set_piece(tour_deux,own,"H8");
 	
 	// //ligne 7
-	// Pion* pion_un = new Pion("down");
-	// this->initial_set_piece(pion_un,own,"A7");
+	Pion* pion_un = new Pion("down");
+	this->initial_set_piece(pion_un,own,"A7");
 	
-	// Pion* pion_deux = new Pion("down");
-	// this->initial_set_piece(pion_deux,own,"B7");
+	Pion* pion_deux = new Pion("down");
+	this->initial_set_piece(pion_deux,own,"B7");
 	
-	// Pion* pion_trois = new Pion("down");
-	// this->initial_set_piece(pion_trois,own,"C7");
+	Pion* pion_trois = new Pion("down");
+	this->initial_set_piece(pion_trois,own,"C7");
 	
-	// Pion* pion_quatre = new Pion("down");
-	// this->initial_set_piece(pion_quatre,own,"D7");
+	Pion* pion_quatre = new Pion("down");
+	this->initial_set_piece(pion_quatre,own,"D7");
 	
-	// Pion* pion_cinq = new Pion("down");
-	// this->initial_set_piece(pion_cinq,own,"E7");
+	Pion* pion_cinq = new Pion("down");
+	this->initial_set_piece(pion_cinq,own,"E7");
 	
-	// Pion* pion_six = new Pion("down");
-	// this->initial_set_piece(pion_six,own,"F7");
+	Pion* pion_six = new Pion("down");
+	this->initial_set_piece(pion_six,own,"F7");
 	
-	// Pion* pion_sept = new Pion("down");
-	// this->initial_set_piece(pion_sept,own,"G7");
+	Pion* pion_sept = new Pion("down");
+	this->initial_set_piece(pion_sept,own,"G7");
 	
-	// Pion* pion_huit = new Pion("down");
-	// this->initial_set_piece(pion_huit,own,"H7");
+	Pion* pion_huit = new Pion("down");
+	this->initial_set_piece(pion_huit,own,"H7");
 
 }
 
@@ -281,23 +284,6 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChe
 	return res;
 }
 
-std::vector<std::string>* split_string(std::string s,std::string delim){
-	
-	std::vector<std::string>* vect = new std::vector<std::string>();
-	
-	long long unsigned int start = 0;
-    long long unsigned int end = s.find(delim);
-    while (end != std::string::npos){
-		vect->push_back(s.substr(start, end - start));
-        start = end + delim.length();
-        end = s.find(delim, start);
-    }
-	vect->push_back(s.substr(start, end));
-	
-	return vect;
-	
-}
-
 Trinome<std::string,std::string,bool>* ClassicChess::decode_merged_string(std::string merged_string){
 	
 	Trinome<std::string,std::string,bool>* res_trinome = new Trinome<std::string,std::string,bool>();
@@ -343,7 +329,7 @@ bool ClassicChess::exec_step(std::string in, std::string out, BitypeVar<Chesspie
 		this->exec_move(in,out,switch_pos);
 	}
 	
-	this->check_evolution();
+	if (not(end)){this->check_evolution();} // nouveau !!
 	
 	if (not(end)){
 		end = this->verify_kings();

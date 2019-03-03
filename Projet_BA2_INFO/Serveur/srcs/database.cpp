@@ -143,7 +143,7 @@ void Database::createInfoTable(std::string username, int socket){
 
 void Database::updateUserLog(std::string table, int value){
 	char* zErrMsg = 0;
-	std::string sql = "UPDATE '" + table + "' set 'socket' = '" + std::to_string(value) + "', 'loggedIn' = 1;";
+	std::string sql = "UPDATE '" + table + "' set 'socket' = '" + std::to_string(value) + "', 'loggedIn' = '1';";
 	int rc = sqlite3_exec(this->db, sql.c_str(), this->callback, 0, &zErrMsg);
 	if (rc != SQLITE_OK){
 		std::cout << "Error on Update: " << sqlite3_errmsg(this->db) << std::endl;
@@ -153,7 +153,7 @@ void Database::updateUserLog(std::string table, int value){
 
 void Database::updateUserDisc(std::string table){
 	char* zErrMsg = 0;
-	std::string sql = "UPDATE '" + table + "'set 'socket' = -1, 'loggedIn' = 0;";
+	std::string sql = "UPDATE '" + table + "'set 'socket' = '-1', 'loggedIn' = '0';";
 	int rc = sqlite3_exec(this->db, sql.c_str(), this->callback, 0, &zErrMsg);
 	if (rc != SQLITE_OK){
 		std::cout << "Error on Update: " << sqlite3_errmsg(this->db) << std::endl;

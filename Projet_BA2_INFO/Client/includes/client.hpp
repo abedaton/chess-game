@@ -12,7 +12,6 @@
 #include <regex>
 
 #include "../srcs/request.cpp"
-//#include "../../Serveur/game/ClassicChess/ClassicChess.cpp"
 
 #define PORT 5555
 
@@ -36,6 +35,8 @@ class Client: AbstractClient {
 		void firstWindow();
 		bool registerWindow();
 		bool logInWindow();
+		void friendsWindow();
+		void chatWindow();
 		void menuWindow();
 		bool selectGameModeWindow();
 		void gameWindow();

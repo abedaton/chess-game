@@ -5,7 +5,6 @@
 #include <vector>
 
 class FriendList{
-    void addFriend();
 };
 
 

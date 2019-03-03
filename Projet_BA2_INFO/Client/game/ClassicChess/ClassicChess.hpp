@@ -11,11 +11,9 @@
 
 #include "BaseChess/BaseChess.cpp"
 
-std::vector<std::string>* split_string(std::string, std::string);
-
 class ClassicChess: public BaseChess{
 	public:
-        ClassicChess(Player*,Player*,Dico*); //*< Constructor
+        ClassicChess(Player*,Player*,Player*,Dico*); //*< Constructor
         ClassicChess() noexcept = default; //*< Constructor
         ~ClassicChess() noexcept = default; //Destructor
         ClassicChess(const ClassicChess&) noexcept = default;

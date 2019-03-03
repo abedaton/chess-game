@@ -31,7 +31,11 @@ class User: public AbstractUser{
 		void sendMsg(std::string msg) override;
 		void exit();
 
-
+		void sendfriendRequestNotification(User *userAdding); 
+		void removeFromFriends(User *userToRemove);
+		void addFriendToList(User *new_friend);
+		void sendMessage(std::string sender, std::string message);
+		std::string getName(); //a changer apres avoir compilé
 		std::string get_name() const override;
 	
 	private:
@@ -67,10 +71,22 @@ class User: public AbstractUser{
 		void updateInfoDisc(); // quand le client se deconnecte
 		void updateInfoMatch(); 
 		
+		User *findUserByName(std::string name);
+        void listOnlineFriends();
+        void addFriend();
+        void removeFriend();
+		void recvFriendRequestAnswer();
+		std::vector<User*> friends;
 };
 
+
+
 enum Protocol : int {
-	PASS = 0, REGISTER, LOGIN, CHAT, WAITFORMATCH, MOV, SURREND
+    PASS = 0, REGISTER, LOGIN, CHAT, WAITFORMATCH, MOV, SURREND, 
+    LISTONLINEFRIENDS, ADDFRIEND, REMOVEFRIEND, NEWFRIENDREQUEST, 
+    FRIENDREQUESTANSWER, RECVMESSAGE, SENDMESSAGE
 };
+
+extern std::vector<User*> onlineUsers;
 
 #endif

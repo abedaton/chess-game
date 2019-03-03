@@ -3,6 +3,7 @@
 #define ABSTRACTCLIENTT_HPP
 
 #include "../game/ClassicChess/ClassicChess.cpp"
+#include "../game/DarkChess/DarkChess.cpp"
 
 class AbstractClient{
 	public:

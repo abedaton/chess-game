@@ -29,6 +29,9 @@ void Serveur::setup(){
     this->mainLoop();
 }
 
+std::vector<User*> onlineUsers; 
+
+
 void Serveur::mainLoop(){
     std::thread cmdThread(&Serveur::handleCommand, *this);
     Database* db = new Database();
@@ -43,6 +46,9 @@ void Serveur::mainLoop(){
                 }
                 this->_clients.at(static_cast<unsigned long int>(tmpClient-1)) = tmpClient;
                 User* tmpUser = new User(tmpClient, db, match); // <------ new important pour polymorphisme! - Quentin
+                
+                //load les amis de la bdd ici ?
+                onlineUsers.push_back(tmpUser);
             }
         }
     }

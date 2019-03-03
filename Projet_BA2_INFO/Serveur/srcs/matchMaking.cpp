@@ -41,10 +41,13 @@ void MatchMaking::poolSort(int gameMod){
             BaseChess* game;
             switch(gameMod){
                 case 1:
-                    game = new ClassicChess(play_one, play_two, dico);
+                    game = new ClassicChess(play_one, play_two, play_one, dico);
+                    break;
+                case 2:
+                    game = new DarkChess(play_one, play_two, play_one, dico);
                     break;
                 default:
-                    game = new ClassicChess(play_one, play_two, dico);
+                    game = new ClassicChess(play_one, play_two, play_one, dico);
                     break;
             }
             std::cout << "Launching Game" << std::endl;

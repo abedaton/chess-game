@@ -209,7 +209,7 @@ bool Plateau::move(std::pair<int,int> paire_in,std::pair<int,int> paire_out){
 		inside = this->isvalid_move(paire_in,paire_out);
 				
 		if (inside == true){
-			mout<<"mouvement valide"<<std::endl;
+			//mout<<"mouvement valide"<<std::endl;
 			Posi* new_posi = new Posi(col_out,lig_out);
 			
 			pe->set_posi(new_posi); // mive a jour de la posi de pe

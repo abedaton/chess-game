@@ -1,4 +1,4 @@
-
+#pragma once
 #include "BaseChess.hpp"
 
 extern MyOstream mout;
@@ -327,9 +327,26 @@ bool is_roquable(Chesspiece* pe){
 	return res;
 }
 
+std::vector<std::string>* split_string(std::string s,std::string delim){
+	
+	std::vector<std::string>* vect = new std::vector<std::string>();
+	
+	long long unsigned int start = 0;
+    long long unsigned int end = s.find(delim);
+    while (end != std::string::npos){
+		vect->push_back(s.substr(start, end - start));
+        start = end + delim.length();
+        end = s.find(delim, start);
+    }
+	vect->push_back(s.substr(start, end));
+	
+	return vect;
+	
+}
+
 //--------------------BaseChess----------------------------------------------------------------------------------------------------
 
-BaseChess::BaseChess(Player* p_low,Player* p_high,Dico* dict) : plateau(nullptr) , low_player(p_low), high_player(p_high), active_player(p_low), dico(dict), action_cnt(0){
+BaseChess::BaseChess(Player* p_low,Player* p_high,Player* deb_player,Dico* dict) : plateau(nullptr) , low_player(p_low), high_player(p_high), active_player(deb_player), dico(dict), action_cnt(0){
 	//this->initialisation(); /!\ impossible de le mettre cette fonction ici car contructeur appelé par fils, par conséquent utilisation de fonction virtuelle pure dans ce cas.
 	// a mettre dans le constructeur du fils !!!
 	
@@ -382,9 +399,9 @@ void BaseChess::initial_set_piece(Chesspiece* pe,Player* own,std::string mov){
 	
 	pe->set_owner(own);
 	
-	std::stringstream ss;
-	ss<<pe->get_name()<<","<<pe->get_owner()<<std::endl;
-	this->get_active_player()->send_msg(ss.str());
+	//std::stringstream ss;
+	//ss<<pe->get_name()<<","<<pe->get_owner()<<std::endl;
+	//this->get_active_player()->send_msg(ss.str());
 	
 	MatPosi* mpos = new MatPosi(mov);	
 	this->get_plateau()->set_piece(mpos->to_pair(),pe,true);
@@ -991,16 +1008,16 @@ void BaseChess::change_active_player(){
 	/* fonction qui change le joueur référencé par le titre "actif" qui veut dire "en train de jouer / ayant la main"*/
 	if (this->get_active_player() == get_low_player()){
 		
-		this->get_active_player()->send_msg("new player (low --> high)");
+		//this->get_active_player()->send_msg("new player (low --> high)");
 		set_active_player(get_high_player());
 		//mout<<"new player (low --> high): "<<get_high_player()->get_name()<<std::endl;
-		this->get_active_player()->send_msg("new player (low --> high)");
+		//this->get_active_player()->send_msg("new player (low --> high)");
 		}
 	else if (this->get_active_player() == get_high_player()){
-		this->get_active_player()->send_msg("new player (high --> low)");
+		//this->get_active_player()->send_msg("new player (high --> low)");
 		set_active_player(get_low_player());
 		//mout<<"new player (high --> low) : "<<get_low_player()->get_name()<<std::endl;
-		this->get_active_player()->send_msg("new player (high --> low)");
+		//this->get_active_player()->send_msg("new player (high --> low)");
 		}
 	else{throw MyException(&mout, "probleme active player change");}
 }
@@ -1476,9 +1493,9 @@ Chesspiece* BaseChess::ask_evolution_input(std::vector<Chesspiece*>* vect){
 void BaseChess::check_evolution(){
 	/* fonction vérifiant si un pion peut évoluer et qui demande en quele type le pion doit obtenir */
 	
-	std::stringstream ss;
+	//std::stringstream ss;
 	
-	ss<<"debut check_evolution() !"<<std::endl;
+	//ss<<"debut check_evolution() !"<<std::endl;
 	int num_row = this->get_player_row(this->get_non_active_player());
 	std::vector<BitypeVar<Chesspiece*>> lig = this->get_plateau()->get_row(num_row);
 	
@@ -1486,12 +1503,12 @@ void BaseChess::check_evolution(){
 
 	BitypeVar<int>* rep = detect_ennemy_pion_in_vect(lig, this->get_active_player());
 	
-	ss<<"etat lig "<<rep->get_state()<<std::endl;
+	//ss<<"etat lig "<<rep->get_state()<<std::endl;
 	if (rep->get_state() == true){
 		
 		// evolve
 		int num_col = rep->get_var();
-		ss<<"indice lig "<<num_col<<std::endl;
+		//ss<<"indice lig "<<num_col<<std::endl;
 		
 		std::pair<int,int> paire = std::make_pair(num_col,num_row);
 		
@@ -1513,9 +1530,9 @@ void BaseChess::check_evolution(){
 		
 	}
 	
-	ss<<"fin check_evolution() !"<<std::endl;
+	//ss<<"fin check_evolution() !"<<std::endl;
 	
-	this->get_active_player()->send_msg(ss.str());
+	//this->get_active_player()->send_msg(ss.str());
 	
 }
 
@@ -1838,7 +1855,7 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 	bool mode_echec = danger_res->get_state();
 	MatPosi* mpos_menace = danger_res->get_var();
 	
-	ss << mpos->to_string()<<" is in danger?: "<< mode_echec <<std::endl;
+	//ss << mpos->to_string()<<" is in danger?: "<< mode_echec <<std::endl;
 	
 	//--
 	bool escape = false;
@@ -1850,7 +1867,7 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 		//(sauf roc car si echec --> roc pas permis sinon inutile a verifier car roc ne peut pas empecher echec ou echec et mat (voir regles))
 		
 		if (not(escape)){escape = this->can_escape_position(pe ,"capt");}
-		ss<<"depl_esacpe? "<<escape<<std::endl;
+		//ss<<"depl_esacpe? "<<escape<<std::endl;
 		if (not(escape)){
 			
 			if(this->check_more_than_one_danger(mpos)){
@@ -1901,7 +1918,7 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 						i++;
 					}
 					
-					ss<<"une pe peut-elle bloquer la menace? "<<blocked<<std::endl;
+					//ss<<"une pe peut-elle bloquer la menace? "<<blocked<<std::endl;
 					
 					if (not(blocked)){mode_echec_et_mat = true;}
 					
@@ -1925,7 +1942,7 @@ bool BaseChess::verify_kings(){
 	
 	std::vector<Chesspiece*>* vect = this->get_kings();
 	Chesspiece* pe;
-	this->get_active_player()->send_msg("DEB VERIFY KINGS:",true);
+	//this->get_active_player()->send_msg("DEB VERIFY KINGS:",true);
 	
 	bool mode_echec_et_mat = false;
 	bool act_found = false;
@@ -1972,7 +1989,7 @@ bool BaseChess::verify_kings(){
 		this->get_active_player()->send_msg(ss.str());
 	}
 	
-	this->get_active_player()->send_msg("FIN VERIFY KINGS:",true);
+	//this->get_active_player()->send_msg("FIN VERIFY KINGS:",true);
 	
 	return mode_echec_et_mat;
 	
@@ -2016,3 +2033,4 @@ bool BaseChess::check_danger_mouvement_and_path(std::pair<int,int> paire_origi, 
 	return keep;
 	
 }
+

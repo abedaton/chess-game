@@ -204,12 +204,12 @@ bool Plateau::move(std::pair<int,int> paire_in,std::pair<int,int> paire_out){
 		Chesspiece* pe = tup_pe.get_var();
 		
 		bool inside;
-		mout<<"("<<col_in<<","<<lig_in<<") --> ("<<col_out<<","<<lig_out<<")"<<std::endl;
+		//mout<<"("<<col_in<<","<<lig_in<<") --> ("<<col_out<<","<<lig_out<<")"<<std::endl;
 		
 		inside = this->isvalid_move(paire_in,paire_out);
 				
 		if (inside == true){
-			mout<<"mouvement valide"<<std::endl;
+			//mout<<"mouvement valide"<<std::endl;
 			Posi* new_posi = new Posi(col_out,lig_out);
 			
 			pe->set_posi(new_posi); // mive a jour de la posi de pe

@@ -79,6 +79,90 @@ void Request::surrend(){
 	endProcess();
 }
 
+void Request::removeFriend(std::string name)
+{
+    waitForProcess();
+    sendInt(REMOVEFRIEND);
+    sendStr(name);
+
+    int res = recvInt();
+    if(res == 0)
+        std::cout << "L'utilisateur à supprimer n'a pas été trouvé " << std::endl;
+    else
+        std::cout << "L'utilisateur a correctement été supprimé" << std::endl;
+    endProcess();
+
+}
+
+void Request::proceedGameAndFriendRequests()
+{
+    std::cout << "Vous avez " << friendRequests.size() << " demandes d'amis " << std::endl;
+    while(friendRequests.size() > 0)
+    {
+        FriendRequests newPotentialFriend = friendRequests.front();
+        friendRequests.pop();
+        
+        std::cout << newPotentialFriend.name << " souhaite vous ajouter en ami: " << std::endl;
+        char res = 0;
+        while(res != 'y' && res != 'n')
+        {
+            std::cout << "veuillez appuyer sur y pour l'accepter, n pour le refuser: ";
+            std::cin >> res;
+        }
+
+        
+        sendInt(FRIENDREQUESTANSWER);
+        sendStr(newPotentialFriend.name);
+        char toSend[2] = {0, 0};
+        
+        toSend[0] = res;
+        sendStr(toSend);
+    }
+    
+}
+
+
+bool Request::listOnlineFriends()
+{
+    waitForProcess();
+    sendInt(LISTONLINEFRIENDS);
+    int friendsOnline = recvInt();
+  
+    std::cout << "Vous avez: " << friendsOnline <<  "ami(s) en ligne" << std::endl; 
+    for(int i = 0; i < friendsOnline; i++)
+        std::cout << recvStr() << " est en ligne " << std::endl;
+    
+    endProcess();
+    return true;
+}
+
+/*
+Retourne vrai/faux selon le fait que l'utilisateur existe ou pas.
+l'autre client (qu'on ajoute) doit aller dans le menu consulter 
+mes demandes d'amis pour l'accepter et le serveur se charge du reste.
+*/
+bool Request::addFriend(std::string name)
+{
+    waitForProcess();
+    sendInt(ADDFRIEND);
+    sendStr(name);
+    std::cout << "Vous avez ajouté: \"" << name << "\" à votre liste d'amis veuillez attendre sa réponse" << std::endl;
+    bool res = recvInt();
+    std::cout << "res was :" << res ;
+    endProcess();
+    return res;
+}
+
+//todo thread safe friendRequests?
+void Request::recvFriendAddNotification()
+{
+    FriendRequests newPotentialFriend;
+    newPotentialFriend.name = recvStr();
+    friendRequests.push(newPotentialFriend);
+}
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////PRIVIET
 void Request::setup(){
     this->_servAddr.sin_addr.s_addr	= inet_addr(IP);
@@ -115,6 +199,9 @@ void Request::listener(){
                 break;
 			case (22):
                 recvMessage();
+                break;
+            case (NEWFRIENDREQUEST):
+                recvFriendAddNotification();
                 break;
             default:
 				std::cout << "bad receive in listener: " << protocol << std::endl;
