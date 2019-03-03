@@ -1,0 +1,6 @@
+ ok 
+ tjs ok cette piece ne peut pas se deplacer de cette faconpour retourner
+
+---------------------
+ ok 
+ tjs ok this piece can't move like thatto return
