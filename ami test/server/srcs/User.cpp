@@ -149,7 +149,7 @@ void User::addFriendToList(User *new_friend)
 }
 
 /*
-normalement plus de (gros) bug prevenez moi (matias) si vous en trouvé
+normalement plus de (gros) bug prevenez moi (matias) si vous en trouvez
 */
 void User::addFriend()
 {
