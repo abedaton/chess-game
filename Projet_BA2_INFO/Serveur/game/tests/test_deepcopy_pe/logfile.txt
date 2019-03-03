@@ -1,4 +1,0 @@
-T Posi(x:0 ,y:0)
-first T Posi(x:0 ,y:0)
-second T Posi(x:1 ,y:0)
-third T Posi(x:0 ,y:0)
