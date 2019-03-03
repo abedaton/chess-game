@@ -376,10 +376,9 @@ std::pair<bool,std::string> ClassicChess::execute_step(){
 	BitypeVar<Chesspiece*> adv_pe_out;
 	
 	std::pair<bool,bool> bool_info;
-	if (this->get_action_cnt() == 0){std::cout << "oui" << std:: endl;this->affichage();std::cout << "non" << std::endl;}
+	if (this->get_action_cnt() == 0){this->affichage();}
 
 	coords = this->ask_for_input();
-	std::cout << "WSHHHHH" << std::endl;
 	in_couple = coords->get_first();
 
 	in = in_couple.first;
