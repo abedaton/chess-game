@@ -65,7 +65,7 @@ bool Database::isUsernameFree(std::string username){
 bool Database::isLoginOk(std::string username, std::string password){
 	long long int tpassword = static_cast<long long int>(hashPass(password));
 	
-	std::string sql = "SELECT * FROM users WHERE username = '" + username + "' AND password = " + std::to_string(tpassword);
+	std::string sql = "SELECT * FROM users WHERE username = '" + username + "' AND password = '" + std::to_string(tpassword) + "';";
 	return selectData(sql);
 }
 
@@ -89,7 +89,7 @@ bool Database::selectData(std::string sql){
 
 void Database::updateInfo(std::string table, std::string colName, std::string username, std::string newValue){
 	char* zErrMsg = 0;
-	std::string sql = "UPDATE " + table + " SET " + colName + " = '" + newValue + "' WHERE username = '" + username + "';";
+	std::string sql = "UPDATE '" + table + "' SET '" + colName + "' = '" + newValue + "' WHERE username = '" + username + "';";
 	std::cout << sql << std::endl;
 	int rc = sqlite3_exec(this->db, sql.c_str(), this->callback, 0, &zErrMsg);
 	if (rc != SQLITE_OK){
@@ -122,15 +122,15 @@ sqlite3* Database::getdb (){
 void Database::createInfoTable(std::string username, int socket){
 	const char* pzTest;
 	sqlite3_stmt* stmt;
-	std::string sql = "CREATE TABLE IF NOT EXISTS " + username + " (socket INT,\
-                                                    				loggedIn BOOLEAN NOT NULL)";
+	std::string sql = "CREATE TABLE IF NOT EXISTS '" + username + "' (socket INT,\
+                                                    				loggedIn BOOLEAN NOT NULL);";
 
 	char* zErrMsg = 0;
 	if (sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg) == SQLITE_OK){
 		std::cout << "New table " + username + " created\n";
 	}
 
-	sql = "INSERT INTO " + username + " (socket, loggedIn) VALUES (?, 1)";
+	sql = "INSERT INTO '" + username + "' (socket, loggedIn) VALUES (?, 1);";
 
 	if (sqlite3_prepare(this->db, sql.c_str(), static_cast<int>(sql.size()), &stmt, &pzTest) == SQLITE_OK){
 		sqlite3_bind_int(stmt, 1, static_cast<int>(socket));

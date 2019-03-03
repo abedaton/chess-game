@@ -26,7 +26,9 @@ class User: public AbstractUser{
         User& operator= (const User&) noexcept = delete;
 
 		void startGame(BaseChess*, AbstractUser*, bool) override;
-		void opponentMov(std::string mov) override;
+		void opponentMov(std::string mov)override;
+		void surrend() override;
+		void sendMsg(std::string msg) override;
 		void exit();
 
 
@@ -49,7 +51,6 @@ class User: public AbstractUser{
 		void chat();
 		void waitForMatch();
 		void mov();
-		void surrend();
 		
 		inline void waitForProcess();
 		inline void endProcess();
@@ -69,7 +70,7 @@ class User: public AbstractUser{
 };
 
 enum Protocol : int {
-	PASS = 0, REGISTER, LOGIN, TODO, WAITFORMATCH, MOV, SURREND
+	PASS = 0, REGISTER, LOGIN, CHAT, WAITFORMATCH, MOV, SURREND
 };
 
 #endif

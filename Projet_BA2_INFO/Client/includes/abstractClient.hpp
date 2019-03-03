@@ -9,7 +9,7 @@ class AbstractClient{
 		virtual void connectionError() = 0;
 		virtual void startingGame(bool playerTurn) = 0;
 		virtual void opponentMov(std::string mov) = 0;
-		virtual void recvMessage() = 0;
+		virtual void printMessage(std::string) = 0;
 };
 
 #endif

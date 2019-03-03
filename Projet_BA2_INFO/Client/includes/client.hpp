@@ -24,7 +24,7 @@ class Client: AbstractClient {
         void connectionError() override;
 		void startingGame(bool playerTurn) override;
 		void opponentMov(std::string mov) override;
-		void recvMessage() override;
+		void printMessage(std::string) override;
 	private:
 		Request* _request;
 		BaseChess* _game;

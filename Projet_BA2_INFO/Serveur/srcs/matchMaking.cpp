@@ -25,11 +25,13 @@ void MatchMaking::poolSort(int gameMod){
             std::cout << pools[gameMod-1].size() << std::endl;
             //random en fonction de la size
             srand((unsigned int)time(NULL));
-            first = rand() % pools[gameMod-1].size();
+            //first = rand() % pools[gameMod-1].size(); ///////////////////////////////////
+            first = 0;
             AbstractUser* player1 = pools[gameMod-1].at(first);
             pools[gameMod-1].erase(pools[gameMod-1].begin() + first);
             
-            second = rand() % pools[gameMod-1].size();
+            //second = rand() % pools[gameMod-1].size(); ////////////////////////////////// nombre entre 0 et pools[gameMod-1].size()
+            second = 0;
             AbstractUser* player2 = pools[gameMod-1].at(second);
             pools[gameMod-1].erase(pools[gameMod-1].begin() + second);
 
@@ -49,7 +51,6 @@ void MatchMaking::poolSort(int gameMod){
             player1->startGame(game, player2, true);
             player2->startGame(game, player1, false);
         }
-
     }
 }
 

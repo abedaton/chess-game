@@ -34,10 +34,11 @@ int Request::login(std::string username,std::string password){
     return res;
 }
 
-void Request::chat(){
+void Request::chat(std::string msg){
 	waitForProcess();
     int protocol = 3;
     sendInt(protocol);
+    sendStr(msg);
 	endProcess();
 }
 
@@ -116,7 +117,8 @@ void Request::listener(){
                 recvMessage();
                 break;
             default:
-				std::cout << "bad recive in listener: " << protocol << std::endl;
+				std::cout << "bad receive in listener: " << protocol << std::endl;
+                this->error();
                 break;
         }
 		endProcess();
@@ -135,8 +137,8 @@ void Request::opponentMov(){
 }
 
 void Request::recvMessage(){
-	//To Do
-	this->_client->recvMessage();
+	std::string msg = recvStr();
+	this->_client->printMessage(msg);
 }
 
 void Request::error(){

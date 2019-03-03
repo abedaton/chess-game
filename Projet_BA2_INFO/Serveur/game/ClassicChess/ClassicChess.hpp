@@ -24,6 +24,7 @@ class ClassicChess: public BaseChess{
         std::pair<bool,std::string> execute_step() override;
         std::pair<bool,bool> execute_step(std::string) override;
         std::pair<bool,bool> execute_step(std::string, std::string) override;
+		bool check_pat();
         
 	protected:
 		

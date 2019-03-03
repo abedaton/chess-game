@@ -26,6 +26,12 @@ void User::opponentMov(std::string mov){
     sendStr(mov);
 }
 
+void User::sendMsg(std::string msg){
+    int protocol = 22;
+    sendInt(protocol);
+    sendStr(msg);
+}
+
 void User::letsRegister() {
     std::string username = recvStr();
     std::string password = recvStr();
@@ -57,7 +63,8 @@ void User::checkLogin() {
 }
 
 void User::chat(){
-    ;;
+    std::string msg = recvStr();
+    this->_opponent->sendMsg(msg);
 }
 
 void User::waitForMatch(){
@@ -68,7 +75,7 @@ void User::waitForMatch(){
 void User::mov(){
     if (! this->_myTurn){ //hack
         std::cout << "should never happened" << std::endl;
-        //this->_opponent->surrend();
+        this->_opponent->surrend();
         this->exit();
     }
     std::string mov = recvStr();
@@ -114,7 +121,8 @@ void User::handleClient(){
             case LOGIN: //2
                 this->checkLogin();
                 break;
-            case TODO: //3
+            case CHAT: //3
+                this->chat();
                 break;
             case WAITFORMATCH: //4
                 this->waitForMatch();
@@ -194,48 +202,3 @@ std::string User::recvStr(){
 void User::updateInfo(){
 
 }
-
-//------------------------ ???
-/*
-void User::launch_classic_game(User* player_one,User* player_two, std::string langue){
-	
-	mout<<(*player_one)<<std::endl;
-	mout<<(*player_two)<<std::endl;
-	
-	Dico* dico = make_dico("../../csv");
-	
-	(void) player_two;
-	
-	Bot* bot_player = make_bot("player2","bot_un","../../bots_csv");
-	
-	mout<<(*bot_player)<<std::endl;
-
-	ClassicChess* classic_game = new ClassicChess(player_one,bot_player,dico,langue);
-	
-	classic_game->execute();
-	
-}
-
-
-std::string User::next_input(){
-	
-	//std::cout<<"IN"<<std::endl;
-	
-	return this->in();
-	
-}
-
-std::string User::get_type_prefix() const{
-	
-	//std::cout<<"PREFIX"<<std::endl;
-	
-	return "User";
-}
-
-void User::send_confirm_msg(std::string msg, bool endline){
-	
-	std::string output = this->msg_compaction(msg,endline);
-		
-	this->out(output);
-}
-*/

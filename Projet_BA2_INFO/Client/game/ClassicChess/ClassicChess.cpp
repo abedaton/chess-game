@@ -8,6 +8,33 @@ extern MyOstream mout;
 
 //--------------------ClassicChess----------------------------------------------------------------------------------------------------
 
+bool ClassicChess::check_pat(){
+	int taille = this->get_plateau()->get_taille();
+		
+	bool escape = false;
+		
+	int lig = 0;
+	while(lig<taille and not escape){ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (plustard iterateur iterator(plateau))
+		int col=0;
+		while(col<taille and not escape){			
+			MatPosi* mpos = new MatPosi(col,lig);
+			std::pair<int,int> paire = mpos->to_pair();
+			
+			if (not(this->get_plateau()->is_empty_location(paire))){
+				Chesspiece* pe = this->get_plateau()->get_piece(paire).get_var();
+				if (this->get_active_player() == pe->get_owner()){
+					
+					escape = this->can_escape_position(pe ,"depl");
+					if (not(escape)){escape = this->can_escape_position(pe ,"capt");}
+					
+				}
+			}
+		}
+	}
+	mout << "		EN ECHEC ET MAT ?" << escape <<std::endl;
+	return escape;
+}
+
 ClassicChess::ClassicChess(Player* p_low, Player* p_high, Dico* dict) : BaseChess(p_low,p_high,dict){
 	this->initialisation();
 } //*< Constructor
@@ -25,54 +52,54 @@ void ClassicChess::initialise_low_pieces(){
 	Player* own = get_low_player();
 	
 	//ligne 1
-	Tour* tour_un = new Tour();
-	this->initial_set_piece(tour_un,own,"A1");
+	// Tour* tour_un = new Tour();
+	// this->initial_set_piece(tour_un,own,"A1");
 	
-	Chevalier* cheval_un = new Chevalier();
-	this->initial_set_piece(cheval_un,own,"B1");
+	// Chevalier* cheval_un = new Chevalier();
+	// this->initial_set_piece(cheval_un,own,"B1");
 	
-	Fous* fou_un = new Fous();
-	this->initial_set_piece(fou_un,own,"C1");
+	// Fous* fou_un = new Fous();
+	// this->initial_set_piece(fou_un,own,"C1");
 	
 	Dame* dame = new Dame();
-	this->initial_set_piece(dame,own,"D1");
+	this->initial_set_piece(dame,own,"B5");
 	
 	Roi* roi = new Roi();
-	this->initial_set_piece(roi,own,"E1");
+	this->initial_set_piece(roi,own,"C5");
 	
-	Fous* fou_deux = new Fous();
-	this->initial_set_piece(fou_deux,own,"F1");
+	// Fous* fou_deux = new Fous();
+	// this->initial_set_piece(fou_deux,own,"F1");
 	
-	Chevalier* cheval_deux = new Chevalier();
-	this->initial_set_piece(cheval_deux,own,"G1");
+	// Chevalier* cheval_deux = new Chevalier();
+	// this->initial_set_piece(cheval_deux,own,"G1");
 	
-	Tour* tour_deux = new Tour();
-	this->initial_set_piece(tour_deux,own,"H1");
+	// Tour* tour_deux = new Tour();
+	// this->initial_set_piece(tour_deux,own,"H1");
 	
-	//ligne 2
-	Pion* pion_un = new Pion("up");
-	this->initial_set_piece(pion_un,own,"A2");
+	// //ligne 2
+	// Pion* pion_un = new Pion("up");
+	// this->initial_set_piece(pion_un,own,"A2");
 	
-	Pion* pion_deux = new Pion("up");
-	this->initial_set_piece(pion_deux,own,"B2");
+	// Pion* pion_deux = new Pion("up");
+	// this->initial_set_piece(pion_deux,own,"B2");
 	
-	Pion* pion_trois = new Pion("up");
-	this->initial_set_piece(pion_trois,own,"C2");
+	// Pion* pion_trois = new Pion("up");
+	// this->initial_set_piece(pion_trois,own,"C2");
 	
-	Pion* pion_quatre = new Pion("up");
-	this->initial_set_piece(pion_quatre,own,"D2");
+	// Pion* pion_quatre = new Pion("up");
+	// this->initial_set_piece(pion_quatre,own,"D2");
 	
-	Pion* pion_cinq = new Pion("up");
-	this->initial_set_piece(pion_cinq,own,"E2");
+	// Pion* pion_cinq = new Pion("up");
+	// this->initial_set_piece(pion_cinq,own,"E2");
 	
-	Pion* pion_six = new Pion("up");
-	this->initial_set_piece(pion_six,own,"F2");
+	// Pion* pion_six = new Pion("up");
+	// this->initial_set_piece(pion_six,own,"F2");
 	
-	Pion* pion_sept = new Pion("up");
-	this->initial_set_piece(pion_sept,own,"G2");
+	// Pion* pion_sept = new Pion("up");
+	// this->initial_set_piece(pion_sept,own,"G2");
 	
-	Pion* pion_huit = new Pion("up");
-	this->initial_set_piece(pion_huit,own,"H2");
+	// Pion* pion_huit = new Pion("up");
+	// this->initial_set_piece(pion_huit,own,"H2");
 
 }
 
@@ -82,54 +109,54 @@ void ClassicChess::initialise_high_pieces(){
 	Player* own = get_high_player();
 		
 	//ligne 8
-	Tour* tour_un = new Tour();
-	this->initial_set_piece(tour_un,own,"A8");
+	// Tour* tour_un = new Tour();
+	// this->initial_set_piece(tour_un,own,"A8");
 	
-	Chevalier* cheval_un = new Chevalier();
-	this->initial_set_piece(cheval_un,own,"B8");
+	// Chevalier* cheval_un = new Chevalier();
+	// this->initial_set_piece(cheval_un,own,"B8");
 	
-	Fous* fou_un = new Fous();
-	this->initial_set_piece(fou_un,own,"C8");
+	// Fous* fou_un = new Fous();
+	// this->initial_set_piece(fou_un,own,"C8");
 	
-	Dame* dame = new Dame();
-	this->initial_set_piece(dame,own,"D8");
+	// Dame* dame = new Dame();
+	// this->initial_set_piece(dame,own,"D8");
 	
 	Roi* roi = new Roi();
-	this->initial_set_piece(roi,own,"E8");
+	this->initial_set_piece(roi,own,"A8");
 	
-	Fous* fou_deux = new Fous();
-	this->initial_set_piece(fou_deux,own,"F8");
+	// Fous* fou_deux = new Fous();
+	// this->initial_set_piece(fou_deux,own,"F8");
 	
-	Chevalier* cheval_deux = new Chevalier();
-	this->initial_set_piece(cheval_deux,own,"G8");
+	// Chevalier* cheval_deux = new Chevalier();
+	// this->initial_set_piece(cheval_deux,own,"G8");
 	
-	Tour* tour_deux = new Tour();
-	this->initial_set_piece(tour_deux,own,"H8");
+	// Tour* tour_deux = new Tour();
+	// this->initial_set_piece(tour_deux,own,"H8");
 	
-	//ligne 7
-	Pion* pion_un = new Pion("down");
-	this->initial_set_piece(pion_un,own,"A7");
+	// //ligne 7
+	// Pion* pion_un = new Pion("down");
+	// this->initial_set_piece(pion_un,own,"A7");
 	
-	Pion* pion_deux = new Pion("down");
-	this->initial_set_piece(pion_deux,own,"B7");
+	// Pion* pion_deux = new Pion("down");
+	// this->initial_set_piece(pion_deux,own,"B7");
 	
-	Pion* pion_trois = new Pion("down");
-	this->initial_set_piece(pion_trois,own,"C7");
+	// Pion* pion_trois = new Pion("down");
+	// this->initial_set_piece(pion_trois,own,"C7");
 	
-	Pion* pion_quatre = new Pion("down");
-	this->initial_set_piece(pion_quatre,own,"D7");
+	// Pion* pion_quatre = new Pion("down");
+	// this->initial_set_piece(pion_quatre,own,"D7");
 	
-	Pion* pion_cinq = new Pion("down");
-	this->initial_set_piece(pion_cinq,own,"E7");
+	// Pion* pion_cinq = new Pion("down");
+	// this->initial_set_piece(pion_cinq,own,"E7");
 	
-	Pion* pion_six = new Pion("down");
-	this->initial_set_piece(pion_six,own,"F7");
+	// Pion* pion_six = new Pion("down");
+	// this->initial_set_piece(pion_six,own,"F7");
 	
-	Pion* pion_sept = new Pion("down");
-	this->initial_set_piece(pion_sept,own,"G7");
+	// Pion* pion_sept = new Pion("down");
+	// this->initial_set_piece(pion_sept,own,"G7");
 	
-	Pion* pion_huit = new Pion("down");
-	this->initial_set_piece(pion_huit,own,"H7");
+	// Pion* pion_huit = new Pion("down");
+	// this->initial_set_piece(pion_huit,own,"H7");
 
 }
 
@@ -317,7 +344,12 @@ bool ClassicChess::exec_step(std::string in, std::string out, BitypeVar<Chesspie
 	
 	this->check_evolution();
 	
-	if (not(end)){end = this->verify_kings();}
+	if (not(end)){
+		end = this->verify_kings();
+		if(not(end)){
+			end = this->check_pat();
+		}
+	} //RAJOUTER LE PAT
 	else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"mode_echec_et_mat"),true);} // si arret par consequences automatiquement echec et mat (pas possible de pat)
 	
 	this->affichage();

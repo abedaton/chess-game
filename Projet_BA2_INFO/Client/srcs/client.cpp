@@ -11,6 +11,7 @@ Client::~Client(){
 
 void Client::connectionError(){
 	std::cout << "Connection with server lost : " << strerror(errno) << std::endl;
+	exit(EXIT_FAILURE); // tmp
 	//delete this; // :(
 }
 
@@ -47,10 +48,6 @@ void Client::startingGame(bool playerTurn){
 void Client::opponentMov(std::string mov){
 	this->_game->execute_step(mov, "Opponent");
 	this->_myTurn = true;
-}
-
-void Client::recvMessage(){
-	;;//to do
 }
 
 void Client::firstWindow(){
@@ -155,7 +152,7 @@ void Client::menuWindow(){
 	char answer;
 	bool waitForGame = false;
     while (true){
-        std::cout << "Enter 1 for exit, 2 for chat";
+        std::cout << "Enter 1 for exit";//,(2 for chat)";
 		if (!waitForGame)
 			std::cout <<", 3 for game";
 		std::cout << ": " << std::endl;
@@ -169,13 +166,17 @@ void Client::menuWindow(){
         	    break;
         	}
         	else if (answer == '2'){
-        	    ;;// To Do
+        	    //To Do
         	}
         	else if (answer == '3' && !waitForGame){
         	    waitForGame = selectGameModeWindow();
         	}
 		}
     }
+}
+
+void Client::printMessage(std::string msg){
+	std::cout << "Opponent: " << msg << std::endl;
 }
 
 bool Client::selectGameModeWindow(){
@@ -205,11 +206,17 @@ void Client::gameWindow(){
         std::cin >> answer;
 		myFlush();
 		if (answer == 1){
-			//this->_request->surrend(); //petit bug embaitemps
+			//this->_request->surrend(); 
             break;
         }
         else if (answer == 2){
-            ;;
+            std::string msg;
+			std::cout << "Enter a message for your opponent: \n" << std::endl;
+			std::cin.clear();
+        	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::getline(std::cin, msg);
+			this->myFlush();
+			this->_request->chat(msg);
         }
         else if (answer == 3){
 			if (this->_myTurn){

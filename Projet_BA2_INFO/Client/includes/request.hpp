@@ -26,7 +26,7 @@ class Request{
         int letsRegister(std::string username,std::string password, std::string email);
         int login(std::string username,std::string password);
         void findMatch(int modDeJeu);
-        void chat();
+        void chat(std::string msg); //tmp just pour chat with opponent 
         //more fct for chat
 		//more fct for friend
 		//more fct for stat
