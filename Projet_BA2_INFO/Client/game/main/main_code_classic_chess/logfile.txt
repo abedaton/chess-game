@@ -1,0 +1,80 @@
+Human(player1)
+Human(player2)
+T,Human(player1)
+Che,Human(player1)
+Fou,Human(player1)
+D,Human(player1)
+R,Human(player1)
+Fou,Human(player1)
+Che,Human(player1)
+T,Human(player1)
+P,Human(player1)
+P,Human(player1)
+P,Human(player1)
+P,Human(player1)
+P,Human(player1)
+P,Human(player1)
+P,Human(player1)
+P,Human(player1)
+T,Human(player2)
+Che,Human(player2)
+Fou,Human(player2)
+D,Human(player2)
+R,Human(player2)
+Fou,Human(player2)
+Che,Human(player2)
+T,Human(player2)
+P,Human(player2)
+P,Human(player2)
+P,Human(player2)
+P,Human(player2)
+P,Human(player2)
+P,Human(player2)
+P,Human(player2)
+P,Human(player2)
+
+[Human(player2)] ()
+
+    A        B        C        D        E        F        G        H     
+|        |        |        |        |        |        |        |        |
+|--------|--------|--------|--------|--------|--------|--------|--------|-
+|        |        |        |        |        |        |        |        |
+|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+|        |        |        |        |        |        |        |        |
+|--------|--------|--------|--------|--------|--------|--------|--------|-
+|        |        |        |        |        |        |        |        |
+|   P    |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   7
+|        |        |        |        |        |        |        |        |
+|--------|--------|--------|--------|--------|--------|--------|--------|-
+|        |        |        |        |        |        |        |        |
+|        |        |        |        |        |        |        |        |   6
+|        |        |        |        |        |        |        |        |
+|--------|--------|--------|--------|--------|--------|--------|--------|-
+|        |        |        |        |        |        |        |        |
+|        |        |        |        |        |        |        |        |   5
+|        |        |        |        |        |        |        |        |
+|--------|--------|--------|--------|--------|--------|--------|--------|-
+|        |        |        |        |        |        |        |        |
+|        |        |        |        |        |        |        |        |   4
+|        |        |        |        |        |        |        |        |
+|--------|--------|--------|--------|--------|--------|--------|--------|-
+|        |        |        |        |        |        |        |        |
+|        |        |        |        |        |        |        |        |   3
+|        |        |        |        |        |        |        |        |
+|--------|--------|--------|--------|--------|--------|--------|--------|-
+|        |        |        |        |        |        |        |        |
+|   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+|        |        |        |        |        |        |        |        |
+|--------|--------|--------|--------|--------|--------|--------|--------|-
+|        |        |        |        |        |        |        |        |
+|   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+|        |        |        |        |        |        |        |        |
+|--------|--------|--------|--------|--------|--------|--------|--------|-
+
+[Human(player1)] (*)
+
+
+Human(player1) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
