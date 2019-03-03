@@ -11,9 +11,19 @@ void User::startGame(BaseChess* game, AbstractUser* oppenent, bool turn){
     this->_myTurn = turn;
 	int protocol = 20;
     sendInt(protocol);
-    sendInt(static_cast<int>(turn));
+    sendInt(static_cast<int>(turn)+1);
     std::cout << "startGame" << std::endl;
-    
+}
+
+void User::surrend(){
+    //To Do
+}
+
+void User::opponentMov(std::string mov){
+    this->_myTurn = true;
+    int protocol = 21;
+    sendInt(protocol);
+    sendStr(mov);
 }
 
 void User::letsRegister() {
@@ -52,27 +62,25 @@ void User::chat(){
 
 void User::waitForMatch(){
     int gameMod = recvInt();
-    std::cout << gameMod << std::endl;
     this->_match->waitForMatch(this, gameMod);
 }
 
 void User::mov(){
+    if (! this->_myTurn){ //hack
+        std::cout << "should never happened" << std::endl;
+        //this->_opponent->surrend();
+        this->exit();
+    }
     std::string mov = recvStr();
-    //To Do
-}
-
-void User::surrend(){
-    //To Do
-}
-
-void User::out(std::string str){
-	sendInt(30);
-	sendStr(str);
-}
-
-std::string User::in(){
-	sendInt(31);
-	return recvStr();
+    std::pair<bool,bool> pAnswer = this->_game->execute_step(mov, this->name);
+    if (std::get<0>(pAnswer)){
+      this->_opponent->opponentMov(mov);
+      this->_myTurn = false;
+    }
+    if (std::get<1>(pAnswer)){ //end
+      this->_game = nullptr;
+      ;;//To Do
+    }
 }
 
 void User::exit() {
@@ -82,7 +90,7 @@ void User::exit() {
     pthread_exit(0);
 }
 
-//std::string User::get_name() const{return this->name;} // plustard apres du merge
+std::string User::get_name() const{return this->name;}
 
 //Privet
 

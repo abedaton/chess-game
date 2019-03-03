@@ -7,9 +7,11 @@
 
 class AbstractGame;
 
-class AbstractUser : public Human{ // plustard apres du merge plus d'heritage de Human !!!
+class AbstractUser{
     public:
         virtual void startGame(BaseChess*, AbstractUser*, bool) = 0;
+        virtual void opponentMov(std::string) = 0;
+        virtual std::string get_name() const = 0; 
 };
 
 #endif

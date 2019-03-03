@@ -7,13 +7,15 @@ MyOstream mout("logfile.txt");
 
 int main(){
 	
-	Human* test_player = new Human("Test_player");
+	std::string langue = "francais";
+	
+	Human* test_player = new Human("Test_player",langue);
 	
 	//this->get_pe()->set_owner(test_player);
 	
 	Dico* dict = make_dico("../../csv");
 	
-	//Affichage* aff = new Affichage(this->get_plateau(), dict,"Symbole_","","francais",test_player, test_player,"*" ,"");
+	//Affichage* aff = new Affichage(this->get_plateau(), dict,"Symbole_","",langue,test_player, test_player,"*" ,"");
 	
 	Tour* piece = new Tour();
 	piece->set_owner(test_player);
@@ -25,7 +27,7 @@ int main(){
 	
 	mout<<plat->get_piece(mpos->to_pair()).get_state()<<std::endl;
 	
-	Affichage* aff = new Affichage(plat, dict,"Symbole_","","francais",test_player, test_player,"*" ,"");
+	Affichage* aff = new Affichage(plat, dict,"Symbole_","",langue,test_player, test_player,"*" ,"");
 	//mout<<*plat<<std::endl;
 	mout<<aff->get_affichage()<<std::endl;
 	
@@ -37,7 +39,7 @@ int main(){
 	
 	mout<<"ini "<<first_plat.get_piece(in->to_pair()).get_state()<<std::endl;
 	
-	Affichage* first_aff = new Affichage(&first_plat, dict,"Symbole_","","francais",test_player, test_player,"*" ,"");
+	Affichage* first_aff = new Affichage(&first_plat, dict,"Symbole_","",langue,test_player, test_player,"*" ,"");
 	//mout<<first_plat<<std::endl;
 	mout<<first_aff->get_affichage()<<std::endl;
 	
@@ -49,7 +51,7 @@ int main(){
 	
 	mout<<"second "<<second_plat.get_piece(in->to_pair()).get_state()<<std::endl;
 	
-	Affichage* second_aff = new Affichage(&second_plat, dict,"Symbole_","","francais",test_player, test_player,"*" ,"");
+	Affichage* second_aff = new Affichage(&second_plat, dict,"Symbole_","",langue,test_player, test_player,"*" ,"");
 	//mout<<second_plat<<std::endl;
 	mout<<second_aff->get_affichage()<<std::endl;
 	

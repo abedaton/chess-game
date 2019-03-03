@@ -8,7 +8,7 @@ extern MyOstream mout;
 
 //--------------------ClassicChess----------------------------------------------------------------------------------------------------
 
-ClassicChess::ClassicChess(Player* p_low, Player* p_high, Dico* dict, std::string lang) : BaseChess(p_low,p_high,dict,lang){
+ClassicChess::ClassicChess(Player* p_low, Player* p_high, Dico* dict) : BaseChess(p_low,p_high,dict){
 	this->initialisation();
 } //*< Constructor
 
@@ -136,7 +136,7 @@ void ClassicChess::initialise_high_pieces(){
 void ClassicChess::affichage(){
 	/* fonction affaichant le tableau de jeu ainsi que les joueurs l'entourant */
 	
-	Affichage* aff = new Affichage(this->get_plateau(), this->get_dico(),"Symbole_","",this->get_langue(),this->get_low_player(), this->get_high_player(),"*" ,"");
+	Affichage* aff = new Affichage(this->get_plateau(), this->get_dico(),"Symbole_","",this->get_active_player()->get_langue(),this->get_low_player(), this->get_high_player(),"*" ,"");
 	
 	this->get_active_player()->send_msg(aff->get_affichage(),true);
 }
@@ -164,7 +164,7 @@ std::pair<bool,BitypeVar<Chesspiece*>> ClassicChess::normal_output_check(std::st
 			if (cap_piece->get_owner() == get_active_player()){ // piece de soi-meme
 				
 				std::stringstream ss;
-				ss<<this->get_dico()->search(this->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_langue(),"cap_pe_self")<<std::endl;
+				ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_active_player()->get_langue(),"cap_pe_self")<<std::endl;
 				this->get_active_player()->send_msg(ss.str());
 				
 				again = true;
@@ -212,13 +212,13 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChe
 	while (not(part_b) and not(again) and not(correspond) and not(end_game)){
 		
 		std::stringstream ss_menu;
-		ss_menu<<this->get_dico()->search(this->get_langue(),"depl_pe")<<" "<<in<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_langue(),"ou")<<" ret "<<this->get_dico()->search(this->get_langue(),"ret")<<std::endl;
-		if (roc_accept == true){ss_menu<<this->get_dico()->search(this->get_langue(),"ou")<<" roc "<<this->get_dico()->search(this->get_langue(),"roc")<<std::endl;}
-		ss_menu<<this->get_dico()->search(this->get_langue(),"ou")<<" end "<<this->get_dico()->search(this->get_langue(),"end")<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_langue(),"ou")<<" liste_depl "<<this->get_dico()->search(this->get_langue(),"liste_depl")<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_langue(),"ou")<<" liste_capt "<<this->get_dico()->search(this->get_langue(),"liste_capt")<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_langue(),"ou")<<" lang "<<this->get_dico()->search(this->get_langue(),"lang")<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"depl_pe")<<" "<<in<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_ret_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_ret_symbol())<<std::endl;
+		if (roc_accept == true){ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_roc_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_roc_symbol())<<std::endl;}
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_end_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_end_symbol())<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_liste_depl_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_liste_depl_symbol())<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_liste_capt_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_liste_capt_symbol())<<std::endl;
+		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_lang_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_lang_symbol())<<std::endl;
 		
 		this->get_active_player()->send_msg(ss_menu.str());
 		
@@ -254,7 +254,95 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChe
 	return res;
 }
 
-bool ClassicChess::execute_step(){
+std::vector<std::string>* split_string(std::string s,std::string delim){
+	
+	std::vector<std::string>* vect = new std::vector<std::string>();
+	
+	long long unsigned int start = 0;
+    long long unsigned int end = s.find(delim);
+    while (end != std::string::npos){
+		vect->push_back(s.substr(start, end - start));
+        start = end + delim.length();
+        end = s.find(delim, start);
+    }
+	vect->push_back(s.substr(start, end));
+	
+	return vect;
+	
+}
+
+Trinome<std::string,std::string,bool>* ClassicChess::decode_merged_string(std::string merged_string){
+	
+	Trinome<std::string,std::string,bool>* res_trinome = new Trinome<std::string,std::string,bool>();
+	
+	std::vector<std::string>* res_vect = split_string(merged_string,";");
+	
+	std::string in,out;
+	bool switch_pos = false;
+	
+	if (res_vect->size() == 2){
+		
+		in = (*res_vect)[0];
+		out = (*res_vect)[1];
+	}
+	
+	else if (res_vect->size() == 3){
+		
+		in = (*res_vect)[0];
+		out = (*res_vect)[2];
+		
+		if ((*res_vect)[1] != this->get_roc_symbol()){throw MyException(&mout,"symbole invalide !");}
+		else {switch_pos = true;}
+
+	}
+	else {throw MyException(&mout,"merged_string invalide !");}
+	
+	res_trinome->set_first(in);
+	res_trinome->set_second(out);
+	res_trinome->set_third(switch_pos);
+	
+	return res_trinome;
+	
+}
+
+bool ClassicChess::exec_step(std::string in, std::string out, BitypeVar<Chesspiece*> adv_pe_out, bool switch_pos,bool abandon){
+	
+	bool end;
+	
+	if (not abandon){
+		end = check_end_game(adv_pe_out, switch_pos);
+	
+		// ici on suppose que input correcte puisque apres les verification
+		this->exec_move(in,out,switch_pos);
+	}
+	
+	this->check_evolution();
+	
+	if (not(end)){end = this->verify_kings();}
+	else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"mode_echec_et_mat"),true);} // si arret par consequences automatiquement echec et mat (pas possible de pat)
+	
+	this->affichage();
+	
+	if (not end and not abandon){this->change_active_player();}
+	else{
+		
+		if (abandon == true){this->change_active_player();}
+		
+		std::stringstream ss;
+		
+		ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"vict")<<" "<<get_active_player()<<" !"<<std::endl;
+		ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"fin_match")<<"!"<<std::endl;
+		
+		this->get_active_player()->send_msg(ss.str());
+	}
+	
+	this->inc_action_cnt();
+
+	return end;
+
+}
+
+std::pair<bool,std::string> ClassicChess::execute_step(){
 	
 	/* fonction principale du jeu, boucle d'execution qui est lancé pour débuté le jeu et qui lorsque se termine termine le jeu*/
 	
@@ -272,13 +360,12 @@ bool ClassicChess::execute_step(){
 	
 	std::pair<bool,bool> bool_info;
 	
-	this->affichage();
+	if (this->get_action_cnt() == 0){this->affichage();}
 
 	coords = this->ask_for_input();
 	in_couple = coords->get_first();
 	in = in_couple.first;
 	adv_pe_in = in_couple.second;
-	
 	
 	out_couple = coords->get_second();
 	out = out_couple.first;
@@ -289,31 +376,109 @@ bool ClassicChess::execute_step(){
 	abandon = bool_info.first;
 	switch_pos = bool_info.second;
 	
-	if (not abandon){
-		end = check_end_game(adv_pe_out, switch_pos);
+	//
+	end = this->exec_step(in, out, adv_pe_out, switch_pos, abandon);
+	//
 	
-		// ici on suppose que input correcte puisque apres les verification
-		this->exec_move(in,out,switch_pos);
-	}
+	std::string result_sep = ";";
+	std::stringstream ss_res;
+	ss_res<<in<<result_sep;
+	if (switch_pos == true){ss_res<<this->get_roc_symbol()<<result_sep;}
+	ss_res<<out;
 	
-	this->check_evolution();
+	std::pair<bool,std::string> result = std::make_pair((end or abandon),ss_res.str());
 	
-	if (not(end)){end = this->verify_kings();}
-	else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_langue(),"mode_echec_et_mat"),true);} // si arret par consequences automatiquement echec et mat (pas possible de pat)
-	
-	this->affichage();
-	
-	if (not end and not abandon){this->change_active_player();}
-	else{
-		
-		if (abandon == true){this->change_active_player();}
-		
-		std::stringstream ss;
-		
-		ss<<this->get_dico()->search(this->get_langue(),"vict")<<" "<<get_active_player()<<" !"<<std::endl;
-		ss<<this->get_dico()->search(this->get_langue(),"fin_match")<<"!"<<std::endl;
-		
-		this->get_active_player()->send_msg(ss.str());
-	}
-	return (end or abandon);
+	return result;
 }
+
+std::pair<bool,bool> ClassicChess::execute_step(std::string merged_coords){
+	
+	Trinome<std::string,std::string,bool>* res_trinome = this->decode_merged_string(merged_coords);
+	
+	std::string in = res_trinome->get_first();
+	std::string out = res_trinome->get_second();
+	bool switch_pos = res_trinome->get_third();
+
+	bool ok = false;
+	bool end = false;
+	
+	std::pair<bool,BitypeVar<Chesspiece*>> in_paire = check_in_validity_non_symbol(in,"",""); // verify in //les commentaires sont inutiles ici
+	bool in_isvalid = in_paire.first;
+	
+	if (in_isvalid == true){
+		
+		BitypeVar<Chesspiece*> in_bit = in_paire.second;
+		
+		if (in_bit.get_state() == false){throw MyException(&mout,"IN invalide car non-attribué");}
+		
+		MatPosi* mpos = new MatPosi(out);
+		BitypeVar<Chesspiece*> out_bit = this->get_plateau()->get_piece(mpos->to_pair());
+		delete mpos;
+	
+		if(switch_pos == true){
+			
+			if (out_bit.get_state() == false){throw MyException(&mout,"OUT invalide car non-attribué alors que dans roc");}
+			
+			// verify roc
+			Chesspiece* in_pe = in_bit.get_var();
+			bool ok_roc = is_roquable(in_pe);
+			
+			if (ok_roc){
+				
+				bool in_is_king,in_is_tour;
+				
+				Roi* roi;
+				Tour* tour;
+				
+				bool good_type_in_pe = true;
+				
+				if (verifier_type_pe<Roi>(in_pe)){
+					in_is_king = true;
+					in_is_tour = false;
+				}
+				else if (verifier_type_pe<Tour>(in_pe)){
+					in_is_king = true;
+					in_is_tour = false;
+				}
+				else{
+					ok = false;
+					good_type_in_pe = false;
+				}
+				
+				if(good_type_in_pe == true){
+					if (in_is_king == true){roi = dynamic_cast<Roi*>(in_pe);}
+					else{tour = dynamic_cast<Tour*>(in_pe);}
+					
+					ok = this->check_roc_validity(roi,tour, out_bit, in_is_king, in_is_tour);
+				}
+			}
+		}
+		else{
+			std::pair<bool,BitypeVar<Chesspiece*>> out_paire = normal_output_check(in,out); // verify out
+			ok = out_paire.first;
+		}
+		
+		if (ok == true){
+						
+			MatPosi* mpos = new MatPosi(out);
+			BitypeVar<Chesspiece*> adv_pe_out = this->get_plateau()->get_piece(mpos->to_pair()); // recup de piece de out
+			delete mpos;
+			
+			end = this->exec_step(in, out, adv_pe_out, switch_pos, false); //abandon est tjs false ici
+		}
+	}
+	
+	std::pair<bool,bool> result = std::make_pair(ok,end);
+	
+	return result;
+	
+}
+
+std::pair<bool,bool> ClassicChess::execute_step(std::string merged_coords,std::string player_name){
+	
+	//if (this->get_active_player()->get_name() != player_name){throw MyException(&mout,"execution impossible, ce n'est pas le tour de ce joueur");}
+	
+	return this->execute_step(merged_coords);
+	
+}
+

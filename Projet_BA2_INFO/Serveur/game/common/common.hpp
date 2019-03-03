@@ -13,7 +13,7 @@
 #include <dirent.h>
 #include <sstream>
 
-#include "../BitypeVar/BitypeVar.hpp"
+#include "BitypeVar/BitypeVar.hpp"
 #include "MyException/MyException.cpp"
 #include "Quadrinome/Quadrinome.hpp"
 

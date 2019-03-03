@@ -33,13 +33,14 @@ class Plateau{
         friend std::ostream& operator<< (std::ostream &s,Plateau &c);
         friend std::ostream& operator<< (std::ostream &s,Plateau* c);
         
-        int get_taille();
+        int get_taille() const;
         
         std::vector<BitypeVar<Chesspiece*>> get_row(int);
         
         void set_piece(std::pair<int,int>,Chesspiece*,bool);
         void set_piece(std::pair<int,int>,Chesspiece*);
         BitypeVar<Chesspiece*> get_piece(std::pair<int,int>) const;
+        BitypeVar<Chesspiece*> get_piece(int) const;
         
         bool isvalid_move(std::pair<int,int>,std::pair<int,int>,std::string);
         bool isvalid_move(std::pair<int,int>,std::pair<int,int>);
@@ -50,6 +51,10 @@ class Plateau{
         bool verify_in_board(std::pair<int,int>);
         
         bool is_empty_location(std::pair<int,int>);
+        bool is_empty_location(int);
+        
+        int begin_position();
+        int end_position();
 
 };
 #endif

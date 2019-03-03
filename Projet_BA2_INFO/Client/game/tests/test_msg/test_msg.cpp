@@ -5,7 +5,7 @@ MyOstream mout("logfile.txt");
 
 int main(){
 	
-	Human* player = new Human("player1");
+	Human* player = new Human("player1","francais");
 	
 	player->send_msg(" ... message du client ...");
 	

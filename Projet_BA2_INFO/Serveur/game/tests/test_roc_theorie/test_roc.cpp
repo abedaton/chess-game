@@ -7,7 +7,7 @@ MyOstream mout("logfile.txt");
 
 void show_steps_between(std::string str_beg,std::string str_end){
 	
-	Human* player = new Human("player1");
+	Human* player = new Human("player1","francais");
 	
 	MatPosi* mpos_beg = new MatPosi(str_beg);
 	MatPosi* mpos_end = new MatPosi(str_end);

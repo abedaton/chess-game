@@ -5,7 +5,7 @@
 Bot* make_bot(std::string name_bot,std::string tag_bot,std::string csv_path){
 	/* fonction perlmettant de crée un bot */
 	
-	Bot* bot = new Bot(name_bot);
+	Bot* bot = new Bot(name_bot,"francais");
 	
 	CsvReader* reader = new CsvReader();
 	
@@ -31,7 +31,7 @@ Bot* make_bot(std::string name_bot,std::string tag_bot,std::string csv_path){
 
 // ---------------------- classe BOT ------------------------------
 
-Bot::Bot(std::string nom) : Player(nom), counter(0), move_list(std::vector<std::string>()) {} //*< Constructor
+Bot::Bot(std::string nom,std::string lang) : Player(nom,lang), counter(0), move_list(std::vector<std::string>()) {} //*< Constructor
 
 Bot::Bot(const Bot& bot): Player(bot), counter(bot.counter), move_list(bot.move_list) {}
 

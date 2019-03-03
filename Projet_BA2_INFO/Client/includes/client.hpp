@@ -27,10 +27,11 @@ class Client: AbstractClient {
 		void recvMessage() override;
 	private:
 		Request* _request;
-		//AbstractChess* _game;
-		std::string _Username;
+		BaseChess* _game;
+		std::string _username;
 		bool _gameStart;
 		bool _myTurn;
+		int _gameMod;
 
 		void firstWindow();
 		bool registerWindow();

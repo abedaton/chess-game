@@ -126,12 +126,12 @@ void Request::listener(){
 
 void Request::startingGame(){
 	int turn = recvInt();
-	this->_client->startingGame(turn);
+	this->_client->startingGame(static_cast<bool>(turn-1));
 }
 
 void Request::opponentMov(){
 	std::string mov = recvStr();
-	//this->_client->opponentMov(mov);
+	this->_client->opponentMov(mov);
 }
 
 void Request::recvMessage(){

@@ -6,23 +6,47 @@ Client::Client(){
 }
 
 Client::~Client(){
-	std::cout << "Destructor"  << std::endl;
+	std::cout << "Destructor" << std::endl;
 }
 
 void Client::connectionError(){
 	std::cout << "Connection with server lost : " << strerror(errno) << std::endl;
-	delete this; // :(
+	//delete this; // :(
 }
 
 void Client::startingGame(bool playerTurn){
 	std::cout << "Game is starting. Please press a random key to continue" << std::endl;
 	this->_myTurn = playerTurn;
 	this->_gameStart = true;
+
+	Dico* dico = make_dico("Client/game/csv"); // path of the executable
+	Player* player1 = new Human(this->_username,"francais");
+	Player* player2 = new Human("Opponent","francais");
+	switch (this->_gameMod){
+		case 1:
+			if (playerTurn) {
+				this->_game = new ClassicChess(player1, player2, dico);
+			} else {
+				this->_game = new ClassicChess(player2, player1, dico);
+			}
+			break;
+		case 2:
+			//this->_game = new ClassicChess();
+			break;
+		case 3:
+			//this->_game = new ClassicChess();
+			break;
+		case 4:
+			//this->_game = new ClassicChess();
+			break;
+		default:
+			break;
+	}
 }
 
 void Client::opponentMov(std::string mov){
-	this->_myTurn = false;
-	//this->_game->execute_step(mov, this->_Username);
+	this->_game->execute_step(mov, "Opponent");
+	this->_myTurn = true;
 }
 
 void Client::recvMessage(){
@@ -78,7 +102,7 @@ bool Client::registerWindow(){
         }
 		if (this->_request->letsRegister(username,password,email)){
 			std::cout << "You are now logged in !" << std::endl;
-			this->_Username = username;
+			this->_username = username;
 			return true;
 		}
 		else{
@@ -107,7 +131,7 @@ bool Client::logInWindow(){
         password = getpass("Password (password will not be shown) :");
         if(this->_request->login(username,password)){
 			std::cout << "You are now logged in !" << std::endl;
-			this->_Username = username;
+			this->_username = username;
 			return true;
 		}
 		else{
@@ -167,47 +191,34 @@ bool Client::selectGameModeWindow(){
 	if (answer == '5')
 		return false;
 	else{
-		this->_request->findMatch(atoi(&answer));
-		switch (answer){
-			case '1':
-				//this->_game = new ClassicChess(new SilencedHuman(player2->get_name(),"francais"),new SilencedHuman(player2->get_name(),"francais"), new Dico(), "francais");
-				break;
-			case '2':
-				//this->_game = new ClassicChess();
-				break;
-			case '3':
-				//this->_game = new ClassicChess();
-				break;
-			case '4':
-				//this->_game = new ClassicChess();
-				break;
-			default:
-				break;
-		}
+		this->_gameMod = atoi(&answer);
+		this->_request->findMatch(this->_gameMod);
 		return true;
 	}
 }
 
 void Client::gameWindow(){
-	std::string answer;
-	std::pair<std::string, bool> returnP;
+	int answer;
+	std::pair<bool, std::string> returnP;
     while (true){
-        std::cout << "Enter 1 for surrend, 2 for chat, 3 for play" << std::endl;
+        std::cout << "Enter 1 for surrender, 2 for chat, 3 for play" << std::endl;
         std::cin >> answer;
 		myFlush();
-        if (strcmp(answer.c_str(),"1")){
-			this->_request->surrend();
+		if (answer == 1){
+			//this->_request->surrend(); //petit bug embaitemps
             break;
         }
-        else if (strcmp(answer.c_str(),"2")){
+        else if (answer == 2){
             ;;
         }
-        else if (strcmp(answer.c_str(),"3")){
+        else if (answer == 3){
 			if (this->_myTurn){
-				//returnP = this->game->execute_step(this->_Username);
-				//this->request->mov(std::get<std::string>(returnP));
-				//if(std::get<bool>(returnP))
-				// 	  break;
+				returnP = this->_game->execute_step();
+				this->_request->mov(std::get<1>(returnP));
+				if(std::get<0>(returnP)){
+					std::cout << "END" << std::endl;
+				 	break;
+				}
 				this->_myTurn = false;
 			} else{
 				std::cout << "It is not your turn" << std::endl;

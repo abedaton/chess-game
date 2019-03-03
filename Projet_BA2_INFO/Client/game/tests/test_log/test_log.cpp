@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-#include "../../AdvTuple/MatPosi/Posi/Posi.cpp"
+#include "../../PlatPosi/MatPosi/Posi/Posi.cpp"
 #include "../../common/MyException/MyOstream/MyOstream.hpp"
 
 MyOstream mout("logfile.txt");

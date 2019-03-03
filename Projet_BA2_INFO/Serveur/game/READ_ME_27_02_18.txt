@@ -17,7 +17,7 @@ hierarchie
 partie plateau contient une serie de dossiers étant le tronc prinipal d'includes
 (mis dans un seul dossier au lieu d'en profondeur pour éviter de faire trop de couches)
 
-les branches parrallelles sont mis en profondeurs
+les branches parrallelles et familles sont mis en profondeurs, donc regroupés dans des fichiers
 
 (pour bien saisr la structure regarder le diagramme des includes d'avant
 [avec cette structure de dossier on peut dorénavent s'en passer])
@@ -75,18 +75,8 @@ pour la facilité d'utilisation c'est une valeur globale.
 parfois on souhaite nevoyer uniquement vers le fichier on le fait via .log_only(...) [prend en plus un booléen indiquant si il faut une fin de ligne!]
 
 
-Server
-******
-Server n'est pas un vrai serveur, c'est juste un remplacemet temporaire
-qui me permet déjà d'implementer la logique que le serveur doit avoir sans me sousier de connextion client-serveur (j'essaye de restraindre ma partie)
-
-
-
-
 references utilisées:
 ---------------------
-
-[ /!\ a mentionner dans le SRD /!\ ]
 
 pour tout mon programme je me suis inspiré 4 fois de code existant sur internet:
 
@@ -100,13 +90,6 @@ comment experimenter avec mon code
 ----------------------------------
 
 c'est simple il suffit d'aller dans un "main_code" dans le dossier partie plateau
-
-puis soit utiliser la version présente:
-***************************************
-executer Caltest.out
-
-soit créer une nouvelle version:
-********************************
 
 effacer Caltest.out et logfile.txt
 

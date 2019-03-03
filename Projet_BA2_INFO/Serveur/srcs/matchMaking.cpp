@@ -1,8 +1,6 @@
 #include "../includes/matchMaking.hpp"
 #define TIME 10
 
-
-
 MatchMaking::MatchMaking() : pools(5){
     struct matchMod* mMod;
     for(int i = 1; i<5; ++i){
@@ -21,42 +19,30 @@ void* MatchMaking::run(void* tmp){
 }
 
 void MatchMaking::poolSort(int gameMod){
-    std::cout << "Before tree : "  <<  gameMod << std::endl;
     int first, second;
     while(true){
         if (pools[gameMod-1].size() > 1){
-            std::cout << "A" << std::endl;
             std::cout << pools[gameMod-1].size() << std::endl;
             //random en fonction de la size
-            std::cout << "B" << std::endl;
             srand((unsigned int)time(NULL));
             first = rand() % pools[gameMod-1].size();
             AbstractUser* player1 = pools[gameMod-1].at(first);
             pools[gameMod-1].erase(pools[gameMod-1].begin() + first);
-            std::cout << "FIRST PLAYER SELECTED" << std::endl;
             
             second = rand() % pools[gameMod-1].size();
             AbstractUser* player2 = pools[gameMod-1].at(second);
             pools[gameMod-1].erase(pools[gameMod-1].begin() + second);
-            std::cout << "SECOND PLAYER SELECTED" << std::endl;
 
-			//SilencedHuman* play_one = new SilencedHuman(player1->get_name(),"francais"); // plustard apres du merge
-			//SilencedHuman* play_two = new SilencedHuman(player2->get_name(),"francais"); // plustard apres du merge
-			
-			// francais peut être remplacé de votre coté par un player->get_langue() // faut voir si vous l'implémenter
-
-            //AbstractGame* game = new AbstractGame(player1, player2);
+			SilencedHuman* play_one = new SilencedHuman(player1->get_name(),"francais");
+			SilencedHuman* play_two = new SilencedHuman(player2->get_name(),"francais");
+            Dico* dico = make_dico("Serveur/game/csv");
             BaseChess* game;
             switch(gameMod){
                 case 1:
-					
-                    game = new ClassicChess(player1, player2, new Dico(), "francais");
-                    //game = new ClassicChess(play_one, play_two, new Dico()); // plustard apres du merge
-                    
+                    game = new ClassicChess(play_one, play_two, dico);
                     break;
                 default:
-                    game = new ClassicChess(player1, player2, new Dico(), "francais"); // tmp
-                    //game = new ClassicChess(play_one, play_two, new Dico()); // plustard apres du merge
+                    game = new ClassicChess(play_one, play_two, dico);
                     break;
             }
             std::cout << "Launching Game" << std::endl;
@@ -77,7 +63,5 @@ void MatchMaking::initPool(int size){
 
 //On ajoute le joueur en fonction de son mode de jeu
 void MatchMaking::waitForMatch(AbstractUser* player, int gameMod){
-  std::cout << "gameMod : "  << gameMod << std::endl;
   pools[gameMod-1].push_back(player);
-  std::cout << "waitForMatch : " << pools[gameMod-1].size() << std::endl;
 }

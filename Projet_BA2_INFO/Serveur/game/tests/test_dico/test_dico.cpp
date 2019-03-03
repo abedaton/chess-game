@@ -1,7 +1,7 @@
 
 //#include <iostream>
 
-#include "../../Interpret/Dico/Dico.cpp"
+#include "../../Dico/Dico.cpp"
 
 MyOstream mout("logfile.txt");
 

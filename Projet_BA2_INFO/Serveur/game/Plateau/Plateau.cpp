@@ -109,7 +109,7 @@ std::ostream& operator <<(std::ostream &s,Plateau* c){
     return s;
 }
 
-int Plateau::get_taille(){return this->taille;}
+int Plateau::get_taille() const {return this->taille;}
 
 std::vector<BitypeVar<Chesspiece*>> Plateau::get_row(int ligne){return (*this->board)[ligne];}
 
@@ -142,6 +142,17 @@ BitypeVar<Chesspiece*> Plateau::get_piece(std::pair<int,int> paire) const{
 	int ligne = paire.second;
 	
 	return ((*this->board)[ligne])[colonne];
+}
+
+BitypeVar<Chesspiece*> Plateau::get_piece(int sum_val) const{
+	/* fonction qui permet de recuperer une piece se trouvant a une coordonée donnée */
+	
+	BitypeVar<int>* bit = new BitypeVar<int>(false,0);
+	BitypeVar<int>* plat_size = new BitypeVar<int>(true,this->get_taille());
+
+	PlatPosi* ppos = new PlatPosi(sum_val,*bit,*plat_size);
+	
+	return this->get_piece(ppos->to_pair());
 }
 	
 bool Plateau::isvalid_move(std::pair<int,int> paire_in, std::pair<int,int> paire_out, std::string mode){
@@ -271,4 +282,19 @@ bool Plateau::verify_in_board(std::pair<int,int> paire){
 bool Plateau::is_empty_location(std::pair<int,int> paire){
 	/* fonction qui vérifie si a une coordonée ne se trouve pas une piece */
 	return (not(this->get_piece(paire)).get_state());
-	}
+}
+
+bool Plateau::is_empty_location(int sum_coords){
+	/* fonction qui vérifie si a une coordonée ne se trouve pas une piece */
+	return (not(this->get_piece(sum_coords)).get_state());
+}
+
+int Plateau::begin_position(){return 0;}
+int Plateau::end_position(){
+	
+	int plat_size = this->get_taille();
+	
+	return (plat_size*plat_size)-1; // -1 car commence a 0
+}
+
+//PlatPosi* Plateau::convert_coord(int sum_coords){return 0;}

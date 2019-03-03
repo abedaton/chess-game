@@ -26,14 +26,11 @@ class User: public AbstractUser{
         User& operator= (const User&) noexcept = delete;
 
 		void startGame(BaseChess*, AbstractUser*, bool) override;
-		std::string in();
-		void out(std::string str);
+		void opponentMov(std::string mov) override;
 		void exit();
-		//std::string get_name() const; // plustard apres du merge
-		
-		//std::string next_input() override;
-        //void send_confirm_msg(std::string,bool) override;
-        //using Human::send_confirm_msg;
+
+
+		std::string get_name() const override;
 	
 	private:
 		int _clientSock;
@@ -64,7 +61,6 @@ class User: public AbstractUser{
 
 		static void* run(void* tmp);
 		
-		//virtual std::string get_type_prefix() const override;
 
 		void updateInfo(); // update le nom et socket dans la database
 		void updateInfoDisc(); // quand le client se deconnecte
