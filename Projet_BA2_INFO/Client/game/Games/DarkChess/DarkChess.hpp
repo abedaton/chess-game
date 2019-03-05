@@ -11,8 +11,8 @@
 #include "../../AffichageDarkChess/AffichageDarkChess.cpp"
 #include "../BaseChess/BaseChess.hpp"
 
-class DarkChess : public BaseChess
-{
+class DarkChess : public BaseChess{
+	
     private:
     std::vector<std::vector<int>> fog;
 

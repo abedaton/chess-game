@@ -1406,10 +1406,10 @@ bool BaseChess::complete_danger_test(std::pair<int,int> pair_in, std::pair<int,i
 			
 			AdvTuple adv_tup = *((*advtuples_vect)[i]);
 			
-			mout << "link advt"<<std::endl;//<<adv_tup<<std::endl;
+			//mout << "link advt"<<std::endl;//<<adv_tup<<std::endl;
 			
 			keep = this->check_danger_mouvement_and_path(pair_in, adv_tup, pair_out, mode);
-			mout << "result keep"<<keep<<std::endl;
+			//mout << "result keep"<<keep<<std::endl;
 		
 			i++;
 		}
@@ -1554,9 +1554,9 @@ bool BaseChess::can_escape_position(Chesspiece* pe ,std::string mode){
 	long long unsigned int i=0;
 	while(i<vect->size() and escape == false){
 		MatPosi* mpos = (*vect)[i];
-		mout<<"cheking "<<mpos->to_string()<<std::endl;
+		//mout<<"cheking "<<mpos->to_string()<<std::endl;
 		escape = not(this->is_endangered(mpos,this->get_other_player(pe->get_owner()))->get_state());
-		mout<<"reponce "<<escape<<std::endl;
+		//mout<<"reponce "<<escape<<std::endl;
 		
 		//bool test = not(this->is_endangered(mpos,pe->get_owner())->get_state());
 		//plustôt joueur ennemie de celui possdenadant la piece en dangé
@@ -1905,7 +1905,7 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 
 					bool danger_two_dangers = this->check_more_than_one_danger(mpos_menace);
 					
-					mout<<"plusiuers danger menance la menace?"<<danger_two_dangers<<std::endl;
+					//mout<<"plusiuers danger menance la menace?"<<danger_two_dangers<<std::endl;
 					
 					
 					if (not(danger_two_dangers)){
@@ -1928,7 +1928,7 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 				else{
 					//allie peut-il s'interposer?
 					
-					mout<<"INSIDE ELSE"<<std::endl;
+					//mout<<"INSIDE ELSE"<<std::endl;
 					
 					std::vector<std::vector<MatPosi*>*>* zones_between_vect_vect = this->get_zones_between(mpos_menace->to_pair(), mpos->to_pair(), "capt");
 					
@@ -2054,7 +2054,7 @@ bool BaseChess::check_danger_mouvement_and_path(std::pair<int,int> paire_origi, 
 		
 	valid = this->get_plateau()->isvalid_move(paire_origi, paire, mode); // <-------------------------------------------------------------------------- rajouter un ignore owner
 	
-	mout << "valid"<<valid<<"(normalement tjs non avec limitator avant)"<<std::endl;
+	//mout << "valid"<<valid<<"(normalement tjs non avec limitator avant)"<<std::endl;
 	
 	if(valid == true){		
 		keep = this->check_between_is_empty(paire_origi, adv_tup, paire);
