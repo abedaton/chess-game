@@ -3,8 +3,8 @@
 #define ABSTRACTUSER_HPP
 
 #include <string>
-#include "../game/ClassicChess/ClassicChess.cpp"
-#include "../game/DarkChess/DarkChess.cpp"
+#include "../game/Games/ClassicChess/ClassicChess.cpp"
+#include "../game/Games/DarkChess/DarkChess.cpp"
 
 class AbstractGame;
 

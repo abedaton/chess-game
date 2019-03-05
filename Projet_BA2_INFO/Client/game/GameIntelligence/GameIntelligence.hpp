@@ -4,7 +4,9 @@
 #include <iostream>
 #include <utility>
 
-#include "../ClassicChess/ClassicChess.cpp"
+#include "../Games/ClassicChess/ClassicChess.cpp"
+#include "../Games/DarkChess/DarkChess.cpp"
+#include "../Games/TrappistChess/TrappistChess.cpp"
 
 class GameIntelligence{
 	
@@ -12,7 +14,7 @@ class GameIntelligence{
 		BaseChess* game;
 	
 	private:
-		void make_classic_game(Player*, Player*);
+		void make_game(std::string,Player*, Player*);
 		BaseChess* get_game() const;
         void set_game(BaseChess*);
 	
@@ -22,10 +24,10 @@ class GameIntelligence{
         GameIntelligence(const GameIntelligence&) noexcept = default;
         GameIntelligence& operator= (const GameIntelligence&) noexcept = default;
         
-        void make_classic_game_human_and_bot(std::string,std::string);
-        void make_classic_game_two_bots(std::string,std::string);
-        void make_classic_game_two_humans(std::string);
-        void make_classic_game_two_silenced_humans(std::string);
+        void make_game_human_and_bot(std::string,std::string,std::string);
+        void make_game_two_bots(std::string,std::string,std::string);
+        void make_game_two_humans(std::string,std::string);
+        void make_game_two_silenced_humans(std::string,std::string);
         
         
         void execute_game();
