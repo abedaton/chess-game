@@ -1,7 +1,7 @@
 
 #include <iostream>
 
-#include "../../ClassicChess/ClassicChess.cpp"
+#include "../../Games/ClassicChess/ClassicChess.cpp"
 
 MyOstream mout("logfile.txt");
 

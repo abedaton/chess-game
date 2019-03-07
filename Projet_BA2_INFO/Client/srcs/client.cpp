@@ -39,7 +39,11 @@ void Client::startingGame(bool playerTurn){
 			}
 			break;
 		case 3:
-			//this->_game = new ClassicChess();
+			if (playerTurn) {
+				this->_game = new TrappistChess(player1, player2, player1, dico);
+			} else {
+				this->_game = new TrappistChess(player2, player1, player1, dico);
+			}
 			break;
 		case 4:
 			//this->_game = new ClassicChess();
@@ -50,7 +54,13 @@ void Client::startingGame(bool playerTurn){
 }
 
 void Client::opponentMov(std::string mov){
-	this->_game->execute_step(mov, "Opponent");
+	try{this->_game->execute_step(mov, "Opponent");}
+	catch(MyException& e){
+		std::cout << e.what()<<std::endl;
+		std::cout << "myexception catched"<<std::endl;
+		this->connectionError(); // ??? <-------------------------------- correct façon d'arreter le jeu?
+	}
+	
 	this->_myTurn = true;
 }
 
@@ -295,7 +305,14 @@ void Client::gameWindow(){
         }
         else if (answer == 3){
 			if (this->_myTurn){
-				returnP = this->_game->execute_step();
+				
+				try{returnP = this->_game->execute_step();}
+				catch(MyException& e){
+					std::cout << e.what()<<std::endl;
+					std::cout << "myexception catched"<<std::endl;
+					break; // ??? <-------------------------------- correct façon d'arreter le jeu?
+				}
+				
 				this->_request->mov(std::get<1>(returnP));
 				if(std::get<0>(returnP)){
 					std::cout << "END" << std::endl;

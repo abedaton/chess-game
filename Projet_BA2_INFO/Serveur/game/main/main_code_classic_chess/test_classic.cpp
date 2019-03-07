@@ -13,7 +13,7 @@ int main(){
 	
 	GameIntelligence* game = new GameIntelligence();
 	
-	game->make_classic_game_two_humans("francais");
+	game->make_game_two_humans("classic","francais");
 	game->execute_game();
 	
 	return 0;
