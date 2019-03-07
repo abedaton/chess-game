@@ -17,7 +17,7 @@
 #include "MyException/MyException.cpp"
 #include "Quadrinome/Quadrinome.hpp"
 
-extern MyOstream mout;
+//extern MyOstream mout;
 
 bool is_prime(int);
 

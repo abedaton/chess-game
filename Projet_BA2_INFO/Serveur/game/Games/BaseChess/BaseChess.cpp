@@ -1395,6 +1395,11 @@ bool BaseChess::complete_danger_test(std::pair<int,int> pair_in, std::pair<int,i
 	bool keep = false;
 	BitypeVar<std::vector<AdvTuple*>*>* bit_var = this->find_linking_advtuple(pair_in, pair_out, mode);
 	
+	//mout<<"complete_danger_test with:"<<std::endl;
+	//mout<<" - "<<pair_in.first<<","<<pair_in.second<<std::endl;
+	//mout<<" - "<<pair_out.first<<","<<pair_out.second<<std::endl;
+	//mout<<" - "<<mode<<std::endl;
+	
 	//mout << "link advt state check";
 	
 	if (bit_var->get_state() == true){
@@ -1414,6 +1419,8 @@ bool BaseChess::complete_danger_test(std::pair<int,int> pair_in, std::pair<int,i
 			i++;
 		}
 	}
+	
+	//mout<<"exit complete_danger_test with (keep): "<<keep<<std::endl;
 	
 	return keep;
 	
@@ -1620,20 +1627,25 @@ bool BaseChess::more_dangers_part(std::pair<int,int> paire_zone, Player* limitat
 	BitypeVar<int>* plat_size = new BitypeVar<int>(true,taille);
 	
 	while (cnt <= end_cnt and count < 2){
-				
+		
+		//mout<<"more_dangers_part cnt: "<<cnt<<std::endl;
+		
 		PlatPosi* ppos = new PlatPosi(cnt,*bit,*plat_size);
 		std::pair<int,int> paire = ppos->to_pair();
+		//mout<<"(1) more_dangers_part paire: "<<paire.first<<","<<paire.second<<std::endl;
 		delete ppos;
+		//mout<<"(2) more_dangers_part paire: "<<paire.first<<","<<paire.second<<std::endl;
 		
 		if (not(this->get_plateau()->is_empty_location(paire))){				
 			if ((limitator->get_name() == "") or ((limitator->get_name() != "") and (limitator == this->get_plateau()->get_piece(paire).get_var()->get_owner()))){
 				bool compl_danger = this->complete_danger_test(paire,paire_zone,mode);
+				//mout<<"passed complete_danger_test more_dangers_part"<<std::endl;
 				if (compl_danger == true){count +=1;}
 			}
 		}
 		cnt++;
 	}
-
+	//mout<<"exit more_dangers_part "<<std::endl;
 	return (count >= 2);
 }
 
@@ -1652,15 +1664,22 @@ BitypeVar<MatPosi*>* BaseChess::in_endangered_part(std::pair<int,int> paire_zone
 	
 	std::string limited_mode;
 	
+	//mout<<"in_endangered_part before while -----------------"<<std::endl;
+	
 	while (cnt <= end_cnt and danger->get_state() == false){
-				
+		
+		//mout<<"in_endangered_part cnt: "<<cnt<<std::endl;
 		PlatPosi* ppos = new PlatPosi(cnt,*bit,*plat_size);
 		std::pair<int,int> paire = ppos->to_pair();
+		//mout<<"(1) in_endangered_part paire: "<<paire.first<<","<<paire.second<<std::endl;
 		MatPosi* mpos = ppos;
-		delete ppos;
+		//delete ppos; // <---------------- SEGFAULT!
+		//mout<<"(2) in_endangered_part paire: "<<paire.first<<","<<paire.second<<std::endl;
 		
 		if (not(this->get_plateau()->is_empty_location(paire))){
+
 			bool is_same_owner = (limitator == this->get_plateau()->get_piece(paire).get_var()->get_owner());
+			//mout<<"in_endangered_part after get paire?"<<std::endl;
 			if ((limitator->get_name() == "") or ((limitator->get_name() != "") and is_same_owner)){
 				
 				if ((mode == "capt") and is_same_owner){limited_mode = "capt_same";}
@@ -1673,6 +1692,8 @@ BitypeVar<MatPosi*>* BaseChess::in_endangered_part(std::pair<int,int> paire_zone
 		}
 		cnt++;
 	}
+	//mout<<"exit in_endangered_part with (danger->get_state()): "<<danger->get_state()<<std::endl;
+	
 	return danger;
 }
 
@@ -1684,9 +1705,14 @@ BitypeVar<MatPosi*>* BaseChess::is_endangered(MatPosi* mpos_zone, Player* limita
 	std::pair<int,int> paire_zone = mpos_zone->to_pair();
 	
 	std::string mode;
+	
+	//mout<< "is empty? "<<paire_zone.first<<","<<paire_zone.second<<std::endl;
+	
 	if (this->get_plateau()->is_empty_location(paire_zone)){mode = "depl";}
 	else {mode = "capt";}
 	
+	
+	//mout<<"entering is_endagered_part with "<<paire_zone.first<<","<<paire_zone.second<<" ; "<<limitator->get_name()<< " ; " <<taille << " ; "<<mode<<std::endl;
 	return this->in_endangered_part(paire_zone, limitator, taille, mode);
 }
 
@@ -1709,6 +1735,8 @@ bool BaseChess::check_more_than_one_danger(MatPosi* mpos_zone, Player* limitator
 	std::string mode;
 	if (this->get_plateau()->is_empty_location(paire_zone)){mode = "depl";}
 	else {mode = "capt";}
+	
+	//mout<<"entering more_dangers_part with "<<paire_zone.first<<","<<paire_zone.second<<" ; "<<limitator->get_name()<< " ; " <<taille << " ; "<<mode<<std::endl;
 	
 	return this->more_dangers_part(paire_zone, limitator, taille, mode);
 	
@@ -1873,12 +1901,17 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 	Posi* position = pe->get_posi();
 	MatPosi* mpos = new MatPosi(*position);
 	
+	//mout<<mpos->to_string()<<":"<<mpos->to_pair().first<<","<<mpos->to_pair().second<<std::endl;
+	
 	BitypeVar<MatPosi*>* danger_res =  this->is_endangered(mpos);
+	//mout << "apres danger res is_endangered" <<std::endl;
 	bool mode_echec = danger_res->get_state();
 	MatPosi* mpos_menace = danger_res->get_var();
 	
 	//ss << mpos->to_string()<<" is in danger?: "<< mode_echec <<std::endl;
+	//mout << mpos->to_string()<<" is in danger?: "<< mode_echec <<std::endl;
 	
+	//mout<<"mpos_menace avant escape: "<<mpos_menace->to_pair().first<<","<<mpos_menace->to_pair().second<<std::endl;
 	//--
 	bool escape = false;
 	if (mode_echec == true){ // deteter aussi le PAT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! si roi est seul piece restante du jouer et qu'il ne peut plus bouger --> pat !!!!!!!!!!!!!!!!!!!!!!!!
@@ -1889,23 +1922,29 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 		//(sauf roc car si echec --> roc pas permis sinon inutile a verifier car roc ne peut pas empecher echec ou echec et mat (voir regles))
 		
 		if (not(escape)){escape = this->can_escape_position(pe ,"capt");}
-		ss<<"depl_esacpe? "<<escape<<std::endl;
+		//ss<<"depl_esacpe? "<<escape<<std::endl;
+		//mout << "depl_esacpe? "<<escape<<std::endl;
 		if (not(escape)){
 			
-			if(this->check_more_than_one_danger(mpos)){
+			//mout<<"before first check_more_than_one_danger of check_non_active_player_king"<<std::endl;
+			if(this->check_more_than_one_danger(mpos)){ // <-------------------------------------------------- CRASH !!!!
 				mode_echec_et_mat = true;
 			}
 			else{ // 1 seul danger
+				//mout<<"[1]endager"<<std::endl;
+				//mout<<"mpos_menace: "<<mpos_menace->to_pair().first<<","<<mpos_menace->to_pair().second<<std::endl;
 				BitypeVar<MatPosi*>* dangerception = this->is_endangered(mpos_menace);
 				bool danger_indanger = dangerception->get_state();
 				
 				if(danger_indanger == true){ // si menance en danger --> on peut alors eleiminer la menace -->ok
 					
 					//mode_echec_et_mat = false;
-
+					
+					//mout<<"before second check_more_than_one_danger of check_non_active_player_king"<<std::endl;
+					
 					bool danger_two_dangers = this->check_more_than_one_danger(mpos_menace);
 					
-					//mout<<"plusiuers danger menance la menace?"<<danger_two_dangers<<std::endl;
+					//mout<<"plusieurs danger menance la menace?"<<danger_two_dangers<<std::endl;
 					
 					
 					if (not(danger_two_dangers)){
@@ -1944,6 +1983,7 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 						
 						MatPosi* mpos_zone = (*intersect_vect)[i];
 						
+						//mout<<"[2]endager"<<std::endl;
 						BitypeVar<MatPosi*>* dangerzone = this->is_endangered(mpos_zone,this->get_non_active_player());
 						blocked = dangerzone->get_state();
 					
@@ -1951,6 +1991,7 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 					}
 					
 					//ss<<"une pe peut-elle bloquer la menace? "<<blocked<<std::endl;
+					//mout<<"une pe peut-elle bloquer la menace? "<<blocked<<std::endl;
 					
 					if (not(blocked)){mode_echec_et_mat = true;}
 					

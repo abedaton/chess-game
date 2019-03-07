@@ -4,6 +4,7 @@
 
 #include "../game/Games/ClassicChess/ClassicChess.cpp"
 #include "../game/Games/DarkChess/DarkChess.cpp"
+#include "../game/Games/TrappistChess/TrappistChess.cpp"
 
 class AbstractClient{
 	public:
