@@ -18,10 +18,9 @@
 #include "abstractClient.hpp"
 
 #define PORT 5555
-#define IP "0.0.0.0"
+#define IP "127.0.0.1"
 
-struct FriendRequests
-{
+struct FriendRequests{
     std::string name;
 };
 
