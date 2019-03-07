@@ -1361,9 +1361,8 @@ BitypeVar<std::vector<AdvTuple*>*>* BaseChess::find_linking_advtuple(std::pair<i
 		Chesspiece* pe_in = tup_in.get_var();
 		
 		MatPosi* mpos_out = new MatPosi(pair_out);
-		
-		if ((mode == "capt_same") or (mode == "capt_empty")){limited_mode = "capt";}
-		else{limited_mode = mode;}
+
+		limited_mode = this->get_plateau()->get_limited_mode(mode);
 		
 		std::vector<std::pair<std::pair<int,int>,AdvTuple>> vect = pe_in->algo(limited_mode); // mode
 		
@@ -1681,9 +1680,8 @@ BitypeVar<MatPosi*>* BaseChess::in_endangered_part(std::pair<int,int> paire_zone
 			bool is_same_owner = (limitator == this->get_plateau()->get_piece(paire).get_var()->get_owner());
 			//mout<<"in_endangered_part after get paire?"<<std::endl;
 			if ((limitator->get_name() == "") or ((limitator->get_name() != "") and is_same_owner)){
-				
-				if ((mode == "capt") and is_same_owner){limited_mode = "capt_same";}
-				else{limited_mode = mode;}
+
+				limited_mode = this->get_plateau()->get_limited_mode(mode);
 				
 				bool compl_danger = this->complete_danger_test(paire,paire_zone,limited_mode);
 				danger->set_state(compl_danger);
@@ -1890,6 +1888,16 @@ bool BaseChess::check_between_is_empty(std::pair<int,int> begin, AdvTuple adv_tu
 	
 }
 
+std::pair<bool,MatPosi*> BaseChess::check_if_echec(MatPosi* mpos){
+
+	BitypeVar<MatPosi*>* danger_res =  this->is_endangered(mpos);
+	//mout << "apres danger res is_endangered" <<std::endl;
+	bool mode_echec = danger_res->get_state();
+	MatPosi* mpos_menace = danger_res->get_var();
+
+	return std::make_pair(mode_echec,mpos_menace);
+}
+
 bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 	/* fonction qui vérifie l'état du roi adverse sur le plateau
 	 * (en echec, en echec et mat, coincé, ...) */
@@ -1903,10 +1911,9 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 	
 	//mout<<mpos->to_string()<<":"<<mpos->to_pair().first<<","<<mpos->to_pair().second<<std::endl;
 	
-	BitypeVar<MatPosi*>* danger_res =  this->is_endangered(mpos);
-	//mout << "apres danger res is_endangered" <<std::endl;
-	bool mode_echec = danger_res->get_state();
-	MatPosi* mpos_menace = danger_res->get_var();
+	std::pair<bool,MatPosi*> echec_paire = this->check_if_echec(mpos);
+	bool mode_echec = echec_paire.first;
+	MatPosi* mpos_menace = echec_paire.second;
 	
 	//ss << mpos->to_string()<<" is in danger?: "<< mode_echec <<std::endl;
 	//mout << mpos->to_string()<<" is in danger?: "<< mode_echec <<std::endl;

@@ -178,6 +178,7 @@ class BaseChess{
 		bool verify_move(std::pair<int,int>, std::pair<int,int>);
 		
 		std::vector<MatPosi*>* check_possible_mouvement(Chesspiece*, std::string);
+
 		BitypeVar<std::vector<AdvTuple*>*>* find_linking_advtuple(std::pair<int,int>, std::pair<int,int>, std::string);
 		bool complete_danger_test(std::pair<int,int> , std::pair<int,int> , std::string);
 		
@@ -209,7 +210,9 @@ class BaseChess{
 		bool check_between_is_empty_part(std::vector<std::pair<int,int>>*, MatPosi*, MatPosi*); // ,Plateau*  static		
 		bool check_between_is_empty(std::pair<int,int>, AdvTuple, std::pair<int,int>);
 		
-		bool check_non_active_player_king(Chesspiece*);
+		virtual std::pair<bool,MatPosi*> check_if_echec(MatPosi*);
+
+		virtual bool check_non_active_player_king(Chesspiece*);
 		
 		bool verify_kings();
 		std::vector<Chesspiece*>* get_kings();

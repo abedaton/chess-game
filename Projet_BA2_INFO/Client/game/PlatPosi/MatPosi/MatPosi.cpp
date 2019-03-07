@@ -1,8 +1,9 @@
 //#include <iostream>
 //#include <utility>
 //#include <sstream>
-#include "MatPosi.hpp"
+#include <algorithm>
 
+#include "MatPosi.hpp"
 
 MatPosi::MatPosi(int x,int y) : Posi(x,y) {} //*< Constructor
 
@@ -136,13 +137,18 @@ std::size_t MatPosi::get_col_from_string(std::string letter){
 }
 
 int MatPosi::get_lig_from_string(std::string reste){
+
+	if(not(std::all_of(reste.begin(), reste.end(), isdigit))){throw std::invalid_argument("");}
 	int ligne = std::stoi(reste) - 1;
+
 	return ligne;
 }
 
 bool MatPosi::isvalid_coord(std::string s){
 	/* fonction calculant si un string s est est une coordonée matricielle valide */
 	
+	//mout<<"is_valide_coord MatPosi entree: "<<s<<std::endl;
+
 	bool res = false;
 	
 	if (s.size() >= 2) {
@@ -152,8 +158,14 @@ bool MatPosi::isvalid_coord(std::string s){
 		
 		if (colonne != std::string::npos){
 			std::string reste = this->get_number_part_of_string(s);
+
+			//mout<<"is_valide_coord MatPosi reste: "<<reste<<std::endl;
+
 			try {
 				int ligne = this->get_lig_from_string(reste);
+
+				//mout<<"is_valide_coord MatPosi conv reste: "<<ligne<<std::endl;
+
 				(void)ligne;
 				res = true;
 			}
@@ -164,5 +176,7 @@ bool MatPosi::isvalid_coord(std::string s){
 		}
 	}
 	
+	//mout<<"is_valide_coord MatPosi rep: "<<res<<std::endl;
+
 	return res;
 }

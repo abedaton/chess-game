@@ -3,41 +3,43 @@ Bot(player2)
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -47,14 +49,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 B1
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-[C3, A3]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [C3, A3]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  B1
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -62,65 +58,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 A3
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |        |        |        |        |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -130,12 +107,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 A7
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-[A6, A5]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [A6, A5]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  A7
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -143,65 +116,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 A6
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |        |        |        |        |        |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |        |        |        |        |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |        |        |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -211,13 +165,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 B2
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-[B3, B4]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [B3, B4]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  B2
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -225,65 +174,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 B3
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |        |        |        |        |        |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |        |        |        |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |        |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |        |        |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |        |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -293,13 +223,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 B7
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-[B6, B5]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [B6, B5]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  B7
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -307,65 +232,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 B6
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |   P    |   P    |   P    |   P    |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |        |        |        |        |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |        |        |        |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |        |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |   P    |   P    |   P    |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |        |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |        |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -375,13 +281,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 C2
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-[C3, C4]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [C3, C4]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  C2
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -389,65 +290,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 C3
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |   P    |   P    |   P    |   P    |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |        |        |        |        |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |        |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |        |        |   P*   |   P*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |   P    |   P    |   P    |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |        |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |        |        |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -457,13 +339,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 C7
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-[C6, C5]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [C6, C5]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  C7
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -471,65 +348,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 C6
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |   P    |   P    |   P    |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |        |        |        |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |        |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |        |        |   P*   |   P*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |        |   P    |   P    |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |   P    |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |        |        |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -539,22 +397,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 C1
-pour afficher la liste de deplacements possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[B2]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [B2]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  C1
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -562,69 +406,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 B2
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |   P    |   P    |   P    |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |        |        |        |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |        |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |  Fou*  |        |   P*   |   P*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |        |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |        |   P    |   P    |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |   P    |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |  Fou*  |        |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |        |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -634,13 +455,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 D7
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-[D6, D5]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [D6, D5]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  D7
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -648,65 +464,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 D6
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |   P    |   P    |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |   P    |        |        |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |        |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |  Fou*  |        |   P*   |   P*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |        |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |        |        |   P    |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |   P    |   P    |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |  Fou*  |        |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |        |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -716,50 +513,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 D1
-pour afficher la liste de deplacements possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[C2, B1, C1]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [C2, B1, C1]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  D1
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -767,80 +522,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 C2
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |   P    |   P    |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |   P    |        |        |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |        |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |  Fou*  |   D*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |        |        |   P    |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |   P    |   P    |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |  Fou*  |   D*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -850,13 +571,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 E7
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-[E6, E5]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [E6, E5]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  E7
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -864,62 +580,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 E6
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |   P    |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |   P    |   P    |        |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |        |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |  Fou*  |   D*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |        |        |        |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |   P    |   P    |   P    |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |  Fou*  |   D*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -929,13 +629,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 E2
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-[E3, E4]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [E3, E4]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  E2
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -943,62 +638,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 E3
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |   P    |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |   P    |   P    |        |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |  Fou*  |   D*   |   P*   |        |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |        |        |        |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |   P    |   P    |   P    |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |  Fou*  |   D*   |   P*   |        |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -1008,13 +687,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 F7
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-[F6, F5]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [F6, F5]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  F7
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -1022,62 +696,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 F6
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |   P    |   P    |   P    |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |  Fou*  |   D*   |   P*   |        |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |        |        |        |        |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |   P    |   P    |   P    |   P    |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |  Fou*  |   D*   |   P*   |        |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -1087,18 +745,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 E1
-pour afficher la liste de deplacements possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[E2, D1]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [E2, D1]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  E1
 ou ret pour retourner
 ou roc pour faire un roc
@@ -1107,67 +755,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 E2
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |   P    |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |   P    |   P    |   P    |        |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |  Fou*  |   D*   |   P*   |   R*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |        |        |        |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |        |        |        |        |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |   P    |   P    |   P    |   P    |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |  Fou*  |   D*   |   P*   |   R*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |        |        |        |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -1177,13 +804,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 G7
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-[G6, G5]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [G6, G5]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  G7
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -1191,65 +813,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 G6
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |   P    |   P    |   P    |   P    |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |  Fou*  |   D*   |   P*   |   R*   |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |        |        |        |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |        |        |        |        |        |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |   P    |   P    |   P    |   P    |   P    |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |  Fou*  |   D*   |   P*   |   R*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |        |        |        |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -1259,24 +862,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 E2
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[D1, F3, D3, E1]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [D1, F3, D3, E1]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  E2
 ou ret pour retourner
 ou roc pour faire un roc
@@ -1285,67 +872,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 E1
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |   P    |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |   P    |   P    |   P    |   P    |        |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |  Fou*  |   D*   |   P*   |        |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |        |        |        |        |        |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |   P    |   P    |   P    |   P    |   P    |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |  Fou*  |   D*   |   P*   |        |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -1355,12 +921,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 H7
-pour afficher la liste de deplacements possibles de la piece : valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-[H6, H5]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [H6, H5]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  H7
 ou ret pour retourner
 ou end pour abandonner la partie
@@ -1368,62 +930,46 @@ ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
 H6
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |  Fou*  |   D*   |   P*   |        |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |        |        |        |        |        |        |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |  Fou*  |   D*   |   P*   |        |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
@@ -1433,36 +979,8 @@ veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
 A1
-pour afficher la liste de deplacements possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[B1, C1, D1]
-pour afficher la liste de capture possibles de la piece : valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid1(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-valid0(normalement tjs non avec limitator avant)
-[]
+pour afficher la liste de deplacements possibles de la piece : [B1, C1, D1]
+pour afficher la liste de capture possibles de la piece : []
 veuillez indiquer le deplacement de la piece  A1
 ou ret pour retourner
 ou roc pour faire un roc
@@ -1480,15 +998,6 @@ A1 B1 E1
 A1 C1 E1
 A1 D1 E1
 A1 E1 E1
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid1(normalement tjs non avec limitator avant)
-result keep0
 etapes rois: [D1]
 le roi du roc ne peut pas avoir bouge!
 veuillez indiquer la piece avec laquelle faire le roc
@@ -1496,59 +1005,46 @@ ou ret pour retourner
 ou end pour abandonner la partie
 ou lang pour changer la langue
 end
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
-link advt
-valid0(normalement tjs non avec limitator avant)
-result keep0
 
 [Bot(player2)] ()
 
-    A        B        C        D        E        F        G        H     
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   7
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P    |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   6
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   5
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|        |        |        |        |        |        |        |        |   4
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   P*   |  Fou*  |   D*   |   P*   |        |   P*   |   P*   |   P*   |   2
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
-|        |        |        |        |        |        |        |        |
-|   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
-|        |        |        |        |        |        |        |        |
-|--------|--------|--------|--------|--------|--------|--------|--------|-
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |        |        |        |        |        |        |        |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |  Cav*  |   P*   |   P*   |        |   P*   |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |  Fou*  |   D*   |   P*   |        |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |        |        |        |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
 
 [Bot(player1)] (*)
 
