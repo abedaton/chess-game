@@ -20,7 +20,7 @@ class TrappistChess: public BaseChess{
         TrappistChess& operator= (const TrappistChess&) noexcept = default;
         
         std::pair<bool,std::string> execute_step() override;
-        std::pair<bool,bool> execute_step(std::string) override;
+        std::pair<bool,bool> execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>*) override;
         using BaseChess::execute_step;
         
 	protected:

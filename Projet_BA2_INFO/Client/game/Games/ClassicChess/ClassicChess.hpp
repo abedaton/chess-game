@@ -20,7 +20,7 @@ class ClassicChess: public BaseChess{
         ClassicChess& operator= (const ClassicChess&) noexcept = default;
         
         std::pair<bool,std::string> execute_step() override;
-        std::pair<bool,bool> execute_step(std::string) override;
+        std::pair<bool,bool> execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>*) override;
         using BaseChess::execute_step;
         
 	protected:
@@ -34,7 +34,6 @@ class ClassicChess: public BaseChess{
 		std::pair<bool,BitypeVar<Chesspiece*>> normal_output_check(std::string,std::string) override;
 		Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* out_input(std::string,BitypeVar<Chesspiece*>) override;
 		
-		Trinome<std::string,std::string,bool>* decode_merged_string(std::string);
 		bool exec_step(std::string, std::string, BitypeVar<Chesspiece*>, bool, bool);
 		
 		bool check_pat();

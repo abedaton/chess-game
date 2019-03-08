@@ -83,8 +83,11 @@ class BaseChess{
         
         // pas d'interactions avec le jeu, il gère tout --> peu de fonctions publiques
         virtual std::pair<bool,std::string> execute_step() = 0;
-		virtual std::pair<bool,bool> execute_step(std::string) = 0;
-        virtual std::pair<bool,bool> execute_step(std::string, std::string);
+        virtual std::pair<bool,bool> execute_step(std::string);
+        virtual std::pair<bool,bool> execute_step(std::string, bool);
+        virtual std::pair<bool,bool> execute_step(std::string, bool, std::string);
+        virtual std::pair<bool,bool> execute_step(std::string,std::string);
+		
         
 	protected:
 		Player* get_low_player();
@@ -217,6 +220,10 @@ class BaseChess{
 		std::vector<Chesspiece*>* get_kings();
 		
 		bool check_danger_mouvement_and_path(std::pair<int,int>, AdvTuple, std::pair<int,int>, std::string);
+		
+		Trinome<std::string,std::string,bool>* decode_merged_string(std::string);
+        
+        virtual std::pair<bool,bool> execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>*) = 0;
 		
 };
 #endif

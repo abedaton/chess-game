@@ -4,8 +4,6 @@
 
 extern MyOstream mout;
 
-//MyOstream mout("logfile.txt"); // ???
-
 //--------------------AntiChess----------------------------------------------------------------------------------------------------
 
 bool AntiChess::check_pat(){
@@ -283,40 +281,6 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* AntiChess:
 	return res;
 }
 
-Trinome<std::string,std::string,bool>* AntiChess::decode_merged_string(std::string merged_string){
-	
-	Trinome<std::string,std::string,bool>* res_trinome = new Trinome<std::string,std::string,bool>();
-	
-	std::vector<std::string>* res_vect = split_string(merged_string,";");
-	
-	std::string in,out;
-	bool switch_pos = false;
-	
-	if (res_vect->size() == 2){
-		
-		in = (*res_vect)[0];
-		out = (*res_vect)[1];
-	}
-	
-	else if (res_vect->size() == 3){
-		
-		in = (*res_vect)[0];
-		out = (*res_vect)[2];
-		
-		if ((*res_vect)[1] != this->get_roc_symbol()){throw MyException(&mout,"symbole invalide !");}
-		else {switch_pos = true;}
-
-	}
-	else {throw MyException(&mout,"merged_string invalide !");}
-	
-	res_trinome->set_first(in);
-	res_trinome->set_second(out);
-	res_trinome->set_third(switch_pos);
-	
-	return res_trinome;
-	
-}
-
 bool AntiChess::exec_step(std::string in, std::string out, BitypeVar<Chesspiece*> adv_pe_out, bool switch_pos,bool abandon){
 	
 	bool end;
@@ -410,80 +374,83 @@ std::pair<bool,std::string> AntiChess::execute_step(){
 	return result;
 }
 
-std::pair<bool,bool> AntiChess::execute_step(std::string merged_coords){
+std::pair<bool,bool> AntiChess::execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit){
 	
-	Trinome<std::string,std::string,bool>* res_trinome = this->decode_merged_string(merged_coords);
-	
-	std::string in = res_trinome->get_first();
-	std::string out = res_trinome->get_second();
-	bool switch_pos = res_trinome->get_third();
-
 	bool ok = false;
 	bool end = false;
 	
-	std::pair<bool,BitypeVar<Chesspiece*>> in_paire = check_in_validity_non_symbol(in,"",""); // verify in //les commentaires sont inutiles ici
-	bool in_isvalid = in_paire.first;
+	if (res_bit->get_state() == true){
 	
-	if (in_isvalid == true){
-		
-		BitypeVar<Chesspiece*> in_bit = in_paire.second;
-		
-		if (in_bit.get_state() == false){throw MyException(&mout,"IN invalide car non-attribué");}
-		
-		MatPosi* mpos = new MatPosi(out);
-		BitypeVar<Chesspiece*> out_bit = this->get_plateau()->get_piece(mpos->to_pair());
-		delete mpos;
-	
-		if(switch_pos == true){
+		Trinome<std::string,std::string,bool>* res_trinome = res_bit->get_var();
 			
-			if (out_bit.get_state() == false){throw MyException(&mout,"OUT invalide car non-attribué alors que dans roc");}
+		std::string in = res_trinome->get_first();
+		std::string out = res_trinome->get_second();
+		bool switch_pos = res_trinome->get_third();
+
+		std::pair<bool,BitypeVar<Chesspiece*>> in_paire = check_in_validity_non_symbol(in,"",""); // verify in //les commentaires sont inutiles ici
+		bool in_isvalid = in_paire.first;
+		
+		if (in_isvalid == true){
 			
-			// verify roc
-			Chesspiece* in_pe = in_bit.get_var();
-			bool ok_roc = is_roquable(in_pe);
+			BitypeVar<Chesspiece*> in_bit = in_paire.second;
 			
-			if (ok_roc){
+			if (in_bit.get_state() == false){throw MyException(&mout,"IN invalide car non-attribué");}
+			
+			MatPosi* mpos = new MatPosi(out);
+			BitypeVar<Chesspiece*> out_bit = this->get_plateau()->get_piece(mpos->to_pair());
+			delete mpos;
+		
+			if(switch_pos == true){
 				
-				bool in_is_king,in_is_tour;
+				if (out_bit.get_state() == false){throw MyException(&mout,"OUT invalide car non-attribué alors que dans roc");}
 				
-				Roi* roi;
-				Tour* tour;
+				// verify roc
+				Chesspiece* in_pe = in_bit.get_var();
+				bool ok_roc = is_roquable(in_pe);
 				
-				bool good_type_in_pe = true;
-				
-				if (verifier_type_pe<Roi>(in_pe)){
-					in_is_king = true;
-					in_is_tour = false;
-				}
-				else if (verifier_type_pe<Tour>(in_pe)){
-					in_is_king = true;
-					in_is_tour = false;
-				}
-				else{
-					ok = false;
-					good_type_in_pe = false;
-				}
-				
-				if(good_type_in_pe == true){
-					if (in_is_king == true){roi = dynamic_cast<Roi*>(in_pe);}
-					else{tour = dynamic_cast<Tour*>(in_pe);}
+				if (ok_roc){
 					
-					ok = this->check_roc_validity(roi,tour, out_bit, in_is_king, in_is_tour);
+					bool in_is_king,in_is_tour;
+					
+					Roi* roi;
+					Tour* tour;
+					
+					bool good_type_in_pe = true;
+					
+					if (verifier_type_pe<Roi>(in_pe)){
+						in_is_king = true;
+						in_is_tour = false;
+					}
+					else if (verifier_type_pe<Tour>(in_pe)){
+						in_is_king = true;
+						in_is_tour = false;
+					}
+					else{
+						ok = false;
+						good_type_in_pe = false;
+					}
+					
+					if(good_type_in_pe == true){
+						if (in_is_king == true){roi = dynamic_cast<Roi*>(in_pe);}
+						else{tour = dynamic_cast<Tour*>(in_pe);}
+						
+						ok = this->check_roc_validity(roi,tour, out_bit, in_is_king, in_is_tour);
+					}
 				}
 			}
-		}
-		else{
-			std::pair<bool,BitypeVar<Chesspiece*>> out_paire = normal_output_check(in,out); // verify out
-			ok = out_paire.first;
-		}
-		
-		if (ok == true){
-						
-			MatPosi* mpos = new MatPosi(out);
-			BitypeVar<Chesspiece*> adv_pe_out = this->get_plateau()->get_piece(mpos->to_pair()); // recup de piece de out
-			delete mpos;
+			else{
+				std::pair<bool,BitypeVar<Chesspiece*>> out_paire = normal_output_check(in,out); // verify out
+				ok = out_paire.first;
+			}
 			
-			end = this->exec_step(in, out, adv_pe_out, switch_pos, false); //abandon est tjs false ici
+			if (ok == true){
+							
+				MatPosi* mpos = new MatPosi(out);
+				BitypeVar<Chesspiece*> adv_pe_out = this->get_plateau()->get_piece(mpos->to_pair()); // recup de piece de out
+				delete mpos;
+				
+				end = this->exec_step(in, out, adv_pe_out, switch_pos, false); //abandon est tjs false ici
+			}
 		}
 	}
 	

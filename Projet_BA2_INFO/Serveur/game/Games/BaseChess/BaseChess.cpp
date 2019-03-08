@@ -2114,11 +2114,92 @@ bool BaseChess::check_danger_mouvement_and_path(std::pair<int,int> paire_origi, 
 	
 }
 
-std::pair<bool,bool> BaseChess::execute_step(std::string merged_coords,std::string player_name){
+Trinome<std::string,std::string,bool>* BaseChess::decode_merged_string(std::string merged_string){
+	
+	Trinome<std::string,std::string,bool>* res_trinome = new Trinome<std::string,std::string,bool>();
+	
+	std::vector<std::string>* res_vect = split_string(merged_string,";");
+	
+	std::string in,out;
+	bool switch_pos = false;
+	
+	if (res_vect->size() == 2){
+		
+		in = (*res_vect)[0];
+		out = (*res_vect)[1];
+	}
+	
+	else if (res_vect->size() == 3){
+		
+		in = (*res_vect)[0];
+		out = (*res_vect)[2];
+		
+		if ((*res_vect)[1] != this->get_roc_symbol()){throw MyException(&mout,"symbole invalide !");}
+		else {switch_pos = true;}
+
+	}
+	else {throw MyException(&mout,"merged_string invalide !");}
+	
+	res_trinome->set_first(in);
+	res_trinome->set_second(out);
+	res_trinome->set_third(switch_pos);
+	
+	return res_trinome;
+	
+}
+
+std::pair<bool,bool> BaseChess::execute_step(std::string merged_coords,bool invert_y){
+		
+	Trinome<std::string,std::string,bool>* res_trinome = this->decode_merged_string(merged_coords);
+	
+	std::string in = res_trinome->get_first();
+	std::string out = res_trinome->get_second();
+	
+	BitypeVar<int>* bit_taille = new BitypeVar<int>(true,this->get_plateau()->get_taille());
+	
+	bool valid_coords = true;
+	
+	try{
+		
+		PlatPosi* ppos_in = new PlatPosi(in,*bit_taille);
+		if(invert_y == true){
+			ppos_in->invert_y_axis();
+			res_trinome->set_first(ppos_in->to_string());
+		}
+		delete ppos_in;
+		
+		PlatPosi* ppos_out = new PlatPosi(in,*bit_taille);
+		if(invert_y == true){
+			ppos_out->invert_y_axis();
+			res_trinome->set_second(ppos_out->to_string());
+		}
+		delete ppos_out;
+		
+	}	
+	catch(MyException& e){
+		valid_coords = false;
+	}
+
+	BitypeVar<Trinome<std::string,std::string,bool>*>* bit_res = new BitypeVar<Trinome<std::string,std::string,bool>*>(valid_coords,res_trinome);
+	
+	return this->execute_step(bit_res);
+}
+
+std::pair<bool,bool> BaseChess::execute_step(std::string merged_coords,bool invert_y,std::string player_name){
 	
 	(void)player_name;
 	//if (this->get_active_player()->get_name() != player_name){throw MyException(&mout,"execution impossible, ce n'est pas le tour de ce joueur");}
 	
-	return this->execute_step(merged_coords);
+	return this->execute_step(merged_coords,invert_y);
 	
+}
+
+std::pair<bool,bool> BaseChess::execute_step(std::string merged_coords,std::string player_name){
+	
+	return this->execute_step(merged_coords,false,player_name);
+	
+}
+
+std::pair<bool,bool> BaseChess::execute_step(std::string merged_coords){	
+	return this->execute_step(merged_coords,false);
 }

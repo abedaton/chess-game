@@ -119,24 +119,24 @@ bool MatPosi::operator>=( const MatPosi* mp ) const {
 	return (*this >= *mp);
 }
 
-std::string MatPosi::get_alphabet(){return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";}
+std::string MatPosi::get_alphabet() const {return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";}
 
-std::string MatPosi::get_letter_part_of_string(std::string s){
+std::string MatPosi::get_letter_part_of_string(std::string s) const {
 	std::string letter = std::string(1, s[0]);
 	return letter;
 }
 
-std::string MatPosi::get_number_part_of_string(std::string s){
+std::string MatPosi::get_number_part_of_string(std::string s) const {
 	std::string reste = s.substr(1);
 	return reste;
 }
 
-std::size_t MatPosi::get_col_from_string(std::string letter){
+std::size_t MatPosi::get_col_from_string(std::string letter) const {
 	std::size_t colonne = this->get_alphabet().find(letter)%26;
 	return colonne;
 }
 
-int MatPosi::get_lig_from_string(std::string reste){
+int MatPosi::get_lig_from_string(std::string reste) const {
 
 	if(not(std::all_of(reste.begin(), reste.end(), isdigit))){throw std::invalid_argument("");}
 	int ligne = std::stoi(reste) - 1;
@@ -144,7 +144,7 @@ int MatPosi::get_lig_from_string(std::string reste){
 	return ligne;
 }
 
-bool MatPosi::isvalid_coord(std::string s){
+bool MatPosi::isvalid_coord(std::string s) const {
 	/* fonction calculant si un string s est est une coordonée matricielle valide */
 	
 	//mout<<"is_valide_coord MatPosi entree: "<<s<<std::endl;
