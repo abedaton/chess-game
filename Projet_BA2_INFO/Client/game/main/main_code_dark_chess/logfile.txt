@@ -48,22 +48,16 @@ Human(player1) c'est a votre tour!
 veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
-lang
-Veuillez indiquer la nouvelle langue a selectionner: francais, anglais et neerlandais
-anglais
-please give the piece to move
-or end to abandon the game
-or lang to change the language
-a2
-to show the movement list of the piece : [A3, A4]
-to show the capture list of the piece : []
-please give the mouvement of the piece a2
-or ret to return
-or end to abandon the game
-or liste_depl to show the movement list of the piece
-or liste_capt to show the capture list of the piece
-or lang to change the language
-a3
+e2
+pour afficher la liste de deplacements possibles de la piece : [E3, E4]
+pour afficher la liste de capture possibles de la piece : []
+veuillez indiquer le deplacement de la piece  e2
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+e4
 
 [Human(player2)] ()
 
@@ -112,16 +106,16 @@ Human(player2) c'est a votre tour!
 veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
-h7
-pour afficher la liste de deplacements possibles de la piece : [H6, H5]
+d7
+pour afficher la liste de deplacements possibles de la piece : [D6, D5]
 pour afficher la liste de capture possibles de la piece : []
-veuillez indiquer le deplacement de la piece  h7
+veuillez indiquer le deplacement de la piece  d7
 ou ret pour retourner
 ou end pour abandonner la partie
 ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
-h6
+d6
 
 [Human(player2)] ()
 
@@ -137,27 +131,27 @@ h6
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
-   6   |   X    |   X    |   X    |   X    |   X    |   X    |   X    |   X    |   6
+   6   |        |   X    |   X    |   X    |   X    |   X    |   X    |   X    |   6
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
-   5   |   X    |   X    |   X    |   X    |   X    |   X    |   X    |   X    |   5
+   5   |   X    |        |   X    |        |        |        |   X    |        |   5
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
-   4   |        |        |        |        |        |        |        |        |   4
+   4   |        |        |        |        |   P*   |        |        |        |   4
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
-   3   |   P*   |        |        |        |        |        |        |        |   3
+   3   |        |        |        |        |        |        |        |        |   3
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
-   2   |        |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+   2   |   P*   |   P*   |   P*   |   P*   |        |   P*   |   P*   |   P*   |   2
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
-   1   |   R*   |  Kn*   |   B*   |   Q*   |  Ki*   |   B*   |  Kn*   |   R*   |   1
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
@@ -166,7 +160,7 @@ h6
 [Human(player1)] (*)
 
 
-Human(player1) it's your turn!
-please give the piece to move
-or end to abandon the game
-or lang to change the language
+Human(player1) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue

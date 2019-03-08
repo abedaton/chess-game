@@ -15,14 +15,15 @@ DarkChess::DarkChess(Player* p_low, Player* p_high,Player* deb_player, Dico* dic
 	this->initialisation();
 } //*< Constructor
 
-void DarkChess::initialise_board()
-{
+std::vector<std::vector<int>> DarkChess::get_fog() const {return this->fog;}
+void DarkChess::set_fog(std::vector<std::vector<int>> fog_vect){this->fog = fog_vect;}
+
+void DarkChess::initialise_board(){
     Plateau *plat = new Plateau(8);
     this->set_plateau(plat);
 }
 
-void DarkChess::initialise_high_pieces()
-{
+void DarkChess::initialise_high_pieces(){
     /* mise en place des pieces pour le joeur se trouvant en haut du tableau */
 
     Player *own = get_high_player();
@@ -78,8 +79,7 @@ void DarkChess::initialise_high_pieces()
     this->initial_set_piece(pion_huit, own, "H7");
 }
 
-void DarkChess::initialise_low_pieces()
-{
+void DarkChess::initialise_low_pieces(){
     /* mise en place des pieces pour le joeur se trouvant en bas du tableau */
 
     Player *own = get_low_player();
@@ -136,18 +136,16 @@ void DarkChess::initialise_low_pieces()
 
 }
 
-void DarkChess::affichage()
-{
+void DarkChess::affichage(){
     /* fonction affaichant le tableau de jeu ainsi que les joueurs l'entourant */
     make_fog();
     AffichageDarkChess *aff = new AffichageDarkChess(this->get_plateau(), this->get_dico(), "Symbole_", "",this->get_active_player()->get_langue(),
-                                                     this->get_low_player(), this->get_high_player(), "*", "", this->fog);
+                                                     this->get_low_player(), this->get_high_player(), "*", "", this->get_fog());
 
     this->get_active_player()->send_msg(aff->get_affichage(), true);
 }
 
-std::pair<bool, BitypeVar<Chesspiece *>> DarkChess::normal_output_check(std::string in, std::string out)
-{
+std::pair<bool, BitypeVar<Chesspiece *>> DarkChess::normal_output_check(std::string in, std::string out){
     /* normal en oposition avec roc_output_check,
      * output designe la 2e partie de la selectiond de piece c.a.d. le choix de la destination de la piecesélectionné */
 
@@ -211,9 +209,7 @@ std::pair<bool, BitypeVar<Chesspiece *>> DarkChess::normal_output_check(std::str
     return paire;
 }
 
-Trinome<std::string, BitypeVar<Chesspiece *>, Trinome<bool, bool, bool> *> *DarkChess::out_input(std::string in, BitypeVar<Chesspiece *> in_pe)
-{
-
+Trinome<std::string, BitypeVar<Chesspiece *>, Trinome<bool, bool, bool> *> *DarkChess::out_input(std::string in, BitypeVar<Chesspiece *> in_pe){
     /* out designe la 2e partie de la selectiond de piece c.a.d. le choix de la destination de la piece sélectionné (en in)
      * boucle while gèrant toutes les possibilités concernat ce choix de destination*/
 
@@ -231,8 +227,7 @@ Trinome<std::string, BitypeVar<Chesspiece *>, Trinome<bool, bool, bool> *> *Dark
     bool roc_accept = (verifier_type_pe<Roi>(in_pe) or verifier_type_pe<Tour>(in_pe));
 
     bool end_game = false;
-    while (not(part_b) and not(again) and not(correspond) and not(end_game))
-    {
+    while (not(part_b) and not(again) and not(correspond) and not(end_game)){
 
         std::stringstream ss_menu;
         ss_menu << this->get_dico()->search(this->get_active_player()->get_langue(), "depl_pe") << " " << in << std::endl;
@@ -288,27 +283,7 @@ Trinome<std::string, BitypeVar<Chesspiece *>, Trinome<bool, bool, bool> *> *Dark
     return res;
 }
 
-//std::vector<std::string> *split_string(std::string s, std::string delim)
-//{
-//
-//    std::vector<std::string> *vect = new std::vector<std::string>();
-//
-//    long long unsigned int start = 0;
-//    long long unsigned int end = s.find(delim);
-//    while (end != std::string::npos)
-//    {
-//        vect->push_back(s.substr(start, end - start));
-//        start = end + delim.length();
-//        end = s.find(delim, start);
-//    }
-//    vect->push_back(s.substr(start, end));
-//
-//    return vect;
-//}
-
-Trinome<std::string, std::string, bool> *DarkChess::decode_merged_string(std::string merged_string)
-{
-
+Trinome<std::string, std::string, bool> *DarkChess::decode_merged_string(std::string merged_string){
     Trinome<std::string, std::string, bool> *res_trinome = new Trinome<std::string, std::string, bool>();
 
     std::vector<std::string> *res_vect = split_string(merged_string, ";");
@@ -363,7 +338,7 @@ bool DarkChess::exec_step(std::string in, std::string out, BitypeVar<Chesspiece 
         this->exec_move(in, out, switch_pos);
     }
 
-    if (not(end)){this->check_evolution();} // nouveau !!
+    if (not(end)){this->check_evolution();}
 
     if (not(end))
     {
@@ -400,9 +375,7 @@ bool DarkChess::exec_step(std::string in, std::string out, BitypeVar<Chesspiece 
     return end;
 }
 
-std::pair<bool, std::string> DarkChess::execute_step()
-{
-
+std::pair<bool, std::string> DarkChess::execute_step(){
     /* fonction principale du jeu, boucle d'execution qui est lancé pour débuté le jeu et qui lorsque se termine termine le jeu*/
 
     bool end = false;
@@ -559,57 +532,43 @@ std::pair<bool, bool> DarkChess::execute_step(std::string merged_coords)
     return result;
 }
 
-void DarkChess::make_fog()
-{
+void DarkChess::make_fog(){
     /* Créer et met à jour le tableau contenant toutes les positions cacher du plateau*/
-    std::vector<BitypeVar<Chesspiece *>> row;
-    std::vector<std::pair<int, int>> *positionMov;
+    std::vector<BitypeVar<Chesspiece*>> row;
+    std::vector<std::pair<int, int>>* positions_vect;
     const int size(8);
+    
     // init le tableau tout est caché
-    std::vector<std::vector<int>> antiFog(8, std::vector<int>(8, 1));
-    for (int i = 0; i < size; i++)
-    {   
+    std::vector<std::vector<int>> anti_fog_vect(8, std::vector<int>(8, 1));
+    for (int i = 0; i < size; i++){   
         row = this->get_plateau()->get_row(i);
-        for (int j = 0; j < size; j++)
-        {
+        for (int j = 0; j < size; j++){
+			
             // check si la case contient bien une piece
-            if (row[j].get_state())
-            {
-                Chesspiece *piece = row[j].get_var();
-                // construit uniquement en fonction du joueur actif
+            if (row[j].get_state()){
+                Chesspiece* piece = row[j].get_var();
+                
                 // std::cout << "Board : "<<piece->get_name()<<"  x:  " << i << "  y:  " << j << std::endl;
-                if (piece->get_owner()->get_name() == this->get_active_player()->get_name())
-                {
+                
+                // construit uniquement en fonction du joueur actif
+                if (piece->get_owner()->get_name() == this->get_active_player()->get_name()){
                     //std::cout << "active player:  " << this->get_active_player()->get_name() << std::endl;
                     // std::cout<<"piece owner:  "<<piece->get_owner()->get_name()<<std::endl;
+                    
                     // posititon de la piece est dévoilé
-                    antiFog[piece->get_posi()->get_x()][piece->get_posi()->get_y()] = 0;
+                    anti_fog_vect[piece->get_posi()->get_x()][piece->get_posi()->get_y()] = 0;
+                    positions_vect = this->check_all_mov(piece);
 
-                    positionMov = this->check_all_mov(piece);
-
-                    //positionMov = this->check_all_mov(piece, "depl");
-                    //positionCap = this->check_all_mov(piece, "capt");
                     // regarde les cases ou la piece peut se déplacer et les cases ou elle peut capturer pour les dévoiler
-                    for (unsigned k = 0; k < positionMov->size(); k++)
-                    {
-                        // std::cout << "movement : " << piece->get_name() << "  x:  " << (*positionMov)[k].second << "  y:  " <<
-                        // (*positionMov)[k].second << std::endl;
-
-                        antiFog[(*positionMov)[k].first][(*positionMov)[k].second] = 0;
+                    for (unsigned k = 0; k < positions_vect->size(); k++){
+                        // std::cout << "movement : " << piece->get_name() << "  x:  " << (*positionMov)[k].second << "  y:  " << (*positionMov)[k].second << std::endl;
+                        anti_fog_vect[(*positions_vect)[k].first][(*positions_vect)[k].second] = 0;
                     }
-                    /*
-                    for (unsigned k = 0; k < positionCap->size(); k++)
-                    {
-                        // std::cout << "Capture :  " << piece->get_name() << "  x:  " << (*positionCap)[k]->get_col()
-                        //           << "  y:  " << (*positionCap)[k]->get_lig() << std::endl;
-                        antiFog[(*positionCap)[k].second][(*positionCap)[k].second] = 0;
-                    }
-                    */
                 }
             }
         }
     }
-    this->fog = antiFog;
+    this->set_fog(anti_fog_vect);
 }
 
 std::vector<std::pair<int, int>>* DarkChess::check_all_mov(Chesspiece *pe){
@@ -618,20 +577,12 @@ std::vector<std::pair<int, int>>* DarkChess::check_all_mov(Chesspiece *pe){
 
     std::vector<std::pair<int, int>>* res = new std::vector<std::pair<int, int>>();
     
-    tmp = this->loop_moves(pe,"depl");
-    res->insert( res->end(), tmp->begin(), tmp->end() );
-
-    tmp = this->loop_moves(pe, "capt");
-    res->insert( res->end(), tmp->begin(), tmp->end() );
+    std::vector<std::string> mode_vect {"depl", "capt", "capt_same", "capt_empty", "depl_full"};
     
-    tmp = this->loop_moves(pe, "capt_same");
-    res->insert( res->end(), tmp->begin(), tmp->end() );
-
-    tmp = this->loop_moves(pe,"capt_empty");
-    res->insert( res->end(), tmp->begin(), tmp->end() );
-
-    tmp = this->loop_moves(pe,"depl_full");
-    res->insert( res->end(), tmp->begin(), tmp->end() );
+    for (long long unsigned int i = 0; i < mode_vect.size(); i++){
+		tmp = this->loop_moves(pe,mode_vect[i]);
+		res->insert(res->end(), tmp->begin(), tmp->end());
+	}
 
     return res;
 } 
@@ -658,8 +609,6 @@ std::vector<std::pair<int, int>>* DarkChess::loop_moves(Chesspiece *pe, std::str
     }
     return res;
 }
-
-std::pair<bool,MatPosi*> DarkChess::check_if_echec(MatPosi* mpos){return std::pair<bool,MatPosi*>(true,mpos);}
 
 bool DarkChess::check_non_active_player_king(Chesspiece* pe) {
 	/* fonction qui vérifie l'état du roi adverse sur le plateau

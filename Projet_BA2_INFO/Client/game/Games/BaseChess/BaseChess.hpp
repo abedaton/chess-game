@@ -210,8 +210,7 @@ class BaseChess{
 		bool check_between_is_empty_part(std::vector<std::pair<int,int>>*, MatPosi*, MatPosi*); // ,Plateau*  static		
 		bool check_between_is_empty(std::pair<int,int>, AdvTuple, std::pair<int,int>);
 		
-		virtual std::pair<bool,MatPosi*> check_if_echec(MatPosi*);
-
+		std::pair<bool,MatPosi*> check_if_echec(MatPosi*);
 		virtual bool check_non_active_player_king(Chesspiece*);
 		
 		bool verify_kings();
