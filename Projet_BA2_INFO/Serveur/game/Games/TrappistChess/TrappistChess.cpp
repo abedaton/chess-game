@@ -430,8 +430,8 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* TrappistCh
 	bool again = false;
 	bool correspond = false;
 	bool found;
-	
-	bool roc_accept = (verifier_type_pe<Roi>(in_pe) or verifier_type_pe<Tour>(in_pe));
+		
+	bool roc_accept = false; // roc interdit dans trappist!
 		
 	bool end_game = false;
 	while (not(part_b) and not(again) and not(correspond) and not(end_game)){
@@ -658,3 +658,38 @@ std::pair<bool,bool> TrappistChess::execute_step(BitypeVar<Trinome<std::string,s
 	
 }
 
+std::vector<Chesspiece*>* TrappistChess::evolution_possibilities(){
+	
+	Tour* tour = new Tour();
+	Fous* fous = new Fous();
+	Chevalier* chevalier = new Chevalier();
+	Dame* dame = new Dame();
+	Fonctionnaire* fonctionnaire = new Fonctionnaire();
+	Garde* garde = new Garde();
+	Faucon* faucon = new Faucon();
+	Chancellier* chancellier = new Chancellier();
+	
+	std::vector<Chesspiece*>* chess_vect = new std::vector<Chesspiece*>();
+	chess_vect->push_back(tour);
+	chess_vect->push_back(fous);
+	chess_vect->push_back(chevalier);
+	chess_vect->push_back(dame);
+	chess_vect->push_back(fonctionnaire);
+	chess_vect->push_back(garde);
+	chess_vect->push_back(faucon);
+	chess_vect->push_back(chancellier);
+	
+	return chess_vect;
+	
+}
+
+int TrappistChess::get_evolution_row(Player* play){
+	
+	int row;
+	
+	if (play == this->get_low_player()){row = 15;} //16 si on commence a 1
+	else if (play == this->get_high_player()){row = 8;} // 9 si on commence a 1
+	else{throw MyException(&mout,"joueur inconnu pour avoir sa ligne d'evolution!");}
+	
+	return row;
+}

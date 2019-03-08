@@ -460,3 +460,19 @@ std::pair<bool,bool> ClassicChess::execute_step(BitypeVar<Trinome<std::string,st
 	
 }
 
+std::vector<Chesspiece*>* ClassicChess::evolution_possibilities(){
+	
+	Tour* tour = new Tour();
+	Fous* fous = new Fous();
+	Chevalier* chevalier = new Chevalier();
+	Dame* dame = new Dame();
+	
+	std::vector<Chesspiece*>* chess_vect = new std::vector<Chesspiece*>();
+	chess_vect->push_back(tour);
+	chess_vect->push_back(fous);
+	chess_vect->push_back(chevalier);
+	chess_vect->push_back(dame);
+	
+	return chess_vect;
+	
+}

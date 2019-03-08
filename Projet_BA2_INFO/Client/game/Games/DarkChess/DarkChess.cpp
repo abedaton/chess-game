@@ -575,3 +575,20 @@ bool DarkChess::check_non_active_player_king(Chesspiece* pe) {
 	return false;
 	
 }
+
+std::vector<Chesspiece*>* DarkChess::evolution_possibilities(){
+	
+	Tour* tour = new Tour();
+	Fous* fous = new Fous();
+	Chevalier* chevalier = new Chevalier();
+	Dame* dame = new Dame();
+	
+	std::vector<Chesspiece*>* chess_vect = new std::vector<Chesspiece*>();
+	chess_vect->push_back(tour);
+	chess_vect->push_back(fous);
+	chess_vect->push_back(chevalier);
+	chess_vect->push_back(dame);
+	
+	return chess_vect;
+	
+}

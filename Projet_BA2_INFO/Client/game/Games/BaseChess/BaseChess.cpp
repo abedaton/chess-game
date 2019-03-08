@@ -1501,13 +1501,18 @@ Chesspiece* BaseChess::ask_evolution_input(std::vector<Chesspiece*>* vect){
 	return res;
 }
 
+int BaseChess::get_evolution_row(Player* play){
+	return this->get_player_row(this->get_other_player(play));
+}
+
 void BaseChess::check_evolution(){
 	/* fonction vérifiant si un pion peut évoluer et qui demande en quele type le pion doit obtenir */
 	
 	//std::stringstream ss;
 	
 	//ss<<"debut check_evolution() !"<<std::endl;
-	int num_row = this->get_player_row(this->get_non_active_player());
+	
+	int num_row = this->get_evolution_row(this->get_active_player());
 	std::vector<BitypeVar<Chesspiece*>> lig = this->get_plateau()->get_row(num_row);
 	
 	//this->show_bitype_vect(lig);
@@ -1522,18 +1527,8 @@ void BaseChess::check_evolution(){
 		//ss<<"indice lig "<<num_col<<std::endl;
 		
 		std::pair<int,int> paire = std::make_pair(num_col,num_row);
-		
-		Tour* tour = new Tour();
-		Fous* fous = new Fous();
-		Chevalier* chevalier = new Chevalier();
-		Dame* dame = new Dame();
-		
-		std::vector<Chesspiece*>* chess_vect = new std::vector<Chesspiece*>();
-		chess_vect->push_back(tour);
-		chess_vect->push_back(fous);
-		chess_vect->push_back(chevalier);
-		chess_vect->push_back(dame);
-		
+				
+		std::vector<Chesspiece*>* chess_vect = this->evolution_possibilities();
 		Chesspiece* nv_pe = ask_evolution_input(chess_vect);
 		
 		nv_pe->set_owner(this->get_active_player());

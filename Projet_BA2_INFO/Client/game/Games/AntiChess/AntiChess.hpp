@@ -37,5 +37,11 @@ class AntiChess: public BaseChess{
 		bool exec_step(std::string, std::string, BitypeVar<Chesspiece*>, bool, bool);
 		
 		bool check_pat();
+		
+		virtual bool verify_kings() override;
+		bool check_non_active_player_king(Chesspiece*) override;
+		
+		std::vector<Chesspiece*>* evolution_possibilities() override;
+		
 };
 #endif

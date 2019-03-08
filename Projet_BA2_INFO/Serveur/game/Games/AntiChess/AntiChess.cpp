@@ -460,3 +460,36 @@ std::pair<bool,bool> AntiChess::execute_step(BitypeVar<Trinome<std::string,std::
 	
 }
 
+bool AntiChess::verify_kings(){
+	/* fonction vérifiant la présence des roi des deux joueurs sur le plateau */
+	
+	return false; // retourne si echec et mat
+	
+}
+
+bool AntiChess::check_non_active_player_king(Chesspiece* pe) {
+	/* fonction qui vérifie l'état du roi adverse sur le plateau
+	 * (en echec, en echec et mat, coincé, ...) */
+	(void) *pe;
+	return false;
+	
+}
+
+std::vector<Chesspiece*>* AntiChess::evolution_possibilities(){
+	
+	Tour* tour = new Tour();
+	Fous* fous = new Fous();
+	Chevalier* chevalier = new Chevalier();
+	Dame* dame = new Dame();
+	Roi* roi = new Roi();
+	
+	std::vector<Chesspiece*>* chess_vect = new std::vector<Chesspiece*>();
+	chess_vect->push_back(tour);
+	chess_vect->push_back(fous);
+	chess_vect->push_back(chevalier);
+	chess_vect->push_back(dame);
+	chess_vect->push_back(roi);
+	
+	return chess_vect;
+	
+}

@@ -37,5 +37,9 @@ class TrappistChess: public BaseChess{
 		Trinome<std::string,std::string,bool>* decode_merged_string(std::string);
 		bool exec_step(std::string, std::string, BitypeVar<Chesspiece*>, bool, bool);
 		bool check_pat();
+		
+		std::vector<Chesspiece*>* evolution_possibilities() override;
+		
+		int get_evolution_row(Player*) override;
 };
 #endif

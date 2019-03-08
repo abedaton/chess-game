@@ -49,5 +49,7 @@ class DarkChess : public BaseChess{
 		std::vector<std::pair<int, int>>* loop_moves(Chesspiece*, std::string);
 
 		bool check_non_active_player_king(Chesspiece*) override;
+		
+		std::vector<Chesspiece*>* evolution_possibilities() override;
 };
 #endif

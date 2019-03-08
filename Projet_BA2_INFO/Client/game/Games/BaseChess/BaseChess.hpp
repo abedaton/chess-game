@@ -190,6 +190,8 @@ class BaseChess{
 		virtual void affichage() = 0;
 		
 		Chesspiece* ask_evolution_input(std::vector<Chesspiece*>*);
+		virtual std::vector<Chesspiece*>* evolution_possibilities() = 0;
+		virtual int get_evolution_row(Player*);
 		void check_evolution();
 		
 		bool can_escape_position(Chesspiece* ,std::string);
@@ -216,7 +218,7 @@ class BaseChess{
 		std::pair<bool,MatPosi*> check_if_echec(MatPosi*);
 		virtual bool check_non_active_player_king(Chesspiece*);
 		
-		bool verify_kings();
+		virtual bool verify_kings();
 		std::vector<Chesspiece*>* get_kings();
 		
 		bool check_danger_mouvement_and_path(std::pair<int,int>, AdvTuple, std::pair<int,int>, std::string);
