@@ -1,0 +1,921 @@
+Bot(player1)
+Bot(player2)
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player1) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+F2
+pour afficher la liste de deplacements possibles de la piece : [F3, F4]
+pour afficher la liste de capture possibles de la piece : []
+veuillez indiquer le deplacement de la piece  F2
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+F4
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |   P*   |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player2) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+E7
+pour afficher la liste de deplacements possibles de la piece : [E6, E5]
+pour afficher la liste de capture possibles de la piece : []
+veuillez indiquer le deplacement de la piece  E7
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+E5
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |   P    |   P    |   P    |   P    |        |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |   P    |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |   P*   |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player1) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+F4
+pour afficher la liste de deplacements possibles de la piece : [F5]
+pour afficher la liste de capture possibles de la piece : [E5]
+veuillez indiquer le deplacement de la piece  F4
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+E5
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |   P    |   P    |   P    |   P    |        |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |   P*   |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player2) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+G8
+pour afficher la liste de deplacements possibles de la piece : [F6, E7, H6]
+pour afficher la liste de capture possibles de la piece : []
+veuillez indiquer le deplacement de la piece  G8
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+E7
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |        |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |   P    |   P    |   P    |   P    |  Cav   |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |        |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |   P*   |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player1) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+E5
+pour afficher la liste de deplacements possibles de la piece : [E6]
+pour afficher la liste de capture possibles de la piece : []
+veuillez indiquer le deplacement de la piece  E5
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+E6
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |        |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |   P    |   P    |   P    |   P    |  Cav   |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |   P*   |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player2) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+A7
+pour afficher la liste de deplacements possibles de la piece : [A6, A5]
+pour afficher la liste de capture possibles de la piece : []
+veuillez indiquer le deplacement de la piece  A7
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+A6
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |        |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |   P    |   P    |   P    |  Cav   |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |        |        |        |   P*   |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |   P*   |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player1) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+G2
+pour afficher la liste de deplacements possibles de la piece : [G3, G4]
+pour afficher la liste de capture possibles de la piece : []
+veuillez indiquer le deplacement de la piece  G2
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+G4
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |        |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |   P    |   P    |   P    |  Cav   |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |   P    |        |        |        |   P*   |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |   P*   |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |        |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player2) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+A6
+pour afficher la liste de deplacements possibles de la piece : [A5]
+pour afficher la liste de capture possibles de la piece : []
+veuillez indiquer le deplacement de la piece  A6
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+A5
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |        |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |   P    |   P    |   P    |  Cav   |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |   P*   |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |   P    |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |   P*   |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |        |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player1) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+G4
+pour afficher la liste de deplacements possibles de la piece : [G5]
+pour afficher la liste de capture possibles de la piece : []
+veuillez indiquer le deplacement de la piece  G4
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+G5
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |        |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |   P    |   P    |   P    |  Cav   |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |   P*   |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |   P    |        |        |        |        |        |   P*   |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |        |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player2) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+A5
+pour afficher la liste de deplacements possibles de la piece : [A4]
+pour afficher la liste de capture possibles de la piece : []
+veuillez indiquer le deplacement de la piece  A5
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+A4
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |        |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |   P    |   P    |   P    |  Cav   |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |   P*   |        |        |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |   P*   |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |   P    |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |        |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player1) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+G5
+pour afficher la liste de deplacements possibles de la piece : [G6]
+pour afficher la liste de capture possibles de la piece : []
+veuillez indiquer le deplacement de la piece  G5
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+G6
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |        |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |   P    |   P    |   P    |  Cav   |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |   P*   |        |   P*   |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |   P    |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |        |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |        |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player2) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+A4
+pour afficher la liste de deplacements possibles de la piece : [A3]
+pour afficher la liste de capture possibles de la piece : []
+veuillez indiquer le deplacement de la piece  A4
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+A3
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |        |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |   P    |   P    |   P    |  Cav   |   P    |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |   P*   |        |   P*   |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |   P    |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |        |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player1) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+E6
+pour afficher la liste de deplacements possibles de la piece : []
+pour afficher la liste de capture possibles de la piece : [F7, D7]
+veuillez indiquer le deplacement de la piece  E6
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+F7
+ECHEC!
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |        |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |   P    |   P    |   P    |  Cav   |   P*   |   P    |   P    |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |        |        |   P*   |        |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |   P    |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |        |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player2) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+H7
+pour afficher la liste de deplacements possibles de la piece : [H6, H5]
+pour afficher la liste de capture possibles de la piece : [G6]
+veuillez indiquer le deplacement de la piece  H7
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+H6
+VICTOIRE DE Bot(player1) ! (previson avant le deplacement reel)
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |        |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |   P    |   P    |   P    |  Cav   |   P*   |   P    |        |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |        |        |   P*   |   P    |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |   P    |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |        |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+Bot(player1) c'est a votre tour!
+veuillez indiquer la piece a deplacer
+ou end pour abandonner la partie
+ou lang pour changer la langue
+F7
+pour afficher la liste de deplacements possibles de la piece : []
+pour afficher la liste de capture possibles de la piece : [E8]
+veuillez indiquer le deplacement de la piece  F7
+ou ret pour retourner
+ou end pour abandonner la partie
+ou liste_depl pour afficher la liste de deplacements possibles de la piece
+ou liste_capt pour afficher la liste de capture possibles de la piece
+ou lang pour changer la langue
+E8
+ECHEC ET MAT!
+
+[Bot(player2)] ()
+
+           A        B        C        D        E        F        G        H     
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   8   |   T    |  Cav   |  Fou   |   D    |   P*   |  Fou   |        |   T    |   8
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   7   |        |   P    |   P    |   P    |  Cav   |        |   P    |        |   7
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   6   |        |        |        |        |        |        |   P*   |   P    |   6
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   5   |        |        |        |        |        |        |        |        |   5
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   4   |        |        |        |        |        |        |        |        |   4
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   3   |   P    |        |        |        |        |        |        |        |   3
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   2   |   P*   |   P*   |   P*   |   P*   |   P*   |        |        |   P*   |   2
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Bot(player1)] (*)
+
+
+VICTOIRE DE Bot(player1) !
+MATCH FINI!
