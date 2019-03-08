@@ -2,8 +2,9 @@
 #ifndef ABSTRACTCLIENTT_HPP
 #define ABSTRACTCLIENTT_HPP
 
-#include "../game/ClassicChess/ClassicChess.cpp"
-#include "../game/DarkChess/DarkChess.cpp"
+#include "../game/Games/ClassicChess/ClassicChess.cpp"
+#include "../game/Games/DarkChess/DarkChess.cpp"
+#include "../game/Games/TrappistChess/TrappistChess.cpp"
 
 class AbstractClient{
 	public:

@@ -46,6 +46,10 @@ void MatchMaking::poolSort(int gameMod){
                 case 2:
                     game = new DarkChess(play_one, play_two, play_one, dico);
                     break;
+                case 3:
+                    game = new TrappistChess(play_one, play_two, play_one, dico);
+                    break;
+                    
                 default:
                     game = new ClassicChess(play_one, play_two, play_one, dico);
                     break;

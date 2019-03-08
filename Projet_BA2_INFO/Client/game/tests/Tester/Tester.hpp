@@ -3,7 +3,7 @@
 //#include <vector>
 //#include <string>
 
-#include "../../Affichage/Affichage.cpp"
+#include "../../AffichageDarkChess/Affichage/Affichage.cpp"
 
 
 class Tester{

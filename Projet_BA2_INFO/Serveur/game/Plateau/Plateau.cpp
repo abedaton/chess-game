@@ -155,6 +155,19 @@ BitypeVar<Chesspiece*> Plateau::get_piece(int sum_val) const{
 	return this->get_piece(ppos->to_pair());
 }
 	
+std::string Plateau::get_limited_mode(std::string mode) const{
+
+	std::string limited_mode;
+
+	if ((mode == "capt_same") or (mode == "capt_empty")){limited_mode = "capt";}
+	else if (mode == "depl_full"){limited_mode = "depl";}
+	else{limited_mode = mode;}
+
+	return limited_mode;
+
+
+}
+
 bool Plateau::isvalid_move(std::pair<int,int> paire_in, std::pair<int,int> paire_out, std::string mode){
 	/* fonction qui verifie si un mouvement est valdide */
 	bool res;
@@ -164,18 +177,61 @@ bool Plateau::isvalid_move(std::pair<int,int> paire_in, std::pair<int,int> paire
 	
 	BitypeVar<Chesspiece*> tup_pe_out = this->get_piece(paire_out);
 	
-	if (tup_pe_out.get_state() == false or pe->get_owner() != (tup_pe_out.get_var()->get_owner())){
-		
-		mode = adaptive_mode(tup_pe_out,mode);
+	mode = adaptive_mode(tup_pe_out,mode);
+	
+	std::string limited_mode = this->get_limited_mode(mode);
 
-		std::vector<std::pair<std::pair<int,int>,AdvTuple>> res_pe = pe->algo(mode); //<----------------------------------------------------------------------------------------------
-		res = detect_pair_in_list_of_double_pairs(res_pe,paire_out);
+	std::vector<std::pair<std::pair<int,int>,AdvTuple>> res_pe = pe->algo(limited_mode); //<----------------------------------------------------------------------------------------------
+	res = detect_pair_in_list_of_double_pairs(res_pe,paire_out);
+	
+	if (mode == "depl"){res = res and (tup_pe_out.get_state() == false);}
+	else if (mode == "capt"){
 		
-		if (mode == "depl"){res = res and (tup_pe_out.get_state() == false);}
-		else{res = res and (tup_pe_out.get_state() == true) and (pe->get_owner() != tup_pe_out.get_var()->get_owner());}
+		if(tup_pe_out.get_state() == true){
+			
+			res = res and (pe->get_owner() != tup_pe_out.get_var()->get_owner());
+			
+		}
+		else{res = false;}
+		
 		
 	}
-	else{res = false;} // même propriétaire de pieces
+
+	else if (mode == "depl_full"){
+		
+		if(tup_pe_out.get_state() == true){
+			
+			res = res and (pe->get_owner() != tup_pe_out.get_var()->get_owner());
+			
+		}
+		else{res = false;}
+		
+		
+	}
+
+	else if (mode == "capt_same"){
+		
+		if(tup_pe_out.get_state() == true){
+			
+			res = res and (pe->get_owner() == tup_pe_out.get_var()->get_owner());
+			
+		}
+		else{res = false;}
+		
+	}
+	
+	else if (mode == "capt_empty"){
+		
+		if(tup_pe_out.get_state() == false){
+			
+			res = res and (pe->get_owner() != tup_pe_out.get_var()->get_owner());
+			
+		}
+		else{res = false;}
+		
+	}
+	
+	else{throw MyException(&mout,"MODE inconnu lors de isvalid_move");}
 		
 	return res;
 	
@@ -204,7 +260,7 @@ bool Plateau::move(std::pair<int,int> paire_in,std::pair<int,int> paire_out){
 		Chesspiece* pe = tup_pe.get_var();
 		
 		bool inside;
-		mout<<"("<<col_in<<","<<lig_in<<") --> ("<<col_out<<","<<lig_out<<")"<<std::endl;
+		//mout<<"("<<col_in<<","<<lig_in<<") --> ("<<col_out<<","<<lig_out<<")"<<std::endl;
 		
 		inside = this->isvalid_move(paire_in,paire_out);
 				
