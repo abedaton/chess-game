@@ -11,8 +11,11 @@ FenPrincipale::FenPrincipale()
     _statusBar = new QStatusBar;
     _register = new Register;
     _login = new Login;
+    _gameWindow = new GameWindow;
+
     _stack->addWidget(_login);
     _stack->addWidget(_register);
+    _stack->addWidget(_gameWindow);
 
 
     goToLogIn();
@@ -49,7 +52,8 @@ void FenPrincipale::checkSignIn(){
     */
 
     if(nom == "achraf" && mdp == "achraf"){
-         _statusBar->showMessage("Username and password are correct", 5000);
+        // _statusBar->showMessage("Username and password are correct", 5000);
+         QObject::connect(_login->getSI(), SIGNAL(clicked()), this, SLOT(goToGame()));
 
     }
     else{
@@ -78,5 +82,10 @@ void FenPrincipale::goToRegister(){
 
 void FenPrincipale::goToLogIn(){
     _stack->setCurrentWidget(_login);
+
+}
+
+void FenPrincipale::goToGame(){
+    _stack->setCurrentWidget(_gameWindow);
 
 }

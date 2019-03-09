@@ -19,12 +19,14 @@ public slots:
     void checkRegister();
     void goToRegister();
     void goToLogIn();
+    void goToGame();
 private:
     QMenu* _menuReglages;
     QStatusBar *_statusBar;
     Login* _login;
     Register* _register;
     QStackedWidget* _stack;
+    GameWindow* _gameWindow;
 };
 
 
