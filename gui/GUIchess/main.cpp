@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    FenPrincipale fenetre;
+    GameWindow fenetre;
     fenetre.show();
 
     return app.exec();
