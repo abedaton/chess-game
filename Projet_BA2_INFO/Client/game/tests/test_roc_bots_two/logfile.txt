@@ -998,7 +998,6 @@ A1 B1 E1
 A1 C1 E1
 A1 D1 E1
 A1 E1 E1
-etapes rois: [D1]
 le roi du roc ne peut pas avoir bouge!
 veuillez indiquer la piece avec laquelle faire le roc
 ou ret pour retourner

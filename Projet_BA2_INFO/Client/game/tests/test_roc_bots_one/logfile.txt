@@ -648,12 +648,10 @@ A1 B1 E1
 A1 C1 E1
 A1 D1 E1
 A1 E1 E1
-etapes rois: [D1]
 A1 B1 E1
 A1 C1 E1
 A1 D1 E1
 A1 E1 E1
-etapes rois: [D1]
 
 [Bot(player2)] ()
 

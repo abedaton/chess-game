@@ -90,11 +90,11 @@ class BaseChess{
 		
         
 	protected:
-		Player* get_low_player();
-		Player* get_high_player();
-		Player* get_other_player(Player*);
-		Player* get_active_player();
-		Player* get_non_active_player();
+		Player* get_low_player() const;
+		Player* get_high_player() const;
+		Player* get_other_player(Player*) const;
+		Player* get_active_player() const;
+		Player* get_non_active_player() const;
 		
 		void set_active_player(Player*);
 		void set_low_player(Player*);
@@ -103,12 +103,12 @@ class BaseChess{
 		int get_action_cnt() const;
 		void inc_action_cnt();
 		
-		int get_player_row(Player*);
+		int get_player_row(Player*) const;
 		
-		Plateau* get_plateau();
+		Plateau* get_plateau() const;
 		void set_plateau(Plateau*);
 		
-		Dico* get_dico();
+		Dico* get_dico() const;
 		
 		std::string get_ret_symbol() const;
 		std::string get_roc_symbol() const;
@@ -139,7 +139,7 @@ class BaseChess{
 		
 		bool check_illegal_move(std::string,std::string);
 		
-		virtual std::pair<bool,BitypeVar<Chesspiece*>> normal_output_check(std::string,std::string) = 0;
+		virtual std::pair<bool,BitypeVar<Chesspiece*>> normal_output_check(std::string,std::string);
 		
 		bool verify_possible_roc(Roi*,Tour*);
 		
@@ -147,7 +147,7 @@ class BaseChess{
 		Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* roc_first_pe_is_waiting(Chesspiece* pe);
 
 		Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* roc_output_check(BitypeVar<Chesspiece*>);
-		virtual Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* out_input(std::string,BitypeVar<Chesspiece*>) = 0;
+		virtual Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* out_input(std::string,BitypeVar<Chesspiece*>);
 		
 		void show_depl_possibles(Chesspiece*);
 		void show_depl_possibles(std::string);
@@ -160,6 +160,8 @@ class BaseChess{
 		
 		void print_mpos_vect(std::vector<MatPosi*>*,bool);
 		void print_mpos_vect(std::vector<MatPosi*>*);
+		
+		virtual bool roc_check_king_position_and_path_danger(MatPosi*,MatPosi*,bool,int,std::vector<MatPosi>*);
 		
 		//
 		BitypeVar<std::pair<MatPosi*,MatPosi*>>* sort_mpos_and_calc_roc_info(MatPosi*,MatPosi*);
@@ -196,7 +198,7 @@ class BaseChess{
 		
 		bool can_escape_position(Chesspiece* ,std::string);
 		
-		bool can_actif_player_move();
+		bool can_player_move(Player*);
 
 		bool more_dangers_part(std::pair<int,int>, Player*, int, std::string);
 		
@@ -226,6 +228,16 @@ class BaseChess{
 		Trinome<std::string,std::string,bool>* decode_merged_string(std::string);
         
         virtual std::pair<bool,bool> execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>*) = 0;
+        
+        bool check_pat();
+        
+        virtual std::string get_affichage_pat() const;
+        std::string get_affichage_resultat(bool, bool, bool) const;
+        void affichage_resultat(bool, bool, bool) const ;
+        
+        bool exec_step(std::string, std::string, BitypeVar<Chesspiece*>, bool, bool);
+        
+        virtual bool check_roc_accept(BitypeVar<Chesspiece*>) const;
 		
 };
 #endif

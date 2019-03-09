@@ -31,17 +31,13 @@ class AntiChess: public BaseChess{
 		
 		void affichage() override;
 		
-		std::pair<bool,BitypeVar<Chesspiece*>> normal_output_check(std::string,std::string) override;
-		Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* out_input(std::string,BitypeVar<Chesspiece*>) override;
-		
-		bool exec_step(std::string, std::string, BitypeVar<Chesspiece*>, bool, bool);
-		
-		bool check_pat();
-		
-		virtual bool verify_kings() override;
+		bool verify_kings() override;
 		bool check_non_active_player_king(Chesspiece*) override;
 		
 		std::vector<Chesspiece*>* evolution_possibilities() override;
 		
+		std::string get_affichage_pat() const override;
+		
+		bool check_roc_accept(BitypeVar<Chesspiece*>) const override;
 };
 #endif

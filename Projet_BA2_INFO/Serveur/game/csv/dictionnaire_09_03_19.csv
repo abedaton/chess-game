@@ -55,3 +55,4 @@ roc_tower_no_perm_move;la tour du roc ne peut pas avoir bouge!;the tower of the 
 liste_depl;liste deplacements;movement list;beweging lijst
 liste_capt;liste capture;capture list;vang lijst
 not_pos_roc;roque impossible;impossible roc;roc onmogelijk
+draw;EGALITE;DRAW;GELIJK SPEL
