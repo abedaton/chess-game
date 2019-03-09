@@ -3,6 +3,7 @@
 #include <QtWidgets>
 #include "Login.h"
 #include "Register.h"
+#include "GameWindow.h"
 #include <iostream>
 
 class FenPrincipale : public QMainWindow{
