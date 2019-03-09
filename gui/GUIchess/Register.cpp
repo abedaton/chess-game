@@ -1,22 +1,22 @@
 #include "Register.h"
 #include <iostream>
 
-Register::Register(){
+Register::Register(QWidget *parent) : QWidget(parent){
     _fbox = new QFormLayout;
     _vbox = new QVBoxLayout;
     _hbox = new QHBoxLayout;
 
-    _OKButton = new QPushButton("OK");
-    _CanButton = new QPushButton("Cancel");
+    _OKButton = new QPushButton("OK",this);
+    _CanButton = new QPushButton("Cancel",this);
 
-    _nom = new QLineEdit;
+    _nom = new QLineEdit(this);
     _fbox->addRow("Username :", _nom);
-    _email = new QLineEdit;
+    _email = new QLineEdit(this);
     _fbox->addRow("E-mail :", _email);
-    _mdp1 = new QLineEdit;
+    _mdp1 = new QLineEdit(this);
     _mdp1->setEchoMode(QLineEdit::Password);
     _fbox->addRow("Password :", _mdp1);
-    _mdp2 = new QLineEdit;
+    _mdp2 = new QLineEdit(this);
     _fbox->addRow("Password (again) :", _mdp2);
     _mdp2->setEchoMode(QLineEdit::Password);
 

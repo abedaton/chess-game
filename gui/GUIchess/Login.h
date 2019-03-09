@@ -10,7 +10,7 @@ class Login : public QWidget{
     Q_OBJECT
 
 public:
-    Login();
+    explicit Login(QWidget *parent = nullptr);
     QPushButton* getSI() const;
     QPushButton* getRegister() const;
     QString getUsername() const;

@@ -1,10 +1,10 @@
 #include "GameWindow.h"
 
-GameWindow::GameWindow(){
-    _classicButton = new QPushButton("Classic Chess");
-    _darkButton = new QPushButton("Dark Chess");
-    _trapistButton = new QPushButton("Trapist Chess");
-    _antiButton = new QPushButton("Anti Chess");
+GameWindow::GameWindow(QWidget *parent) : QWidget(parent){
+    _classicButton = new QPushButton("Classic Chess",this);
+    _darkButton = new QPushButton("Dark Chess",this);
+    _trapistButton = new QPushButton("Trapist Chess",this);
+    _antiButton = new QPushButton("Anti Chess",this);
 
     _gbox = new QGridLayout;
 

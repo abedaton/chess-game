@@ -7,7 +7,7 @@ class GameWindow : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GameWindow();
+    explicit GameWindow(QWidget *parent = nullptr);
 private:
     QPushButton* _classicButton;
     QPushButton* _darkButton;

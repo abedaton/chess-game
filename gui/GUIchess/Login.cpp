@@ -1,17 +1,17 @@
 #include "Login.h"
 
-Login::Login(){
+Login::Login(QWidget *parent) : QWidget(parent){
 
-    _nom = new QLineEdit;
-    _mdp = new QLineEdit;
+    _nom = new QLineEdit(this);
+    _mdp = new QLineEdit(this);
     _mdp->setEchoMode(QLineEdit::Password);
     _formLayout = new QFormLayout;
     _formLayout->addRow("Username :", _nom);
     _formLayout->addRow("Password :", _mdp);
 
     _hbox = new QHBoxLayout;
-    _SIButton = new QPushButton("Sign In");
-    _RegiButton = new QPushButton("Register");
+    _SIButton = new QPushButton("Sign In",this);
+    _RegiButton = new QPushButton("Register",this);
     _hbox->addWidget(_SIButton);
     _hbox->addWidget(_RegiButton);
     _vbox = new QVBoxLayout;

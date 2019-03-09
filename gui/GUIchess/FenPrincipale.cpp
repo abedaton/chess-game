@@ -7,11 +7,11 @@ FenPrincipale::FenPrincipale()
     this->setWindowTitle("On Veut Pas D'Échec");
     this->resize(QDesktopWidget().availableGeometry(this).size() * 0.5);
 
-    _stack = new QStackedWidget;
-    _statusBar = new QStatusBar;
-    _register = new Register;
-    _login = new Login;
-    _gameWindow = new GameWindow;
+    _stack = new QStackedWidget(this);
+    _statusBar = new QStatusBar(this);
+    _register = new Register(this);
+    _login = new Login(this);
+    _gameWindow = new GameWindow(this);
 
     _stack->addWidget(_login);
     _stack->addWidget(_register);
@@ -52,8 +52,9 @@ void FenPrincipale::checkSignIn(){
     */
 
     if(nom == "achraf" && mdp == "achraf"){
-        // _statusBar->showMessage("Username and password are correct", 5000);
-         QObject::connect(_login->getSI(), SIGNAL(clicked()), this, SLOT(goToGame()));
+         goToGame();
+         _statusBar->showMessage("Welcome " + nom + " !", 5000);
+         //RAJOUTER LA TOUCHE ENTER
 
     }
     else{

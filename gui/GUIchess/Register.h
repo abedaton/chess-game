@@ -6,7 +6,7 @@
 class Register : public QWidget{
     Q_OBJECT
 public:
-    Register();
+    explicit Register(QWidget *parent = nullptr);
     QPushButton* getOK() const;
     QPushButton* getCancel() const;
     bool isSamePassword() const;
