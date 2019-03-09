@@ -11,6 +11,11 @@ public:
     QPushButton* getCancel() const;
     bool isSamePassword() const;
     bool isTextEmpty() const;
+
+signals:
+    void enterPressed();
+    void escapePressed();
+
 private:
     QFormLayout* _fbox;
     QHBoxLayout* _hbox;
@@ -23,6 +28,9 @@ private:
     QLineEdit* _email;
     QLineEdit* _mdp1;
     QLineEdit* _mdp2;
+
+protected:
+    void keyPressEvent(QKeyEvent *);
 
 
 

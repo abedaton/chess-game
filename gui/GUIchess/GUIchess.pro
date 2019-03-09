@@ -1,16 +1,15 @@
 TEMPLATE += app
-QT += widgets
+QT += widgets \
+    gui
 SOURCES += main.cpp \
     FenPrincipale.cpp \
     Login.cpp \
     Register.cpp \
-    GameWindow.cpp \
-    swag.cpp
+    GameWindow.cpp
 
 HEADERS += \
     FenPrincipale.h \
     Login.h \
     Register.h \
-    GameWindow.h \
-    swag.h
+    GameWindow.h
 

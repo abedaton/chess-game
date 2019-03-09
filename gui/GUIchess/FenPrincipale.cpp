@@ -25,10 +25,13 @@ FenPrincipale::FenPrincipale()
     setStatusBar(_statusBar);
 
     QObject::connect(_login->getSI(), SIGNAL(clicked()), this, SLOT(checkSignIn()));
+    QObject::connect(_login,SIGNAL(enterPressed()),this,SLOT(checkSignIn()));
     QObject::connect(_login->getRegister(), SIGNAL(clicked()), this, SLOT(goToRegister()));
 
     QObject::connect(_register->getCancel(), SIGNAL(clicked()), this, SLOT(goToLogIn()));
+    QObject::connect(_register,SIGNAL(escapePressed()),this,SLOT(goToLogIn()));
     QObject::connect(_register->getOK(), SIGNAL(clicked()), this, SLOT(checkRegister()));
+    QObject::connect(_register,SIGNAL(enterPressed()),this,SLOT(checkRegister()));
 
 
 
@@ -72,6 +75,10 @@ void FenPrincipale::checkRegister(){
     else if(! _register->isSamePassword()){
         QMessageBox::critical(this, "Incorrect Register", "Passwords do not match");
         _statusBar->showMessage("Passwords do not match");
+    }
+    else{
+        goToGame();
+        _statusBar->showMessage("Welcome new user !", 5000);
     }
 }
 

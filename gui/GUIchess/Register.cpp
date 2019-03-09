@@ -45,4 +45,11 @@ bool Register::isTextEmpty() const{
     return (_nom->text().isEmpty() && _email->text().isEmpty() && _mdp1->text().isEmpty() && _mdp2->text().isEmpty() );
 }
 
-
+void Register::keyPressEvent(QKeyEvent* event){
+    if(event->key() == Qt::Key_Return){
+        emit enterPressed();
+    }
+    else if(event->key() == Qt::Key_Escape){
+        emit escapePressed();
+    }
+}

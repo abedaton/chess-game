@@ -20,6 +20,9 @@ public slots:
     void on_signIn();
     void on_register();
 
+signals:
+    void enterPressed();
+
 
 private:
     QLineEdit* _nom;
@@ -29,6 +32,9 @@ private:
     QPushButton *_SIButton;
     QPushButton *_RegiButton;
     QVBoxLayout *_vbox;
+
+protected:
+    void keyPressEvent(QKeyEvent *);
 };
 
 #endif // LOGIN_H

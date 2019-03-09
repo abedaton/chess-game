@@ -47,3 +47,10 @@ QString Login::getUsername() const{
 QString Login::getPassword() const{
     return _mdp->text();
 }
+
+void Login::keyPressEvent(QKeyEvent* event){
+    if(event->key() == Qt::Key_Return){
+        emit enterPressed();
+    }
+
+}
