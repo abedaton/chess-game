@@ -6,12 +6,12 @@ AdvTuple::AdvTuple(int x_val,int y_val, std::string d_t) :x(x_val), y(y_val), de
 	this->verify_depl_type();
 }
 
-AdvTuple::AdvTuple(int x_val,int y_val, std::string d_t,BitypeVar<int>* min_k,BitypeVar<int>* max_k,BitypeVar<std::pair<int,std::string>>* pas_k) :x(x_val), y(y_val), depl_type(d_t), k_min(min_k), k_max(max_k), k_pas(pas_k), update_needed(false){
+AdvTuple::AdvTuple(int x_val,int y_val, std::string d_t,BitypeVar<int>* min_k,BitypeVar<int>* max_k,BitypeVar<Paire<int,std::string>>* pas_k) :x(x_val), y(y_val), depl_type(d_t), k_min(min_k), k_max(max_k), k_pas(pas_k), update_needed(false){
 	this->verify_depl_type();
 	this->verify_k_pas();
 }
 
-AdvTuple::AdvTuple(int x_val,int y_val, std::string d_t,BitypeVar<int>* min_k,BitypeVar<int>* max_k,BitypeVar<std::pair<int,std::string>>* pas_k,bool up) :x(x_val), y(y_val), depl_type(d_t), k_min(min_k), k_max(max_k), k_pas(pas_k), update_needed(up){
+AdvTuple::AdvTuple(int x_val,int y_val, std::string d_t,BitypeVar<int>* min_k,BitypeVar<int>* max_k,BitypeVar<Paire<int,std::string>>* pas_k,bool up) :x(x_val), y(y_val), depl_type(d_t), k_min(min_k), k_max(max_k), k_pas(pas_k), update_needed(up){
 	this->verify_depl_type();
 	this->verify_k_pas();
 }
@@ -43,18 +43,18 @@ void AdvTuple::set_depl_type(std::string d_t){
 
 BitypeVar<int>* AdvTuple::get_k_min(){return this->k_min;}
 BitypeVar<int>* AdvTuple::get_k_max(){return this->k_max;}
-BitypeVar<std::pair<int,std::string>>* AdvTuple::get_k_pas(){return this->k_pas;}
+BitypeVar<Paire<int,std::string>>* AdvTuple::get_k_pas(){return this->k_pas;}
         
 void AdvTuple::set_k_min(BitypeVar<int>* val){this->k_min = val;}
 void AdvTuple::set_k_max(BitypeVar<int>* val){this->k_max = val;}
-void AdvTuple::set_k_pas(BitypeVar<std::pair<int,std::string>>* val){
+void AdvTuple::set_k_pas(BitypeVar<Paire<int,std::string>>* val){
 	this->k_pas = val;
 	this->verify_k_pas();
 }
 
 void AdvTuple::verify_k_pas(){
-	BitypeVar<std::pair<int,std::string>>* val = this->get_k_pas();
-	if (val->get_state() == true and val->get_var().first < 0){throw MyException(&mout, "k pas ne peut pas etre negatif!");}
+	BitypeVar<Paire<int,std::string>>* val = this->get_k_pas();
+	if (val->get_state() == true and val->get_var().get_first() < 0){throw MyException(&mout, "k pas ne peut pas etre negatif!");}
 }
 
 void AdvTuple::verify_depl_type(){
@@ -66,7 +66,7 @@ bool AdvTuple::need_update(){return this->update_needed;}
 
 void AdvTuple::set_need_update(bool up){this->update_needed = up;}
 
-std::vector<std::pair<int,int>>* AdvTuple::get_res(int limite,Posi posi){
+std::vector<Paire<int,int>>* AdvTuple::get_res(int limite,Posi posi){
 	
 	BitypeVar<int>* d_limite_min = new BitypeVar<int>();
 	
@@ -100,12 +100,12 @@ std::vector<std::pair<int,int>>* AdvTuple::get_res(int limite,Posi posi){
 
 		std::string special;
 		if (this->get_k_pas() != nullptr){
-			special = this->get_k_pas()->get_var().second;}
+			special = this->get_k_pas()->get_var().get_second();}
 		else{special = "";}
 		
 		if (special == "prime"){pas=1;}
 		else{
-			if (this->get_k_pas() != nullptr){pas = this->get_k_pas()->get_var().first;}
+			if (this->get_k_pas() != nullptr){pas = this->get_k_pas()->get_var().get_first();}
 			else{pas = 1;}
 		}
 		
@@ -129,7 +129,7 @@ std::vector<std::pair<int,int>>* AdvTuple::get_res(int limite,Posi posi){
 		
 	
 	// partie set_res
-	std::vector<std::pair<int,int>>* set_res = new std::vector<std::pair<int,int>>();
+	std::vector<Paire<int,int>>* set_res = new std::vector<Paire<int,int>>();
 	
 	int k,res_x,res_y;
 	for(long long unsigned int i=0;i<vals_de_k->size();i++){
@@ -139,8 +139,8 @@ std::vector<std::pair<int,int>>* AdvTuple::get_res(int limite,Posi posi){
          
          if ((res_x < limite) and (res_x >= 0) and (res_y < limite) and (res_y >= 0)){ // positions concrètes
 			 if (not((res_x == posi.get_x()) and (res_y == posi.get_y()))){
-				 std::pair<int, int> tup = {res_x,res_y};
-				 set_res->push_back(tup);
+				 Paire<int, int>* tup = new Paire<int, int>(res_x,res_y);
+				 set_res->push_back(*tup);
 			 } 
 		 }
 	}

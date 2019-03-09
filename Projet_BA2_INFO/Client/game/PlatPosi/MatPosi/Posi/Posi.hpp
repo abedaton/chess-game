@@ -4,6 +4,8 @@
 #include <iostream>
 #include <utility>
 
+#include "../../../Interpret/Interpret.cpp"
+
 class Posi{
     private:
 		int x;
@@ -11,7 +13,7 @@ class Posi{
 	
 	public:
         Posi(int,int); //*< Constructor
-        Posi(std::pair<int,int>); //*< Constructor
+        Posi(Paire<int,int>); //*< Constructor
         Posi() noexcept = default; //*< Constructor
         ~Posi() noexcept = default; //Destructor
         Posi(const Posi&) noexcept = default;

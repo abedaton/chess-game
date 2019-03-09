@@ -143,22 +143,22 @@ void DarkChess::affichage(){
     this->get_active_player()->send_msg(aff->get_affichage(), true);
 }
 
-std::pair<bool, std::string> DarkChess::execute_step(){
+std::pair<bool,std::string> DarkChess::execute_step(){
     /* fonction principale du jeu, boucle d'execution qui est lancé pour débuté le jeu et qui lorsque se termine termine le jeu*/
 
     bool end = false;
     bool abandon = false;
 
-    Trinome<std::pair<std::string, BitypeVar<Chesspiece *>>, std::pair<std::string, BitypeVar<Chesspiece *>>, std::pair<bool, bool>> *coords;
+    Trinome<Paire<std::string, BitypeVar<Chesspiece *>>, Paire<std::string, BitypeVar<Chesspiece *>>, Paire<bool, bool>> *coords;
 
-    std::pair<std::string, BitypeVar<Chesspiece *>> in_couple, out_couple;
+    Paire<std::string, BitypeVar<Chesspiece *>> in_couple, out_couple;
     bool switch_pos;
 
     std::string in, out;
     BitypeVar<Chesspiece *> adv_pe_in;
     BitypeVar<Chesspiece *> adv_pe_out;
 
-    std::pair<bool, bool> bool_info;
+    Paire<bool, bool> bool_info;
 
     
     if (this->get_action_cnt() == 0){
@@ -167,17 +167,17 @@ std::pair<bool, std::string> DarkChess::execute_step(){
 
     coords = this->ask_for_input();
     in_couple = coords->get_first();
-    in = in_couple.first;
-    adv_pe_in = in_couple.second;
+    in = in_couple.get_first();
+    adv_pe_in = in_couple.get_second();
 
     out_couple = coords->get_second();
-    out = out_couple.first;
-    adv_pe_out = out_couple.second;
+    out = out_couple.get_first();
+    adv_pe_out = out_couple.get_second();
 
     bool_info = coords->get_third();
 
-    abandon = bool_info.first;
-    switch_pos = bool_info.second;
+    abandon = bool_info.get_first();
+    switch_pos = bool_info.get_second();
 
     //
     end = this->exec_step(in, out, adv_pe_out, switch_pos, abandon);
@@ -192,13 +192,13 @@ std::pair<bool, std::string> DarkChess::execute_step(){
     }
     
     ss_res << out;
-
-    std::pair<bool, std::string> result = std::make_pair((end or abandon), ss_res.str());
+    
+    std::pair<bool,std::string> result = std::make_pair((end or abandon), ss_res.str());
 
     return result;
 }
 
-std::pair<bool, bool> DarkChess::execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit){
+std::pair<bool,bool> DarkChess::execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit){
 
     bool ok = false;
 	bool end = false;
@@ -211,13 +211,13 @@ std::pair<bool, bool> DarkChess::execute_step(BitypeVar<Trinome<std::string,std:
 		std::string out = res_trinome->get_second();
 		bool switch_pos = res_trinome->get_third();
 
-		std::pair<bool, BitypeVar<Chesspiece *>> in_paire = check_in_validity_non_symbol(in, "", ""); // verify in //les commentaires sont inutiles ici
-		bool in_isvalid = in_paire.first;
+		Paire<bool, BitypeVar<Chesspiece *>> in_paire = check_in_validity_non_symbol(in, "", ""); // verify in //les commentaires sont inutiles ici
+		bool in_isvalid = in_paire.get_first();
 
 		if (in_isvalid == true)
 		{
 
-			BitypeVar<Chesspiece *> in_bit = in_paire.second;
+			BitypeVar<Chesspiece *> in_bit = in_paire.get_second();
 
 			if (in_bit.get_state() == false)
 			{
@@ -282,8 +282,8 @@ std::pair<bool, bool> DarkChess::execute_step(BitypeVar<Trinome<std::string,std:
 				}
 			}
 			else{
-				std::pair<bool, BitypeVar<Chesspiece *>> out_paire = normal_output_check(in, out); // verify out
-				ok = out_paire.first;
+				Paire<bool, BitypeVar<Chesspiece *>> out_paire = normal_output_check(in, out); // verify out
+				ok = out_paire.get_first();
 			}
 
 			if (ok == true){
@@ -297,7 +297,7 @@ std::pair<bool, bool> DarkChess::execute_step(BitypeVar<Trinome<std::string,std:
 		}
 	}
 
-    std::pair<bool, bool> result = std::make_pair(ok, end);
+    std::pair<bool,bool> result = std::make_pair(ok,end);
 
     return result;
 }
@@ -305,7 +305,7 @@ std::pair<bool, bool> DarkChess::execute_step(BitypeVar<Trinome<std::string,std:
 void DarkChess::make_fog(){
     /* Créer et met à jour le tableau contenant toutes les positions cacher du plateau*/
     std::vector<BitypeVar<Chesspiece*>> row;
-    std::vector<std::pair<int, int>>* positions_vect;
+    std::vector<Paire<int, int>>* positions_vect;
     const int size(8);
     
     // init le tableau tout est caché
@@ -331,8 +331,8 @@ void DarkChess::make_fog(){
 
                     // regarde les cases ou la piece peut se déplacer et les cases ou elle peut capturer pour les dévoiler
                     for (unsigned k = 0; k < positions_vect->size(); k++){
-                        // std::cout << "movement : " << piece->get_name() << "  x:  " << (*positionMov)[k].second << "  y:  " << (*positionMov)[k].second << std::endl;
-                        anti_fog_vect[(*positions_vect)[k].first][(*positions_vect)[k].second] = 0;
+                        // std::cout << "movement : " << piece->get_name() << "  x:  " << (*positionMov)[k].get_second() << "  y:  " << (*positionMov)[k].get_second() << std::endl;
+                        anti_fog_vect[(*positions_vect)[k].get_first()][(*positions_vect)[k].get_second()] = 0;
                     }
                 }
             }
@@ -341,11 +341,11 @@ void DarkChess::make_fog(){
     this->set_fog(anti_fog_vect);
 }
 
-std::vector<std::pair<int, int>>* DarkChess::check_all_mov(Chesspiece *pe){
+std::vector<Paire<int, int>>* DarkChess::check_all_mov(Chesspiece *pe){
 
-    std::vector<std::pair<int, int>>* tmp;
+    std::vector<Paire<int, int>>* tmp;
 
-    std::vector<std::pair<int, int>>* res = new std::vector<std::pair<int, int>>();
+    std::vector<Paire<int, int>>* res = new std::vector<Paire<int, int>>();
     
     std::vector<std::string> mode_vect {"depl", "capt", "capt_same", "capt_empty", "depl_full"};
     
@@ -357,24 +357,24 @@ std::vector<std::pair<int, int>>* DarkChess::check_all_mov(Chesspiece *pe){
     return res;
 } 
 
-std::vector<std::pair<int, int>>* DarkChess::loop_moves(Chesspiece *pe, std::string mode){
+std::vector<Paire<int, int>>* DarkChess::loop_moves(Chesspiece *pe, std::string mode){
 
     std::string limited_mode = this->get_plateau()->get_limited_mode(mode);
 
-    std::vector<std::pair<std::pair<int, int>, AdvTuple>> vect = pe->algo(limited_mode);
+    std::vector<Paire<Paire<int, int>, AdvTuple>> vect = pe->algo(limited_mode);
 
-    std::vector<std::pair<int, int>> *res = new std::vector<std::pair<int, int>>();
+    std::vector<Paire<int, int>> *res = new std::vector<Paire<int, int>>();
     MatPosi *elem;
     Posi *origin = pe->get_posi();
     MatPosi *mposi_origi = new MatPosi(*origin);
-    std::pair<int, int> paire_origi = mposi_origi->to_pair();
+    Paire<int, int> paire_origi = mposi_origi->to_pair();
     for (long long unsigned int i = 0; i < vect.size(); i++){
-        elem = new MatPosi(vect[i].first);
-        AdvTuple adv_tup = vect[i].second;
-        std::pair<int, int> paire = elem->to_pair();
-        vect[i].first.first >= 0 && vect[i].first.second >= 0;
+        elem = new MatPosi(vect[i].get_first());
+        AdvTuple adv_tup = vect[i].get_second();
+        Paire<int, int> paire = elem->to_pair();
+        //vect[i].get_first().get_first() >= 0 && vect[i].get_first().get_second() >= 0;
         if (this->check_danger_mouvement_and_path(paire_origi, adv_tup, paire, mode)){
-            res->push_back(vect[i].first);
+            res->push_back(vect[i].get_first());
         }
     }
     return res;

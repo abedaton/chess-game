@@ -71,7 +71,7 @@ BitypeVar<Chesspiece*>* select_king(std::vector<Chesspiece*>* vect,Player* owner
 	return res;
 }
 
-BitypeVar<std::pair<int,int>>* calculate_move_between_zones(MatPosi* begin, MatPosi* end){
+BitypeVar<Paire<int,int>>* calculate_move_between_zones(MatPosi* begin, MatPosi* end){
 	/* fonction utile pour calculer les positions se situant entre 2 positions,
 	 * cette fonction détermine le facteur multiplicatif de direction du mouvement
 	 * (par conséquent indique la direcion du mouvement souhaité)
@@ -82,8 +82,8 @@ BitypeVar<std::pair<int,int>>* calculate_move_between_zones(MatPosi* begin, MatP
 	 // fonction crée pour amelioration roque
 	
 	bool lig,col;
-	std::pair<int,int> paire;
-	BitypeVar<std::pair<int,int>>* res = new BitypeVar<std::pair<int,int>>();
+	Paire<int,int>* paire;
+	BitypeVar<Paire<int,int>>* res = new BitypeVar<Paire<int,int>>();
 	
 	res->set_state(false);
 	
@@ -92,13 +92,14 @@ BitypeVar<std::pair<int,int>>* calculate_move_between_zones(MatPosi* begin, MatP
 	
 	if (lig and not(col)){
 		res->set_state(true);
-		paire = std::make_pair(1,0);
-		res->set_var(paire);
+		paire = new Paire<int,int>(1,0);
+		res->set_var(*paire);
 	}
 	else if (not(lig) and col){
 		res->set_state(true);
-		paire = std::make_pair(0,1);
-		res->set_var(paire);
+		paire = new Paire<int,int>(0,1);
+		res->set_var(*paire);
+
 	}
 	else if (not(lig) and not(col)){
 		
@@ -109,15 +110,15 @@ BitypeVar<std::pair<int,int>>* calculate_move_between_zones(MatPosi* begin, MatP
 			
 			// verification de signe
 			if(diff_lig == diff_col){
-				res->set_state(true);
-				paire = std::make_pair(1,1);
-				res->set_var(paire);
+				res->set_state(true);				
+				paire = new Paire<int,int>(1,1);
+				res->set_var(*paire);
 			}
 			
 			else{
 				res->set_state(true);
-				paire = std::make_pair(-1,1);
-				res->set_var(paire);
+				paire = new Paire<int,int>(-1,1);
+				res->set_var(*paire);
 			}	
 		
 		}
@@ -130,7 +131,7 @@ BitypeVar<std::pair<int,int>>* calculate_move_between_zones(MatPosi* begin, MatP
 	
 }
 
-std::pair<int,int> calc_roc_destinations(bool gauche_isking,std::vector<MatPosi>* between_vect){
+Paire<int,int> calc_roc_destinations(bool gauche_isking,std::vector<MatPosi>* between_vect){
 	/* fonction qui calucule la destination du roi et de la tour suite a un roc, peu import si c'est un prtit ou grand roque */
 		
 	int taille = int(between_vect->size());
@@ -159,9 +160,9 @@ std::pair<int,int> calc_roc_destinations(bool gauche_isking,std::vector<MatPosi>
 		co_tour = co_roi-1;
 	}
 	
-	std::pair<int,int> res = std::make_pair(co_roi,co_tour);
+	Paire<int,int>* res = new Paire<int,int>(co_roi,co_tour);
 	
-	return res;
+	return *res;
 	
 }
 
@@ -186,7 +187,7 @@ std::vector<MatPosi*>* calc_king_move_path(bool king_isleft,int king_dest,std::v
 	return res;
 }
 
-std::pair<MatPosi*,MatPosi*> sort_two_mpos(MatPosi* mpos_one,MatPosi* mpos_two){
+Paire<MatPosi*,MatPosi*> sort_two_mpos(MatPosi* mpos_one,MatPosi* mpos_two){
 	/* fonction qui classe 2 MatPosi, celui le plus a gauche est le 1e elemnt du retour, celui le plus a droite le second */
 	
 	MatPosi* mpos_gauche;
@@ -205,7 +206,8 @@ std::pair<MatPosi*,MatPosi*> sort_two_mpos(MatPosi* mpos_one,MatPosi* mpos_two){
 	//(*mpos_one == *mpos_two) 
 	else{throw MyException(&mout,"sort avec 2 fois la même piece");} // roi a gauche
 	
-	return std::make_pair(mpos_gauche,mpos_droite);
+	Paire<MatPosi*,MatPosi*>* res_paire = new Paire<MatPosi*,MatPosi*>(mpos_gauche,mpos_droite);
+	return *res_paire;
 	
 }
 
@@ -223,7 +225,7 @@ BitypeVar<std::vector<MatPosi>*>* calc_zones_between_zones(MatPosi* begin, MatPo
 	std::vector<MatPosi>* vect = new std::vector<MatPosi>();
 	res->set_state(false);
 	
-	BitypeVar<std::pair<int,int>>* bit_paire;
+	BitypeVar<Paire<int,int>>* bit_paire;
 	
 	int lig,col;
 	
@@ -231,7 +233,7 @@ BitypeVar<std::vector<MatPosi>*>* calc_zones_between_zones(MatPosi* begin, MatPo
 	
 	if (bit_paire->get_state() == true){
 		
-		std::pair<int,int > paire = bit_paire->get_var();
+		Paire<int,int> paire = bit_paire->get_var();
 		
 		MatPosi* debut;
 		MatPosi* fin;
@@ -257,8 +259,8 @@ BitypeVar<std::vector<MatPosi>*>* calc_zones_between_zones(MatPosi* begin, MatPo
 		
 		while(*temp_mpos < *fin){
 			
-			col += paire.first;
-			lig += paire.second;
+			col += paire.get_first();
+			lig += paire.get_second();
 			
 			temp_mpos->set_col(col);
 			temp_mpos->set_lig(lig);
@@ -555,7 +557,7 @@ Trinome<Quadrinome<bool,bool,bool,bool>*, BitypeVar<Chesspiece*>, std::string > 
 		
 }
 
-std::pair<bool,BitypeVar<Chesspiece*>> BaseChess::check_in_validity_non_symbol(std::string in,std::string second_comment,std::string third_comment){
+Paire<bool,BitypeVar<Chesspiece*>> BaseChess::check_in_validity_non_symbol(std::string in,std::string second_comment,std::string third_comment){
 	
 	BitypeVar<Chesspiece*> dst;
 	Chesspiece* cap_piece;
@@ -586,17 +588,17 @@ std::pair<bool,BitypeVar<Chesspiece*>> BaseChess::check_in_validity_non_symbol(s
 	}
 	else{part_a = false;}
 	
-	std::pair<bool,BitypeVar<Chesspiece*>> paire = std::make_pair(part_a,dst);
+	Paire<bool,BitypeVar<Chesspiece*>>* paire = new Paire<bool,BitypeVar<Chesspiece*>>(part_a,dst);
 	
-	return paire;
+	return *paire;
 	
 }
 
-Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_input(Interpret* first_comment, Interpret* second_comment,Interpret* third_comment,bool ret_accept){
+Trinome<std::string,BitypeVar<Chesspiece*>,Paire<bool,bool>>* BaseChess::in_input(Interpret* first_comment, Interpret* second_comment,Interpret* third_comment,bool ret_accept){
 	/* l'input IN est l'input déterminant principalement la piece a sellectionner dans le tableau */
 	BitypeVar<Chesspiece*> dst;
 	
-	std::pair<int,int> conv;
+	Paire<int,int> conv;
 	
 	bool go_back = false;
 	bool end_game = false;
@@ -619,9 +621,9 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 			std::string second_com = second_comment->get_text(this->get_active_player()->get_langue());
 			std::string third_com = third_comment->get_text(this->get_active_player()->get_langue());
 			
-			std::pair<bool,BitypeVar<Chesspiece*>> non_symbol_rep = this->check_in_validity_non_symbol(in,second_com,third_com);
-			part_a = non_symbol_rep.first;
-			dst = non_symbol_rep.second;
+			Paire<bool,BitypeVar<Chesspiece*>> non_symbol_rep = this->check_in_validity_non_symbol(in,second_com,third_com);
+			part_a = non_symbol_rep.get_first();
+			dst = non_symbol_rep.get_second();
 
 		}
 		else{		
@@ -630,17 +632,18 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 		}
 	}
 	
-	Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* res = new Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>(in,dst,std::make_pair(go_back,end_game));
+	Paire<bool,bool>* paire = new Paire<bool,bool>(go_back,end_game);
+	Trinome<std::string,BitypeVar<Chesspiece*>,Paire<bool,bool>>* res = new Trinome<std::string,BitypeVar<Chesspiece*>,Paire<bool,bool>>(in,dst,*paire);
 		
 	return res;
 }
 
-Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_input(Interpret* first_comment, Interpret* second_comment,Interpret* third_comment){
+Trinome<std::string,BitypeVar<Chesspiece*>,Paire<bool,bool>>* BaseChess::in_input(Interpret* first_comment, Interpret* second_comment,Interpret* third_comment){
 	/* surchage de fonction permettant d'ommetre le bool indiuant si un retour en arrière est permis */
 	return this->in_input(first_comment, second_comment,third_comment,false);
 }
 
-Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_depl_input(){
+Trinome<std::string,BitypeVar<Chesspiece*>,Paire<bool,bool>>* BaseChess::in_depl_input(){
 	/* depl en opossition avec roc, en effet cette fonction demnade un input de type IN et définit des messages d'erreurs différentes de sa variante roc */
 	
 	Interpret* interpret_one = new Interpret(this->get_dico());
@@ -681,7 +684,7 @@ Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_
 	return this->in_input(interpret_one, interpret_two, interpret_three);
 }
 
-Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* BaseChess::in_roc_input(){
+Trinome<std::string,BitypeVar<Chesspiece*>,Paire<bool,bool>>* BaseChess::in_roc_input(){
 	/* roc en opossition avec depl, en effet cette fonction demnade un input de type IN et définit des messages d'erreurs différentes de sa variante depl */
 	
 	Interpret* interpret_one = new Interpret(this->get_dico());
@@ -747,14 +750,14 @@ bool BaseChess::check_illegal_move(std::string in,std::string out){
 	return again;
 }
 
-std::pair<bool,BitypeVar<Chesspiece*>> BaseChess::normal_output_check(std::string in,std::string out){
+Paire<bool,BitypeVar<Chesspiece*>> BaseChess::normal_output_check(std::string in,std::string out){
 	/* normal en oposition avec roc_output_check,
 	 * output designe la 2e partie de la selectiond de piece c.a.d. le choix de la destination de la piecesélectionné */
 	
 	bool res;
 	bool valid = this->verify_validity_input(out);
 	Chesspiece* cap_piece;
-	std::pair<int,int> conv;
+	Paire<int,int> conv;
 	BitypeVar<Chesspiece*> dst;
 				
 	if (valid){
@@ -792,8 +795,8 @@ std::pair<bool,BitypeVar<Chesspiece*>> BaseChess::normal_output_check(std::strin
 		res = false;
 	}
 	
-	std::pair<bool,BitypeVar<Chesspiece*>> paire = std::make_pair(res,dst);
-	return paire;
+	Paire<bool,BitypeVar<Chesspiece*>>* paire = new Paire<bool,BitypeVar<Chesspiece*>>(res,dst);
+	return *paire;
 }
 
 bool BaseChess::verify_possible_roc(Roi* roi,Tour* tour){
@@ -803,7 +806,7 @@ bool BaseChess::verify_possible_roc(Roi* roi,Tour* tour){
 	MatPosi mpos_roi = MatPosi(*(roi->get_posi()));
 	MatPosi mpos_tour = MatPosi(*(tour->get_posi()));
 	
-	BitypeVar<std::pair<MatPosi*, MatPosi*>>* info = this->sort_mpos_and_calc_roc_info(&mpos_roi,&mpos_tour);
+	BitypeVar<Paire<MatPosi*, MatPosi*>>* info = this->sort_mpos_and_calc_roc_info(&mpos_roi,&mpos_tour);
 	
 	return info->get_state();
 	
@@ -864,8 +867,8 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 	bool go_back = false;
 	std::string out;
 	BitypeVar<Chesspiece*> dst;
-	Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* roc_trinome;
-	std::pair<bool,bool> roc_bool_info;
+	Trinome<std::string,BitypeVar<Chesspiece*>,Paire<bool,bool>>* roc_trinome;
+	Paire<bool,bool> roc_bool_info;
 	
 	Roi* roi;
 	Tour* tour;
@@ -889,8 +892,8 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 		out = roc_trinome->get_first();
 		
 		roc_bool_info = roc_trinome->get_third();
-		go_back = roc_bool_info.first;
-		end_game = roc_bool_info.second;
+		go_back = roc_bool_info.get_first();
+		end_game = roc_bool_info.get_second();
 		
 		if (not(go_back) and not(end_game)){
 		
@@ -945,8 +948,8 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* BaseChess:
 	 * boucle while gèrant toutes les possibilités concernat ce choix de destination*/
 	
 	BitypeVar<Chesspiece*> dst;
-	std::pair<int,int> conv;
-	std::pair<bool,BitypeVar<Chesspiece*>> norm_paire;
+	Paire<int,int> conv;
+	Paire<bool,BitypeVar<Chesspiece*>> norm_paire;
 	
 	std::string out = "";
 	
@@ -992,8 +995,8 @@ Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* BaseChess:
 		}
 		else{
 			norm_paire = this->normal_output_check(in,out);
-			part_b = norm_paire.first;
-			dst = norm_paire.second;
+			part_b = norm_paire.get_first();
+			dst = norm_paire.get_second();
 		}
 	}
 
@@ -1034,7 +1037,7 @@ void BaseChess::show_depl_possibles(std::string str_co){
 	
 }
 
-Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<bool,bool>>* BaseChess::ask_for_input(){
+Trinome<Paire<std::string,BitypeVar<Chesspiece*>>,Paire<std::string,BitypeVar<Chesspiece*>>,Paire<bool,bool>>* BaseChess::ask_for_input(){
 	/* fonction principale des inputs, en effet c'est la fonction qui gêre la demande d'input au joueur (in, out) */
 	
 	std::stringstream ss;
@@ -1043,7 +1046,7 @@ Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,Bity
 	
 	Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* out_p;
 		
-	Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* in_p;
+	Trinome<std::string,BitypeVar<Chesspiece*>,Paire<bool,bool>>* in_p;
 	
 	std::string in,out;
 	
@@ -1052,7 +1055,7 @@ Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,Bity
 	BitypeVar<Chesspiece*> adv_pe_in;
 	Trinome<bool,bool,bool>* trinome_out_info;
 	
-	std::pair<bool,bool> pair_in_info;
+	Paire<bool,bool> pair_in_info;
 	
 	
 	bool switch_pos = false;
@@ -1063,8 +1066,8 @@ Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,Bity
 		adv_pe_in = in_p->get_second();
 		
 		pair_in_info = in_p->get_third();
-		//go_back = pair_in_info.first; on peut le recup mais sera tjs false car return pas admis dans "in"
-		end_game = pair_in_info.second;
+		//go_back = pair_in_info.get_first(); on peut le recup mais sera tjs false car return pas admis dans "in"
+		end_game = pair_in_info.get_second();
 		
 		if (end_game == false){
 		
@@ -1083,10 +1086,12 @@ Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,Bity
 		
 	}
 		
-	std::pair<std::string,BitypeVar<Chesspiece*>> in_paire = std::make_pair(in,adv_pe_in);
-	std::pair<std::string,BitypeVar<Chesspiece*>> out_paire = std::make_pair(out,adv_pe_out);
+	Paire<std::string,BitypeVar<Chesspiece*>>* in_paire = new Paire<std::string,BitypeVar<Chesspiece*>>(in,adv_pe_in);
+	Paire<std::string,BitypeVar<Chesspiece*>>* out_paire = new Paire<std::string,BitypeVar<Chesspiece*>>(out,adv_pe_out);
 	
-	Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<bool,bool>>* result = new Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<bool,bool>>(in_paire,out_paire,std::make_pair(end_game,switch_pos));
+	Paire<bool,bool>* bool_paire = new Paire<bool,bool>(end_game,switch_pos);
+	
+	Trinome<Paire<std::string,BitypeVar<Chesspiece*>>,Paire<std::string,BitypeVar<Chesspiece*>>,Paire<bool,bool>>* result = new Trinome<Paire<std::string,BitypeVar<Chesspiece*>>,Paire<std::string,BitypeVar<Chesspiece*>>,Paire<bool,bool>>(*in_paire,*out_paire,*bool_paire);
 	
 	return result;
 }
@@ -1216,12 +1221,12 @@ bool BaseChess::roc_check_king_position_and_path_danger(MatPosi* mpos_roi, MatPo
 	
 }
 
-BitypeVar<std::pair<MatPosi*,MatPosi*>>* BaseChess::sort_mpos_and_calc_roc_info(MatPosi* mpos_one,MatPosi* mpos_two){
+BitypeVar<Paire<MatPosi*,MatPosi*>>* BaseChess::sort_mpos_and_calc_roc_info(MatPosi* mpos_one,MatPosi* mpos_two){
 	/* fonction qui trié des MatPosi reçu en paramètres et qui calcule les destination des 2 MatPosi suite a un roque */
 	
-	std::pair<MatPosi*,MatPosi*> sorted_mpos_pair = sort_two_mpos(mpos_one, mpos_two);
-	MatPosi* mpos_gauche = sorted_mpos_pair.first;
-	MatPosi* mpos_droite = sorted_mpos_pair.second;
+	Paire<MatPosi*,MatPosi*> sorted_mpos_pair = sort_two_mpos(mpos_one, mpos_two);
+	MatPosi* mpos_gauche = sorted_mpos_pair.get_first();
+	MatPosi* mpos_droite = sorted_mpos_pair.get_second();
 
 	BitypeVar<std::vector<MatPosi>*>* bit_vect = this->calculate_zones_between_zones(mpos_gauche, mpos_droite);
 	
@@ -1253,9 +1258,9 @@ BitypeVar<std::pair<MatPosi*,MatPosi*>>* BaseChess::sort_mpos_and_calc_roc_info(
 			
 			bool gauche_isking = verifier_type_pe<Roi>(bit_chess_gauche);
 			
-			std::pair<int,int> coords = calc_roc_destinations(gauche_isking,between_vect);
-			int co_roi_dst = coords.first;
-			int co_tour_dst = coords.second;
+			Paire<int,int> coords = calc_roc_destinations(gauche_isking,between_vect);
+			int co_roi_dst = coords.get_first();
+			int co_tour_dst = coords.get_second();
 			
 			mpos_roi_dst = &((*between_vect)[co_roi_dst]);
 			mpos_tour_dst = &((*between_vect)[co_tour_dst]);
@@ -1281,9 +1286,11 @@ BitypeVar<std::pair<MatPosi*,MatPosi*>>* BaseChess::sort_mpos_and_calc_roc_info(
 	}
 	else{throw MyException(&mout,"vecteur des zones entres 2 zones invalide");}
 	
-	BitypeVar<std::pair<MatPosi*,MatPosi*>>* res = new BitypeVar<std::pair<MatPosi*,MatPosi*>>();
+	BitypeVar<Paire<MatPosi*,MatPosi*>>* res = new BitypeVar<Paire<MatPosi*,MatPosi*>>();
 	res->set_state(valid_roc);
-	res->set_var(std::make_pair(mpos_roi_dst,mpos_tour_dst));
+	
+	Paire<MatPosi*,MatPosi*>* res_paire = new Paire<MatPosi*,MatPosi*>(mpos_roi_dst,mpos_tour_dst);
+	res->set_var(*res_paire);
 	
 	return res; // retourner si roque ok (bool) et positions si ok
 }
@@ -1292,15 +1299,15 @@ bool BaseChess::exec_roc(MatPosi* mpos_one,MatPosi* mpos_two){
 	/* fonction d'execution du roque,test de validité puis mouvement si valide
 	 * retourne si le roc était validé */
 		
-	BitypeVar<std::pair<MatPosi*,MatPosi*>>* info = this->sort_mpos_and_calc_roc_info(mpos_one,mpos_two);
+	BitypeVar<Paire<MatPosi*,MatPosi*>>* info = this->sort_mpos_and_calc_roc_info(mpos_one,mpos_two);
 	
 	bool valid_roc = info->get_state();
 	
 	if (valid_roc == true){
 		
-		std::pair<MatPosi*,MatPosi*> dst_pair = info->get_var();
-		MatPosi* mpos_roi_dst = dst_pair.first;
-		MatPosi* mpos_tour_dst = dst_pair.second;
+		Paire<MatPosi*,MatPosi*> dst_pair = info->get_var();
+		MatPosi* mpos_roi_dst = dst_pair.get_first();
+		MatPosi* mpos_tour_dst = dst_pair.get_second();
 		
 		bool one_isking = verifier_type_pe<Roi>(this->get_plateau()->get_piece(mpos_one->to_pair()));
 		
@@ -1333,8 +1340,8 @@ void BaseChess::exec_move(MatPosi* mpos_in, MatPosi* mpos_out, bool switch_mode)
 	/* fonction d'execution du mouvement, un bool switch_mode permet a la fonction de savoir si elle doit faire un depl normal ou un roque
 	 * version avec 2 MatPosi en entree */
 
-	std::pair<int,int> pair_in = mpos_in->to_pair();
-	std::pair<int,int> pair_out = mpos_out->to_pair();
+	Paire<int,int> pair_in = mpos_in->to_pair();
+	Paire<int,int> pair_out = mpos_out->to_pair();
 	
 	if (switch_mode == false){this->get_plateau()->move(pair_in,pair_out);}
 	else{this->exec_roc(mpos_in,mpos_out);}
@@ -1361,7 +1368,7 @@ void BaseChess::exec_move(std::string str_in, std::string str_out){
 	this->exec_move(str_in, str_out, false);
 }
 
-void BaseChess::exec_move(std::pair<int,int> pair_in, std::pair<int,int> pair_out, bool switch_mode){
+void BaseChess::exec_move(Paire<int,int> pair_in, Paire<int,int> pair_out, bool switch_mode){
 	/* fonction d'execution du mouvement, un bool switch_mode permet a la fonction de savoir si elle doit faire un depl normal ou un roque
 	 * version avec 2 paires de coordonees en entree */
 	
@@ -1371,7 +1378,7 @@ void BaseChess::exec_move(std::pair<int,int> pair_in, std::pair<int,int> pair_ou
 	this->exec_move(mpos_in, mpos_out, switch_mode);
 }
 
-void BaseChess::exec_move(std::pair<int,int> pair_in, std::pair<int,int> pair_out){
+void BaseChess::exec_move(Paire<int,int> pair_in, Paire<int,int> pair_out){
 	/* fonction surchargée, permettant d'ommetre le bool indiquant le deplacement ou le roque */
 	this->exec_move(pair_in, pair_out, false);
 }
@@ -1423,7 +1430,7 @@ bool BaseChess::verify_move(std::string in, std::string out){
 	return this->verify_move(in, out, "");
 }
 
-bool BaseChess::verify_move(std::pair<int,int> in, std::pair<int,int> out, std::string mode){
+bool BaseChess::verify_move(Paire<int,int> in, Paire<int,int> out, std::string mode){
 	/* fonction vérifiant si un mouvement de piece est possible
 	 * version avec 2 paires de coordonees en entree */
 	
@@ -1433,7 +1440,7 @@ bool BaseChess::verify_move(std::pair<int,int> in, std::pair<int,int> out, std::
 	return this->verify_move(mpos_in, mpos_out, mode);
 }
 
-bool BaseChess::verify_move(std::pair<int,int> in, std::pair<int,int> out){
+bool BaseChess::verify_move(Paire<int,int> in, Paire<int,int> out){
 	/* fonction surchargée, permettant d'ommetre le string indiquant le mode de la verification */
 	return this->verify_move(in, out, "");
 }
@@ -1441,7 +1448,7 @@ bool BaseChess::verify_move(std::pair<int,int> in, std::pair<int,int> out){
 std::vector<MatPosi*>* BaseChess::check_possible_mouvement(Chesspiece* pe ,std::string mode){
 	/* fonction qui récupère tout les mouvements possiles d'une piece */
 	
-	std::vector<std::pair<std::pair<int,int>,AdvTuple>> vect = pe->algo(mode);
+	std::vector<Paire<Paire<int,int>,AdvTuple>> vect = pe->algo(mode);
 	Posi* origin = pe->get_posi();
 	
 	std::vector<MatPosi*>* res = new std::vector<MatPosi*>();
@@ -1450,13 +1457,13 @@ std::vector<MatPosi*>* BaseChess::check_possible_mouvement(Chesspiece* pe ,std::
 	bool keep;
 	
 	MatPosi* mposi_origi = new MatPosi(*origin);
-	std::pair<int,int> paire_origi = mposi_origi->to_pair();
+	Paire<int,int> paire_origi = mposi_origi->to_pair();
 	
 	for(long long unsigned int i=0;i<vect.size();i++){
 		
-		elem = new MatPosi(vect[i].first);
-		AdvTuple adv_tup = vect[i].second;
-		std::pair<int,int> paire = elem->to_pair();
+		elem = new MatPosi(vect[i].get_first());
+		AdvTuple adv_tup = vect[i].get_second();
+		Paire<int,int> paire = elem->to_pair();
 
 		keep = this->check_danger_mouvement_and_path(paire_origi, adv_tup, paire, mode); // verification concrète si ce déplacement est authorisé
 		
@@ -1468,7 +1475,7 @@ std::vector<MatPosi*>* BaseChess::check_possible_mouvement(Chesspiece* pe ,std::
 	return res;
 }
 
-BitypeVar<std::vector<AdvTuple*>*>* BaseChess::find_linking_advtuple(std::pair<int,int> pair_in, std::pair<int,int> pair_out, std::string mode){
+BitypeVar<std::vector<AdvTuple*>*>* BaseChess::find_linking_advtuple(Paire<int,int> pair_in, Paire<int,int> pair_out, std::string mode){
 	/* fonction qui récupère trouve les Advtuples liant les 2 coordonées via la recheche de la 2e coordonnes dans la liste de deplacement de la premiere
 	 * (il y a concervation de l'advtuple originel pour chaque deplacement possible généré) */
 	BitypeVar<std::vector<AdvTuple*>*>* found;
@@ -1485,19 +1492,21 @@ BitypeVar<std::vector<AdvTuple*>*>* BaseChess::find_linking_advtuple(std::pair<i
 
 		limited_mode = this->get_plateau()->get_limited_mode(mode);
 		
-		std::vector<std::pair<std::pair<int,int>,AdvTuple>> vect = pe_in->algo(limited_mode); // mode
+		std::vector<Paire<Paire<int,int>,AdvTuple>> vect = pe_in->algo(limited_mode); // mode
 		
 		found = new BitypeVar<std::vector<AdvTuple*>*>();
 		found->set_state(false);
 		
 		long long unsigned int i=0;
 		while(i<vect.size() and (found->get_state() == false)){
-			MatPosi* mpos_elem = new MatPosi(vect[i].first);
+			MatPosi* mpos_elem = new MatPosi(vect[i].get_first());
 			
 			if (*mpos_elem == *mpos_out){
 				//found->set_var(&(vect[i].second));
 				if (found->get_state() == false){found->set_state(true);}
-				res->push_back(&(vect[i].second));
+				
+				AdvTuple temp_res = vect[i].get_second();
+				res->push_back((&temp_res));
 			}
 			
 			i++;
@@ -1510,7 +1519,7 @@ BitypeVar<std::vector<AdvTuple*>*>* BaseChess::find_linking_advtuple(std::pair<i
 	return found;
 }
 
-bool BaseChess::complete_danger_test(std::pair<int,int> pair_in, std::pair<int,int> pair_out, std::string mode){
+bool BaseChess::complete_danger_test(Paire<int,int> pair_in, Paire<int,int> pair_out, std::string mode){
 	/* fonction qui recerche si le mouvement d'une piece est sécurisé (en terme de danger d'être capturée) */
 	bool keep = false;
 	BitypeVar<std::vector<AdvTuple*>*>* bit_var = this->find_linking_advtuple(pair_in, pair_out, mode);
@@ -1647,13 +1656,13 @@ void BaseChess::check_evolution(){
 		int num_col = rep->get_var();
 		//ss<<"indice lig "<<num_col<<std::endl;
 		
-		std::pair<int,int> paire = std::make_pair(num_col,num_row);
+		Paire<int,int>* paire = new Paire<int,int>(num_col,num_row);
 				
 		std::vector<Chesspiece*>* chess_vect = this->evolution_possibilities();
 		Chesspiece* nv_pe = ask_evolution_input(chess_vect);
 		
 		nv_pe->set_owner(this->get_active_player());
-		this->get_plateau()->set_piece(paire,nv_pe);
+		this->get_plateau()->set_piece(*paire,nv_pe);
 		
 	}
 	
@@ -1708,7 +1717,7 @@ bool BaseChess::can_player_move(Player* play){
 	while (cnt <= end_cnt and not escape){
 		
 		PlatPosi* ppos = new PlatPosi(cnt,*bit,*plat_size);
-		std::pair<int,int> paire = ppos->to_pair();
+		Paire<int,int> paire = ppos->to_pair();
 		delete ppos;
 		
 		if (not(this->get_plateau()->is_empty_location(paire))){
@@ -1728,7 +1737,7 @@ bool BaseChess::can_player_move(Player* play){
 	
 }
 
-bool BaseChess::more_dangers_part(std::pair<int,int> paire_zone, Player* limitator,int taille,std::string mode){
+bool BaseChess::more_dangers_part(Paire<int,int> paire_zone, Player* limitator,int taille,std::string mode){
 	/* fonction étant une sous-fonction de "check_more_than_one_danger"
 	 * fonction qui vérifie si la piece est menacée par plus qu'une piece adverse
 	 * (ou dans le cas d'une case vide si elle est menacée par n'importe qu'elle piece) */
@@ -1746,7 +1755,7 @@ bool BaseChess::more_dangers_part(std::pair<int,int> paire_zone, Player* limitat
 		//mout<<"more_dangers_part cnt: "<<cnt<<std::endl;
 		
 		PlatPosi* ppos = new PlatPosi(cnt,*bit,*plat_size);
-		std::pair<int,int> paire = ppos->to_pair();
+		Paire<int,int> paire = ppos->to_pair();
 		//mout<<"(1) more_dangers_part paire: "<<paire.first<<","<<paire.second<<std::endl;
 		delete ppos;
 		//mout<<"(2) more_dangers_part paire: "<<paire.first<<","<<paire.second<<std::endl;
@@ -1764,7 +1773,7 @@ bool BaseChess::more_dangers_part(std::pair<int,int> paire_zone, Player* limitat
 	return (count >= 2);
 }
 
-BitypeVar<MatPosi*>* BaseChess::in_endangered_part(std::pair<int,int> paire_zone, Player* limitator,int taille,std::string mode){
+BitypeVar<MatPosi*>* BaseChess::in_endangered_part(Paire<int,int> paire_zone, Player* limitator,int taille,std::string mode){
 	/* fonction étant une sous-fonction de "is_endangered"
 	 * fonction qui vérifie si la piece est menacée par une piece adverse, si oui elle la retourne.
 	 * (ou dans le cas d'une case vide si elle est menacée par n'importe qu'elle piece, si oui elle la retourne) */
@@ -1785,7 +1794,7 @@ BitypeVar<MatPosi*>* BaseChess::in_endangered_part(std::pair<int,int> paire_zone
 		
 		//mout<<"in_endangered_part cnt: "<<cnt<<std::endl;
 		PlatPosi* ppos = new PlatPosi(cnt,*bit,*plat_size);
-		std::pair<int,int> paire = ppos->to_pair();
+		Paire<int,int> paire = ppos->to_pair();
 		//mout<<"(1) in_endangered_part paire: "<<paire.first<<","<<paire.second<<std::endl;
 		MatPosi* mpos = ppos;
 		//delete ppos; // <---------------- SEGFAULT!
@@ -1816,7 +1825,7 @@ BitypeVar<MatPosi*>* BaseChess::is_endangered(MatPosi* mpos_zone, Player* limita
 	 * (ou dans le cas d'une case vide si elle est menacée par n'importe qu'elle piece, si oui elle la retourne) */	
 	 	
 	int taille = this->get_plateau()->get_taille();
-	std::pair<int,int> paire_zone = mpos_zone->to_pair();
+	Paire<int,int> paire_zone = mpos_zone->to_pair();
 	
 	std::string mode;
 	
@@ -1844,7 +1853,7 @@ bool BaseChess::check_more_than_one_danger(MatPosi* mpos_zone, Player* limitator
 	 * (ou dans le cas d'une case vide si elle est menacée par n'importe qu'elle piece) */
 	 	
 	int taille = this->get_plateau()->get_taille();
-	std::pair<int,int> paire_zone = mpos_zone->to_pair();
+	Paire<int,int> paire_zone = mpos_zone->to_pair();
 	
 	std::string mode;
 	if (this->get_plateau()->is_empty_location(paire_zone)){mode = "depl";}
@@ -1864,7 +1873,7 @@ bool BaseChess::check_more_than_one_danger(MatPosi* mpos_zone){
 	return this->check_more_than_one_danger(mpos_zone, player);
 }
 
-std::vector<MatPosi*>* BaseChess::recup_zones_between_part(std::vector<std::pair<int,int>>* temp_vect, MatPosi* mposi_origi, MatPosi* mposi_end){
+std::vector<MatPosi*>* BaseChess::recup_zones_between_part(std::vector<Paire<int,int>>* temp_vect, MatPosi* mposi_origi, MatPosi* mposi_end){
 	/* fonction étant une sous-fonction de "recup_zones_between"
 	 * fonction qui recupere les cases contenu entres 2 positions dans un plateau.
 	 * utilisant l'Advtuple utile pour les reliès */
@@ -1892,7 +1901,7 @@ std::vector<MatPosi*>* BaseChess::recup_zones_between_part(std::vector<std::pair
 	
 }
 
-std::vector<MatPosi*>* BaseChess::recup_zones_between(std::pair<int,int> begin, AdvTuple adv_tup, std::pair<int,int> end){
+std::vector<MatPosi*>* BaseChess::recup_zones_between(Paire<int,int> begin, AdvTuple adv_tup, Paire<int,int> end){
 	/* fonction qui recupere les cases contenu entres 2 positions dans un plateau. 
 	 * utilisant l'Advtuple utile pour les reliès */
 	
@@ -1904,7 +1913,7 @@ std::vector<MatPosi*>* BaseChess::recup_zones_between(std::pair<int,int> begin, 
 	int limite = this->get_plateau()->get_taille();
 	
 	if (adv_tup.get_depl_type() == "translation"){
-		std::vector<std::pair<int,int>>* temp_vect = adv_tup.get_res(limite,*mposi_origi);
+		std::vector<Paire<int,int>>* temp_vect = adv_tup.get_res(limite,*mposi_origi);
 		// get_res donnes toutes les positions sauf position actuelle!
 				
 		res = recup_zones_between_part(temp_vect, mposi_origi, mposi_end);
@@ -1917,7 +1926,7 @@ std::vector<MatPosi*>* BaseChess::recup_zones_between(std::pair<int,int> begin, 
 	
 }
 
-std::vector<std::vector<MatPosi*>*>* BaseChess::get_zones_between(std::pair<int,int> begin, std::pair<int,int> end, std::string mode){
+std::vector<std::vector<MatPosi*>*>* BaseChess::get_zones_between(Paire<int,int> begin, Paire<int,int> end, std::string mode){
 	/* fonction qui recupere les cases contenu entres 2 positions dans un plateau.
 	 * en ayant cherché au préalable d'Advtuple utile pour les reliès*/
 	
@@ -1947,7 +1956,7 @@ std::vector<std::vector<MatPosi*>*>* BaseChess::get_zones_between(std::pair<int,
 	return result;		
 }
 
-bool BaseChess::check_between_is_empty_part(std::vector<std::pair<int,int>>* temp_vect, MatPosi* mposi_origi, MatPosi* mposi_end){
+bool BaseChess::check_between_is_empty_part(std::vector<Paire<int,int>>* temp_vect, MatPosi* mposi_origi, MatPosi* mposi_end){
 	/* fonction étant une sous-fonction de "check_between_is_empty"
 	 * fonction qui vérifie que toutes les cases contenu entres 2 positions dans un plateau soient vides.
 	 * utilisant l'Advtuple utile pour les reliès */
@@ -1958,7 +1967,7 @@ bool BaseChess::check_between_is_empty_part(std::vector<std::pair<int,int>>* tem
 	long long unsigned int j=0;
 	while (j<temp_vect->size() and stop == false){
 		MatPosi* mposi = new MatPosi((*temp_vect)[j]);
-		std::pair<int,int> paire_norm = std::make_pair(mposi->get_col(),mposi->get_lig());
+		Paire<int,int>* paire_norm = new Paire<int,int>(mposi->get_col(),mposi->get_lig());
 		
 		bool between;
 		if (*mposi_end > *mposi_origi){
@@ -1970,7 +1979,7 @@ bool BaseChess::check_between_is_empty_part(std::vector<std::pair<int,int>>* tem
 		else{throw MyException(&mout, "deplacement immobile impossible");}
 		
 		
-		if (between == true){stop = not(this->get_plateau()->is_empty_location(paire_norm));}
+		if (between == true){stop = not(this->get_plateau()->is_empty_location(*paire_norm));}
 
 		j++;
 	}
@@ -1979,7 +1988,7 @@ bool BaseChess::check_between_is_empty_part(std::vector<std::pair<int,int>>* tem
 	return res;	
 }
 
-bool BaseChess::check_between_is_empty(std::pair<int,int> begin, AdvTuple adv_tup, std::pair<int,int> end){
+bool BaseChess::check_between_is_empty(Paire<int,int> begin, AdvTuple adv_tup, Paire<int,int> end){
 	/* fonction qui vérifie que toutes les cases contenu entres 2 positions dans un plateau soient vides.
 	 * utilisant l'Advtuple utile pour les reliès */
 	
@@ -1991,7 +2000,7 @@ bool BaseChess::check_between_is_empty(std::pair<int,int> begin, AdvTuple adv_tu
 	int limite = this->get_plateau()->get_taille();
 	
 	if (adv_tup.get_depl_type() == "translation"){
-		std::vector<std::pair<int,int>>* temp_vect = adv_tup.get_res(limite,*mposi_origi);
+		std::vector<Paire<int,int>>* temp_vect = adv_tup.get_res(limite,*mposi_origi);
 		// get_res donnes toutes les positions sauf position actuelle!
 				
 		res = check_between_is_empty_part(temp_vect, mposi_origi, mposi_end);
@@ -2004,14 +2013,16 @@ bool BaseChess::check_between_is_empty(std::pair<int,int> begin, AdvTuple adv_tu
 	
 }
 
-std::pair<bool,MatPosi*> BaseChess::check_if_echec(MatPosi* mpos){
+Paire<bool,MatPosi*> BaseChess::check_if_echec(MatPosi* mpos){
 
 	BitypeVar<MatPosi*>* danger_res =  this->is_endangered(mpos);
 	//mout << "apres danger res is_endangered" <<std::endl;
 	bool mode_echec = danger_res->get_state();
 	MatPosi* mpos_menace = danger_res->get_var();
-
-	return std::make_pair(mode_echec,mpos_menace);
+	
+	Paire<bool,MatPosi*>* res_paire = new Paire<bool,MatPosi*>(mode_echec,mpos_menace);
+	
+	return *res_paire;
 }
 
 bool BaseChess::check_non_active_player_king(Chesspiece* pe){
@@ -2027,9 +2038,9 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 	
 	//mout<<mpos->to_string()<<":"<<mpos->to_pair().first<<","<<mpos->to_pair().second<<std::endl;
 	
-	std::pair<bool,MatPosi*> echec_paire = this->check_if_echec(mpos);
-	bool mode_echec = echec_paire.first;
-	MatPosi* mpos_menace = echec_paire.second;
+	Paire<bool,MatPosi*> echec_paire = this->check_if_echec(mpos);
+	bool mode_echec = echec_paire.get_first();
+	MatPosi* mpos_menace = echec_paire.get_second();
 	
 	//ss << mpos->to_string()<<" is in danger?: "<< mode_echec <<std::endl;
 	//mout << mpos->to_string()<<" is in danger?: "<< mode_echec <<std::endl;
@@ -2209,7 +2220,7 @@ std::vector<Chesspiece*>* BaseChess::get_kings(){
 	return res;
 }
 
-bool BaseChess::check_danger_mouvement_and_path(std::pair<int,int> paire_origi, AdvTuple adv_tup, std::pair<int,int> paire, std::string mode){
+bool BaseChess::check_danger_mouvement_and_path(Paire<int,int> paire_origi, AdvTuple adv_tup, Paire<int,int> paire, std::string mode){
 	/* fonction verifiant qu'une piece peut effectuer le mouvement car ses mouvement possible le permettent
 	 * ainsi que les cases qu'elle doit parcourir lors du mouvement soint vides */
 	 

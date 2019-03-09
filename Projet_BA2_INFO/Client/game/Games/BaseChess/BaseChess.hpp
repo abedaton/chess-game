@@ -47,13 +47,13 @@ BitypeVar<int>* detect_ennemy_pion_in_vect(std::vector<BitypeVar<Chesspiece*>>, 
 
 BitypeVar<Chesspiece*>* select_king(std::vector<Chesspiece*>*,Player*);
 
-BitypeVar<std::pair<int,int>>* calculate_move_between_zones(MatPosi*, MatPosi*);
+BitypeVar<Paire<int,int>>* calculate_move_between_zones(MatPosi*, MatPosi*);
 
-std::pair<int,int> calc_roc_destinations(bool, std::vector<MatPosi>*);
+Paire<int,int> calc_roc_destinations(bool, std::vector<MatPosi>*);
 
 std::vector<MatPosi*>* calc_king_move_path(bool, int, std::vector<MatPosi>*);
 
-std::pair<MatPosi*,MatPosi*> sort_two_mpos(MatPosi*, MatPosi*);
+Paire<MatPosi*,MatPosi*> sort_two_mpos(MatPosi*, MatPosi*);
 
 BitypeVar<std::vector<MatPosi>*>* calc_zones_between_zones(MatPosi*, MatPosi*, Player*);
 
@@ -130,16 +130,16 @@ class BaseChess{
 		Trinome<bool,bool,bool>* check_in_for_special_symbol(std::string,bool);
 		Trinome<Quadrinome<bool,bool,bool,bool>*, BitypeVar<Chesspiece*>, std::string > check_out_for_special_symbol(BitypeVar<Chesspiece*>, std::string,bool);
 		
-		std::pair<bool,BitypeVar<Chesspiece*>> check_in_validity_non_symbol(std::string,std::string,std::string);
+		Paire<bool,BitypeVar<Chesspiece*>> check_in_validity_non_symbol(std::string,std::string,std::string);
 		
-		Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* in_input(Interpret*,Interpret*,Interpret*,bool);
-		Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* in_input(Interpret*,Interpret*,Interpret*);
-		Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* in_depl_input();
-		Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* in_roc_input();
+		Trinome<std::string,BitypeVar<Chesspiece*>,Paire<bool,bool>>* in_input(Interpret*,Interpret*,Interpret*,bool);
+		Trinome<std::string,BitypeVar<Chesspiece*>,Paire<bool,bool>>* in_input(Interpret*,Interpret*,Interpret*);
+		Trinome<std::string,BitypeVar<Chesspiece*>,Paire<bool,bool>>* in_depl_input();
+		Trinome<std::string,BitypeVar<Chesspiece*>,Paire<bool,bool>>* in_roc_input();
 		
 		bool check_illegal_move(std::string,std::string);
 		
-		virtual std::pair<bool,BitypeVar<Chesspiece*>> normal_output_check(std::string,std::string);
+		virtual Paire<bool,BitypeVar<Chesspiece*>> normal_output_check(std::string,std::string);
 		
 		bool verify_possible_roc(Roi*,Tour*);
 		
@@ -152,7 +152,7 @@ class BaseChess{
 		void show_depl_possibles(Chesspiece*);
 		void show_depl_possibles(std::string);
 		
-		Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<bool,bool>>* ask_for_input();
+		Trinome<Paire<std::string,BitypeVar<Chesspiece*>>,Paire<std::string,BitypeVar<Chesspiece*>>,Paire<bool,bool>>* ask_for_input();
 		
 		bool verify_validity_input(std::string);
 		void change_active_player();
@@ -164,7 +164,7 @@ class BaseChess{
 		virtual bool roc_check_king_position_and_path_danger(MatPosi*,MatPosi*,bool,int,std::vector<MatPosi>*);
 		
 		//
-		BitypeVar<std::pair<MatPosi*,MatPosi*>>* sort_mpos_and_calc_roc_info(MatPosi*,MatPosi*);
+		BitypeVar<Paire<MatPosi*,MatPosi*>>* sort_mpos_and_calc_roc_info(MatPosi*,MatPosi*);
 		bool exec_roc(MatPosi*, MatPosi*);
 		//
 
@@ -172,20 +172,20 @@ class BaseChess{
 		void exec_move(MatPosi*, MatPosi*);
 		void exec_move(std::string, std::string, bool);
 		void exec_move(std::string, std::string);
-		void exec_move(std::pair<int,int>, std::pair<int,int>, bool);
-		void exec_move(std::pair<int,int>, std::pair<int,int>);
+		void exec_move(Paire<int,int>, Paire<int,int>, bool);
+		void exec_move(Paire<int,int>, Paire<int,int>);
 
 		bool verify_move(MatPosi*, MatPosi*, std::string);
 		bool verify_move(MatPosi*, MatPosi*);
 		bool verify_move(std::string, std::string, std::string);
 		bool verify_move(std::string, std::string);
-		bool verify_move(std::pair<int,int>, std::pair<int,int>, std::string);
-		bool verify_move(std::pair<int,int>, std::pair<int,int>);
+		bool verify_move(Paire<int,int>, Paire<int,int>, std::string);
+		bool verify_move(Paire<int,int>, Paire<int,int>);
 		
 		std::vector<MatPosi*>* check_possible_mouvement(Chesspiece*, std::string);
 
-		BitypeVar<std::vector<AdvTuple*>*>* find_linking_advtuple(std::pair<int,int>, std::pair<int,int>, std::string);
-		bool complete_danger_test(std::pair<int,int> , std::pair<int,int> , std::string);
+		BitypeVar<std::vector<AdvTuple*>*>* find_linking_advtuple(Paire<int,int>, Paire<int,int>, std::string);
+		bool complete_danger_test(Paire<int,int> , Paire<int,int> , std::string);
 		
 		void show_possible_mouvement(Chesspiece*, std::string);
 		
@@ -200,30 +200,30 @@ class BaseChess{
 		
 		bool can_player_move(Player*);
 
-		bool more_dangers_part(std::pair<int,int>, Player*, int, std::string);
+		bool more_dangers_part(Paire<int,int>, Player*, int, std::string);
 		
-		BitypeVar<MatPosi*>* in_endangered_part(std::pair<int,int>, Player*, int, std::string);			
+		BitypeVar<MatPosi*>* in_endangered_part(Paire<int,int>, Player*, int, std::string);			
 		BitypeVar<MatPosi*>* is_endangered(MatPosi*,Player*);
 		BitypeVar<MatPosi*>* is_endangered(MatPosi*);
 		
 		bool check_more_than_one_danger(MatPosi*,Player*);
 		bool check_more_than_one_danger(MatPosi*);
 		
-		std::vector<MatPosi*>* recup_zones_between_part(std::vector<std::pair<int,int>>*, MatPosi*, MatPosi*); // ,Plateau*  static
-		std::vector<MatPosi*>* recup_zones_between(std::pair<int,int>, AdvTuple, std::pair<int,int>);
+		std::vector<MatPosi*>* recup_zones_between_part(std::vector<Paire<int,int>>*, MatPosi*, MatPosi*); // ,Plateau*  static
+		std::vector<MatPosi*>* recup_zones_between(Paire<int,int>, AdvTuple, Paire<int,int>);
 		
-		std::vector<std::vector<MatPosi*>*>* get_zones_between(std::pair<int,int>, std::pair<int,int> , std::string);
+		std::vector<std::vector<MatPosi*>*>* get_zones_between(Paire<int,int>, Paire<int,int> , std::string);
 		
-		bool check_between_is_empty_part(std::vector<std::pair<int,int>>*, MatPosi*, MatPosi*); // ,Plateau*  static		
-		bool check_between_is_empty(std::pair<int,int>, AdvTuple, std::pair<int,int>);
+		bool check_between_is_empty_part(std::vector<Paire<int,int>>*, MatPosi*, MatPosi*); // ,Plateau*  static		
+		bool check_between_is_empty(Paire<int,int>, AdvTuple, Paire<int,int>);
 		
-		std::pair<bool,MatPosi*> check_if_echec(MatPosi*);
+		Paire<bool,MatPosi*> check_if_echec(MatPosi*);
 		virtual bool check_non_active_player_king(Chesspiece*);
 		
 		virtual bool verify_kings();
 		std::vector<Chesspiece*>* get_kings();
 		
-		bool check_danger_mouvement_and_path(std::pair<int,int>, AdvTuple, std::pair<int,int>, std::string);
+		bool check_danger_mouvement_and_path(Paire<int,int>, AdvTuple, Paire<int,int>, std::string);
 		
 		Trinome<std::string,std::string,bool>* decode_merged_string(std::string);
         

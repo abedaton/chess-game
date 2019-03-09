@@ -346,32 +346,32 @@ std::pair<bool,std::string> TrappistChess::execute_step(){
 	bool end = false;
 	bool abandon = false;
 	
-	Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<bool,bool>>* coords;
+	Trinome<Paire<std::string,BitypeVar<Chesspiece*>>,Paire<std::string,BitypeVar<Chesspiece*>>,Paire<bool,bool>>* coords;
 	
-	std::pair<std::string,BitypeVar<Chesspiece*>> in_couple,out_couple;
+	Paire<std::string,BitypeVar<Chesspiece*>> in_couple,out_couple;
 	bool switch_pos;
 	
 	std::string in,out;
 	BitypeVar<Chesspiece*> adv_pe_in;
 	BitypeVar<Chesspiece*> adv_pe_out;
 	
-	std::pair<bool,bool> bool_info;
+	Paire<bool,bool> bool_info;
 	if (this->get_action_cnt() == 0){this->affichage();}
 
 	coords = this->ask_for_input();
 	in_couple = coords->get_first();
 
-	in = in_couple.first;
-	adv_pe_in = in_couple.second;
+	in = in_couple.get_first();
+	adv_pe_in = in_couple.get_second();
 	
 	out_couple = coords->get_second();
-	out = out_couple.first;
-	adv_pe_out = out_couple.second;
+	out = out_couple.get_first();
+	adv_pe_out = out_couple.get_second();
 	
 	bool_info = coords->get_third();
 	
-	abandon = bool_info.first;
-	switch_pos = bool_info.second;
+	abandon = bool_info.get_first();
+	switch_pos = bool_info.get_second();
 	//std::cout << "print4" << std::endl;
 
 	//
@@ -384,9 +384,9 @@ std::pair<bool,std::string> TrappistChess::execute_step(){
 	if (switch_pos == true){ss_res<<this->get_roc_symbol()<<result_sep;}
 	ss_res<<out;
 	
-	std::pair<bool,std::string> result = std::make_pair((end or abandon),ss_res.str());
-	
-	return result;
+	std::pair<bool,std::string> result = std::make_pair((end or abandon), ss_res.str());
+
+    return result;
 }
 
 std::pair<bool,bool> TrappistChess::execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit){
@@ -402,12 +402,12 @@ std::pair<bool,bool> TrappistChess::execute_step(BitypeVar<Trinome<std::string,s
 		std::string out = res_trinome->get_second();
 		bool switch_pos = res_trinome->get_third();
 	
-		std::pair<bool,BitypeVar<Chesspiece*>> in_paire = check_in_validity_non_symbol(in,"",""); // verify in //les commentaires sont inutiles ici
-		bool in_isvalid = in_paire.first;
+		Paire<bool,BitypeVar<Chesspiece*>> in_paire = check_in_validity_non_symbol(in,"",""); // verify in //les commentaires sont inutiles ici
+		bool in_isvalid = in_paire.get_first();
 		
 		if (in_isvalid == true){
 			
-			BitypeVar<Chesspiece*> in_bit = in_paire.second;
+			BitypeVar<Chesspiece*> in_bit = in_paire.get_second();
 			
 			if (in_bit.get_state() == false){throw MyException(&mout,"IN invalide car non-attribué");}
 			
@@ -454,8 +454,8 @@ std::pair<bool,bool> TrappistChess::execute_step(BitypeVar<Trinome<std::string,s
 				}
 			}
 			else{
-				std::pair<bool,BitypeVar<Chesspiece*>> out_paire = normal_output_check(in,out); // verify out
-				ok = out_paire.first;
+				Paire<bool,BitypeVar<Chesspiece*>> out_paire = normal_output_check(in,out); // verify out
+				ok = out_paire.get_first();
 			}
 			
 			if (ok == true){

@@ -74,7 +74,7 @@ void GameIntelligence::execute_game(){
 		while (not end){
 			std::pair<bool,std::string> result = this->get_game()->execute_step();
 			end = result.first;
-			//std::cout<<"RESULTAT ENVOYE: "<<result.second<<std::endl;
+			//std::cout<<"RESULTAT ENVOYE: "<<result.get_second()<<std::endl;
 		}
 	}	
 	catch(MyException& e){

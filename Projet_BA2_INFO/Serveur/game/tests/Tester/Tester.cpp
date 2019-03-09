@@ -31,7 +31,7 @@ std::string Tester::get_posi_ini(){
 	return this->posi_ini;
 }
 
-std::pair<int,int> Tester::execute(){
+Paire<int,int> Tester::execute(){
 	
 	std::string langue = "francais";
 	
@@ -62,7 +62,7 @@ std::pair<int,int> Tester::execute(){
 	mout<<std::endl;
 	
 	MatPosi* mpos_initial = new MatPosi(this->get_posi_ini());
-	std::pair<int,int> transf_ini = mpos_initial->to_pair();
+	Paire<int,int> transf_ini = mpos_initial->to_pair();
 	
 	plat->set_piece(transf_ini,this->get_pe()); // !
 	
@@ -70,9 +70,9 @@ std::pair<int,int> Tester::execute(){
 	mout<<aff->get_affichage()<<std::endl;
 	mout<<std::endl;
 	
-	std::pair<int,int> transf_action_in;
+	Paire<int,int> transf_action_in;
 	MatPosi* mpos_in;
-	std::pair<int,int> transf_action_out;
+	Paire<int,int> transf_action_out;
 	MatPosi* mpos_out;
 	
 	for(long long unsigned int i=0;i<this->get_actions().size();i++){
@@ -117,7 +117,7 @@ std::pair<int,int> Tester::execute(){
 	mout<<std::endl<<"********************************************************************************************************************"<<std::endl;
 	mout<<std::endl;
 	
-	std::pair<int,int> paire = std::make_pair(passed_cnt,tot_cnt);
-	return paire;
+	Paire<int,int>* paire = new Paire<int,int>(passed_cnt,tot_cnt);
+	return *paire;
 	
 }

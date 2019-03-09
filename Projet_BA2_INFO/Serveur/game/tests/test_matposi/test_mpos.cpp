@@ -31,7 +31,7 @@ int main(){
 	compare(mpos_4_4_bis,"mpos_4_4_bis",mpos_4_4,"mpos_4_4");
 	
 	
-	std::pair<int,int> co_int = mpos_co->to_pair();;	
+	Paire<int,int> co_int = mpos_co->to_pair();;	
 	std::cout<<"INT: "<<co_int.first<<","<<co_int.second<<std::endl;
 	
 	std::string co_str = mpos_co->to_string();

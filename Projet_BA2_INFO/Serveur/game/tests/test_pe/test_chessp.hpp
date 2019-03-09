@@ -4,8 +4,8 @@
 typedef Trinome<std::string,std::string,BitypeVar<bool>> TriVect;
 
 template <typename Type>
-std::pair<int,int> test_pe(std::string name,std::vector<TriVect> vect,std::string pos_ini){
-	std::pair<int,int> paire;
+Paire<int,int> test_pe(std::string name,std::vector<TriVect> vect,std::string pos_ini){
+	Paire<int,int> paire;
 
 	Plateau* plat= new Plateau(8);
 	mout <<"taille plateau : "<< plat->get_taille() << std::endl;
