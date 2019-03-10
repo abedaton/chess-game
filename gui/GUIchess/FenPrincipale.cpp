@@ -33,6 +33,7 @@ FenPrincipale::FenPrincipale()
     QObject::connect(_register->getOK(), SIGNAL(clicked()), this, SLOT(checkRegister()));
     QObject::connect(_register,SIGNAL(enterPressed()),this,SLOT(checkRegister()));
 
+    QObject::connect(_gameWindow->getClassicButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
 
 
 }
@@ -96,4 +97,10 @@ void FenPrincipale::goToLogIn(){
 void FenPrincipale::goToGame(){
     _stack->setCurrentWidget(_gameWindow);
 
+}
+
+void FenPrincipale::goToClassic(){
+    _classicWindow = new PlateauScene;
+    _stack->addWidget(_classicWindow);
+    _stack->setCurrentWidget(_classicWindow);
 }

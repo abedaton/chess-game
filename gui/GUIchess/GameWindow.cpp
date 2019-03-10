@@ -16,3 +16,7 @@ GameWindow::GameWindow(QWidget *parent) : QWidget(parent){
     this->setLayout(_gbox);
 
 }
+
+QPushButton* GameWindow::getClassicButton() const{
+    return _classicButton;
+}

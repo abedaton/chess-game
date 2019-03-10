@@ -4,18 +4,20 @@
 #include <QGraphicsScene>
 #include <QGraphicsGridLayout>
 #include "PlateauBox.h"
+#include <iostream>
 #include <QList>
 
 class PlateauScene : public QGraphicsView {
 public:
     explicit PlateauScene(int size = 8, QWidget* parent = nullptr);
-    void setBoxes(int x=0, int y=0);
+    void setBoxes(int x, int y, int sideLenght);
 private:
-    int _size;
+    const int _size;
 
     QGraphicsScene* _scene;
-    QList<PlateauBox*> _boxes;
+    PlateauBox* _boxes[8][8];
     QGraphicsGridLayout* _ggbox;
+
 };
 
 #endif // PLATEAUSCENE_H

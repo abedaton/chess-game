@@ -21,6 +21,8 @@ public slots:
     void goToRegister();
     void goToLogIn();
     void goToGame();
+    void goToClassic();
+
 private:
     QMenu* _menuReglages;
     QStatusBar *_statusBar;
@@ -28,6 +30,7 @@ private:
     Register* _register;
     QStackedWidget* _stack;
     GameWindow* _gameWindow;
+    PlateauScene* _classicWindow;
 };
 
 
