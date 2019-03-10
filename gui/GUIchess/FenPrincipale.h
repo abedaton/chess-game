@@ -4,6 +4,7 @@
 #include "Login.h"
 #include "Register.h"
 #include "GameWindow.h"
+#include "PlateauScene.h"
 #include <iostream>
 
 class FenPrincipale : public QMainWindow{
