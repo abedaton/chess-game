@@ -49,7 +49,11 @@ void MatchMaking::poolSort(int gameMod){
                 case 3:
                     game = new TrappistChess(play_one, play_two, play_one, dico);
                     break;
-                    
+                case 4:
+                    game = new AntiChess(play_one, play_two, play_one, dico);
+                    std::cout << "Anti : ";
+                    std::cout<< game << std::endl;
+                    break;
                 default:
                     game = new ClassicChess(play_one, play_two, play_one, dico);
                     break;

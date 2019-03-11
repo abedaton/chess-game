@@ -1,7 +1,7 @@
 #include "../includes/client.hpp"
 
-Client::Client(){
-	this->_request = new Request(this);
+Client::Client(const char* ip){
+	this->_request = new Request(this, ip);
 	firstWindow();
 }
 
@@ -46,9 +46,14 @@ void Client::startingGame(bool playerTurn){
 			}
 			break;
 		case 4:
-			//this->_game = new ClassicChess();
+			if (playerTurn) {
+				this->_game = new AntiChess(player1, player2, player1, dico);
+			} else {
+				this->_game = new AntiChess(player2, player1, player1, dico);
+			}
 			break;
 		default:
+			std::cout << "error" << std::endl;
 			break;
 	}
 }
@@ -305,7 +310,6 @@ void Client::gameWindow(){
         }
         else if (answer == 3){
 			if (this->_myTurn){
-				
 				try{returnP = this->_game->execute_step();}
 				catch(MyException& e){
 					std::cout << e.what()<<std::endl;
