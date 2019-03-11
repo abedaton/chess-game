@@ -1,4 +1,8 @@
 
+#pragma once
+#ifndef ANTICHESS_CPP
+#define ANTICHESS_CPP
+
 #include "AntiChess.hpp"
 #include <sstream>
 
@@ -148,32 +152,32 @@ std::pair<bool,std::string> AntiChess::execute_step(){
 	bool end = false;
 	bool abandon = false;
 	
-	Trinome<Paire<std::string,BitypeVar<Chesspiece*>>,Paire<std::string,BitypeVar<Chesspiece*>>,Paire<bool,bool>>* coords;
+	Trinome<std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<std::string,BitypeVar<Chesspiece*>>,std::pair<bool,bool>>* coords;
 	
-	Paire<std::string,BitypeVar<Chesspiece*>> in_couple,out_couple;
+	std::pair<std::string,BitypeVar<Chesspiece*>> in_couple,out_couple;
 	bool switch_pos;
 	
 	std::string in,out;
 	BitypeVar<Chesspiece*> adv_pe_in;
 	BitypeVar<Chesspiece*> adv_pe_out;
 	
-	Paire<bool,bool> bool_info;
+	std::pair<bool,bool> bool_info;
 	if (this->get_action_cnt() == 0){this->affichage();}
 
 	coords = this->ask_for_input();
 	in_couple = coords->get_first();
 
-	in = in_couple.get_first();
-	adv_pe_in = in_couple.get_second();
+	in = in_couple.first;
+	adv_pe_in = in_couple.second;
 	
 	out_couple = coords->get_second();
-	out = out_couple.get_first();
-	adv_pe_out = out_couple.get_second();
+	out = out_couple.first;
+	adv_pe_out = out_couple.second;
 	
 	bool_info = coords->get_third();
 	
-	abandon = bool_info.get_first();
-	switch_pos = bool_info.get_second();
+	abandon = bool_info.first;
+	switch_pos = bool_info.second;
 	//std::cout << "print4" << std::endl;
 
 	//
@@ -186,9 +190,9 @@ std::pair<bool,std::string> AntiChess::execute_step(){
 	if (switch_pos == true){ss_res<<this->get_roc_symbol()<<result_sep;}
 	ss_res<<out;
 	
-	std::pair<bool,std::string> result = std::make_pair((end or abandon), ss_res.str());
-
-    return result;
+	std::pair<bool,std::string> result = std::make_pair((end or abandon),ss_res.str());
+	
+	return result;
 }
 
 std::pair<bool,bool> AntiChess::execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit){
@@ -204,12 +208,12 @@ std::pair<bool,bool> AntiChess::execute_step(BitypeVar<Trinome<std::string,std::
 		std::string out = res_trinome->get_second();
 		bool switch_pos = res_trinome->get_third();
 
-		Paire<bool,BitypeVar<Chesspiece*>> in_paire = check_in_validity_non_symbol(in,"",""); // verify in //les commentaires sont inutiles ici
-		bool in_isvalid = in_paire.get_first();
+		std::pair<bool,BitypeVar<Chesspiece*>> in_paire = check_in_validity_non_symbol(in,"",""); // verify in //les commentaires sont inutiles ici
+		bool in_isvalid = in_paire.first;
 		
 		if (in_isvalid == true){
 			
-			BitypeVar<Chesspiece*> in_bit = in_paire.get_second();
+			BitypeVar<Chesspiece*> in_bit = in_paire.second;
 			
 			if (in_bit.get_state() == false){throw MyException(&mout,"IN invalide car non-attribué");}
 			
@@ -256,8 +260,8 @@ std::pair<bool,bool> AntiChess::execute_step(BitypeVar<Trinome<std::string,std::
 				}
 			}
 			else{
-				Paire<bool,BitypeVar<Chesspiece*>> out_paire = normal_output_check(in,out); // verify out
-				ok = out_paire.get_first();
+				std::pair<bool,BitypeVar<Chesspiece*>> out_paire = normal_output_check(in,out); // verify out
+				ok = out_paire.first;
 			}
 			
 			if (ok == true){
@@ -313,8 +317,8 @@ std::vector<Chesspiece*>* AntiChess::evolution_possibilities(){
 
 std::string AntiChess::get_affichage_pat() const{
 	std::stringstream ss;
-	ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"vict")<<" "<<this->get_active_player()<<" !"<<std::endl;}
-	return ss.str;
+	ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"vict")<<" "<<this->get_active_player()<<" !"<<std::endl;
+	return ss.str();
 
 }
 
@@ -322,3 +326,118 @@ bool AntiChess::check_roc_accept(BitypeVar<Chesspiece*> in_pe) const {
 	(void)in_pe;
 	return false;
 }
+
+bool AntiChess::verify_all_eaten(){
+	
+	int taille = this->get_plateau()->get_taille();
+
+	int cnt = this->get_plateau()->begin_position();
+	int end_cnt = this->get_plateau()->end_position();
+		
+	BitypeVar<int>* bit = new BitypeVar<int>(false,0);
+	BitypeVar<int>* plat_size = new BitypeVar<int>(true,taille);
+
+	bool found = false;
+	while (cnt <= end_cnt and not found){
+		
+		PlatPosi* ppos = new PlatPosi(cnt,*bit,*plat_size);
+		std::pair<int,int> paire = ppos->to_pair();
+		delete ppos;
+		
+		if (not(this->get_plateau()->is_empty_location(paire))){
+			Chesspiece* pe = this->get_plateau()->get_piece(paire).get_var();
+			if (this->get_non_active_player() == pe->get_owner()){
+				found = true;
+				
+			}
+		}
+		cnt++;
+	}
+	
+	
+	return not found;
+	
+}
+
+bool AntiChess::is_forced_to_cap(){
+	
+	int taille = this->get_plateau()->get_taille();
+
+	int cnt = this->get_plateau()->begin_position();
+	int end_cnt = this->get_plateau()->end_position();
+		
+	BitypeVar<int>* bit = new BitypeVar<int>(false,0);
+	BitypeVar<int>* plat_size = new BitypeVar<int>(true,taille);
+
+	bool found = false;
+	while (cnt <= end_cnt and not found){
+		
+		PlatPosi* ppos = new PlatPosi(cnt,*bit,*plat_size);
+		std::pair<int,int> paire = ppos->to_pair();
+		delete ppos;
+		
+		if (not(this->get_plateau()->is_empty_location(paire))){
+			Chesspiece* pe = this->get_plateau()->get_piece(paire).get_var();
+			if (this->get_active_player() == pe->get_owner()){
+				
+				//can piece capt?
+				std::vector<MatPosi*>* vect = this->check_possible_mouvement(pe, "capt");	
+				found = not vect->empty();
+				
+			}
+		}
+		cnt++;
+	}
+	
+	
+	return found;
+		
+}
+
+std::string AntiChess::get_move_mode(std::string out){
+	
+	MatPosi* out_mpos = new MatPosi(out);
+	std::pair<int,int> out_paire = out_mpos->to_pair();
+	delete out_mpos;
+	
+	BitypeVar<Chesspiece*> out_pe = this->get_plateau()->get_piece(out_paire);
+	
+	return adaptive_mode(out_pe,"");
+
+}
+
+bool AntiChess::check_illegal_move(std::string in,std::string out){
+	/* fonction qui vérifie si un mouvement est autorisé, si nécéssaire affiche un message d'echec,
+	 * revoi un bool pour indiquer si l'input doit être recommancé */
+	
+	bool capt_forced = this->is_forced_to_cap();
+	
+	//mout<<"capt_forced?: "<<capt_forced<<std::endl;
+	
+	std::string move_mode = this->get_move_mode(out);
+	
+	//mout<<"move_mode?: "<<move_mode<<std::endl;
+	
+	bool again = true;
+	if (((capt_forced == true) and (move_mode == "capt")) or not capt_forced){
+		if (not(this->verify_move(in,out))){
+			
+			std::stringstream ss;
+			ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_active_player()->get_langue(),"illegal_move")<<"!"<<std::endl;
+			this->get_active_player()->send_msg(ss.str());
+			//again = true;
+			}
+		else{again = false;}
+	}
+	else{
+		if (capt_forced == true){
+			
+			std::stringstream ss;
+			ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_active_player()->get_langue(),"oblige_capt")<<"!"<<std::endl;
+			this->get_active_player()->send_msg(ss.str());
+			
+		}
+	}
+	return again;
+}
+#endif

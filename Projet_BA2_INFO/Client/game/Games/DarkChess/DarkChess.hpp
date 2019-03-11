@@ -24,7 +24,7 @@ class DarkChess : public BaseChess{
 		DarkChess &operator=(const DarkChess &) noexcept = default;
 
 		std::pair<bool, std::string> execute_step() override;
-		std::pair<bool,bool> execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>*) override;
+		std::pair<bool, bool> execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>*) override;
 		using BaseChess::execute_step;
 
     protected:
@@ -39,9 +39,9 @@ class DarkChess : public BaseChess{
 		void affichage() override;
 
 		void make_fog();
-		std::vector<Paire<int, int>> *check_all_mov(Chesspiece *);
+		std::vector<std::pair<int, int>> *check_all_mov(Chesspiece *);
 
-		std::vector<Paire<int, int>>* loop_moves(Chesspiece*, std::string);
+		std::vector<std::pair<int, int>>* loop_moves(Chesspiece*, std::string);
 
 		bool check_non_active_player_king(Chesspiece*) override;
 		

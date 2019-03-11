@@ -64,7 +64,7 @@ void Chesspiece::set_liste_capt(std::vector<AdvTuple>* li){
 
 Decoder* Chesspiece::get_depl(){return this->depl;}
 
-std::vector<Paire<Paire<int,int>,AdvTuple>> Chesspiece::algo(std::string s){
+std::vector<std::pair<std::pair<int,int>,AdvTuple>> Chesspiece::algo(std::string s){
 	if (s == "depl"){return this->depl->decode();}
 	else if (s == "capt"){return this->capt->decode();}
 	else {throw MyException(&mout, "mode invalide pour algo chesspiece");}
@@ -111,17 +111,17 @@ void Decoder::maj(Chesspiece* piece,std::string s){
 	this->posi = this->pe->get_posi();
 }
 
-std::vector<Paire<Paire<int,int>,AdvTuple>> Decoder::decode(){
+std::vector<std::pair<std::pair<int,int>,AdvTuple>> Decoder::decode(){
 	bool updt = false;
 	
-	std::vector<Paire<Paire<int,int>,AdvTuple>>* res = new std::vector<Paire<Paire<int,int>,AdvTuple>>();
+	std::vector<std::pair<std::pair<int,int>,AdvTuple>>* res = new std::vector<std::pair<std::pair<int,int>,AdvTuple>>();
 	
 	for(long long unsigned int i=0;i<this->liste->size();i++){
 		AdvTuple tup = (*(this->liste))[i];
-		std::vector<Paire<int,int>>* vals = tup.get_res(this->limite,*(this->posi));
+		std::vector<std::pair<int,int>>* vals = tup.get_res(this->limite,*(this->posi));
 		for(long long unsigned int j=0;j<vals->size();j++){
-			Paire<Paire<int,int>,AdvTuple>* paire = new Paire<Paire<int,int>,AdvTuple>((*vals)[j],tup);
-			res->push_back(*paire);
+			std::pair<std::pair<int,int>,AdvTuple> paire = std::make_pair((*vals)[j],tup);
+			res->push_back(paire);
 		}
 		
 		if((updt == false) and (tup.need_update() == true)){

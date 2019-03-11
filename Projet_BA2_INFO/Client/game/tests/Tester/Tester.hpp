@@ -29,5 +29,5 @@ class Tester{
         std::vector<Trinome<std::string,std::string,BitypeVar<bool>>> get_actions();
         std::string get_posi_ini();
         
-        Paire<int,int> execute();
+        std::pair<int,int> execute();
 };

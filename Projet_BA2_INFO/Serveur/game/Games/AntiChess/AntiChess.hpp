@@ -12,6 +12,11 @@
 #include "../BaseChess/BaseChess.cpp"
 
 class AntiChess: public BaseChess{
+	private:
+
+		unsigned int cnt_low = 0;
+		unsigned int cnt_high = 0;
+
 	public:
         AntiChess(Player*,Player*,Player*,Dico*); //*< Constructor
         AntiChess() noexcept = default; //*< Constructor
@@ -39,5 +44,14 @@ class AntiChess: public BaseChess{
 		std::string get_affichage_pat() const override;
 		
 		bool check_roc_accept(BitypeVar<Chesspiece*>) const override;
+		
+		// detection de fin de partie
+		bool verify_all_eaten() override;
+		
+		
+		// verif de capture obligatoire
+		bool is_forced_to_cap();
+		std::string get_move_mode(std::string);
+		bool check_illegal_move(std::string,std::string) override;
 };
 #endif

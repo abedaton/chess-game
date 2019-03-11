@@ -9,7 +9,7 @@ MyOstream mout("logfile.txt");
 
 //typedef Trinome<std::string,std::string,BitypeVar<bool>> TriVect;
 
-Paire<int,int> test_tour(){
+std::pair<int,int> test_tour(){
 	
 	TriVect* tri_t_one = new TriVect("A1","B2",BitypeVar<bool>(true,false));
 	TriVect* tri_t_two = new TriVect("A1","B1",BitypeVar<bool>(true,true));
@@ -20,7 +20,7 @@ Paire<int,int> test_tour(){
 	return test_pe<Tour>("Tester Tour",vect,"A1");
 }
 
-Paire<int,int> test_fous(){
+std::pair<int,int> test_fous(){
 	
 	TriVect* tri_one = new TriVect("A1","B2",BitypeVar<bool>(true,true));
 	TriVect* tri_two = new TriVect("B2","C2",BitypeVar<bool>(true,false));
@@ -33,7 +33,7 @@ Paire<int,int> test_fous(){
 	return test_pe<Fous>("Tester Fous",vect,"A1");
 }
 
-Paire<int,int> test_pion(){
+std::pair<int,int> test_pion(){
 	
 	TriVect* tri_one = new TriVect("D2","D4",BitypeVar<bool>(true,true));
 	TriVect* tri_two = new TriVect("D4","D6",BitypeVar<bool>(true,false));
@@ -45,7 +45,7 @@ Paire<int,int> test_pion(){
 	return test_pe<Pion>("Tester Pion",vect,"D2");
 }
 
-Paire<int,int> test_dame(){
+std::pair<int,int> test_dame(){
 	
 	TriVect* tri_one = new TriVect("A1","B2",BitypeVar<bool>(true,true));
 	TriVect* tri_two = new TriVect("B2","B4",BitypeVar<bool>(true,true));
@@ -58,7 +58,7 @@ Paire<int,int> test_dame(){
 	return test_pe<Dame>("Tester Dame",vect,"A1");
 }
 
-Paire<int,int> test_roi(){
+std::pair<int,int> test_roi(){
 	
 	TriVect* tri_one = new TriVect("A1","C3",BitypeVar<bool>(true,false));
 	TriVect* tri_two = new TriVect("A1","B2",BitypeVar<bool>(true,true));
@@ -70,7 +70,7 @@ Paire<int,int> test_roi(){
 	return test_pe<Roi>("Tester Roi",vect,"A1");
 }
 
-Paire<int,int> test_chevalier(){
+std::pair<int,int> test_chevalier(){
 	
 	TriVect* tri_one = new TriVect("D4","E6",BitypeVar<bool>(true,true));
 	TriVect* tri_two = new TriVect("E6","F4",BitypeVar<bool>(true,true));
@@ -82,7 +82,7 @@ Paire<int,int> test_chevalier(){
 	return test_pe<Chevalier>("Tester Chevalier",vect,"D4");
 }
 
-Paire<int,int> test_fonctionnaire(){
+std::pair<int,int> test_fonctionnaire(){
 	
 	TriVect* tri_one = new TriVect("B2","B7",BitypeVar<bool>(true,true));
 	TriVect* tri_two = new TriVect("B7","G7",BitypeVar<bool>(true,true));
@@ -94,7 +94,7 @@ Paire<int,int> test_fonctionnaire(){
 	return test_pe<Fonctionnaire>("Tester Fonctionnaire",vect,"B2");
 }
 
-Paire<int,int> test_garde(){
+std::pair<int,int> test_garde(){
 	
 	TriVect* tri_one = new TriVect("A1","C3",BitypeVar<bool>(true,false));
 	TriVect* tri_two = new TriVect("A1","B2",BitypeVar<bool>(true,true));
@@ -106,7 +106,7 @@ Paire<int,int> test_garde(){
 	return test_pe<Garde>("Tester Garde",vect,"A1");
 }
 
-Paire<int,int> test_faucon(){
+std::pair<int,int> test_faucon(){
 	
 	TriVect* tri_one = new TriVect("B2","B3",BitypeVar<bool>(true,false));
 	TriVect* tri_two = new TriVect("B2","B4",BitypeVar<bool>(true,true));
@@ -120,7 +120,7 @@ Paire<int,int> test_faucon(){
 	return test_pe<Faucon>("Tester Faucon",vect,"B2");
 }
 
-Paire<int,int> test_chancellier(){
+std::pair<int,int> test_chancellier(){
 	
 	TriVect* tri_one = new TriVect("D4","E6",BitypeVar<bool>(true,true));
 	TriVect* tri_two = new TriVect("E6","F4",BitypeVar<bool>(true,true));
@@ -135,7 +135,7 @@ Paire<int,int> test_chancellier(){
 int main(){
 	int final_passed_cnt = 0;
 	int final_tot_cnt = 0;
-	Paire<int,int> paire;
+	std::pair<int,int> paire;
 	
 	paire = test_tour(); //OK
 	final_passed_cnt += paire.first;

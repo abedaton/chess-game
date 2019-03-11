@@ -3,7 +3,7 @@
 
 Posi::Posi(int x,int y) : x(x), y(y){} //*< Constructor
 
-Posi::Posi(Paire<int,int> paire) : x(paire.get_first()), y(paire.get_second()){} //*< Constructor
+Posi::Posi(std::pair<int,int> paire) : x(paire.first), y(paire.second){} //*< Constructor
 
 std::ostream& operator <<(std::ostream &s,Posi &c){
 	/* affchage d'un Posi */

@@ -6,7 +6,7 @@
 
 PlatPosi::PlatPosi(int x,int y) : MatPosi(x,y), row_size(* (new BitypeVar<int>(false,0)) ), col_size(* (new BitypeVar<int>(false,0)) ) {this->check_if_out_plat();} //*< Constructor
 
-PlatPosi::PlatPosi(Paire<int,int> paire) : MatPosi(paire), row_size(* (new BitypeVar<int>(false,0)) ), col_size(* (new BitypeVar<int>(false,0)) ) {this->check_if_out_plat();} //*< Constructor
+PlatPosi::PlatPosi(std::pair<int,int> paire) : MatPosi(paire), row_size(* (new BitypeVar<int>(false,0)) ), col_size(* (new BitypeVar<int>(false,0)) ) {this->check_if_out_plat();} //*< Constructor
 
 PlatPosi::PlatPosi(std::string s) : MatPosi(s), row_size(* (new BitypeVar<int>(false,0)) ), col_size(* (new BitypeVar<int>(false,0)) ) {this->check_if_out_plat();} //*< Constructor
 
@@ -122,12 +122,12 @@ bool PlatPosi::isvalid_coord(std::string s){
 		
 		MatPosi* mpos = new MatPosi(s);
 		
-		Paire<int,int> paire_mpos = mpos->to_pair();
+		std::pair<int,int> paire_mpos = mpos->to_pair();
 		
 		delete mpos;
 		
 		try{
-			this->is_in_plat(paire_mpos.get_first(), paire_mpos.get_second(), this->get_col_size(), this->get_row_size());
+			this->is_in_plat(paire_mpos.first, paire_mpos.second, this->get_col_size(), this->get_row_size());
 			res = true;	
 		}
 		catch (MyException& e){res = false;} // pas vraiment necessaire en theorie

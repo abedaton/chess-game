@@ -17,10 +17,10 @@ void GameIntelligence::make_game(std::string game_type, Player* player_one, Play
 	
 	BaseChess* serv;
 	
-	if (game_type == "classic"){serv = new ClassicChess(player_one,player_two,player_one,dico);} //ClassicChess* 
+	if (game_type == "classic"){serv = new ClassicChess(player_one,player_two,player_one,dico);}
 	else if (game_type == "dark"){serv = new DarkChess(player_one, player_two, player_one, dico);}
 	else if (game_type == "trappist"){serv = new TrappistChess(player_one,player_two,player_one,dico);}
-	else if (game_type == "anti"){throw MyException(&mout,"not implemented yet!");}
+	else if (game_type == "anti"){serv = new AntiChess(player_one,player_two,player_one,dico);}
 	else{throw MyException(&mout,"game_type inconnu!");}
 	this->set_game(serv);
 
@@ -74,7 +74,7 @@ void GameIntelligence::execute_game(){
 		while (not end){
 			std::pair<bool,std::string> result = this->get_game()->execute_step();
 			end = result.first;
-			//std::cout<<"RESULTAT ENVOYE: "<<result.get_second()<<std::endl;
+			//std::cout<<"RESULTAT ENVOYE: "<<result.second<<std::endl;
 		}
 	}	
 	catch(MyException& e){

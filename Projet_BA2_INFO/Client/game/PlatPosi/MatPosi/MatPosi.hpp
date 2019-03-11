@@ -6,11 +6,12 @@
 #include <sstream>
 
 #include "Posi/Posi.cpp"
+#include "../../Interpret/Interpret.cpp"
 
 class MatPosi: public Posi{
 	public:
         MatPosi(int,int); //*< Constructor
-        MatPosi(Paire<int,int>); //*< Constructor
+        MatPosi(std::pair<int,int>); //*< Constructor
         MatPosi(std::string); //*< Constructor
         MatPosi() noexcept = default; //*< Constructor
         ~MatPosi() noexcept = default; //Destructor
@@ -28,7 +29,7 @@ class MatPosi: public Posi{
         void set_lig(int);
         
         std::string to_string();
-        Paire<int,int> to_pair();
+        std::pair<int,int> to_pair();
         
         bool operator<( const MatPosi&) const;
         bool operator<=( const MatPosi&) const;

@@ -4,9 +4,11 @@
 #include <iostream>
 #include <utility>
 
+#include "../Games/AntiChess/AntiChess.cpp"
 #include "../Games/ClassicChess/ClassicChess.cpp"
 #include "../Games/DarkChess/DarkChess.cpp"
 #include "../Games/TrappistChess/TrappistChess.cpp"
+
 
 class GameIntelligence{
 	

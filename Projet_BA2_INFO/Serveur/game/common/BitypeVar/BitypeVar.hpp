@@ -18,8 +18,8 @@ class BitypeVar{
         BitypeVar(); //*< Constructor
         BitypeVar(bool,Type); //*< Constructor
         ~BitypeVar() noexcept = default; //Destructor
-        BitypeVar(const BitypeVar<Type>&) noexcept = default;
-        BitypeVar<Type>& operator= (const BitypeVar<Type>&) noexcept = default;
+        BitypeVar(const BitypeVar&) noexcept = default;
+        BitypeVar& operator= (const BitypeVar&) noexcept = default;
         
         template<typename T>
         friend std::ostream& operator<< (std::ostream &s,BitypeVar<T> &c);

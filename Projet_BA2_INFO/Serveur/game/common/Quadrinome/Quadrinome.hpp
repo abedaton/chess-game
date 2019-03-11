@@ -18,13 +18,13 @@ class Quadrinome: public Trinome<T1,T2,T3>{
         Quadrinome(); //*< Constructor
         Quadrinome(T1,T2,T3,T4); //*< Constructor
         ~Quadrinome() noexcept = default; //Destructor
-        Quadrinome(const Quadrinome<T1,T2,T3,T4>&);
-        Quadrinome<T1,T2,T3,T4>& operator= (const Quadrinome<T1,T2,T3,T4>&) noexcept = default;
+        Quadrinome(const Quadrinome&);
+        Quadrinome& operator= (const Quadrinome<T1,T2,T3,T4>&) noexcept = default;
         
         template<typename S1, typename S2, typename S3, typename S4>
         friend std::ostream& operator<< (std::ostream &s,Quadrinome<S1,S2,S3,S4> &c);
         
-        template<typename S1, typename S2, typename S3, typename S4>
+         template<typename S1, typename S2, typename S3, typename S4>
         friend std::ostream& operator<< (std::ostream &s,Quadrinome<S1,S2,S3,S4>* c);
         
         T4 get_fourth();

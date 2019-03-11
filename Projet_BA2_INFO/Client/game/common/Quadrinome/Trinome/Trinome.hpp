@@ -1,22 +1,24 @@
 #pragma once
 #ifndef TRINOME_HPP
 #define TRINOME_HPP
+#include <iostream>
 #include <string>
 #include <vector>
 
-#include "Paire/Paire.hpp"
-
 template<typename T1, typename T2, typename T3>
-class Trinome: public Paire<T1,T2>{
+class Trinome{
     private:
+		
+		T1 first;
+        T2 second;
         T3 third;
         
 	public:
         Trinome(); //*< Constructor
         Trinome(T1,T2,T3); //*< Constructor
         ~Trinome() noexcept = default; //Destructor
-        Trinome(const Trinome<T1,T2,T3>&);
-        Trinome<T1,T2,T3>& operator= (const Trinome<T1,T2,T3>&) noexcept = default;
+        Trinome(const Trinome&);
+        Trinome& operator= (const Trinome<T1,T2,T3>&) noexcept = default;
         
         template<typename S1, typename S2, typename S3>
         friend std::ostream& operator<< (std::ostream &s,Trinome<S1,S2,S3> &c);
@@ -24,20 +26,24 @@ class Trinome: public Paire<T1,T2>{
         template<typename S1, typename S2, typename S3>
         friend std::ostream& operator<< (std::ostream &s,Trinome<S1,S2,S3>* c);
         
-        T3 get_third() const;
+        T1 get_first();
+        T2 get_second();
+        T3 get_third();
         
+        void set_first(T1);
+        void set_second(T2);
         void set_third(T3);
    
 };
 
 template<typename T1, typename T2, typename T3>
-Trinome<T1,T2,T3>::Trinome() : Paire<T1,T2>(), third(T3()) {}
+Trinome<T1,T2,T3>::Trinome() : first(T1()), second(T1()), third(T3()) {}
 
 template<typename T1, typename T2, typename T3>
-Trinome<T1,T2,T3>::Trinome(T1 one, T2 two, T3 three) : Paire<T1,T2>(one,two), third(three) {}
+Trinome<T1,T2,T3>::Trinome(T1 one, T2 two, T3 three) : first(one), second(two), third(three) {}
 
 template<typename T1, typename T2, typename T3>
-Trinome<T1,T2,T3>::Trinome(const Trinome<T1,T2,T3>& tri) : Paire<T1,T2>(tri), third(tri.third) {}
+Trinome<T1,T2,T3>::Trinome(const Trinome<T1,T2,T3>& tri) : first(tri.first), second(tri.second), third(tri.third) {}
 
 template<typename S1, typename S2, typename S3>
 std::ostream& operator <<(std::ostream &s,Trinome<S1,S2,S3> &c){
@@ -59,7 +65,20 @@ std::ostream& operator <<(std::ostream &s,Trinome<S1,S2,S3>* c){
 }
 
 template<typename T1, typename T2, typename T3>
-T3 Trinome<T1,T2,T3>::get_third() const {return this->third;}
+T1 Trinome<T1,T2,T3>::get_first(){return this->first;}
+
+template<typename T1, typename T2, typename T3>
+T2 Trinome<T1,T2,T3>::get_second(){return this->second;}
+
+template<typename T1, typename T2, typename T3>
+T3 Trinome<T1,T2,T3>::get_third(){return this->third;}
+
+
+template<typename T1, typename T2, typename T3>
+void Trinome<T1,T2,T3>::set_first(T1 fi){this->first = fi;}
+
+template<typename T1, typename T2, typename T3>
+void Trinome<T1,T2,T3>::set_second(T2 sec){this->second = sec;}
 
 template<typename T1, typename T2, typename T3>
 void Trinome<T1,T2,T3>::set_third(T3 thi){this->third = thi;}

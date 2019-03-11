@@ -7,7 +7,7 @@
 
 MatPosi::MatPosi(int x,int y) : Posi(x,y) {} //*< Constructor
 
-MatPosi::MatPosi(Paire<int,int> paire) : Posi(paire) {} //*< Constructor
+MatPosi::MatPosi(std::pair<int,int> paire) : Posi(paire) {} //*< Constructor
 
 MatPosi::MatPosi(std::string s) : Posi(0,0) {
 	
@@ -74,10 +74,10 @@ std::string MatPosi::to_string(){
 	return res;
 }
 
-Paire<int,int> MatPosi::to_pair(){
+std::pair<int,int> MatPosi::to_pair(){
 	
-	Paire<int,int>* res = new Paire<int,int>(this->get_col(),this->get_lig());
-	return *res;
+	std::pair<int,int> res = std::make_pair(this->get_col(),this->get_lig());
+	return res;
 }
 
 bool MatPosi::operator<( const MatPosi& mp ) const {

@@ -14,7 +14,7 @@ class PlatPosi: public MatPosi{
 	
 	public:
         PlatPosi(int,int); //*< Constructor
-        PlatPosi(Paire<int,int>); //*< Constructor
+        PlatPosi(std::pair<int,int>); //*< Constructor
         PlatPosi(std::string); //*< Constructor
         PlatPosi(std::string,BitypeVar<int>,BitypeVar<int>); //*< Constructor
         PlatPosi(std::string,BitypeVar<int>); //*< Constructor

@@ -52,7 +52,7 @@ class Chesspiece{
         
         Decoder* get_depl();
         
-        std::vector<Paire<Paire<int,int>,AdvTuple>> algo(std::string);
+        std::vector<std::pair<std::pair<int,int>,AdvTuple>> algo(std::string);
         
         Player* get_owner();
         void set_owner(Player*);
@@ -88,7 +88,7 @@ class Decoder{
         int get_limite();
         
         void maj(Chesspiece*,std::string);
-        std::vector<Paire<Paire<int,int>,AdvTuple>> decode();
+        std::vector<std::pair<std::pair<int,int>,AdvTuple>> decode();
         
 };
 #endif

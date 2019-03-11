@@ -5,14 +5,14 @@ extern MyOstream mout;
 
 // ----------------FONCTION HORS PLATEAU---------------------------
 
-bool detect_pair_in_list_of_pairs(std::vector<Paire<int,int>> liste ,Paire<int,int> paire){
+bool detect_pair_in_list_of_pairs(std::vector<std::pair<int,int>> liste ,std::pair<int,int> paire){
 	/* fonction qui détecte une paire dans une liste de paires */
 	
 	bool found = false;
 	for(long long unsigned int i=0;(i<(liste.size()) and (found == false));i++){
-		Paire<int,int> comp = liste[i];
+		std::pair<int,int> comp = liste[i];
 		
-		if ((found == false) and (comp.get_first() == paire.get_first()) and (comp.get_second() == paire.get_second())){
+		if ((found == false) and (comp.first == paire.first) and (comp.second == paire.second)){
 			found = true;
 		}
 	}
@@ -20,15 +20,15 @@ bool detect_pair_in_list_of_pairs(std::vector<Paire<int,int>> liste ,Paire<int,i
 	return found;
 }
 
-bool detect_pair_in_list_of_double_pairs(std::vector<Paire<Paire<int,int>,AdvTuple>> liste ,Paire<int,int> paire){
+bool detect_pair_in_list_of_double_pairs(std::vector<std::pair<std::pair<int,int>,AdvTuple>> liste ,std::pair<int,int> paire){
 	/* fonction qui détecte une paire dans une liste de doubles paires
 	 * dans la double paire il y a une paire et un Advtuple dont on se fout pour cette recherche*/
 	
 	bool found = false;
 	for(long long unsigned int i=0;(i<(liste.size()) and (found == false));i++){
-		Paire<int,int> comp = liste[i].get_first();
+		std::pair<int,int> comp = liste[i].first;
 		
-		if ((found == false) and (comp.get_first() == paire.get_first()) and (comp.get_second() == paire.get_second())){
+		if ((found == false) and (comp.first == paire.first) and (comp.second == paire.second)){
 			found = true;
 		}
 	}
@@ -81,11 +81,11 @@ Plateau::Plateau(const Plateau& plat): taille(plat.taille), board(nullptr){
 	
 	for(int i=0;i<plat.taille;i++){
 		for(int j=0;j<plat.taille;j++){
-			Paire<int,int>* paire = new Paire<int,int>(j,i);
-			BitypeVar<Chesspiece*> bi_var = plat.get_piece(*paire);
+			std::pair<int,int> paire = std::make_pair(j,i);
+			BitypeVar<Chesspiece*> bi_var = plat.get_piece(paire);
 			if (bi_var.get_state() == true){
 				Chesspiece* pe = bi_var.get_var();
-				this->set_piece(*paire,&(*(pe)));
+				this->set_piece(paire,&(*(pe)));
 			}
 		}
 	}
@@ -113,12 +113,12 @@ int Plateau::get_taille() const {return this->taille;}
 
 std::vector<BitypeVar<Chesspiece*>> Plateau::get_row(int ligne){return (*this->board)[ligne];}
 
-void Plateau::set_piece(Paire<int,int> paire,Chesspiece* c,bool initial){
+void Plateau::set_piece(std::pair<int,int> paire,Chesspiece* c,bool initial){
 	/* fonction qui place une piece a un endroit peu importe de ce qui se trouve catuellement a cet endroit
 	 * cette fonction met aussi a jour les caractèristique de la piece */
 	
-	int colonne = paire.get_first();
-	int ligne = paire.get_second();
+	int colonne = paire.first;
+	int ligne = paire.second;
 	
 	Posi* new_posi = new Posi(colonne,ligne);
 	
@@ -133,13 +133,13 @@ void Plateau::set_piece(Paire<int,int> paire,Chesspiece* c,bool initial){
 	((*this->board)[ligne])[colonne] = *(tup_c);
 }
 
-void Plateau::set_piece(Paire<int,int> paire,Chesspiece* c){return this->set_piece(paire,c,false);}
+void Plateau::set_piece(std::pair<int,int> paire,Chesspiece* c){return this->set_piece(paire,c,false);}
 
-BitypeVar<Chesspiece*> Plateau::get_piece(Paire<int,int> paire) const{
+BitypeVar<Chesspiece*> Plateau::get_piece(std::pair<int,int> paire) const{
 	/* fonction qui permet de recuperer une piece se trouvant a une coordonée donnée */
 	 
-	int colonne = paire.get_first();
-	int ligne = paire.get_second();
+	int colonne = paire.first;
+	int ligne = paire.second;
 	
 	return ((*this->board)[ligne])[colonne];
 }
@@ -168,7 +168,7 @@ std::string Plateau::get_limited_mode(std::string mode) const{
 
 }
 
-bool Plateau::isvalid_move(Paire<int,int> paire_in, Paire<int,int> paire_out, std::string mode){
+bool Plateau::isvalid_move(std::pair<int,int> paire_in, std::pair<int,int> paire_out, std::string mode){
 	/* fonction qui verifie si un mouvement est valdide */
 	bool res;
 	
@@ -181,7 +181,7 @@ bool Plateau::isvalid_move(Paire<int,int> paire_in, Paire<int,int> paire_out, st
 	
 	std::string limited_mode = this->get_limited_mode(mode);
 
-	std::vector<Paire<Paire<int,int>,AdvTuple>> res_pe = pe->algo(limited_mode); //<----------------------------------------------------------------------------------------------
+	std::vector<std::pair<std::pair<int,int>,AdvTuple>> res_pe = pe->algo(limited_mode); //<----------------------------------------------------------------------------------------------
 	res = detect_pair_in_list_of_double_pairs(res_pe,paire_out);
 	
 	if (mode == "depl"){res = res and (tup_pe_out.get_state() == false);}
@@ -237,20 +237,20 @@ bool Plateau::isvalid_move(Paire<int,int> paire_in, Paire<int,int> paire_out, st
 	
 }
 
-bool Plateau::isvalid_move(Paire<int,int> paire_in, Paire<int,int> paire_out){
+bool Plateau::isvalid_move(std::pair<int,int> paire_in, std::pair<int,int> paire_out){
 	/* fonction surchargée, qui permet d'ommettre le string indiquant le mode */
 	
 	return this->isvalid_move(paire_in, paire_out, "");
 }
 
-bool Plateau::move(Paire<int,int> paire_in,Paire<int,int> paire_out){
+bool Plateau::move(std::pair<int,int> paire_in,std::pair<int,int> paire_out){
 	/* fonction qui déplace une piece vers une coordonée donnée en vérifiant au préalable si le mouvement est valide */
 	
-	int col_in = paire_in.get_first();
-	int lig_in = paire_in.get_second();
+	int col_in = paire_in.first;
+	int lig_in = paire_in.second;
 
-	int col_out = paire_out.get_first();
-	int lig_out = paire_out.get_second();
+	int col_out = paire_out.first;
+	int lig_out = paire_out.second;
 	
 	BitypeVar<Chesspiece*> tup_pe = get_piece(paire_in);
 	
@@ -284,14 +284,14 @@ bool Plateau::move(Paire<int,int> paire_in,Paire<int,int> paire_out){
 	return moved;
 }
 
-bool Plateau::switch_positions(Paire<int,int> paire_in,Paire<int,int> paire_out){
+bool Plateau::switch_positions(std::pair<int,int> paire_in,std::pair<int,int> paire_out){
 	/* fonction qui inverse la position de 2 pieces sur le plateau */
 	
-	int col_in = paire_in.get_first();
-	int lig_in = paire_in.get_second();
+	int col_in = paire_in.first;
+	int lig_in = paire_in.second;
 
-	int col_out = paire_out.get_first();
-	int lig_out = paire_out.get_second();
+	int col_out = paire_out.first;
+	int lig_out = paire_out.second;
 	
 	BitypeVar<Chesspiece*> tup_pe_in = get_piece(paire_in);
 	
@@ -327,15 +327,15 @@ bool Plateau::switch_positions(Paire<int,int> paire_in,Paire<int,int> paire_out)
 	return moved;
 }
 
-bool Plateau::verify_in_board(Paire<int,int> paire){
+bool Plateau::verify_in_board(std::pair<int,int> paire){
 	/* fonction qui vérifie si une coordonée se trouve dans le tableau */
-	int col = paire.get_first();
-	int lig = paire.get_second();
+	int col = paire.first;
+	int lig = paire.second;
 	
 	return (col >= 0 and col < this->taille and lig >= 0 and lig < this->taille);
 }
 
-bool Plateau::is_empty_location(Paire<int,int> paire){
+bool Plateau::is_empty_location(std::pair<int,int> paire){
 	/* fonction qui vérifie si a une coordonée ne se trouve pas une piece */
 	return (not(this->get_piece(paire)).get_state());
 }
