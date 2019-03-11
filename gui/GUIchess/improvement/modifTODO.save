@@ -1,6 +1,0 @@
--Centrer le layout du FenPrincipal et.ou rajouter une image
--Reset le Login et le register quand on cancel/register
--Améliorer la taille des boutons 
-
-/!\ LE JEU PRINCIPALE
-_statusBar->showMessage("Username and password are correct", 5000);
