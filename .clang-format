@@ -1,4 +1,5 @@
 BasedOnStyle: LLVM
+AllowShortFunctionsOnASingleLine: false
 IndentWidth: 4
 AccessModifierOffset: 0
 ColumnLimit: 180
