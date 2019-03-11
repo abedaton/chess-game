@@ -17,3 +17,12 @@ void PlateauBox::setFirstColor(QColor color){
     _color = color;
     setColor(_color);
 }
+
+void PlateauBox::setPosition(int x, int y){
+    _pos = std::pair<int,int>(x,y);
+}
+
+void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent *event){
+    //std::cout << _pos.first() << "," << _pos.second() << std::endl;
+    setColor(Qt::green);
+}

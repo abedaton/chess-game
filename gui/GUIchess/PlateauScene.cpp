@@ -9,6 +9,9 @@ PlateauScene::PlateauScene(int size, QWidget* parent) : _size(size), QGraphicsVi
     setScene(_scene);
 
     setBoxes(0,100,65);
+    int moves[] = {1,2,3,4};
+
+    showMoves(moves);
 }
 
 void PlateauScene::setBoxes(int x, int y, int sideLenght){
@@ -24,11 +27,21 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght){
                 box->setFirstColor(Qt::white);
             else
                 box->setFirstColor(Qt::black);
-
+            box->setPosition(i,j);
             _boxes[i][j] = box;
             _scene->addItem(box);
         }
         curr_y += sideLenght;
+    }
+
+}
+
+void PlateauScene::showMoves(int* moves){
+    int x, y;
+    for(int i=0; i<4; ++i){
+        x=moves[i];
+        y=moves[i];
+        _boxes[x][y]->setColor(Qt::red);
     }
 
 }

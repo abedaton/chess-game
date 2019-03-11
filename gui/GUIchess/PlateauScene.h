@@ -11,6 +11,7 @@ class PlateauScene : public QGraphicsView {
 public:
     explicit PlateauScene(int size = 8, QWidget* parent = nullptr);
     void setBoxes(int x, int y, int sideLenght);
+    void showMoves(int *moves = nullptr);
 private:
     const int _size;
 
