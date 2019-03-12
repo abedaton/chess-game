@@ -1,2 +1,4 @@
+
 .vscode
-.qmake.stash
+gui/bin/
+gui/.qmake.stash

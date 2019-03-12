@@ -1,12 +1,6 @@
 #include "FenPrincipale.h"
 
 FenPrincipale::FenPrincipale() {
-    _stack = new QStackedWidget(this);
-    _statusBar = new QStatusBar(this);
-    _register = new Register(this);
-    _login = new Login(this);
-    _gameWindow = new GameWindow(this);
-
     init_window();
     init_connect();
     init_stack();
@@ -17,7 +11,10 @@ FenPrincipale::FenPrincipale() {
 
 void FenPrincipale::init_window() {
     setWindowTitle("On Veut Pas D'Échec");
+    setWindowIcon(QIcon("img/chess_icon.png"));
+    setStyleSheet("background-image:url(img/retro_space.png)");
     resize(QDesktopWidget().availableGeometry(this).size() * 0.5);
+    _statusBar = new QStatusBar(this);
     setStatusBar(_statusBar);
     MenuBar();
 }
@@ -34,6 +31,10 @@ void FenPrincipale::init_connect() {
 }
 
 void FenPrincipale::init_stack() {
+    _register = new Register(this);
+    _login = new Login(this);
+    _gameWindow = new GameWindow(this);
+    _stack = new QStackedWidget(this);
     _stack->addWidget(_login);
     _stack->addWidget(_register);
     _stack->addWidget(_gameWindow);

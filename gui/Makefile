@@ -379,11 +379,11 @@ bin/moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 compiler_moc_header_make_all: bin/moc_FenPrincipale.cpp bin/moc_GameWindow.cpp bin/moc_Login.cpp bin/moc_Register.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) bin/moc_FenPrincipale.cpp bin/moc_GameWindow.cpp bin/moc_Login.cpp bin/moc_Register.cpp
-bin/moc_FenPrincipale.cpp: incl/Login.h \
-		incl/Register.h \
-		incl/GameWindow.h \
+bin/moc_FenPrincipale.cpp: incl/GameWindow.h \
+		incl/Login.h \
 		incl/PlateauScene.h \
 		incl/PlateauBox.h \
+		incl/Register.h \
 		incl/FenPrincipale.h \
 		bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -421,11 +421,11 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 ####### Compile
 
 bin/FenPrincipale.o: src/FenPrincipale.cpp incl/FenPrincipale.h \
-		incl/Login.h \
-		incl/Register.h \
 		incl/GameWindow.h \
+		incl/Login.h \
 		incl/PlateauScene.h \
-		incl/PlateauBox.h
+		incl/PlateauBox.h \
+		incl/Register.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/FenPrincipale.o src/FenPrincipale.cpp
 
 bin/GameWindow.o: src/GameWindow.cpp incl/GameWindow.h
@@ -435,11 +435,11 @@ bin/Login.o: src/Login.cpp incl/Login.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/Login.o src/Login.cpp
 
 bin/main.o: src/main.cpp incl/FenPrincipale.h \
-		incl/Login.h \
-		incl/Register.h \
 		incl/GameWindow.h \
+		incl/Login.h \
 		incl/PlateauScene.h \
-		incl/PlateauBox.h
+		incl/PlateauBox.h \
+		incl/Register.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/main.o src/main.cpp
 
 bin/PlateauBox.o: src/PlateauBox.cpp incl/PlateauBox.h
