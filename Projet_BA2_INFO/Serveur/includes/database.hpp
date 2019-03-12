@@ -42,6 +42,7 @@ class Database{
         bool selectData(std::string sql);
         static int myCallback(void* pUser, int argc, char** argv, char** columns);
         static int callback(void* NotUsed, int argc, char** argv, char** columns);
+        static int callbackDisc(void* NotUsed, int argc, char** argv, char** columns);
         sqlite3* db;
 };
 

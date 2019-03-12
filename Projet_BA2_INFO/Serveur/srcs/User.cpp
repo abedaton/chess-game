@@ -16,7 +16,7 @@ void User::startGame(BaseChess* game, AbstractUser* oppenent, bool turn){
 }
 
 void User::surrend(){
-    //To Do
+    //TO DO
 }
 
 void User::opponentMov(std::string mov){
@@ -85,6 +85,7 @@ void User::mov(){
       this->_myTurn = false;
     }
     if (std::get<1>(pAnswer)){ //end
+      std::cout << "ok cool" << std::endl;
       this->_game = nullptr;
       ;;//To Do
     }
@@ -99,18 +100,16 @@ void User::exit() {
     bool found = false;
     
     //on enleve l'utilisateur du vector des joueurs connectés
-    while(found == false && i < onlineUsers.size())
-    {
+    while(found == false && i < onlineUsers.size()){
         if(onlineUsers[i] != this)
             i++;
-        else
-            {
+        else{
                 found = true;
                 onlineUsers.erase(onlineUsers.begin() + i);
-            }
+        }
     }
     
-    pthread_exit(0);
+    std::cout << "updateUserDisc" << std::endl;
     this->_db->updateUserDisc(this->name);
     pthread_exit(0);
 }
