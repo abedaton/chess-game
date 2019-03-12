@@ -1,4 +1,4 @@
 
 .vscode
-gui/bin/
+gui/bin/*
 gui/.qmake.stash

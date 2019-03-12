@@ -2,8 +2,8 @@
 
 FenPrincipale::FenPrincipale() {
     init_window();
-    init_connect();
     init_stack();
+    init_connect();
 
     setCentralWidget(_stack);
     goToLogIn();
@@ -12,7 +12,7 @@ FenPrincipale::FenPrincipale() {
 void FenPrincipale::init_window() {
     setWindowTitle("On Veut Pas D'Échec");
     setWindowIcon(QIcon("img/chess_icon.png"));
-    setStyleSheet("background-image:url(img/retro_space.png)");
+    // setStyleSheet("background-image:url(img/retro_space.png)");
     resize(QDesktopWidget().availableGeometry(this).size() * 0.5);
     _statusBar = new QStatusBar(this);
     setStatusBar(_statusBar);
