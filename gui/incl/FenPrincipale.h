@@ -1,21 +1,21 @@
 #ifndef FENPRINCIPALE_H
 #define FENPRINCIPALE_H
-#include <QtWidgets>
-#include "Login.h"
-#include "Register.h"
 #include "GameWindow.h"
+#include "Login.h"
 #include "PlateauScene.h"
+#include "Register.h"
+#include <QtWidgets>
 #include <iostream>
 
-class FenPrincipale : public QMainWindow{
+class FenPrincipale : public QMainWindow {
 
     Q_OBJECT
 
-public:
+    public:
     FenPrincipale();
     void MenuBar();
 
-public slots:
+    public slots:
     void checkSignIn();
     void checkRegister();
     void goToRegister();
@@ -23,15 +23,17 @@ public slots:
     void goToGame();
     void goToClassic();
 
-private:
-    QMenu* _menuReglages;
+    private:
+    void init_window();
+    void init_connect();
+    void init_stack();
+    QMenu *_menuReglages;
     QStatusBar *_statusBar;
-    Login* _login;
-    Register* _register;
-    QStackedWidget* _stack;
-    GameWindow* _gameWindow;
-    PlateauScene* _classicWindow;
+    Login *_login;
+    Register *_register;
+    QStackedWidget *_stack;
+    GameWindow *_gameWindow;
+    PlateauScene *_classicWindow;
 };
-
 
 #endif // FENPRINCIPALE_H

@@ -3,20 +3,25 @@
 
 #include <QtWidgets>
 
-class GameWindow : public QWidget
-{
+class GameWindow : public QWidget {
     Q_OBJECT
-public:
+    public:
     explicit GameWindow(QWidget *parent = nullptr);
-    QPushButton* getClassicButton() const;
+    QPushButton *getClassicButton() const;
+    QPushButton *getDarkButton() const;
+    QPushButton *getTrapistButton() const;
+    QPushButton *getAntiButton() const;
 
-private:
-    QPushButton* _classicButton;
-    QPushButton* _darkButton;
-    QPushButton* _trapistButton;
-    QPushButton* _antiButton;
+    private:
+    void init_pushButton();
+    void init_layout();
 
-    QGridLayout* _gbox;
+    QPushButton *_classicButton;
+    QPushButton *_darkButton;
+    QPushButton *_trapistButton;
+    QPushButton *_antiButton;
+
+    QGridLayout *_gbox;
 };
 
 #endif // GAMEWINDOW_H
