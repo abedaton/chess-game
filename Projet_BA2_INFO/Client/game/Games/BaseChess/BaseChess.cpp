@@ -2274,6 +2274,7 @@ std::pair<bool,bool> BaseChess::execute_step(std::string merged_coords,bool inve
 	
 	std::string in = res_trinome->get_first();
 	std::string out = res_trinome->get_second();
+	bool is_roc = res_trinome->get_third();
 	
 	BitypeVar<int>* bit_taille = new BitypeVar<int>(true,this->get_plateau()->get_taille());
 	
@@ -2300,7 +2301,8 @@ std::pair<bool,bool> BaseChess::execute_step(std::string merged_coords,bool inve
 		valid_coords = false;
 	}
 
-	BitypeVar<Trinome<std::string,std::string,bool>*>* bit_res = new BitypeVar<Trinome<std::string,std::string,bool>*>(valid_coords,res_trinome);
+	Trinome<std::string,std::string,bool>* nouv_trinome = new Trinome<std::string,std::string,bool>(in,out,is_roc);
+	BitypeVar<Trinome<std::string,std::string,bool>*>* bit_res = new BitypeVar<Trinome<std::string,std::string,bool>*>(valid_coords,nouv_trinome);//res_trinome
 	
 	return this->execute_step(bit_res);
 }
