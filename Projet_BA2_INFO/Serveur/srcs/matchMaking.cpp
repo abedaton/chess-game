@@ -59,8 +59,11 @@ void MatchMaking::poolSort(int gameMod){
                     break;
             }
             std::cout << "Launching Game" << std::endl;
-            player1->startGame(game, player2, true);
-            player2->startGame(game, player1, false);
+            
+            TourParTour* tt_game = new TourParTour(game);
+            
+            player1->startGame(tt_game, player2, true);
+            player2->startGame(tt_game, player1, false);
         }
     }
 }

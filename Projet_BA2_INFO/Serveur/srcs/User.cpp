@@ -5,7 +5,7 @@ User::User(int client_sock, Database* db, MatchMaking* match) : _clientSock(clie
     pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
 }
 
-void User::startGame(BaseChess* game, AbstractUser* oppenent, bool turn){
+void User::startGame(TempsReel* game, AbstractUser* oppenent, bool turn){
     this->_game = game;
     this->_opponent = oppenent;
     this->_myTurn = turn;

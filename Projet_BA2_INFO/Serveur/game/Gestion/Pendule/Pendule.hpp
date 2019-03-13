@@ -13,7 +13,8 @@ class Pendule: public TempsReel {
         Pendule(const Pendule&) noexcept = default;
         Pendule& operator= (const Pendule&) noexcept = default;
         
-        bool execute_step() override;
+        std::pair<bool,std::string> execute_step() override;
+        std::pair<bool,bool> execute_step(std::string,std::string) override;
 
 };
 #endif

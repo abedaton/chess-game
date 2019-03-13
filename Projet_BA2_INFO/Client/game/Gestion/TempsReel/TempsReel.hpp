@@ -20,7 +20,8 @@ class TempsReel {
         TempsReel(const TempsReel&) noexcept = default;
         TempsReel& operator= (const TempsReel&) noexcept = default;
         
-        virtual bool execute_step();
+        virtual std::pair<bool,std::string> execute_step();
+        virtual std::pair<bool,bool> execute_step(std::string,std::string);
         
 	protected:
         BaseChess* get_game() const;

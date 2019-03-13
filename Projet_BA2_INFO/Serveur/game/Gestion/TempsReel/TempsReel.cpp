@@ -9,12 +9,13 @@
 
 TempsReel::TempsReel(BaseChess* jeu) : game(jeu){} //*< Constructor
 
-bool TempsReel::execute_step(){
+std::pair<bool,std::string> TempsReel::execute_step(){
+	return this->get_game()->execute_step();
 	
-	std::pair<bool,std::string> result = this->get_game()->execute_step();
-	bool end = result.first;
-	
-	return end;
+}
+
+std::pair<bool,bool> TempsReel::execute_step(std::string merged_coords,std::string player_name){
+	return this->get_game()->execute_forced_step(merged_coords,player_name);
 	
 }
 

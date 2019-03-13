@@ -25,7 +25,7 @@ class User: public AbstractUser{
         User(const User&) = delete;
         User& operator= (const User&) noexcept = delete;
 
-		void startGame(BaseChess*, AbstractUser*, bool) override;
+		void startGame(TempsReel*, AbstractUser*, bool) override;
 		void opponentMov(std::string mov)override;
 		void surrend() override;
 		void sendMsg(std::string msg) override;
@@ -42,7 +42,7 @@ class User: public AbstractUser{
 		int _clientSock;
 		Database* _db;
 		MatchMaking* _match;
-		BaseChess* _game;
+		TempsReel* _game;
 		AbstractUser* _opponent;
 		bool _myTurn;
 

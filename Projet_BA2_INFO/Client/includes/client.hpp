@@ -26,7 +26,7 @@ class Client: AbstractClient {
 		void printMessage(std::string) override;
 	private:
 		Request* _request;
-		BaseChess* _game;
+		TempsReel* _game; // TempsReel est une classe commune entre TempsReel, TourParTour et Pendule -quentin
 		std::string _username;
 		bool _gameStart;
 		bool _myTurn;

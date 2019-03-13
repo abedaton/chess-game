@@ -18,9 +18,9 @@ void GameIntelligence::make_game(std::string game_type, Player* player_one, Play
 	BaseChess* serv;
 	
 	if (game_type == "classic"){serv = new ClassicChess(player_one,player_two,player_one,dico);}
-	//else if (game_type == "dark"){serv = new DarkChess(player_one, player_two, player_one, dico);}
-	//else if (game_type == "trappist"){serv = new TrappistChess(player_one,player_two,player_one,dico);}
-	//else if (game_type == "anti"){serv = new AntiChess(player_one,player_two,player_one,dico);}
+	else if (game_type == "dark"){serv = new DarkChess(player_one, player_two, player_one, dico);}
+	else if (game_type == "trappist"){serv = new TrappistChess(player_one,player_two,player_one,dico);}
+	else if (game_type == "anti"){serv = new AntiChess(player_one,player_two,player_one,dico);}
 	else{throw MyException(&mout,"game_type inconnu!");}
 	
 	TourParTour* big_game = new TourParTour(serv);
@@ -74,7 +74,8 @@ void GameIntelligence::execute_game(){
 	try{
 		bool end = false;
 		while (not end){
-			end = this->get_game()->execute_step();
+			std::pair<bool,std::string> result = this->get_game()->execute_step();
+			end = result.first;
 			//std::cout<<"RESULTAT ENVOYE: "<<result.second<<std::endl;
 		}
 	}	
