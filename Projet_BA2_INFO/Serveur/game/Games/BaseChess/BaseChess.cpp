@@ -370,6 +370,14 @@ Player* BaseChess::get_other_player(Player* play) const {
 Player* BaseChess::get_active_player() const {return this->active_player;}
 Player* BaseChess::get_non_active_player() const {return this->get_other_player(this->get_active_player());}
 
+Player* BaseChess::get_player(std::string play_str){
+	
+	if (play_str == this->get_low_player()->get_name()){return this->get_low_player();}
+	else if (play_str == this->get_high_player()->get_name()){return this->get_high_player();}
+	else{throw MyException(&mout, " joueur inconnu dans get player (std::string)");}
+
+}
+
 void  BaseChess::set_active_player(Player* a){this->active_player = a;}
 void  BaseChess::set_low_player(Player* l){this->low_player = l;}
 void  BaseChess::set_high_player(Player* h){this->high_player = h;}
@@ -2268,7 +2276,9 @@ Trinome<std::string,std::string,bool>* BaseChess::decode_merged_string(std::stri
 	
 }
 
-std::pair<bool,bool> BaseChess::execute_step(std::string merged_coords,bool invert_y){
+//---------------------
+
+std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bool invert_y,Player* play){
 		
 	Trinome<std::string,std::string,bool>* res_trinome = this->decode_merged_string(merged_coords);
 	
@@ -2304,27 +2314,79 @@ std::pair<bool,bool> BaseChess::execute_step(std::string merged_coords,bool inve
 	Trinome<std::string,std::string,bool>* nouv_trinome = new Trinome<std::string,std::string,bool>(in,out,is_roc);
 	BitypeVar<Trinome<std::string,std::string,bool>*>* bit_res = new BitypeVar<Trinome<std::string,std::string,bool>*>(valid_coords,nouv_trinome);//res_trinome
 	
-	return this->execute_step(bit_res);
+	return this->execute_forced_step(bit_res,play);
 }
 
-std::pair<bool,bool> BaseChess::execute_step(std::string merged_coords,bool invert_y,std::string player_name){
+std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bool invert_y,std::string player_name,Player* play){
 	
 	(void)player_name;
 	//if (this->get_active_player()->get_name() != player_name){throw MyException(&mout,"execution impossible, ce n'est pas le tour de ce joueur");}
 	
-	return this->execute_step(merged_coords,invert_y);
+	return this->execute_forced_step(merged_coords,invert_y,play);
 	
 }
 
-std::pair<bool,bool> BaseChess::execute_step(std::string merged_coords,std::string player_name){
+std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,std::string player_name,Player* play){
 	
-	return this->execute_step(merged_coords,false,player_name);
+	return this->execute_forced_step(merged_coords,false,player_name,play);
 	
 }
 
-std::pair<bool,bool> BaseChess::execute_step(std::string merged_coords){	
-	return this->execute_step(merged_coords,false);
+std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,Player* play){	
+	return this->execute_forced_step(merged_coords,false,play);
 }
+
+//--------------------
+
+
+std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bool invert_y){
+	
+	return this->execute_forced_step(merged_coords,invert_y,this->get_active_player());
+	
+}
+
+std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bool invert_y,std::string player_name){
+	
+	return this->execute_forced_step(merged_coords,invert_y,player_name,this->get_active_player());
+		
+}
+
+std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,std::string player_name){
+	
+	return this->execute_forced_step(merged_coords,player_name,this->get_active_player());
+	
+}
+
+std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords){
+	return this->execute_forced_step(merged_coords,this->get_active_player());
+}
+
+//***********************************************************
+
+std::pair<bool,bool> BaseChess::execute_forced_step_play(std::string merged_coords,bool invert_y,std::string str_play){
+	
+	return this->execute_forced_step(merged_coords,invert_y,this->get_player(str_play));
+	
+}
+
+std::pair<bool,bool> BaseChess::execute_forced_step_play(std::string merged_coords,bool invert_y,std::string player_name,std::string str_play){
+	
+	return this->execute_forced_step(merged_coords,invert_y,player_name,this->get_player(str_play));
+		
+}
+
+std::pair<bool,bool> BaseChess::execute_forced_step_play(std::string merged_coords,std::string player_name,std::string str_play){
+	
+	return this->execute_forced_step(merged_coords,player_name,this->get_player(str_play));
+	
+}
+
+std::pair<bool,bool> BaseChess::execute_forced_step_play(std::string merged_coords,std::string str_play){
+	return this->execute_forced_step(merged_coords,this->get_player(str_play));
+}
+//****************************************
+
+
 
 bool BaseChess::check_pat(){
 	
@@ -2396,8 +2458,10 @@ bool BaseChess::exec_step(std::string in, std::string out, BitypeVar<Chesspiece*
 	
 	this->affichage();
 	
-	if (not end and not abandon and not pat){this->change_active_player();}
-	else{this->affichage_resultat(end, abandon, pat);}
+	//if (not end and not abandon and not pat){this->change_active_player();}
+	//else{this->affichage_resultat(end, abandon, pat);}
+	
+	if (end or abandon or pat) {this->affichage_resultat(end, abandon, pat);}
 	
 	this->inc_action_cnt();
 
@@ -2406,5 +2470,15 @@ bool BaseChess::exec_step(std::string in, std::string out, BitypeVar<Chesspiece*
 }
 
 bool BaseChess::check_roc_accept(BitypeVar<Chesspiece*> in_pe) const {return (verifier_type_pe<Roi>(in_pe) or verifier_type_pe<Tour>(in_pe));}
+
+std::pair<bool,std::string> BaseChess::execute_step(std::string str_play){return this->execute_step(this->get_player(str_play));}
+std::pair<bool,std::string> BaseChess::execute_step(){return this->execute_step(this->get_active_player());}
+
+std::pair<bool,bool> BaseChess::execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>* bit,std::string str_play){
+	return this->execute_forced_step(bit,this->get_player(str_play));
+}
+std::pair<bool,bool> BaseChess::execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>* bit){
+	return this->execute_forced_step(bit,this->get_active_player());
+}
 
 #endif

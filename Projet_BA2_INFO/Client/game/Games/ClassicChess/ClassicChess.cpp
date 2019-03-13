@@ -141,9 +141,11 @@ void ClassicChess::affichage(){
 	this->get_active_player()->send_msg(aff->get_affichage(),true);
 }
 
-std::pair<bool,std::string> ClassicChess::execute_step(){
+std::pair<bool,std::string> ClassicChess::execute_step(Player* play){
 	
 	/* fonction principale du jeu, boucle d'execution qui est lancé pour débuté le jeu et qui lorsque se termine termine le jeu*/
+	
+	this->set_active_player(play);
 	
 	bool end = false;
 	bool abandon = false;
@@ -191,7 +193,9 @@ std::pair<bool,std::string> ClassicChess::execute_step(){
 	return result;
 }
 
-std::pair<bool,bool> ClassicChess::execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit){
+std::pair<bool,bool> ClassicChess::execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit,Player* play){
+	
+	this->set_active_player(play);
 	
 	bool ok = false;
 	bool end = false;

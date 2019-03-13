@@ -19,10 +19,6 @@ class TrappistChess: public BaseChess{
         TrappistChess(const TrappistChess&) noexcept = default;
         TrappistChess& operator= (const TrappistChess&) noexcept = default;
         
-        std::pair<bool,std::string> execute_step() override;
-        std::pair<bool,bool> execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>*) override;
-        using BaseChess::execute_step;
-        
 	protected:
 		
 		void initialise_board() override;
@@ -36,5 +32,12 @@ class TrappistChess: public BaseChess{
 		int get_evolution_row(Player*) override;
 		
 		bool check_roc_accept(BitypeVar<Chesspiece*>) const override;
+		
+		std::pair<bool,std::string> execute_step(Player*) override;
+		
+		std::pair<bool,bool> execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>*,Player*) override;
+		
+		using BaseChess::execute_forced_step;
+		using BaseChess::execute_step;
 };
 #endif

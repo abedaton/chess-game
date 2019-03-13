@@ -4,21 +4,18 @@
 #include <iostream>
 #include <utility>
 
-#include "../Games/AntiChess/AntiChess.cpp"
-#include "../Games/ClassicChess/ClassicChess.cpp"
-#include "../Games/DarkChess/DarkChess.cpp"
-#include "../Games/TrappistChess/TrappistChess.cpp"
-
+#include "../Gestion/TourParTour/TourParTour.cpp"
+#include "../Gestion/Pendule/Pendule.cpp"
 
 class GameIntelligence{
 	
 	private:
-		BaseChess* game;
+		TourParTour* game;
 	
 	private:
 		void make_game(std::string,Player*, Player*);
-		BaseChess* get_game() const;
-        void set_game(BaseChess*);
+		TourParTour* get_game() const;
+        void set_game(TourParTour*);
 	
 	public:
         GameIntelligence() noexcept = default; //*< Constructor

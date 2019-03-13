@@ -23,10 +23,6 @@ class DarkChess : public BaseChess{
 		DarkChess(const DarkChess &) noexcept = default;
 		DarkChess &operator=(const DarkChess &) noexcept = default;
 
-		std::pair<bool, std::string> execute_step() override;
-		std::pair<bool, bool> execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>*) override;
-		using BaseChess::execute_step;
-
     protected:
 		
 		std::vector<std::vector<int>> get_fog() const;
@@ -48,5 +44,12 @@ class DarkChess : public BaseChess{
 		std::vector<Chesspiece*>* evolution_possibilities() override;
 		
 		bool roc_check_king_position_and_path_danger(MatPosi*,MatPosi*,bool,int,std::vector<MatPosi>*) override;
+		
+		std::pair<bool, std::string> execute_step(Player*) override;
+		
+		std::pair<bool, bool> execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>*,Player*) override;
+		
+		using BaseChess::execute_forced_step;
+		using BaseChess::execute_step;
 };
 #endif
