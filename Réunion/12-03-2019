@@ -1,0 +1,18 @@
+Présentation pas top:
+	Manque anti chess
+	Présentation pas préparé
+	hardcode du localhost
+
+
+==> Mode de jeux sont ok
+    pandule pour toutes les variantes classiques (au moins 3 variantes)
+    GUI doit etre ergonomique, beau et facile
+
+Manque:
+	les stat
+	la liste d'ami backup-able (en SQLlite si possible)
+
+-Commencez simplement et complexifiez le code plus tard
+-Cotation de groupe et non individuelle	
+prochaine présentation : 4 avril
+
