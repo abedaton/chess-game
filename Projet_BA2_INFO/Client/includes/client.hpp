@@ -18,7 +18,7 @@
 
 class Client: AbstractClient {
     public:
-        Client();
+        Client(const char* ip);
         ~Client();
         void connectionError() override;
 		void startingGame(bool playerTurn) override;

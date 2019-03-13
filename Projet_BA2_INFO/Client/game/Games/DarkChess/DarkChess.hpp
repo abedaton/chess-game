@@ -41,13 +41,12 @@ class DarkChess : public BaseChess{
 		void make_fog();
 		std::vector<std::pair<int, int>> *check_all_mov(Chesspiece *);
 
-		std::pair<bool, BitypeVar<Chesspiece *>> normal_output_check(std::string, std::string) override;
-		Trinome<std::string, BitypeVar<Chesspiece *>, Trinome<bool, bool, bool> *> *out_input(std::string, BitypeVar<Chesspiece *>) override;
-
-		bool exec_step(std::string, std::string, BitypeVar<Chesspiece *>, bool, bool);
-
 		std::vector<std::pair<int, int>>* loop_moves(Chesspiece*, std::string);
 
 		bool check_non_active_player_king(Chesspiece*) override;
+		
+		std::vector<Chesspiece*>* evolution_possibilities() override;
+		
+		bool roc_check_king_position_and_path_danger(MatPosi*,MatPosi*,bool,int,std::vector<MatPosi>*) override;
 };
 #endif

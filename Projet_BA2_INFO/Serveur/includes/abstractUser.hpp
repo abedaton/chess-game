@@ -6,6 +6,7 @@
 #include "../game/Games/ClassicChess/ClassicChess.cpp"
 #include "../game/Games/DarkChess/DarkChess.cpp"
 #include "../game/Games/TrappistChess/TrappistChess.cpp"
+#include "../game/Games/AntiChess/AntiChess.cpp"
 
 class AbstractGame;
 

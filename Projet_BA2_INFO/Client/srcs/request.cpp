@@ -1,7 +1,7 @@
 #include "../includes/request.hpp"
 
-Request::Request(AbstractClient* client): _client(client){
-	setup();
+Request::Request(AbstractClient* client, const char* ip): _client(client){
+	setup(ip);
 	pthread_create(&this->_listenerThread, NULL, &Request::run, static_cast<void*>(this));
 }
 
@@ -49,20 +49,6 @@ void Request::findMatch(int modDeJeu){
     sendInt(modDeJeu);
 	endProcess();
 }
-
-//std::vector<int>  Request::getMov(int coord){ //OLD
-//	waitForProcess();
-//    int protocol = 5;
-//	sendInt(protocol);
-//	sendInt(coord);
-//	std::vector<int>::size_type nbMov = static_cast<std::vector<int>::size_type>(recvInt());
-//	std::vector<int> listMov(nbMov);
-//	for (std::vector<int>::size_type c=0;c<nbMov;c++){
-//		listMov[c] = recvInt();
-//	}
-//	endProcess();
-//	return listMov;
-//}
 
 void Request::mov(std::string mov){
 	waitForProcess();
@@ -164,8 +150,8 @@ void Request::recvFriendAddNotification()
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////PRIVIET
-void Request::setup(){
-    this->_servAddr.sin_addr.s_addr	= inet_addr(IP);
+void Request::setup(const char* ip){
+    this->_servAddr.sin_addr.s_addr	= inet_addr(ip);
     this->_servAddr.sin_family = AF_INET;
     this->_servAddr.sin_port = htons(PORT);
 
