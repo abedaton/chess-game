@@ -10,7 +10,7 @@ class AbstractGame;
 
 class AbstractUser{
     public:
-        virtual void startGame(TempsReel*, AbstractUser*, bool) = 0;
+        virtual void startGame(TempsReel*, AbstractUser*, bool,bool,bool, std::string) = 0;
         virtual void opponentMov(std::string) = 0;
         virtual std::string get_name() const = 0; 
         virtual void surrend() = 0;

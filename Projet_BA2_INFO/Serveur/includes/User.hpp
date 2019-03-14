@@ -25,7 +25,7 @@ class User: public AbstractUser{
         User(const User&) = delete;
         User& operator= (const User&) noexcept = delete;
 
-		void startGame(TempsReel*, AbstractUser*, bool) override;
+		void startGame(TempsReel*, AbstractUser*, bool,bool,bool, std::string) override;
 		void opponentMov(std::string mov)override;
 		void surrend() override;
 		void sendMsg(std::string msg) override;
@@ -37,7 +37,10 @@ class User: public AbstractUser{
 		void sendMessage(std::string sender, std::string message);
 		std::string getName(); //a changer apres avoir compilé
 		std::string get_name() const override;
-	
+		
+		bool get_inverted() const;
+		void set_inverted(bool);
+		
 	private:
 		int _clientSock;
 		Database* _db;
@@ -45,6 +48,7 @@ class User: public AbstractUser{
 		TempsReel* _game;
 		AbstractUser* _opponent;
 		bool _myTurn;
+		bool _isinverted;
 
 		std::mutex _mutex;
 		std::string name;

@@ -22,7 +22,7 @@ void Client::startingGame(bool playerTurn){
 
 	Dico* dico = make_dico("Client/game/csv"); // path of the executable
 	Player* player1 = new Human(this->_username,"francais");
-	Player* player2 = new Human("Opponent","francais");
+	Player* player2 = new Human("Opponent","francais");//"Opponent" //this->get_ennemy_name()
 	
 	BaseChess* game_mode;
 	switch (this->_gameMod){
@@ -62,7 +62,7 @@ void Client::startingGame(bool playerTurn){
 }
 
 void Client::opponentMov(std::string mov){
-	try{this->_game->execute_step(mov, "Opponent");}
+	try{this->_game->execute_step(mov, "Opponent");}// "Opponent" // this->get_ennemy_name() //this->_game->execute_step(mov, "Opponent" , this->get_ennemy_inverted());
 	catch(MyException& e){
 		std::cout << e.what()<<std::endl;
 		std::cout << "myexception catched"<<std::endl;
@@ -339,3 +339,12 @@ void Client::myFlush(){
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 }
+
+bool Client::get_inverted() const {return this->_isInverted;}
+void Client::set_inverted(bool inverted){this->_isInverted = inverted;}
+
+bool Client::get_ennemy_inverted() const {return this->_isEnnemyInverted;}
+void Client::set_ennemy_inverted(bool inverted){this->_isEnnemyInverted = inverted;}
+
+std::string Client::get_ennemy_name() const {return this->_ennemyName;}
+void Client::set_ennemy_name(std::string name){this->_ennemyName = name;}

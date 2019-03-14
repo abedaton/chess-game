@@ -1,4 +1,4 @@
-#pragma GCC diagnostic ignored "-Wunused-variable"
+//#pragma GCC diagnostic ignored "-Wunused-variable"
 #ifndef REQUEST_HPP
 #define REQUEST_HPP
 

@@ -60,8 +60,11 @@ void MatchMaking::poolSort(int gameMod){
             
             TourParTour* tt_game = new TourParTour(game);
             
-            player1->startGame(tt_game, player2, true);
-            player2->startGame(tt_game, player1, false);
+            bool p_one_inv = false;
+            bool p_two_inv = false;
+            
+            player1->startGame(tt_game, player2, true, p_one_inv,p_two_inv, player2->get_name());
+            player2->startGame(tt_game, player1, false,p_two_inv, p_one_inv, player1->get_name());
         }
     }
 }

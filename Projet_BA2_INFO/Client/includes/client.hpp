@@ -24,6 +24,16 @@ class Client: AbstractClient {
 		void startingGame(bool playerTurn) override;
 		void opponentMov(std::string mov) override;
 		void printMessage(std::string) override;
+		
+		bool get_inverted() const override;
+		void set_inverted(bool) override;
+		
+		bool get_ennemy_inverted() const override;
+		void set_ennemy_inverted(bool) override;
+		
+		std::string get_ennemy_name() const override;
+		void set_ennemy_name(std::string) override;
+		
 	private:
 		Request* _request;
 		TempsReel* _game; // TempsReel est une classe commune entre TempsReel, TourParTour et Pendule -quentin
@@ -31,6 +41,9 @@ class Client: AbstractClient {
 		bool _gameStart;
 		bool _myTurn;
 		int _gameMod;
+		bool _isInverted;
+		bool _isEnnemyInverted;
+		std::string _ennemyName;
 
 		void firstWindow();
 		bool registerWindow();

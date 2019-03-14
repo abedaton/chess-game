@@ -2320,7 +2320,7 @@ std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bo
 std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bool invert_y,std::string player_name,Player* play){
 	
 	(void)player_name;
-	//if (this->get_active_player()->get_name() != player_name){throw MyException(&mout,"execution impossible, ce n'est pas le tour de ce joueur");}
+	if (this->get_active_player()->get_name() != player_name){throw MyException(&mout,"execution impossible, ce n'est pas le tour de ce joueur");}
 	
 	return this->execute_forced_step(merged_coords,invert_y,play);
 	

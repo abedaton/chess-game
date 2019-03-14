@@ -14,8 +14,13 @@ std::pair<bool,std::string> TempsReel::execute_step(){
 	
 }
 
+std::pair<bool,bool> TempsReel::execute_step(std::string merged_coords,std::string player_name, bool invert){
+	return this->get_game()->execute_forced_step(merged_coords,invert,player_name);
+	
+}
+
 std::pair<bool,bool> TempsReel::execute_step(std::string merged_coords,std::string player_name){
-	return this->get_game()->execute_forced_step(merged_coords,player_name);
+	return this->execute_step(merged_coords,player_name,false);
 	
 }
 

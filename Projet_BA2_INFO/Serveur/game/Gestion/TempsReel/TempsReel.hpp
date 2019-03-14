@@ -21,6 +21,7 @@ class TempsReel {
         TempsReel& operator= (const TempsReel&) noexcept = default;
         
         virtual std::pair<bool,std::string> execute_step();
+        virtual std::pair<bool,bool> execute_step(std::string,std::string,bool);
         virtual std::pair<bool,bool> execute_step(std::string,std::string);
         
 	protected:
