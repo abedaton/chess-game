@@ -394,6 +394,8 @@ std::pair<bool,std::string> TrappistChess::execute_step(Player* play){
 std::pair<bool,bool> TrappistChess::execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit,Player* play){
 	
 	this->set_active_player(play);
+	
+	if (this->get_action_cnt() == 0){this->affichage();}
 
 	bool ok = false;
 	bool end = false;

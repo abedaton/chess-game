@@ -44,7 +44,7 @@ void MatchMaking::poolSort(int gameMod){
                     game = new ClassicChess(play_one, play_two, play_one, dico);
                     break;
                 case 2:
-                    game = new DarkChess(play_one, play_two, play_one, dico);
+                    game = new DarkChess(play_one, play_two, play_one, nullptr, dico);
                     break;
                 case 3:
                     game = new TrappistChess(play_one, play_two, play_one, dico);

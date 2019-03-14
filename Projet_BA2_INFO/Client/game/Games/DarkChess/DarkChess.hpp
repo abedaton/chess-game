@@ -15,9 +15,10 @@ class DarkChess : public BaseChess{
 	
     private:
 		std::vector<std::vector<int>> fog;
+		Player* locked_player;
 
 	public:
-		DarkChess(Player *, Player *, Player*, Dico *); //*< Constructor
+		DarkChess(Player *, Player *, Player*,Player*, Dico *); //*< Constructor
 		DarkChess() noexcept = default;        //*< Constructor
 		~DarkChess() noexcept = default;       // Destructor
 		DarkChess(const DarkChess &) noexcept = default;
@@ -25,16 +26,21 @@ class DarkChess : public BaseChess{
 
     protected:
 		
+		Player* get_real_locked_player() const;
+		Player* get_locked_player() const;
+		void set_locked_player(Player*);
+		
 		std::vector<std::vector<int>> get_fog() const;
 		void set_fog(std::vector<std::vector<int>>);
     
 		void initialise_board() override;
 		void initialise_high_pieces() override;
 		void initialise_low_pieces() override;
-
+		
+		void affichage(Player*);
 		void affichage() override;
 
-		void make_fog();
+		void make_fog(Player*);
 		std::vector<std::pair<int, int>> *check_all_mov(Chesspiece *);
 
 		std::vector<std::pair<int, int>>* loop_moves(Chesspiece*, std::string);

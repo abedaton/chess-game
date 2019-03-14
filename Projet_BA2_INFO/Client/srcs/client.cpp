@@ -35,9 +35,9 @@ void Client::startingGame(bool playerTurn){
 			break;
 		case 2:
 			if (playerTurn) {
-				game_mode = new DarkChess(player1, player2, player1, dico);
+				game_mode = new DarkChess(player1, player2, player1, player1, dico);
 			} else {
-				game_mode = new DarkChess(player2, player1, player2, dico);
+				game_mode = new DarkChess(player2, player1, player2, player1, dico);
 			}
 			break;
 		case 3:

@@ -201,6 +201,8 @@ std::pair<bool,bool> AntiChess::execute_forced_step(BitypeVar<Trinome<std::strin
 	
 	this->set_active_player(play);
 	
+	if (this->get_action_cnt() == 0){this->affichage();}
+	
 	bool ok = false;
 	bool end = false;
 	
