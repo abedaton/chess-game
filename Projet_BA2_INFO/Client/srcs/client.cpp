@@ -30,28 +30,28 @@ void Client::startingGame(bool playerTurn){
 			if (playerTurn) {
 				game_mode = new ClassicChess(player1, player2, player1, dico);
 			} else {
-				game_mode = new ClassicChess(player2, player1, player1, dico);
+				game_mode = new ClassicChess(player2, player1, player2, dico);
 			}
 			break;
 		case 2:
 			if (playerTurn) {
 				game_mode = new DarkChess(player1, player2, player1, dico);
 			} else {
-				game_mode = new DarkChess(player2, player1, player1, dico);
+				game_mode = new DarkChess(player2, player1, player2, dico);
 			}
 			break;
 		case 3:
 			if (playerTurn) {
 				game_mode = new TrappistChess(player1, player2, player1, dico);
 			} else {
-				game_mode = new TrappistChess(player2, player1, player1, dico);
+				game_mode = new TrappistChess(player2, player1, player2, dico);
 			}
 			break;
 		case 4:
 			if (playerTurn) {
 				game_mode = new AntiChess(player1, player2, player1, dico);
 			} else {
-				game_mode = new AntiChess(player2, player1, player1, dico);
+				game_mode = new AntiChess(player2, player1, player2, dico);
 			}
 			break;
 		default:
