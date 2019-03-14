@@ -1,10 +1,10 @@
-#ifndef FENPRINCIPALE_H
-#define FENPRINCIPALE_H
+#ifndef FENPRINCIPALE_HPP
+#define FENPRINCIPALE_HPP
 #include "Menu.hpp"
-#include "GameWindow.h"
-#include "Login.h"
-#include "PlateauScene.h"
-#include "Register.h"
+#include "GameWindow.hpp"
+#include "Login.hpp"
+#include "PlateauScene.hpp"
+#include "Register.hpp"
 #include <QtWidgets>
 #include <iostream>
 
@@ -40,4 +40,4 @@ class FenPrincipale : public QMainWindow {
     PlateauScene *_classicWindow;
 };
 
-#endif // FENPRINCIPALE_H
+#endif // FENPRINCIPALE_HPP

@@ -1,5 +1,5 @@
-#ifndef REGISTER_H
-#define REGISTER_H
+#ifndef REGISTER_HPP
+#define REGISTER_HPP
 
 #include <QtWidgets>
 
@@ -38,4 +38,4 @@ class Register : public QWidget {
     void keyPressEvent(QKeyEvent *);
 };
 
-#endif // REGISTER_H
+#endif // REGISTER_HPP

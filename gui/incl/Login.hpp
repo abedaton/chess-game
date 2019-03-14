@@ -1,5 +1,5 @@
-#ifndef LOGIN_H
-#define LOGIN_H
+#ifndef LOGIN_HPP
+#define LOGIN_HPP
 
 #include <QObject>
 #include <QtWidgets>
@@ -40,4 +40,4 @@ class Login : public QWidget {
     void keyPressEvent(QKeyEvent *);
 };
 
-#endif // LOGIN_H
+#endif // LOGIN_HPP

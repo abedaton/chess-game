@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -Isrc -Iincl -Iimg -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -Ibin -isystem /usr/include/libdrm -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I. -Isrc -Iincl -Iimg -Ibin -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -Ibin -isystem /usr/include/libdrm -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -150,12 +150,12 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		gui.pro incl/FenPrincipale.h \
-		incl/GameWindow.h \
-		incl/Login.h \
-		incl/PlateauBox.h \
-		incl/PlateauScene.h \
-		incl/Register.h \
+		gui.pro incl/FenPrincipale.hpp \
+		incl/GameWindow.hpp \
+		incl/Login.hpp \
+		incl/PlateauBox.hpp \
+		incl/PlateauScene.hpp \
+		incl/Register.hpp \
 		incl/Menu.hpp src/FenPrincipale.cpp \
 		src/GameWindow.cpp \
 		src/Login.cpp \
@@ -349,7 +349,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents incl/FenPrincipale.h incl/GameWindow.h incl/Login.h incl/PlateauBox.h incl/PlateauScene.h incl/Register.h incl/Menu.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents incl/FenPrincipale.hpp incl/GameWindow.hpp incl/Login.hpp incl/PlateauBox.hpp incl/PlateauScene.hpp incl/Register.hpp incl/Menu.hpp $(DISTDIR)/
 	$(COPY_FILE) --parents src/FenPrincipale.cpp src/GameWindow.cpp src/Login.cpp src/main.cpp src/PlateauBox.cpp src/PlateauScene.cpp src/Register.cpp src/Menu.cpp $(DISTDIR)/
 
 
@@ -386,35 +386,35 @@ compiler_moc_header_make_all: bin/moc_FenPrincipale.cpp bin/moc_GameWindow.cpp b
 compiler_moc_header_clean:
 	-$(DEL_FILE) bin/moc_FenPrincipale.cpp bin/moc_GameWindow.cpp bin/moc_Login.cpp bin/moc_Register.cpp bin/moc_Menu.cpp
 bin/moc_FenPrincipale.cpp: incl/Menu.hpp \
-		incl/GameWindow.h \
-		incl/Login.h \
-		incl/PlateauScene.h \
-		incl/PlateauBox.h \
-		incl/Register.h \
-		incl/FenPrincipale.h \
+		incl/GameWindow.hpp \
+		incl/Login.hpp \
+		incl/PlateauScene.hpp \
+		incl/PlateauBox.hpp \
+		incl/Register.hpp \
+		incl/FenPrincipale.hpp \
 		bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/FenPrincipale.h -o bin/moc_FenPrincipale.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui/bin -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/FenPrincipale.hpp -o bin/moc_FenPrincipale.cpp
 
-bin/moc_GameWindow.cpp: incl/GameWindow.h \
+bin/moc_GameWindow.cpp: incl/GameWindow.hpp \
 		bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/GameWindow.h -o bin/moc_GameWindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui/bin -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/GameWindow.hpp -o bin/moc_GameWindow.cpp
 
-bin/moc_Login.cpp: incl/Login.h \
+bin/moc_Login.cpp: incl/Login.hpp \
 		bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Login.h -o bin/moc_Login.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui/bin -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Login.hpp -o bin/moc_Login.cpp
 
-bin/moc_Register.cpp: incl/Register.h \
+bin/moc_Register.cpp: incl/Register.hpp \
 		bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Register.h -o bin/moc_Register.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui/bin -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Register.hpp -o bin/moc_Register.cpp
 
 bin/moc_Menu.cpp: incl/Menu.hpp \
 		bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Menu.hpp -o bin/moc_Menu.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui/bin -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Menu.hpp -o bin/moc_Menu.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -432,38 +432,38 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-bin/FenPrincipale.o: src/FenPrincipale.cpp incl/FenPrincipale.h \
+bin/FenPrincipale.o: src/FenPrincipale.cpp incl/FenPrincipale.hpp \
 		incl/Menu.hpp \
-		incl/GameWindow.h \
-		incl/Login.h \
-		incl/PlateauScene.h \
-		incl/PlateauBox.h \
-		incl/Register.h
+		incl/GameWindow.hpp \
+		incl/Login.hpp \
+		incl/PlateauScene.hpp \
+		incl/PlateauBox.hpp \
+		incl/Register.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/FenPrincipale.o src/FenPrincipale.cpp
 
-bin/GameWindow.o: src/GameWindow.cpp incl/GameWindow.h
+bin/GameWindow.o: src/GameWindow.cpp incl/GameWindow.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/GameWindow.o src/GameWindow.cpp
 
-bin/Login.o: src/Login.cpp incl/Login.h
+bin/Login.o: src/Login.cpp incl/Login.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/Login.o src/Login.cpp
 
-bin/main.o: src/main.cpp incl/FenPrincipale.h \
+bin/main.o: src/main.cpp incl/FenPrincipale.hpp \
 		incl/Menu.hpp \
-		incl/GameWindow.h \
-		incl/Login.h \
-		incl/PlateauScene.h \
-		incl/PlateauBox.h \
-		incl/Register.h
+		incl/GameWindow.hpp \
+		incl/Login.hpp \
+		incl/PlateauScene.hpp \
+		incl/PlateauBox.hpp \
+		incl/Register.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/main.o src/main.cpp
 
-bin/PlateauBox.o: src/PlateauBox.cpp incl/PlateauBox.h
+bin/PlateauBox.o: src/PlateauBox.cpp incl/PlateauBox.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/PlateauBox.o src/PlateauBox.cpp
 
-bin/PlateauScene.o: src/PlateauScene.cpp incl/PlateauScene.h \
-		incl/PlateauBox.h
+bin/PlateauScene.o: src/PlateauScene.cpp incl/PlateauScene.hpp \
+		incl/PlateauBox.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/PlateauScene.o src/PlateauScene.cpp
 
-bin/Register.o: src/Register.cpp incl/Register.h
+bin/Register.o: src/Register.cpp incl/Register.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/Register.o src/Register.cpp
 
 bin/Menu.o: src/Menu.cpp incl/Menu.hpp

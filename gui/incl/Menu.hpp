@@ -1,5 +1,5 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef MENU_HPP
+#define MENU_HPP
 
 #include <QtWidgets>
 
@@ -21,4 +21,4 @@ class Menu : public QWidget {
     QVBoxLayout *_vBoxLayoutMenu;
 };
 
-#endif // MENU_H
+#endif // MENU_HPP

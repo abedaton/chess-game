@@ -1,4 +1,4 @@
-#include "FenPrincipale.h"
+#include "FenPrincipale.hpp"
 
 FenPrincipale::FenPrincipale() {
     init_window();

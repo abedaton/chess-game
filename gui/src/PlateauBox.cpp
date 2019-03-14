@@ -1,4 +1,4 @@
-#include "PlateauBox.h"
+#include "PlateauBox.hpp"
 
 PlateauBox::PlateauBox(int x, int y, int sideLenght = 65, QGraphicsItem *parent) : _sideLenght(sideLenght), QGraphicsRectItem(parent) {
     setRect(x, y, sideLenght, sideLenght);
