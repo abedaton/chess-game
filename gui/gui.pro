@@ -34,11 +34,13 @@ HEADERS += incl/FenPrincipale.h \
            incl/Login.h \
            incl/PlateauBox.h \
            incl/PlateauScene.h \
-           incl/Register.h
+           incl/Register.h\
+           incl/Menu.hpp
 SOURCES += src/FenPrincipale.cpp \
            src/GameWindow.cpp \
            src/Login.cpp \
            src/main.cpp \
            src/PlateauBox.cpp \
            src/PlateauScene.cpp \
-           src/Register.cpp
+           src/Register.cpp\
+           src/Menu.cpp

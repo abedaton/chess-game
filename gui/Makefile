@@ -56,10 +56,12 @@ SOURCES       = src/FenPrincipale.cpp \
 		src/main.cpp \
 		src/PlateauBox.cpp \
 		src/PlateauScene.cpp \
-		src/Register.cpp bin/moc_FenPrincipale.cpp \
+		src/Register.cpp \
+		src/Menu.cpp bin/moc_FenPrincipale.cpp \
 		bin/moc_GameWindow.cpp \
 		bin/moc_Login.cpp \
-		bin/moc_Register.cpp
+		bin/moc_Register.cpp \
+		bin/moc_Menu.cpp
 OBJECTS       = bin/FenPrincipale.o \
 		bin/GameWindow.o \
 		bin/Login.o \
@@ -67,10 +69,12 @@ OBJECTS       = bin/FenPrincipale.o \
 		bin/PlateauBox.o \
 		bin/PlateauScene.o \
 		bin/Register.o \
+		bin/Menu.o \
 		bin/moc_FenPrincipale.o \
 		bin/moc_GameWindow.o \
 		bin/moc_Login.o \
-		bin/moc_Register.o
+		bin/moc_Register.o \
+		bin/moc_Menu.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -151,13 +155,15 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		incl/Login.h \
 		incl/PlateauBox.h \
 		incl/PlateauScene.h \
-		incl/Register.h src/FenPrincipale.cpp \
+		incl/Register.h \
+		incl/Menu.hpp src/FenPrincipale.cpp \
 		src/GameWindow.cpp \
 		src/Login.cpp \
 		src/main.cpp \
 		src/PlateauBox.cpp \
 		src/PlateauScene.cpp \
-		src/Register.cpp
+		src/Register.cpp \
+		src/Menu.cpp
 QMAKE_TARGET  = gui
 DESTDIR       = 
 TARGET        = gui
@@ -343,8 +349,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents incl/FenPrincipale.h incl/GameWindow.h incl/Login.h incl/PlateauBox.h incl/PlateauScene.h incl/Register.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/FenPrincipale.cpp src/GameWindow.cpp src/Login.cpp src/main.cpp src/PlateauBox.cpp src/PlateauScene.cpp src/Register.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents incl/FenPrincipale.h incl/GameWindow.h incl/Login.h incl/PlateauBox.h incl/PlateauScene.h incl/Register.h incl/Menu.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/FenPrincipale.cpp src/GameWindow.cpp src/Login.cpp src/main.cpp src/PlateauBox.cpp src/PlateauScene.cpp src/Register.cpp src/Menu.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -376,10 +382,11 @@ compiler_moc_predefs_clean:
 bin/moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -W -dM -E -o bin/moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: bin/moc_FenPrincipale.cpp bin/moc_GameWindow.cpp bin/moc_Login.cpp bin/moc_Register.cpp
+compiler_moc_header_make_all: bin/moc_FenPrincipale.cpp bin/moc_GameWindow.cpp bin/moc_Login.cpp bin/moc_Register.cpp bin/moc_Menu.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) bin/moc_FenPrincipale.cpp bin/moc_GameWindow.cpp bin/moc_Login.cpp bin/moc_Register.cpp
-bin/moc_FenPrincipale.cpp: incl/GameWindow.h \
+	-$(DEL_FILE) bin/moc_FenPrincipale.cpp bin/moc_GameWindow.cpp bin/moc_Login.cpp bin/moc_Register.cpp bin/moc_Menu.cpp
+bin/moc_FenPrincipale.cpp: incl/Menu.hpp \
+		incl/GameWindow.h \
 		incl/Login.h \
 		incl/PlateauScene.h \
 		incl/PlateauBox.h \
@@ -404,6 +411,11 @@ bin/moc_Register.cpp: incl/Register.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Register.h -o bin/moc_Register.cpp
 
+bin/moc_Menu.cpp: incl/Menu.hpp \
+		bin/moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Menu.hpp -o bin/moc_Menu.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -421,6 +433,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 ####### Compile
 
 bin/FenPrincipale.o: src/FenPrincipale.cpp incl/FenPrincipale.h \
+		incl/Menu.hpp \
 		incl/GameWindow.h \
 		incl/Login.h \
 		incl/PlateauScene.h \
@@ -435,6 +448,7 @@ bin/Login.o: src/Login.cpp incl/Login.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/Login.o src/Login.cpp
 
 bin/main.o: src/main.cpp incl/FenPrincipale.h \
+		incl/Menu.hpp \
 		incl/GameWindow.h \
 		incl/Login.h \
 		incl/PlateauScene.h \
@@ -452,6 +466,9 @@ bin/PlateauScene.o: src/PlateauScene.cpp incl/PlateauScene.h \
 bin/Register.o: src/Register.cpp incl/Register.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/Register.o src/Register.cpp
 
+bin/Menu.o: src/Menu.cpp incl/Menu.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/Menu.o src/Menu.cpp
+
 bin/moc_FenPrincipale.o: bin/moc_FenPrincipale.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/moc_FenPrincipale.o bin/moc_FenPrincipale.cpp
 
@@ -463,6 +480,9 @@ bin/moc_Login.o: bin/moc_Login.cpp
 
 bin/moc_Register.o: bin/moc_Register.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/moc_Register.o bin/moc_Register.cpp
+
+bin/moc_Menu.o: bin/moc_Menu.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/moc_Menu.o bin/moc_Menu.cpp
 
 ####### Install
 
