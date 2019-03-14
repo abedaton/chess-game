@@ -15,19 +15,20 @@ class DarkChess : public BaseChess{
 	
     private:
 		std::vector<std::vector<int>> fog;
+		Player* locked_player;
 
 	public:
-		DarkChess(Player *, Player *, Player*, Dico *); //*< Constructor
+		DarkChess(Player *, Player *, Player*,Player*, Dico *); //*< Constructor
 		DarkChess() noexcept = default;        //*< Constructor
 		~DarkChess() noexcept = default;       // Destructor
 		DarkChess(const DarkChess &) noexcept = default;
 		DarkChess &operator=(const DarkChess &) noexcept = default;
 
-		std::pair<bool, std::string> execute_step() override;
-		std::pair<bool, bool> execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>*) override;
-		using BaseChess::execute_step;
-
     protected:
+		
+		Player* get_real_locked_player() const;
+		Player* get_locked_player() const;
+		void set_locked_player(Player*);
 		
 		std::vector<std::vector<int>> get_fog() const;
 		void set_fog(std::vector<std::vector<int>>);
@@ -35,10 +36,11 @@ class DarkChess : public BaseChess{
 		void initialise_board() override;
 		void initialise_high_pieces() override;
 		void initialise_low_pieces() override;
-
+		
+		void affichage(Player*);
 		void affichage() override;
 
-		void make_fog();
+		void make_fog(Player*);
 		std::vector<std::pair<int, int>> *check_all_mov(Chesspiece *);
 
 		std::vector<std::pair<int, int>>* loop_moves(Chesspiece*, std::string);
@@ -48,5 +50,12 @@ class DarkChess : public BaseChess{
 		std::vector<Chesspiece*>* evolution_possibilities() override;
 		
 		bool roc_check_king_position_and_path_danger(MatPosi*,MatPosi*,bool,int,std::vector<MatPosi>*) override;
+		
+		std::pair<bool, std::string> execute_step(Player*) override;
+		
+		std::pair<bool, bool> execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>*,Player*) override;
+		
+		using BaseChess::execute_forced_step;
+		using BaseChess::execute_step;
 };
 #endif

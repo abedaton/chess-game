@@ -6,12 +6,26 @@ extern MyOstream mout;
 
 //--------------------DarkChess----------------------------------------------------------------------------------------------------
 
-DarkChess::DarkChess(Player* p_low, Player* p_high,Player* deb_player, Dico* dict) : BaseChess(p_low,p_high,deb_player,dict), fog((*(new std::vector<std::vector<int>>()))){
+DarkChess::DarkChess(Player* p_low, Player* p_high,Player* deb_player,Player* locked_play, Dico* dict) : BaseChess(p_low,p_high,deb_player,dict), fog((*(new std::vector<std::vector<int>>()))), locked_player(locked_play){
 	
 	if((deb_player != p_low) and (deb_player != p_high)){throw MyException(&mout,"joueur devant commencé inconnnu!");}
+	if((locked_play != nullptr) and (locked_play != p_low) and (locked_play != p_high)){throw MyException(&mout,"joueur etant verouille inconnnu!");}
 	
 	this->initialisation();
 } //*< Constructor
+
+Player* DarkChess::get_real_locked_player() const {
+	return this->locked_player;
+}
+
+Player* DarkChess::get_locked_player() const {
+	
+	if (this->get_real_locked_player() != nullptr){return this->get_real_locked_player();}
+	else{return this->get_non_active_player();}
+		
+}
+
+void  DarkChess::set_locked_player(Player* locked_play){this->locked_player = locked_play;}
 
 std::vector<std::vector<int>> DarkChess::get_fog() const {return this->fog;}
 void DarkChess::set_fog(std::vector<std::vector<int>> fog_vect){this->fog = fog_vect;}
@@ -134,17 +148,22 @@ void DarkChess::initialise_low_pieces(){
 
 }
 
-void DarkChess::affichage(){
+void DarkChess::affichage(Player* play){
     /* fonction affaichant le tableau de jeu ainsi que les joueurs l'entourant */
-    make_fog();
-    AffichageDarkChess *aff = new AffichageDarkChess(this->get_plateau(), this->get_dico(), "Symbole_", "",this->get_active_player()->get_langue(),
+    make_fog(play);
+    AffichageDarkChess *aff = new AffichageDarkChess(this->get_plateau(), this->get_dico(), "Symbole_", "",play->get_langue(),
                                                      this->get_low_player(), this->get_high_player(), "*", "", this->get_fog());
-
     this->get_active_player()->send_msg(aff->get_affichage(), true);
 }
 
-std::pair<bool, std::string> DarkChess::execute_step(){
+void DarkChess::affichage(){
+	affichage(this->get_locked_player());
+}
+
+std::pair<bool, std::string> DarkChess::execute_step(Player* play){
     /* fonction principale du jeu, boucle d'execution qui est lancé pour débuté le jeu et qui lorsque se termine termine le jeu*/
+    
+    this->set_active_player(play);
 
     bool end = false;
     bool abandon = false;
@@ -162,8 +181,10 @@ std::pair<bool, std::string> DarkChess::execute_step(){
 
     
     if (this->get_action_cnt() == 0){
-        this->affichage();
-    }
+		if (this->get_real_locked_player() != nullptr){this->affichage();}
+		else{this->affichage(this->get_active_player());}
+		
+	}
 
     coords = this->ask_for_input();
     in_couple = coords->get_first();
@@ -186,10 +207,7 @@ std::pair<bool, std::string> DarkChess::execute_step(){
     std::string result_sep = ";";
     std::stringstream ss_res;
     ss_res << in << result_sep;
-    if (switch_pos == true)
-    {
-        ss_res << this->get_roc_symbol() << result_sep;
-    }
+    if (switch_pos == true){ss_res << this->get_roc_symbol() << result_sep;}
     
     ss_res << out;
 
@@ -198,8 +216,16 @@ std::pair<bool, std::string> DarkChess::execute_step(){
     return result;
 }
 
-std::pair<bool, bool> DarkChess::execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit){
-
+std::pair<bool, bool> DarkChess::execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit,Player* play){
+	
+	this->set_active_player(play);
+	
+	if (this->get_action_cnt() == 0){
+		if (this->get_real_locked_player() != nullptr){this->affichage();}
+		else{this->affichage(this->get_active_player());}
+		
+	}
+	
     bool ok = false;
 	bool end = false;
 	
@@ -214,34 +240,25 @@ std::pair<bool, bool> DarkChess::execute_step(BitypeVar<Trinome<std::string,std:
 		std::pair<bool, BitypeVar<Chesspiece *>> in_paire = check_in_validity_non_symbol(in, "", ""); // verify in //les commentaires sont inutiles ici
 		bool in_isvalid = in_paire.first;
 
-		if (in_isvalid == true)
-		{
+		if (in_isvalid == true){
 
 			BitypeVar<Chesspiece *> in_bit = in_paire.second;
 
-			if (in_bit.get_state() == false)
-			{
-				throw MyException(&mout, "IN invalide car non-attribué");
-			}
+			if (in_bit.get_state() == false){throw MyException(&mout, "IN invalide car non-attribué");}
 
 			MatPosi *mpos = new MatPosi(out);
 			BitypeVar<Chesspiece *> out_bit = this->get_plateau()->get_piece(mpos->to_pair());
 			delete mpos;
 
-			if (switch_pos == true)
-			{
+			if (switch_pos == true){
 
-				if (out_bit.get_state() == false)
-				{
-					throw MyException(&mout, "OUT invalide car non-attribué alors que dans roc");
-				}
+				if (out_bit.get_state() == false){throw MyException(&mout, "OUT invalide car non-attribué alors que dans roc");}
 
 				// verify roc
 				Chesspiece *in_pe = in_bit.get_var();
 				bool ok_roc = is_roquable(in_pe);
 
-				if (ok_roc)
-				{
+				if (ok_roc){
 
 					bool in_is_king, in_is_tour;
 
@@ -250,30 +267,24 @@ std::pair<bool, bool> DarkChess::execute_step(BitypeVar<Trinome<std::string,std:
 
 					bool good_type_in_pe = true;
 
-					if (verifier_type_pe<Roi>(in_pe))
-					{
+					if (verifier_type_pe<Roi>(in_pe)){
 						in_is_king = true;
 						in_is_tour = false;
 					}
-					else if (verifier_type_pe<Tour>(in_pe))
-					{
+					else if (verifier_type_pe<Tour>(in_pe)){
 						in_is_king = true;
 						in_is_tour = false;
 					}
-					else
-					{
+					else{
 						ok = false;
 						good_type_in_pe = false;
 					}
 
-					if (good_type_in_pe == true)
-					{
-						if (in_is_king == true)
-						{
+					if (good_type_in_pe == true){
+						if (in_is_king == true){
 							roi = dynamic_cast<Roi *>(in_pe);
 						}
-						else
-						{
+						else{
 							tour = dynamic_cast<Tour *>(in_pe);
 						}
 
@@ -302,7 +313,7 @@ std::pair<bool, bool> DarkChess::execute_step(BitypeVar<Trinome<std::string,std:
     return result;
 }
 
-void DarkChess::make_fog(){
+void DarkChess::make_fog(Player* play){
     /* Créer et met à jour le tableau contenant toutes les positions cacher du plateau*/
     std::vector<BitypeVar<Chesspiece*>> row;
     std::vector<std::pair<int, int>>* positions_vect;
@@ -321,7 +332,7 @@ void DarkChess::make_fog(){
                 // std::cout << "Board : "<<piece->get_name()<<"  x:  " << i << "  y:  " << j << std::endl;
                 
                 // construit uniquement en fonction du joueur actif
-                if (piece->get_owner()->get_name() == this->get_active_player()->get_name()){
+                if (piece->get_owner() == play){
                     //std::cout << "active player:  " << this->get_active_player()->get_name() << std::endl;
                     // std::cout<<"piece owner:  "<<piece->get_owner()->get_name()<<std::endl;
                     

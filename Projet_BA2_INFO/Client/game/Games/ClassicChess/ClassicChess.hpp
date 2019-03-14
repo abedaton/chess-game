@@ -19,10 +19,6 @@ class ClassicChess: public BaseChess{
         ClassicChess(const ClassicChess&) noexcept = default;
         ClassicChess& operator= (const ClassicChess&) noexcept = default;
         
-        std::pair<bool,std::string> execute_step() override;
-        std::pair<bool,bool> execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>*) override;
-        using BaseChess::execute_step;
-        
 	protected:
 		
 		void initialise_board() override;
@@ -32,5 +28,11 @@ class ClassicChess: public BaseChess{
 		void affichage() override;
 		
 		std::vector<Chesspiece*>* evolution_possibilities() override;
+		std::pair<bool,std::string> execute_step(Player*) override;
+		
+		std::pair<bool,bool> execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>*,Player*) override;
+		
+		using BaseChess::execute_forced_step;
+		using BaseChess::execute_step;
 };
 #endif
