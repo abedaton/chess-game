@@ -22,7 +22,7 @@ void Client::startingGame(bool playerTurn){
 
 	Dico* dico = make_dico("Client/game/csv"); // path of the executable
 	Player* player1 = new Human(this->_username,"francais");
-	Player* player2 = new Human("Opponent","francais");//"Opponent" //this->get_ennemy_name()
+	Player* player2 = new Human(this->get_ennemy_name(),"francais");
 	
 	BaseChess* game_mode;
 	switch (this->_gameMod){
@@ -62,7 +62,8 @@ void Client::startingGame(bool playerTurn){
 }
 
 void Client::opponentMov(std::string mov){
-	try{this->_game->execute_step(mov, "Opponent");}// "Opponent" // this->get_ennemy_name() //this->_game->execute_step(mov, "Opponent" , this->get_ennemy_inverted());
+	
+	try{this->_game->execute_step(mov, this->get_ennemy_name(),this->get_ennemy_inverted());}
 	catch(MyException& e){
 		std::cout << e.what()<<std::endl;
 		std::cout << "myexception catched"<<std::endl;

@@ -14,7 +14,7 @@ class TourParTour: public TempsReel {
         TourParTour& operator= (const TourParTour&) noexcept = default;
         
         std::pair<bool,std::string> execute_step() override;
-        std::pair<bool,bool> execute_step(std::string,std::string) override;
+        std::pair<bool,bool> execute_step(std::string,std::string,bool) override;
 
 };
 #endif

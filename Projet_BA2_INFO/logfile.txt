@@ -39,7 +39,7 @@
        |        |        |        |        |        |        |        |        |
            A        B        C        D        E        F        G        H     
 
-[Human(Opponent)] (*)
+[Human(quentin)] (*)
 
 
 
@@ -83,24 +83,24 @@
        |        |        |        |        |        |        |        |        |
            A        B        C        D        E        F        G        H     
 
-[Human(Opponent)] (*)
+[Human(quentin)] (*)
 
 
 Human(quentin2) c'est a votre tour!
 veuillez indiquer la piece a deplacer
 ou end pour abandonner la partie
 ou lang pour changer la langue
-d7
-pour afficher la liste de deplacements possibles de la piece : [D6, D5]
+e7
+pour afficher la liste de deplacements possibles de la piece : [E6, E5]
 pour afficher la liste de capture possibles de la piece : []
-veuillez indiquer le deplacement de la piece  d7
+veuillez indiquer le deplacement de la piece  e7
 ou ret pour retourner
 ou end pour abandonner la partie
 ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
-
-[Human(Opponent)] ()
+e5
+[Human(quentin2)] ()
 
            A        B        C        D        E        F        G        H     
        |        |        |        |        |        |        |        |        |
@@ -110,7 +110,7 @@ ou lang pour changer la langue
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
-   7   |   P    |   P    |   P    |        |   P    |   P    |   P    |   P    |   7
+   7   |   P    |   P    |   P    |   P    |        |   P    |   P    |   P    |   7
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
@@ -118,7 +118,7 @@ ou lang pour changer la langue
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
-   5   |        |        |        |   P    |        |        |        |        |   5
+   5   |        |        |        |        |   P    |        |        |        |   5
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
@@ -143,7 +143,7 @@ ou lang pour changer la langue
 [Human(quentin)] (*)
 
 
-Huma
+H
 [Human(quentin2)] ()
 
            A        B        C        D        E        F        G        H     
@@ -154,7 +154,7 @@ Huma
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
-   7   |   P    |   P    |   P    |        |   P    |   P    |   P    |   P    |   7
+   7   |   P    |   P    |   P    |   P    |        |   P    |   P    |   P    |   7
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
@@ -162,67 +162,11 @@ Huma
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
-   5   |        |        |        |   P    |        |        |        |        |   5
+   5   |        |        |        |        |   P    |        |        |        |   5
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
-   4   |   P*   |        |   P*   |        |        |        |        |        |   4
-       |        |        |        |        |        |        |        |        |
-      -|--------|--------|--------|--------|--------|--------|--------|--------|-
-       |        |        |        |        |        |        |        |        |
-   3   |        |        |        |        |        |        |        |        |   3
-       |        |        |        |        |        |        |        |        |
-      -|--------|--------|--------|--------|--------|--------|--------|--------|-
-       |        |        |        |        |        |        |        |        |
-   2   |        |   P*   |        |   P*   |   P*   |   P*   |   P*   |   P*   |   2
-       |        |        |        |        |        |        |        |        |
-      -|--------|--------|--------|--------|--------|--------|--------|--------|-
-       |        |        |        |        |        |        |        |        |
-   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
-       |        |        |        |        |        |        |        |        |
-      -|--------|--------|--------|--------|--------|--------|--------|--------|-
-       |        |        |        |        |        |        |        |        |
-           A        B        C        D        E        F        G        H     
-
-[Human(Opponent)] (*)
-
-
-Human(quentin2) c'est a votre tour!
-veuillez indiquer la piece a deplacer
-ou end pour abandonner la partie
-ou lang pour changer la langue
-f7
-pour afficher la liste de deplacements possibles de la piece : [F6, F5]
-pour afficher la liste de capture possibles de la piece : []
-veuillez indiquer le deplacement de la piece  f7
-ou ret pour retourner
-ou end pour abandonner la partie
-ou liste_depl pour afficher la liste de deplacements possibles de la piece
-ou liste_capt pour afficher la liste de capture possibles de la piece
-ou lang pour changer la lang
-[Human(Opponent)] ()
-
-           A        B        C        D        E        F        G        H     
-       |        |        |        |        |        |        |        |        |
-      -|--------|--------|--------|--------|--------|--------|--------|--------|-
-       |        |        |        |        |        |        |        |        |
-   8   |   T    |  Cav   |  Fou   |   D    |   R    |  Fou   |  Cav   |   T    |   8
-       |        |        |        |        |        |        |        |        |
-      -|--------|--------|--------|--------|--------|--------|--------|--------|-
-       |        |        |        |        |        |        |        |        |
-   7   |   P    |   P    |   P    |        |   P    |        |   P    |   P    |   7
-       |        |        |        |        |        |        |        |        |
-      -|--------|--------|--------|--------|--------|--------|--------|--------|-
-       |        |        |        |        |        |        |        |        |
-   6   |        |        |        |        |        |   P    |        |        |   6
-       |        |        |        |        |        |        |        |        |
-      -|--------|--------|--------|--------|--------|--------|--------|--------|-
-       |        |        |        |        |        |        |        |        |
-   5   |        |        |        |   P    |        |        |        |        |   5
-       |        |        |        |        |        |        |        |        |
-      -|--------|--------|--------|--------|--------|--------|--------|--------|-
-       |        |        |        |        |        |        |        |        |
-   4   |   P*   |        |   P*   |        |        |        |        |        |   4
+   4   |   P*   |        |        |        |        |        |        |   P*   |   4
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
@@ -230,7 +174,7 @@ ou lang pour changer la lang
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
-   2   |        |   P*   |        |   P*   |   P*   |   P*   |   P*   |   P*   |   2
+   2   |        |   P*   |   P*   |   P*   |   P*   |   P*   |   P*   |        |   2
        |        |        |        |        |        |        |        |        |
       -|--------|--------|--------|--------|--------|--------|--------|--------|-
        |        |        |        |        |        |        |        |        |
@@ -243,6 +187,14 @@ ou lang pour changer la lang
 [Human(quentin)] (*)
 
 
- (*)
+-|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+   1   |   T*   |  Cav*  |  Fou*  |   D*   |   R*   |  Fou*  |  Cav*  |   T*   |   1
+       |        |        |        |        |        |        |        |        |
+      -|--------|--------|--------|--------|--------|--------|--------|--------|-
+       |        |        |        |        |        |        |        |        |
+           A        B        C        D        E        F        G        H     
+
+[Human(quentin)] (*)
 
 
