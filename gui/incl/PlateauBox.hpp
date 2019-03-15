@@ -6,7 +6,7 @@
 #include <QPen>
 #include <QWidget>
 #include <iostream>
-#include "ChessItem.h"
+#include "ChessItem.hpp"
 
 class PlateauBox : public QGraphicsRectItem {
     public:

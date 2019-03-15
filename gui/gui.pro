@@ -36,7 +36,8 @@ HEADERS += incl/FenPrincipale.hpp \
            incl/PlateauBox.hpp \
            incl/PlateauScene.hpp \
            incl/Register.hpp \
-           incl/Menu.hpp
+           incl/Menu.hpp \
+           incl/ChessItem.hpp
 SOURCES += src/FenPrincipale.cpp \
            src/GameWindow.cpp \
            src/Login.cpp \
@@ -44,4 +45,5 @@ SOURCES += src/FenPrincipale.cpp \
            src/PlateauBox.cpp \
            src/PlateauScene.cpp \
            src/Register.cpp\
-           src/Menu.cpp
+           src/Menu.cpp \
+           src/ChessItem.cpp

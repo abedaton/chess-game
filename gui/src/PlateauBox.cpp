@@ -6,7 +6,7 @@ PlateauBox::PlateauBox(int x, int y, int sideLenght = 65, QGraphicsItem *parent)
     // setPen(_pen);
     _brush.setStyle(Qt::SolidPattern);
     setBrush(_brush);
-    _piece = false;
+    _piece = nullptr;
 }
 
 void PlateauBox::setColor(QColor color) {
@@ -30,5 +30,5 @@ void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
 void PlateauBox::setPiece(ChessItem *piece){
     piece->setPos(x(),y());
-    _piece = true;
+    _piece = piece;
 }
