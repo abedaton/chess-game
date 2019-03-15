@@ -201,7 +201,7 @@ void Request::listener(){
 
 void Request::startingGame(){
 	int turn = recvInt();
-    int inverted = recvInt();
+	int inverted = recvInt();
 	int ennemy_inverted = recvInt();
 	std::string ennemy_name = recvStr();
 	

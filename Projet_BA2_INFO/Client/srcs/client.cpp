@@ -23,37 +23,52 @@ void Client::startingGame(bool playerTurn){
 	Dico* dico = make_dico("Client/game/csv"); // path of the executable
 	Player* player1 = new Human(this->_username,"francais");
 	Player* player2 = new Human(this->get_ennemy_name(),"francais");
-
+	
+	// serie de players crée pour simplifier le switch
+	Player* low_player;
+	Player* high_player;
+	Player* begin_player;
+	
+	if (playerTurn){
+		begin_player = player1;
+		
+		// si commence jamais inversé normalement -quentin
+		low_player = player1;
+		high_player = player2;
+	}
+	
+	else{
+		begin_player = player2;
+		
+		if (this->get_inverted()){
+			low_player = player1;
+			high_player = player2;
+		}
+		
+		else{
+			low_player = player2;
+			high_player = player1;
+		}
+	}
+	
 	BaseChess* game_mode;
 	switch (this->_gameMod){
 		case 1:
-			if (playerTurn) {
-				game_mode = new ClassicChess(player1, player2, player1, dico);
-			} else {
-				game_mode = new ClassicChess(player2, player1, player2, dico);
-			}
+			game_mode = new ClassicChess(low_player, high_player, begin_player, dico);
 			break;
+			
 		case 2:
-			if (playerTurn) {
-				game_mode = new DarkChess(player1, player2, player1, player1, dico);
-			} else {
-				game_mode = new DarkChess(player2, player1, player2, player1, dico);
-			}
+			game_mode = new DarkChess(low_player, high_player, begin_player, player1, dico);
 			break;
+			
 		case 3:
-			if (playerTurn) {
-				game_mode = new TrappistChess(player1, player2, player1, dico);
-			} else {
-				game_mode = new TrappistChess(player2, player1, player2, dico);
-			}
+			game_mode = new TrappistChess(low_player, high_player, begin_player, dico);
 			break;
+			
 		case 4:
-			if (playerTurn) {
-				game_mode = new AntiChess(player1, player2, player1, dico);
-			} else {
-				game_mode = new AntiChess(player2, player1, player2, dico);
-			}
+			game_mode = new AntiChess(low_player, high_player, begin_player, dico);
 			break;
+			
 		default:
 			std::cout << "error" << std::endl;
 			break;
@@ -62,11 +77,12 @@ void Client::startingGame(bool playerTurn){
 }
 
 void Client::opponentMov(std::string mov){
-	try{this->_game->execute_step(mov, this->get_ennemy_name(), this->get_ennemy_inverted());}
+	
+	try{this->_game->execute_step(mov, this->get_ennemy_name(),this->get_inverted() != this->get_ennemy_inverted());} //this->get_inverted()
 	catch(MyException& e){
 		std::cout << e.what()<<std::endl;
 		std::cout << "myexception catched"<<std::endl;
-		this->connectionError(); // ??? <-------------------------------- correct façon d'arreter le jeu?
+		this->connectionError(); // ??? <-------------------------------- correct façon d'arreter le jeu? -quentin
 	}
 	
 	this->_myTurn = true;
@@ -317,7 +333,7 @@ void Client::gameWindow(){
 				catch(MyException& e){
 					std::cout << e.what()<<std::endl;
 					std::cout << "myexception catched"<<std::endl;
-					break; // ??? <-------------------------------- correct façon d'arreter le jeu?
+					break; // ??? <-------------------------------- correct façon d'arreter le jeu? -quentin
 				}
 				
 				this->_request->mov(std::get<1>(returnP));

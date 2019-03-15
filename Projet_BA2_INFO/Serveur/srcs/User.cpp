@@ -20,7 +20,7 @@ void User::startGame(TempsReel* game, AbstractUser* oppenent, bool turn, bool in
 }
 
 void User::surrend(){
-    //TO DO
+    //To Do
 }
 
 void User::opponentMov(std::string mov){
@@ -75,7 +75,7 @@ void User::waitForMatch(){
     int gameMod = recvInt();
     this->_match->waitForMatch(this, gameMod);
 }
-
+        
 void User::mov(){
     if (! this->_myTurn){ //hack
         std::cout << "should never happened" << std::endl;
@@ -83,13 +83,13 @@ void User::mov(){
         this->exit();
     }
     std::string mov = recvStr();
-    std::pair<bool,bool> pAnswer = this->_game->execute_step(mov, this->name);
+    
+    std::pair<bool,bool> pAnswer = this->_game->execute_step(mov, this->name,this->get_inverted());
     if (std::get<0>(pAnswer)){
       this->_opponent->opponentMov(mov);
       this->_myTurn = false;
     }
     if (std::get<1>(pAnswer)){ //end
-      std::cout << "ok cool" << std::endl;
       this->_game = nullptr;
       ;;//To Do
     }
@@ -104,16 +104,17 @@ void User::exit() {
     bool found = false;
     
     //on enleve l'utilisateur du vector des joueurs connectés
-    while(found == false && i < onlineUsers.size()){
+    while(found == false && i < onlineUsers.size())
+    {
         if(onlineUsers[i] != this)
             i++;
-        else{
+        else
+            {
                 found = true;
                 onlineUsers.erase(onlineUsers.begin() + i);
-        }
+            }
     }
     
-    std::cout << "updateUserDisc" << std::endl;
     this->_db->updateUserDisc(this->name);
     pthread_exit(0);
 }
@@ -124,6 +125,7 @@ std::string User::getName()
 {
     return this->name;
 }
+
 User* User::findUserByName(std::string name)
 {
     User * res = nullptr;

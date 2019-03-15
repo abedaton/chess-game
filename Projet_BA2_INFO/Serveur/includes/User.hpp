@@ -37,10 +37,10 @@ class User: public AbstractUser{
 		void sendMessage(std::string sender, std::string message);
 		std::string getName(); //a changer apres avoir compilé
 		std::string get_name() const override;
-
+		
 		bool get_inverted() const;
 		void set_inverted(bool);
-	
+		
 	private:
 		int _clientSock;
 		Database* _db;
