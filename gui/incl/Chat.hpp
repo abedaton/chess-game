@@ -1,3 +1,5 @@
+#ifndef CHAT_HPP
+#define CHAT_HPP
 #include <QtWidgets>
 #include <iostream>
 
@@ -23,3 +25,5 @@ class Chat : public QWidget {
     QLineEdit *_lineEdit;
     QVBoxLayout *_vBoxLayoutChat;
 };
+
+#endif //CHAT_HPP

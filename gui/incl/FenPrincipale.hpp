@@ -1,11 +1,12 @@
 #ifndef FENPRINCIPALE_HPP
 #define FENPRINCIPALE_HPP
-#include "Menu.hpp"
+#include "Chat.hpp"
 #include "GameWindow.hpp"
 #include "Login.hpp"
+#include "Menu.hpp"
+#include "Pendulum.hpp"
 #include "PlateauScene.hpp"
 #include "Register.hpp"
-#include "Chat.hpp"
 #include <QtWidgets>
 #include <iostream>
 
@@ -36,6 +37,7 @@ class FenPrincipale : public QMainWindow {
     QStatusBar *_statusBar;
     QStackedWidget *_stack;
     QDockWidget *_dockChat;
+    QDockWidget *_dockPendulum;
 
     Login *_login;
     Register *_register;
@@ -43,6 +45,7 @@ class FenPrincipale : public QMainWindow {
     GameWindow *_gameWindow;
     PlateauScene *_classicWindow;
     Chat *_chat;
+    Pendulum *_pendulum;
 };
 
 #endif // FENPRINCIPALE_HPP
