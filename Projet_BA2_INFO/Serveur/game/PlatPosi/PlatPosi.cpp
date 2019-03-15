@@ -138,8 +138,8 @@ bool PlatPosi::isvalid_coord(std::string s){
 }
 
 void PlatPosi::invert_y_axis(){
-		
-	int new_lig = this->get_col_size() - this->get_lig() - 1; //la taille d'une colonne est le nombre de lignes, le -1 car commence a 0 (val_max = len(vect) -1 )
+	
+	int new_lig = this->get_col_size() - this->get_lig() - 1; //la taille d'une colonne est le nombre de lignes, le -1 car commence a 0 (val_max = len(vect) -1 )	
 	this->set_lig(new_lig);
 	
 }

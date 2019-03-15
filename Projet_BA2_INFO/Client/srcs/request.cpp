@@ -201,6 +201,15 @@ void Request::listener(){
 
 void Request::startingGame(){
 	int turn = recvInt();
+    int inverted = recvInt();
+	int ennemy_inverted = recvInt();
+	std::string ennemy_name = recvStr();
+	
+	this->_client->set_inverted(static_cast<bool>(inverted-1));
+	this->_client->set_ennemy_inverted(static_cast<bool>(ennemy_inverted-1));
+	this->_client->set_ennemy_name(ennemy_name);
+	
+	//j'ai préféré mettre les setters en dehors plustôt que de tout mettre dans startgame, a vous de choisir -quentin.
 	this->_client->startingGame(static_cast<bool>(turn-1));
 }
 

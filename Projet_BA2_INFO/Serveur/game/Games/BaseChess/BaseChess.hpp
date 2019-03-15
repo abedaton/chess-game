@@ -82,11 +82,26 @@ class BaseChess{
         BaseChess& operator= (const BaseChess&) noexcept = default;
         
         // pas d'interactions avec le jeu, il gère tout --> peu de fonctions publiques
-        virtual std::pair<bool,std::string> execute_step() = 0;
-        virtual std::pair<bool,bool> execute_step(std::string);
-        virtual std::pair<bool,bool> execute_step(std::string, bool);
-        virtual std::pair<bool,bool> execute_step(std::string, bool, std::string);
-        virtual std::pair<bool,bool> execute_step(std::string,std::string);
+        virtual std::pair<bool,std::string> execute_step(std::string);
+        virtual std::pair<bool,std::string> execute_step();
+        
+        
+        virtual std::pair<bool,bool> execute_forced_step(std::string,Player*);
+        virtual std::pair<bool,bool> execute_forced_step(std::string, bool,Player*);
+        virtual std::pair<bool,bool> execute_forced_step(std::string, bool, std::string,Player*);
+        virtual std::pair<bool,bool> execute_forced_step(std::string,std::string,Player*);
+        
+        virtual std::pair<bool,bool> execute_forced_step(std::string);
+        virtual std::pair<bool,bool> execute_forced_step(std::string, bool);
+        virtual std::pair<bool,bool> execute_forced_step(std::string, bool, std::string);
+        virtual std::pair<bool,bool> execute_forced_step(std::string,std::string);
+        
+        virtual std::pair<bool,bool> execute_forced_step_play(std::string,std::string); // creation de 2e serie car sinon overlap de surcharge
+        virtual std::pair<bool,bool> execute_forced_step_play(std::string, bool,std::string);
+        virtual std::pair<bool,bool> execute_forced_step_play(std::string, bool, std::string,std::string);
+        virtual std::pair<bool,bool> execute_forced_step_play(std::string,std::string,std::string);
+        
+        friend class TempsReel;
 		
         
 	protected:
@@ -95,6 +110,7 @@ class BaseChess{
 		Player* get_other_player(Player*) const;
 		Player* get_active_player() const;
 		Player* get_non_active_player() const;
+		Player* get_player(std::string);
 		
 		void set_active_player(Player*);
 		void set_low_player(Player*);
@@ -227,7 +243,9 @@ class BaseChess{
 		
 		Trinome<std::string,std::string,bool>* decode_merged_string(std::string);
         
-		virtual std::pair<bool,bool> execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>*) = 0;
+		virtual std::pair<bool,bool> execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>*,Player*) = 0;
+		virtual std::pair<bool,bool> execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>*,std::string);
+		virtual std::pair<bool,bool> execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>*);
 		
 		bool check_pat();
 		
@@ -240,6 +258,8 @@ class BaseChess{
 		virtual bool check_roc_accept(BitypeVar<Chesspiece*>) const;
 
 		virtual bool verify_all_eaten();
+		
+		virtual std::pair<bool,std::string> execute_step(Player*) = 0;
 		
 };
 #endif
