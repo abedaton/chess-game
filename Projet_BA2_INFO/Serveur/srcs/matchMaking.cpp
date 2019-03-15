@@ -44,19 +44,27 @@ void MatchMaking::poolSort(int gameMod){
                     game = new ClassicChess(play_one, play_two, play_one, dico);
                     break;
                 case 2:
-                    game = new DarkChess(play_one, play_two, play_one, dico);
+                    game = new DarkChess(play_one, play_two, play_one, nullptr, dico);
                     break;
                 case 3:
                     game = new TrappistChess(play_one, play_two, play_one, dico);
                     break;
-                    
+                case 4:
+                    game = new AntiChess(play_one, play_two, play_one, dico);
+                    break;
                 default:
                     game = new ClassicChess(play_one, play_two, play_one, dico);
                     break;
             }
             std::cout << "Launching Game" << std::endl;
-            player1->startGame(game, player2, true);
-            player2->startGame(game, player1, false);
+            
+            TourParTour* tt_game = new TourParTour(game);
+            
+            bool p_one_inv = false;
+            bool p_two_inv = true;
+            
+            player1->startGame(tt_game, player2, true, p_one_inv,p_two_inv, player2->get_name());
+            player2->startGame(tt_game, player1, false,p_two_inv, p_one_inv, player1->get_name());
         }
     }
 }

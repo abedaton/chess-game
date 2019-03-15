@@ -19,10 +19,6 @@ class TrappistChess: public BaseChess{
         TrappistChess(const TrappistChess&) noexcept = default;
         TrappistChess& operator= (const TrappistChess&) noexcept = default;
         
-        std::pair<bool,std::string> execute_step() override;
-        std::pair<bool,bool> execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>*) override;
-        using BaseChess::execute_step;
-        
 	protected:
 		
 		void initialise_board() override;
@@ -31,11 +27,17 @@ class TrappistChess: public BaseChess{
 		
 		void affichage() override;
 		
-		std::pair<bool,BitypeVar<Chesspiece*>> normal_output_check(std::string,std::string) override;
-		Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* out_input(std::string,BitypeVar<Chesspiece*>) override;
+		std::vector<Chesspiece*>* evolution_possibilities() override;
 		
-		Trinome<std::string,std::string,bool>* decode_merged_string(std::string);
-		bool exec_step(std::string, std::string, BitypeVar<Chesspiece*>, bool, bool);
-		bool check_pat();
+		int get_evolution_row(Player*) override;
+		
+		bool check_roc_accept(BitypeVar<Chesspiece*>) const override;
+		
+		std::pair<bool,std::string> execute_step(Player*) override;
+		
+		std::pair<bool,bool> execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>*,Player*) override;
+		
+		using BaseChess::execute_forced_step;
+		using BaseChess::execute_step;
 };
 #endif

@@ -1,4 +1,4 @@
-#pragma GCC diagnostic ignored "-Wunused-variable"
+//#pragma GCC diagnostic ignored "-Wunused-variable"
 #ifndef REQUEST_HPP
 #define REQUEST_HPP
 
@@ -18,7 +18,6 @@
 #include "abstractClient.hpp"
 
 #define PORT 5555
-#define IP "127.0.0.1"
 
 struct FriendRequests
 {
@@ -27,7 +26,7 @@ struct FriendRequests
 
 class Request{
     public:
-        Request(AbstractClient* client);
+        Request(AbstractClient* client, const char* ip);
         ~Request();
         int letsRegister(std::string username,std::string password, std::string email);
         int login(std::string username,std::string password);
@@ -55,7 +54,7 @@ class Request{
         struct sockaddr_in _servAddr;
 		AbstractClient* _client;
 
-        void setup();
+        void setup(const char* ip);
 		static void* run(void*);
 		void listener();
         void startingGame();
@@ -70,7 +69,7 @@ class Request{
         void sendInt(int num);
         std::string recvStr();
 
-        std::queue<FriendRequests> friendRequests;
+        std::queue<FriendRequests> friendRequests; 
 };
 
 enum Protocol : int {

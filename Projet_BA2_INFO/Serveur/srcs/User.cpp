@@ -5,13 +5,17 @@ User::User(int client_sock, Database* db, MatchMaking* match) : _clientSock(clie
     pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
 }
 
-void User::startGame(BaseChess* game, AbstractUser* oppenent, bool turn){
+void User::startGame(TempsReel* game, AbstractUser* oppenent, bool turn, bool inverted,bool ennemy_inverted, std::string ennemy_name){
     this->_game = game;
     this->_opponent = oppenent;
     this->_myTurn = turn;
+    this->set_inverted(inverted);
 	int protocol = 20;
     sendInt(protocol);
     sendInt(static_cast<int>(turn)+1);
+    sendInt(static_cast<int>(inverted)+1);
+    sendInt(static_cast<int>(ennemy_inverted)+1); //this->get_ennemy_inverted() ? (startgame player2 apres -> non?)
+    sendStr(ennemy_name); //this->get_ennemy_name()
     std::cout << "startGame" << std::endl;
 }
 
@@ -79,7 +83,8 @@ void User::mov(){
         this->exit();
     }
     std::string mov = recvStr();
-    std::pair<bool,bool> pAnswer = this->_game->execute_step(mov, this->name);
+    
+    std::pair<bool,bool> pAnswer = this->_game->execute_step(mov, this->name,this->get_inverted());
     if (std::get<0>(pAnswer)){
       this->_opponent->opponentMov(mov);
       this->_myTurn = false;
@@ -343,3 +348,6 @@ std::string User::recvStr(){
 void User::updateInfo(){
 
 }
+
+bool User::get_inverted() const {return this->_isinverted;}
+void User::set_inverted(bool inverted){this->_isinverted = inverted;}

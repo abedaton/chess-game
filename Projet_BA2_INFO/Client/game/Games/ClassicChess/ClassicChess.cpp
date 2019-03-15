@@ -6,33 +6,6 @@ extern MyOstream mout;
 
 //--------------------ClassicChess----------------------------------------------------------------------------------------------------
 
-bool ClassicChess::check_pat(){
-	int taille = this->get_plateau()->get_taille();
-		
-	bool escape = false;
-		
-	int lig = 0;
-	while(lig<taille and not escape){ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (plustard iterateur iterator(plateau))
-		int col=0;
-		while(col<taille and not escape){			
-			MatPosi* mpos = new MatPosi(col,lig);
-			std::pair<int,int> paire = mpos->to_pair();
-			
-			if (not(this->get_plateau()->is_empty_location(paire))){
-				Chesspiece* pe = this->get_plateau()->get_piece(paire).get_var();
-				if (this->get_active_player() == pe->get_owner()){
-					
-					escape = this->can_escape_position(pe ,"depl");
-					if (not(escape)){escape = this->can_escape_position(pe ,"capt");}
-					
-				}
-			}
-		}
-	}
-	//mout << "		EN ECHEC ET MAT ?" << escape <<std::endl;
-	return escape;
-}
-
 ClassicChess::ClassicChess(Player* p_low, Player* p_high,Player* deb_player, Dico* dict) : BaseChess(p_low,p_high,deb_player,dict){
 	
 	if((deb_player != p_low) and (deb_player != p_high)){throw MyException(&mout,"joueur devant commencé inconnnu!");}
@@ -168,165 +141,11 @@ void ClassicChess::affichage(){
 	this->get_active_player()->send_msg(aff->get_affichage(),true);
 }
 
-std::pair<bool,BitypeVar<Chesspiece*>> ClassicChess::normal_output_check(std::string in,std::string out){
-	/* normal en oposition avec roc_output_check,
-	 * output designe la 2e partie de la selectiond de piece c.a.d. le choix de la destination de la piecesélectionné */
-	
-	bool res;
-	bool valid = this->verify_validity_input(out);
-	Chesspiece* cap_piece;
-	std::pair<int,int> conv;
-	BitypeVar<Chesspiece*> dst;
-				
-	if (valid){
-		bool again = false;
-				
-		MatPosi* mpos_out = new MatPosi(out);
-		dst = this->get_plateau()->get_piece(mpos_out->to_pair());
-				
-		if (dst.get_state() == true){
-					
-			cap_piece = dst.get_var();
-						
-			if (cap_piece->get_owner() == get_active_player()){ // piece de soi-meme
-				
-				std::stringstream ss;
-				ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"retry")<<", "<< this->get_dico()->search(this->get_active_player()->get_langue(),"cap_pe_self")<<std::endl;
-				this->get_active_player()->send_msg(ss.str());
-				
-				again = true;
-			}
-						
-			else{
-				// piece de l'adversaire
-				// verifier que in peut faire le déplacement vers out !
-				if(check_illegal_move(in,out) == true){again = true;}
-			}
-		}	
-				
-				// case vide
-		else{if(check_illegal_move(in,out) == true){again = true;}} //cette notation evite la mise a false de "again"
-			
-		res = not(again);
-	}
-	else{
-		res = false;
-	}
-	
-	std::pair<bool,BitypeVar<Chesspiece*>> paire = std::make_pair(res,dst);
-	return paire;
-}
-
-Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* ClassicChess::out_input(std::string in, BitypeVar<Chesspiece*> in_pe){
-	
-	/* out designe la 2e partie de la selectiond de piece c.a.d. le choix de la destination de la piece sélectionné (en in)
-	 * boucle while gèrant toutes les possibilités concernat ce choix de destination*/
-	
-	BitypeVar<Chesspiece*> dst;
-	std::pair<int,int> conv;
-	std::pair<bool,BitypeVar<Chesspiece*>> norm_paire;
-	
-	std::string out = "";
-	
-	bool part_b = false;
-	bool again = false;
-	bool correspond = false;
-	bool found;
-	
-	bool roc_accept = (verifier_type_pe<Roi>(in_pe) or verifier_type_pe<Tour>(in_pe));
-		
-	bool end_game = false;
-	while (not(part_b) and not(again) and not(correspond) and not(end_game)){
-		
-		std::stringstream ss_menu;
-		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"depl_pe")<<" "<<in<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_ret_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_ret_symbol())<<std::endl;
-		if (roc_accept == true){ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_roc_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_roc_symbol())<<std::endl;}
-		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_end_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_end_symbol())<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_liste_depl_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_liste_depl_symbol())<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_liste_capt_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_liste_capt_symbol())<<std::endl;
-		ss_menu<<this->get_dico()->search(this->get_active_player()->get_langue(),"ou")<<" "<<this->get_lang_symbol()<<" "<<this->get_dico()->search(this->get_active_player()->get_langue(),this->get_lang_symbol())<<std::endl;
-		
-		this->get_active_player()->send_msg(ss_menu.str());
-		
-		out = this->get_active_player()->recieve_msg();
-		
-		
-		Trinome<Quadrinome<bool,bool,bool,bool>*, BitypeVar<Chesspiece*>, std::string > symbol_info = this->check_out_for_special_symbol(in_pe, out, roc_accept);
-		
-		Quadrinome<bool,bool,bool,bool>* symbol_bool_info = symbol_info.get_first();
-		
-		found = symbol_bool_info->get_first();
-		
-		if (found){
-			
-			dst = symbol_info.get_second();
-			out = symbol_info.get_third();
-			
-			again = symbol_bool_info->get_second();
-			correspond = symbol_bool_info->get_third();
-			end_game = symbol_bool_info->get_fourth();
-			
-		}
-		else{
-			norm_paire = this->normal_output_check(in,out);
-			part_b = norm_paire.first;
-			dst = norm_paire.second;
-		}
-	}
-
-	Trinome<bool,bool,bool>* trinome_bool_res = new Trinome<bool,bool,bool>(again,correspond,end_game);
-	Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>* res = new Trinome<std::string,BitypeVar<Chesspiece*>,Trinome<bool,bool,bool>*>(out,dst,trinome_bool_res);
-	
-	return res;
-}
-
-bool ClassicChess::exec_step(std::string in, std::string out, BitypeVar<Chesspiece*> adv_pe_out, bool switch_pos,bool abandon){
-	
-	bool end;
-	
-	if (not abandon){
-		end = check_end_game(adv_pe_out, switch_pos);
-	
-		// ici on suppose que input correcte puisque apres les verification
-		this->exec_move(in,out,switch_pos);
-	}
-	
-	if (not(end)){this->check_evolution();} // nouveau !!
-	
-	if (not(end)){
-		end = this->verify_kings();
-		//if(not(end)){
-		//	end = this->check_pat();
-		//}
-		
-	} //RAJOUTER LE PAT
-	else{this->get_active_player()->send_msg(this->get_dico()->search(this->get_active_player()->get_langue(),"mode_echec_et_mat"),true);} // si arret par consequences automatiquement echec et mat (pas possible de pat)
-	
-	this->affichage();
-	
-	if (not end and not abandon){this->change_active_player();}
-	else{
-		
-		if (abandon == true){this->change_active_player();}
-		
-		std::stringstream ss;
-		
-		ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"vict")<<" "<<get_active_player()<<" !"<<std::endl;
-		ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"fin_match")<<"!"<<std::endl;
-		
-		this->get_active_player()->send_msg(ss.str());
-	}
-	
-	this->inc_action_cnt();
-
-	return end;
-
-}
-
-std::pair<bool,std::string> ClassicChess::execute_step(){
+std::pair<bool,std::string> ClassicChess::execute_step(Player* play){
 	
 	/* fonction principale du jeu, boucle d'execution qui est lancé pour débuté le jeu et qui lorsque se termine termine le jeu*/
+	
+	this->set_active_player(play);
 	
 	bool end = false;
 	bool abandon = false;
@@ -374,7 +193,11 @@ std::pair<bool,std::string> ClassicChess::execute_step(){
 	return result;
 }
 
-std::pair<bool,bool> ClassicChess::execute_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit){
+std::pair<bool,bool> ClassicChess::execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit,Player* play){
+	
+	this->set_active_player(play);
+	
+	if (this->get_action_cnt() == 0){this->affichage();}
 	
 	bool ok = false;
 	bool end = false;
@@ -460,3 +283,19 @@ std::pair<bool,bool> ClassicChess::execute_step(BitypeVar<Trinome<std::string,st
 	
 }
 
+std::vector<Chesspiece*>* ClassicChess::evolution_possibilities(){
+	
+	Tour* tour = new Tour();
+	Fous* fous = new Fous();
+	Chevalier* chevalier = new Chevalier();
+	Dame* dame = new Dame();
+	
+	std::vector<Chesspiece*>* chess_vect = new std::vector<Chesspiece*>();
+	chess_vect->push_back(tour);
+	chess_vect->push_back(fous);
+	chess_vect->push_back(chevalier);
+	chess_vect->push_back(dame);
+	
+	return chess_vect;
+	
+}

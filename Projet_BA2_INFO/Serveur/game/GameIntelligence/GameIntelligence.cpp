@@ -1,10 +1,10 @@
 #include "GameIntelligence.hpp"
 
-BaseChess* GameIntelligence::get_game() const{
+TourParTour* GameIntelligence::get_game() const{
 	return this->game;
 }
 
-void GameIntelligence::set_game(BaseChess* jeu){
+void GameIntelligence::set_game(TourParTour* jeu){
 	this->game = jeu;
 }
 
@@ -17,12 +17,14 @@ void GameIntelligence::make_game(std::string game_type, Player* player_one, Play
 	
 	BaseChess* serv;
 	
-	if (game_type == "classic"){serv = new ClassicChess(player_one,player_two,player_one,dico);} //ClassicChess* 
-	else if (game_type == "dark"){serv = new DarkChess(player_one, player_two, player_one, dico);}
+	if (game_type == "classic"){serv = new ClassicChess(player_one,player_two,player_one,dico);}
+	else if (game_type == "dark"){serv = new DarkChess(player_one, player_two, player_one,nullptr, dico);}
 	else if (game_type == "trappist"){serv = new TrappistChess(player_one,player_two,player_one,dico);}
-	else if (game_type == "anti"){throw MyException(&mout,"not implemented yet!");}
+	else if (game_type == "anti"){serv = new AntiChess(player_one,player_two,player_one,dico);}
 	else{throw MyException(&mout,"game_type inconnu!");}
-	this->set_game(serv);
+	
+	TourParTour* big_game = new TourParTour(serv);
+	this->set_game(big_game);
 
 }
 
