@@ -18,7 +18,7 @@ class MatchMaking{
     void waitForMatch(AbstractUser* player,int gameMod);
   private:
       static void* run(void*);
-			//classic  = 0, trapist 1, dark 2, anti 3
+      
       std::vector<std::vector<AbstractUser*> > pools;
 			void initPool(int size = 4);
       void poolSort(int mod);
