@@ -115,7 +115,6 @@ void User::exit() {
             }
     }
     
-    pthread_exit(0);
     this->_db->updateUserDisc(this->name);
     pthread_exit(0);
 }
@@ -126,6 +125,7 @@ std::string User::getName()
 {
     return this->name;
 }
+
 User* User::findUserByName(std::string name)
 {
     User * res = nullptr;
