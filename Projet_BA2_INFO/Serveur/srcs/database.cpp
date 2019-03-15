@@ -64,8 +64,15 @@ bool Database::isUsernameFree(std::string username){
 
 bool Database::isLoginOk(std::string username, std::string password){
 	long long int tpassword = static_cast<long long int>(hashPass(password));
-	
-	std::string sql = "SELECT * FROM users WHERE username = '" + username + "' AND password = '" + std::to_string(tpassword) + "';";
+	char* zErrMsg = 0;
+	int hasResult = 0;
+	std::string sql = "SELECT loggedIn, socket FROM '" + username + "';";
+	int rc = sqlite3_exec(this->db, sql.c_str(), this->callbackDisc, &hasResult, &zErrMsg);
+	if (rc != SQLITE_OK) {
+		std::cout << "Error selectData: " << sqlite3_errmsg(this->db) << std::endl;
+		sqlite3_free(zErrMsg);
+	}
+	sql = "SELECT * FROM users WHERE username = '" + username + "' AND password = '" + std::to_string(tpassword) + "';";
 	return selectData(sql);
 }
 
@@ -106,11 +113,19 @@ int Database::myCallback(void* pUser, int argc, char** argv, char** columns){
 }
 
 int Database::callback(void* NotUsed, int argc, char** argv, char** columns){
-	int i;
-	for (i = 0; i < argc; i++){
+	for (int i = 0; i < argc; i++){
 		printf("%s = %s\n", columns[i], argv[i] ? argv[i] : "NULL");
 	}
 	printf("\n");
+	return 0;
+}
+
+// Pour kick un client si il est deja connecter et ce reconnecte
+int Database::callbackDisc(void* NotUsed, int argc, char** argv, char** columns){
+	if (*argv[0] == '1'){
+		std::cout << "closing old client..." << std::endl;
+		close(atoi(argv[1]));
+	}
 	return 0;
 }
 
@@ -123,7 +138,10 @@ void Database::createInfoTable(std::string username, int socket){
 	const char* pzTest;
 	sqlite3_stmt* stmt;
 	std::string sql = "CREATE TABLE IF NOT EXISTS '" + username + "' (socket INT,\
-                                                    				loggedIn BOOLEAN NOT NULL);";
+                                                    				loggedIn BOOLEAN NOT NULL,\
+																	int nbrGames,\
+																	int win,\
+																	int elo);";
 
 	char* zErrMsg = 0;
 	if (sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg) == SQLITE_OK){
@@ -161,3 +179,17 @@ void Database::updateUserDisc(std::string table){
 	}
 }
 
+void Database::updateWin(std::string table, bool win){
+	char* zErrMsg = 0;
+	std::string sql = "UPDATE '" + table + "'set 'nbrGames' = 'nbrGames'+1, ";
+	if(win){
+		sql += "'win' = 'win'+1, 'elo'='elo'+3;";
+	} else {
+		sql += "'elo'='elo'-2;";
+	}
+	int rc = sqlite3_exec(this->db, sql.c_str(), this->callback, 0, &zErrMsg);
+	if (rc != SQLITE_OK){
+		std::cout << "Error on Update: " << sqlite3_errmsg(this->db) << std::endl;
+		sqlite3_free(zErrMsg);
+	}
+}
