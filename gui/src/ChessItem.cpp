@@ -1,4 +1,4 @@
-#include "ChessItem.h"
+#include "ChessItem.hpp"
 
 ChessItem::ChessItem(std::string pieceType, QGraphicsItem *parent) : QGraphicsPixmapItem(parent){
     setPicture(pieceType);
