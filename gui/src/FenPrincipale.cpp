@@ -12,7 +12,7 @@ FenPrincipale::FenPrincipale() {
 void FenPrincipale::init_window() {
     setWindowTitle("On Veut Pas D'Échec");
     setWindowIcon(QIcon("img/chess_icon.png"));
-    // setStyleSheet("background-image:url(img/retro_space.png)");
+    //setStyleSheet("background-image:url(img/retro_space.png)");
     resize(QDesktopWidget().availableGeometry(this).size() * 0.5);
     _statusBar = new QStatusBar(this);
     setStatusBar(_statusBar);
@@ -59,7 +59,7 @@ void FenPrincipale::checkSignIn() {
     if (nom == "achraf" && mdp == "achraf") {
         goToGame();
         _statusBar->showMessage("Welcome " + nom + " !", 5000);
-        // RAJOUTER LA TOUCHE ENTER
+
 
     } else {
         _statusBar->showMessage("Username or password is incorrect", 5000);
