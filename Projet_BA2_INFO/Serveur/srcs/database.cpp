@@ -138,7 +138,10 @@ void Database::createInfoTable(std::string username, int socket){
 	const char* pzTest;
 	sqlite3_stmt* stmt;
 	std::string sql = "CREATE TABLE IF NOT EXISTS '" + username + "' (socket INT,\
-                                                    				loggedIn BOOLEAN NOT NULL);";
+                                                    				loggedIn BOOLEAN NOT NULL,\
+																	int nbrGames,\
+																	int win,\
+																	int elo);";
 
 	char* zErrMsg = 0;
 	if (sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg) == SQLITE_OK){
@@ -176,3 +179,17 @@ void Database::updateUserDisc(std::string table){
 	}
 }
 
+void Database::updateWin(std::string table, bool win){
+	char* zErrMsg = 0;
+	std::string sql = "UPDATE '" + table + "'set 'nbrGames' = 'nbrGames'+1, ";
+	if(win){
+		sql += "'win' = 'win'+1, 'elo'='elo'+3;";
+	} else {
+		sql += "'elo'='elo'-2;";
+	}
+	int rc = sqlite3_exec(this->db, sql.c_str(), this->callback, 0, &zErrMsg);
+	if (rc != SQLITE_OK){
+		std::cout << "Error on Update: " << sqlite3_errmsg(this->db) << std::endl;
+		sqlite3_free(zErrMsg);
+	}
+}
