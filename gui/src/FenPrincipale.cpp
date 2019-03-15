@@ -4,6 +4,7 @@ FenPrincipale::FenPrincipale() {
     init_window();
     init_stack();
     init_connect();
+    init_dock();
 
     setCentralWidget(_stack);
     goToLogIn();
@@ -19,19 +20,6 @@ void FenPrincipale::init_window() {
     MenuBar();
 }
 
-void FenPrincipale::init_connect() {
-    connect(_login->getSI(), SIGNAL(clicked()), this, SLOT(checkSignIn()));
-    connect(_login, SIGNAL(enterPressed()), this, SLOT(checkSignIn()));
-    connect(_login->getRegister(), SIGNAL(clicked()), this, SLOT(goToRegister()));
-    connect(_register->getCancel(), SIGNAL(clicked()), this, SLOT(goToLogIn()));
-    connect(_register, SIGNAL(escapePressed()), this, SLOT(goToLogIn()));
-    connect(_register->getOK(), SIGNAL(clicked()), this, SLOT(checkRegister()));
-    connect(_register, SIGNAL(enterPressed()), this, SLOT(checkRegister()));
-    connect(_gameWindow->getClassicButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
-    connect(_menu->getNewGame(), SIGNAL(clicked()),this, SLOT(goToGame()));
-    connect(_menu->getExit(),SIGNAL(clicked()),qApp, SLOT(quit()));
-}
-
 void FenPrincipale::init_stack() {
     _register = new Register(this);
     _login = new Login(this);
@@ -42,6 +30,32 @@ void FenPrincipale::init_stack() {
     _stack->addWidget(_register);
     _stack->addWidget(_menu);
     _stack->addWidget(_gameWindow);
+}
+
+void FenPrincipale::init_connect() {
+    connect(_login->getSI(), SIGNAL(clicked()), this, SLOT(checkSignIn()));
+    connect(_login, SIGNAL(enterPressed()), this, SLOT(checkSignIn()));
+    connect(_login->getRegister(), SIGNAL(clicked()), this, SLOT(goToRegister()));
+    connect(_register->getCancel(), SIGNAL(clicked()), this, SLOT(goToLogIn()));
+    connect(_register, SIGNAL(escapePressed()), this, SLOT(goToLogIn()));
+    connect(_register->getOK(), SIGNAL(clicked()), this, SLOT(checkRegister()));
+    connect(_register, SIGNAL(enterPressed()), this, SLOT(checkRegister()));
+    connect(_gameWindow->getClassicButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
+    connect(_menu->getNewGame(), SIGNAL(clicked()), this, SLOT(goToGame()));
+    connect(_menu->getExit(), SIGNAL(clicked()), qApp, SLOT(quit()));
+    // connect(_chat->getLineEdit(),SIGNAL(returnPressed()),this, SLOT(sendMessage()));
+}
+
+void FenPrincipale::init_dock() {
+    // QDockWidget *dock = new QDockWidget("test", this);
+    // QTextEdit *textEdit = new QTextEdit(this);
+    // dock->setWidget(textEdit);
+    // addDockWidget(Qt::RightDockWidgetArea, dock);
+    // dock->hide();
+    _dockChat = new QDockWidget(this);
+    _chat = new Chat(this);
+    _dockChat->setWidget(_chat);
+    addDockWidget(Qt::RightDockWidgetArea, _dockChat);
 }
 
 void FenPrincipale::MenuBar() {
@@ -102,6 +116,11 @@ void FenPrincipale::goToClassic() {
     _stack->setCurrentWidget(_classicWindow);
 }
 
-void FenPrincipale::goToMenu(){
+void FenPrincipale::goToMenu() {
     _stack->setCurrentWidget(_menu);
+}
+
+void FenPrincipale::sendMessage(){
+    _chat->getTextEdit()->insertPlainText(_chat->getLineEdit()->text());
+
 }
