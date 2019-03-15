@@ -1,4 +1,4 @@
-#include "PlateauScene.h"
+#include "PlateauScene.hpp"
 
 PlateauScene::PlateauScene(int size, QWidget *parent) : _size(size), QGraphicsView(parent) {
     _scene = new QGraphicsScene;

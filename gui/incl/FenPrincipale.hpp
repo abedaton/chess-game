@@ -1,9 +1,10 @@
-#ifndef FENPRINCIPALE_H
-#define FENPRINCIPALE_H
-#include "GameWindow.h"
-#include "Login.h"
-#include "PlateauScene.h"
-#include "Register.h"
+#ifndef FENPRINCIPALE_HPP
+#define FENPRINCIPALE_HPP
+#include "Menu.hpp"
+#include "GameWindow.hpp"
+#include "Login.hpp"
+#include "PlateauScene.hpp"
+#include "Register.hpp"
 #include <QtWidgets>
 #include <iostream>
 
@@ -22,6 +23,7 @@ class FenPrincipale : public QMainWindow {
     void goToLogIn();
     void goToGame();
     void goToClassic();
+    void goToMenu();
 
     private:
     void init_window();
@@ -29,11 +31,13 @@ class FenPrincipale : public QMainWindow {
     void init_stack();
     QMenu *_menuReglages;
     QStatusBar *_statusBar;
+    QStackedWidget *_stack;
+
     Login *_login;
     Register *_register;
-    QStackedWidget *_stack;
+    Menu *_menu;
     GameWindow *_gameWindow;
     PlateauScene *_classicWindow;
 };
 
-#endif // FENPRINCIPALE_H
+#endif // FENPRINCIPALE_HPP

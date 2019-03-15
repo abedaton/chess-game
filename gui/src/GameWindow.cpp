@@ -1,4 +1,4 @@
-#include "GameWindow.h"
+#include "GameWindow.hpp"
 
 GameWindow::GameWindow(QWidget *parent) : QWidget(parent) {
     init_pushButton();

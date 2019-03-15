@@ -1,5 +1,5 @@
-#ifndef GAMEWINDOW_H
-#define GAMEWINDOW_H
+#ifndef GAMEWINDOW_HPP
+#define GAMEWINDOW_HPP
 
 #include <QtWidgets>
 
@@ -24,4 +24,4 @@ class GameWindow : public QWidget {
     QGridLayout *_gbox;
 };
 
-#endif // GAMEWINDOW_H
+#endif // GAMEWINDOW_HPP

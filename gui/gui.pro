@@ -15,6 +15,7 @@ MOC_DIR = bin
 INCLUDEPATH += ./src
 INCLUDEPATH += ./incl
 INCLUDEPATH += ./img
+INCLUDEPATH += ./bin
 INCLUDEPATH += .
 
 # The following define makes your compiler warn you if you use any
@@ -29,18 +30,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += incl/FenPrincipale.h \
-           incl/GameWindow.h \
-           incl/Login.h \
-           incl/PlateauBox.h \
-           incl/PlateauScene.h \
-           incl/Register.h \
-           incl/ChessItem.h
+HEADERS += incl/FenPrincipale.hpp \
+           incl/GameWindow.hpp \
+           incl/Login.hpp \
+           incl/PlateauBox.hpp \
+           incl/PlateauScene.hpp \
+           incl/Register.hpp \
+           incl/Menu.hpp
 SOURCES += src/FenPrincipale.cpp \
            src/GameWindow.cpp \
            src/Login.cpp \
            src/main.cpp \
            src/PlateauBox.cpp \
            src/PlateauScene.cpp \
-           src/Register.cpp \
-           src/ChessItem.cpp
+           src/Register.cpp\
+           src/Menu.cpp

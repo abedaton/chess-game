@@ -1,6 +1,6 @@
-#ifndef PLATEAUSCENE_H
-#define PLATEAUSCENE_H
-#include "PlateauBox.h"
+#ifndef PLATEAUSCENE_HPP
+#define PLATEAUSCENE_HPP
+#include "PlateauBox.hpp"
 #include <QGraphicsGridLayout>
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -21,4 +21,4 @@ class PlateauScene : public QGraphicsView {
     QGraphicsGridLayout *_ggbox;
 };
 
-#endif // PLATEAUSCENE_H
+#endif // PLATEAUSCENE_HPP

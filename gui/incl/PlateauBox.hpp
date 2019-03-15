@@ -1,5 +1,5 @@
-#ifndef PLATEAUBOX_H
-#define PLATEAUBOX_H
+#ifndef PLATEAUBOX_HPP
+#define PLATEAUBOX_HPP
 
 #include <QBrush>
 #include <QGraphicsRectItem>
@@ -28,4 +28,4 @@ class PlateauBox : public QGraphicsRectItem {
     ChessItem* _piece;
 };
 
-#endif // PLATEAUBOX_H
+#endif // PLATEAUBOX_HPP

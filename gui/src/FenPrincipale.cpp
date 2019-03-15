@@ -1,4 +1,4 @@
-#include "FenPrincipale.h"
+#include "FenPrincipale.hpp"
 
 FenPrincipale::FenPrincipale() {
     init_window();
@@ -28,15 +28,19 @@ void FenPrincipale::init_connect() {
     connect(_register->getOK(), SIGNAL(clicked()), this, SLOT(checkRegister()));
     connect(_register, SIGNAL(enterPressed()), this, SLOT(checkRegister()));
     connect(_gameWindow->getClassicButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
+    connect(_menu->getNewGame(), SIGNAL(clicked()),this, SLOT(goToGame()));
+    connect(_menu->getExit(),SIGNAL(clicked()),qApp, SLOT(quit()));
 }
 
 void FenPrincipale::init_stack() {
     _register = new Register(this);
     _login = new Login(this);
     _gameWindow = new GameWindow(this);
+    _menu = new Menu(this);
     _stack = new QStackedWidget(this);
     _stack->addWidget(_login);
     _stack->addWidget(_register);
+    _stack->addWidget(_menu);
     _stack->addWidget(_gameWindow);
 }
 
@@ -57,7 +61,7 @@ void FenPrincipale::checkSignIn() {
      */
 
     if (nom == "achraf" && mdp == "achraf") {
-        goToGame();
+        goToMenu();
         _statusBar->showMessage("Welcome " + nom + " !", 5000);
 
 
@@ -75,7 +79,7 @@ void FenPrincipale::checkRegister() {
         QMessageBox::critical(this, "Incorrect Register", "Passwords do not match");
         _statusBar->showMessage("Passwords do not match");
     } else {
-        goToGame();
+        goToMenu();
         _statusBar->showMessage("Welcome new user !", 5000);
     }
 }
@@ -96,4 +100,8 @@ void FenPrincipale::goToClassic() {
     _classicWindow = new PlateauScene;
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
+}
+
+void FenPrincipale::goToMenu(){
+    _stack->setCurrentWidget(_menu);
 }
