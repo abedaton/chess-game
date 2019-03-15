@@ -75,7 +75,7 @@ void User::waitForMatch(){
     int gameMod = recvInt();
     this->_match->waitForMatch(this, gameMod);
 }
-
+        
 void User::mov(){
     if (! this->_myTurn){ //hack
         std::cout << "should never happened" << std::endl;
