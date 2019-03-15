@@ -6,6 +6,7 @@
 #include <QPen>
 #include <QWidget>
 #include <iostream>
+#include "ChessItem.hpp"
 
 class PlateauBox : public QGraphicsRectItem {
     public:
@@ -13,6 +14,7 @@ class PlateauBox : public QGraphicsRectItem {
     void setColor(QColor color);
     void setFirstColor(QColor color);
     void setPosition(int x, int y);
+    void setPiece(ChessItem* piece);
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
@@ -23,6 +25,7 @@ class PlateauBox : public QGraphicsRectItem {
     QColor _color;
     QPen _pen;
     std::pair<int, int> _pos;
+    ChessItem* _piece;
 };
 
 #endif // PLATEAUBOX_HPP

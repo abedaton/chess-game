@@ -11,7 +11,7 @@ PlateauScene::PlateauScene(int size, QWidget *parent) : _size(size), QGraphicsVi
     setBoxes(0, 100, 65);
     int moves[] = {1, 2, 3, 4};
 
-    showMoves(moves);
+    //showMoves(moves);
 }
 
 void PlateauScene::setBoxes(int x, int y, int sideLenght) {
@@ -26,13 +26,18 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
             if ((i + j) % 2 == 0)
                 box->setFirstColor(Qt::white);
             else
-                box->setFirstColor(Qt::black);
+                box->setFirstColor(Qt::darkGray);
             box->setPosition(i, j);
             _boxes[i][j] = box;
             _scene->addItem(box);
         }
         curr_y += sideLenght;
     }
+    ChessItem* pion = new ChessItem("pion");
+
+
+    _boxes[4][4]->setPiece(pion);
+    _scene->addItem(pion);
 }
 
 void PlateauScene::showMoves(int *moves) {
