@@ -2299,7 +2299,7 @@ std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bo
 		}
 		delete ppos_in;
 		
-		PlatPosi* ppos_out = new PlatPosi(in,*bit_taille);
+		PlatPosi* ppos_out = new PlatPosi(out,*bit_taille);
 		if(invert_y == true){
 			ppos_out->invert_y_axis();
 			res_trinome->set_second(ppos_out->to_string());
@@ -2311,8 +2311,7 @@ std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bo
 		valid_coords = false;
 	}
 
-	Trinome<std::string,std::string,bool>* nouv_trinome = new Trinome<std::string,std::string,bool>(in,out,is_roc);
-	BitypeVar<Trinome<std::string,std::string,bool>*>* bit_res = new BitypeVar<Trinome<std::string,std::string,bool>*>(valid_coords,nouv_trinome);//res_trinome
+	BitypeVar<Trinome<std::string,std::string,bool>*>* bit_res = new BitypeVar<Trinome<std::string,std::string,bool>*>(valid_coords,res_trinome);
 	
 	return this->execute_forced_step(bit_res,play);
 }

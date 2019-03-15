@@ -83,6 +83,7 @@ void User::mov(){
         this->exit();
     }
     std::string mov = recvStr();
+    
     std::pair<bool,bool> pAnswer = this->_game->execute_step(mov, this->name,this->get_inverted());
     if (std::get<0>(pAnswer)){
       this->_opponent->opponentMov(mov);
