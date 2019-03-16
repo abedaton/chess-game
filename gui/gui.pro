@@ -37,7 +37,7 @@ HEADERS += incl/FenPrincipale.hpp \
            incl/PlateauScene.hpp \
            incl/Register.hpp \
            incl/Menu.hpp\
-           incl/Chat.hpp
+           incl/Chat.hpp \
            incl/ChessItem.hpp
 SOURCES += src/FenPrincipale.cpp \
            src/GameWindow.cpp \
