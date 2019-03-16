@@ -47,5 +47,5 @@ SOURCES += src/FenPrincipale.cpp \
            src/PlateauScene.cpp \
            src/Register.cpp\
            src/Menu.cpp \
-           src/Chat.cpp
+           src/Chat.cpp \
            src/ChessItem.cpp

@@ -58,11 +58,8 @@ SOURCES       = src/FenPrincipale.cpp \
 		src/PlateauScene.cpp \
 		src/Register.cpp \
 		src/Menu.cpp \
-<<<<<<< HEAD
-		src/Chat.cpp bin/moc_FenPrincipale.cpp \
-=======
+		src/Chat.cpp \
 		src/ChessItem.cpp bin/moc_FenPrincipale.cpp \
->>>>>>> 3af4aad643f015962c5b7603d28669b85da71469
 		bin/moc_GameWindow.cpp \
 		bin/moc_Login.cpp \
 		bin/moc_Register.cpp \
@@ -76,11 +73,8 @@ OBJECTS       = bin/FenPrincipale.o \
 		bin/PlateauScene.o \
 		bin/Register.o \
 		bin/Menu.o \
-<<<<<<< HEAD
 		bin/Chat.o \
-=======
 		bin/ChessItem.o \
->>>>>>> 3af4aad643f015962c5b7603d28669b85da71469
 		bin/moc_FenPrincipale.o \
 		bin/moc_GameWindow.o \
 		bin/moc_Login.o \
@@ -167,11 +161,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		incl/PlateauScene.hpp \
 		incl/Register.hpp \
 		incl/Menu.hpp \
-<<<<<<< HEAD
 		incl/Chat.hpp src/FenPrincipale.cpp \
-=======
-		incl/ChessItem.hpp src/FenPrincipale.cpp \
->>>>>>> 3af4aad643f015962c5b7603d28669b85da71469
 		src/GameWindow.cpp \
 		src/Login.cpp \
 		src/main.cpp \
@@ -179,11 +169,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/PlateauScene.cpp \
 		src/Register.cpp \
 		src/Menu.cpp \
-<<<<<<< HEAD
-		src/Chat.cpp
-=======
+		src/Chat.cpp \
 		src/ChessItem.cpp
->>>>>>> 3af4aad643f015962c5b7603d28669b85da71469
 QMAKE_TARGET  = gui
 DESTDIR       = 
 TARGET        = gui
@@ -365,13 +352,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-<<<<<<< HEAD
 	$(COPY_FILE) --parents incl/FenPrincipale.hpp incl/GameWindow.hpp incl/Login.hpp incl/PlateauBox.hpp incl/PlateauScene.hpp incl/Register.hpp incl/Menu.hpp incl/Chat.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/FenPrincipale.cpp src/GameWindow.cpp src/Login.cpp src/main.cpp src/PlateauBox.cpp src/PlateauScene.cpp src/Register.cpp src/Menu.cpp src/Chat.cpp $(DISTDIR)/
-=======
-	$(COPY_FILE) --parents incl/FenPrincipale.hpp incl/GameWindow.hpp incl/Login.hpp incl/PlateauBox.hpp incl/PlateauScene.hpp incl/Register.hpp incl/Menu.hpp incl/ChessItem.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/FenPrincipale.cpp src/GameWindow.cpp src/Login.cpp src/main.cpp src/PlateauBox.cpp src/PlateauScene.cpp src/Register.cpp src/Menu.cpp src/ChessItem.cpp $(DISTDIR)/
->>>>>>> 3af4aad643f015962c5b7603d28669b85da71469
+	$(COPY_FILE) --parents src/FenPrincipale.cpp src/GameWindow.cpp src/Login.cpp src/main.cpp src/PlateauBox.cpp src/PlateauScene.cpp src/Register.cpp src/Menu.cpp src/Chat.cpp src/ChessItem.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -439,16 +421,11 @@ bin/moc_Menu.cpp: incl/Menu.hpp \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/groupe9/gui -I/home/achraf/groupe9/gui/src -I/home/achraf/groupe9/gui/incl -I/home/achraf/groupe9/gui/img -I/home/achraf/groupe9/gui/bin -I/home/achraf/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Menu.hpp -o bin/moc_Menu.cpp
 
-<<<<<<< HEAD
 bin/moc_Chat.cpp: incl/Chat.hpp \
 		bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui/bin -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Chat.hpp -o bin/moc_Chat.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/groupe9/gui -I/home/achraf/groupe9/gui/src -I/home/achraf/groupe9/gui/incl -I/home/achraf/groupe9/gui/img -I/home/achraf/groupe9/gui/bin -I/home/achraf/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Chat.hpp -o bin/moc_Chat.cpp
 
-compiler_moc_objc_header_make_all:
-compiler_moc_objc_header_clean:
-=======
->>>>>>> 3af4aad643f015962c5b7603d28669b85da71469
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all:
@@ -469,13 +446,9 @@ bin/FenPrincipale.o: src/FenPrincipale.cpp incl/FenPrincipale.hpp \
 		incl/Login.hpp \
 		incl/PlateauScene.hpp \
 		incl/PlateauBox.hpp \
-<<<<<<< HEAD
+		incl/ChessItem.hpp \
 		incl/Register.hpp \
 		incl/Chat.hpp
-=======
-		incl/ChessItem.hpp \
-		incl/Register.hpp
->>>>>>> 3af4aad643f015962c5b7603d28669b85da71469
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/FenPrincipale.o src/FenPrincipale.cpp
 
 bin/GameWindow.o: src/GameWindow.cpp incl/GameWindow.hpp
@@ -490,13 +463,9 @@ bin/main.o: src/main.cpp incl/FenPrincipale.hpp \
 		incl/Login.hpp \
 		incl/PlateauScene.hpp \
 		incl/PlateauBox.hpp \
-<<<<<<< HEAD
+		incl/ChessItem.hpp \
 		incl/Register.hpp \
 		incl/Chat.hpp
-=======
-		incl/ChessItem.hpp \
-		incl/Register.hpp
->>>>>>> 3af4aad643f015962c5b7603d28669b85da71469
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/main.o src/main.cpp
 
 bin/PlateauBox.o: src/PlateauBox.cpp incl/PlateauBox.hpp \
@@ -514,13 +483,11 @@ bin/Register.o: src/Register.cpp incl/Register.hpp
 bin/Menu.o: src/Menu.cpp incl/Menu.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/Menu.o src/Menu.cpp
 
-<<<<<<< HEAD
 bin/Chat.o: src/Chat.cpp incl/Chat.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/Chat.o src/Chat.cpp
-=======
-bin/ChessItem.o: src/ChessItem.cpp 
+
+bin/ChessItem.o: src/ChessItem.cpp incl/ChessItem.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/ChessItem.o src/ChessItem.cpp
->>>>>>> 3af4aad643f015962c5b7603d28669b85da71469
 
 bin/moc_FenPrincipale.o: bin/moc_FenPrincipale.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/moc_FenPrincipale.o bin/moc_FenPrincipale.cpp

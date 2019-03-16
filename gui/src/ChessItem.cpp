@@ -5,13 +5,18 @@ ChessItem::ChessItem(std::string pieceType, QGraphicsItem *parent) : QGraphicsPi
 }
 
 void ChessItem::setPicture(std::string pieceType){
-    if(pieceType == "pion"){
-        QPixmap test("./img/pionB.png");
-        test = test.scaled(65,65);
-        std::cout << test.isNull() << std::endl;
-
-        setPixmap(test);
+    if(pieceType == "pionB"){
+        QPixmap pic("./img/pionB.png");
+        pic = pic.scaled(65,65);
+        setPixmap(pic);
     }
+    else if(pieceType == "pionW"){
+        QPixmap pic("./img/pionW.png");
+        pic = pic.scaled(65,65);
+        setPixmap(pic);
+    }
+
+
 
 }
 /*

@@ -7,6 +7,9 @@
 #include <QWidget>
 #include <iostream>
 #include "ChessItem.hpp"
+#include "PlateauScene.hpp"
+
+class PlateauScene;
 
 class PlateauBox : public QGraphicsRectItem {
     public:
@@ -15,10 +18,13 @@ class PlateauBox : public QGraphicsRectItem {
     void setFirstColor(QColor color);
     void setPosition(int x, int y);
     void setPiece(ChessItem* piece);
+    ChessItem* getPiece() const;
+    void resetColor();
+    void movePiece(PlateauBox* box);
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
-    // void resetColor(QColor color);
+    PlateauScene* _scene;
     private:
     int _sideLenght;
     QBrush _brush;
