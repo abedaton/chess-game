@@ -20,7 +20,7 @@ class PlateauBox : public QGraphicsRectItem {
     void setPiece(ChessItem* piece);
     ChessItem* getPiece() const;
     void resetColor();
-    void movePiece(PlateauBox* box);
+    void movePiece();
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 

@@ -161,7 +161,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		incl/PlateauScene.hpp \
 		incl/Register.hpp \
 		incl/Menu.hpp \
-		incl/Chat.hpp src/FenPrincipale.cpp \
+		incl/Chat.hpp \
+		incl/ChessItem.hpp src/FenPrincipale.cpp \
 		src/GameWindow.cpp \
 		src/Login.cpp \
 		src/main.cpp \
@@ -352,7 +353,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents incl/FenPrincipale.hpp incl/GameWindow.hpp incl/Login.hpp incl/PlateauBox.hpp incl/PlateauScene.hpp incl/Register.hpp incl/Menu.hpp incl/Chat.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents incl/FenPrincipale.hpp incl/GameWindow.hpp incl/Login.hpp incl/PlateauBox.hpp incl/PlateauScene.hpp incl/Register.hpp incl/Menu.hpp incl/Chat.hpp incl/ChessItem.hpp $(DISTDIR)/
 	$(COPY_FILE) --parents src/FenPrincipale.cpp src/GameWindow.cpp src/Login.cpp src/main.cpp src/PlateauBox.cpp src/PlateauScene.cpp src/Register.cpp src/Menu.cpp src/Chat.cpp src/ChessItem.cpp $(DISTDIR)/
 
 
@@ -469,7 +470,8 @@ bin/main.o: src/main.cpp incl/FenPrincipale.hpp \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/main.o src/main.cpp
 
 bin/PlateauBox.o: src/PlateauBox.cpp incl/PlateauBox.hpp \
-		incl/ChessItem.hpp
+		incl/ChessItem.hpp \
+		incl/PlateauScene.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/PlateauBox.o src/PlateauBox.cpp
 
 bin/PlateauScene.o: src/PlateauScene.cpp incl/PlateauScene.hpp \
