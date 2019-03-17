@@ -21,7 +21,7 @@
 class User: public AbstractUser{
 	public:
 		User(int client_sock, Database* db, MatchMaking* match);
-		virtual ~User() = default;		
+		virtual ~User();		
         User(const User&) = delete;
         User& operator= (const User&) noexcept = delete;
 
@@ -29,6 +29,7 @@ class User: public AbstractUser{
 		void opponentMov(std::string mov)override;
 		void surrend() override;
 		void sendMsg(std::string msg) override;
+		void lose() override;
 		void exit();
 
 		void sendfriendRequestNotification(User *userAdding); 
@@ -51,7 +52,7 @@ class User: public AbstractUser{
 		bool _isinverted;
 
 		std::mutex _mutex;
-		std::string name;
+		std::string _name;
 		
 		void handleClient();
 		void checkLogin();
@@ -69,11 +70,6 @@ class User: public AbstractUser{
         std::string recvStr();
 
 		static void* run(void* tmp);
-		
-
-		void updateInfo(); // update le nom et socket dans la database
-		void updateInfoDisc(); // quand le client se deconnecte
-		void updateInfoMatch(); 
 		
 		User *findUserByName(std::string name);
         void listOnlineFriends();

@@ -1,5 +1,5 @@
 
-all: deepcopy_pe deepcopy_plat dico exception interpret log matposi mise_en_echec_et_mat msg pat_bots pe roc_bots_one roc_bots_real roc_bots_two roc_theorie
+all: deepcopy_pe deepcopy_plat dico e_et_m_bots exception interpret log matposi mise_en_echec_et_mat msg pat_bots pe roc_bots_one roc_bots_real roc_bots_two roc_theorie
 
 deepcopy_pe:
 	make -C ../test_deepcopy_pe
@@ -7,9 +7,12 @@ deepcopy_pe:
 deep_plat:
 	make -C ../test_deepcopy_plat
 
-dico:
+e_et_m_bots:
 	make -C ../test_dico
 	
+dico:
+	make -C ../test_e_et_m_bots
+
 exception:
 	make -C ../test_exception
 
@@ -47,4 +50,4 @@ roc_theorie:
 	make -C ../test_roc_theorie
 	
 
-.PHONY: deepcopy_pe deepcopy_plat dico exception interpret log matposi mise_en_echec_et_mat msg pat_bots pe roc_bots_one roc_bots_real roc_bots_two roc_theorie all 
+.PHONY: deepcopy_pe deepcopy_plat dico e_et_m_bots exception interpret log matposi mise_en_echec_et_mat msg pat_bots pe roc_bots_one roc_bots_real roc_bots_two roc_theorie all 

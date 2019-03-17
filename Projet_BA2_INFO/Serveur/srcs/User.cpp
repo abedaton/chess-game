@@ -5,6 +5,11 @@ User::User(int client_sock, Database* db, MatchMaking* match) : _clientSock(clie
     pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
 }
 
+User::~User(){
+    std::cout << "destructor" << std::endl;
+    exit();
+}
+
 void User::startGame(TempsReel* game, AbstractUser* oppenent, bool turn, bool inverted,bool ennemy_inverted, std::string ennemy_name){
     this->_game = game;
     this->_opponent = oppenent;
@@ -44,7 +49,7 @@ void User::letsRegister() {
     if (this->_db->isUsernameFree(username)){
         this->_db->addUser(username, password, email);
         std::cout << "register successfull" << std::endl;
-        this->name = username;
+        this->_name = username;
         this->sendInt(1);
         this->_db->createInfoTable(username, this->_clientSock);
     }
@@ -58,7 +63,7 @@ void User::checkLogin() {
     std::string password = recvStr();
 
     if (this->_db->isLoginOk(username,password)){
-        this->name = username;
+        this->_name = username;
         this->sendInt(1);
         this->_db->updateUserLog(username, this->_clientSock);
     } else {
@@ -73,7 +78,8 @@ void User::chat(){
 
 void User::waitForMatch(){
     int gameMod = recvInt();
-    this->_match->waitForMatch(this, gameMod);
+    int elo = _db->getInt(this->_name, "elo");
+    this->_match->waitForMatch(this, gameMod, elo);
 }
         
 void User::mov(){
@@ -84,17 +90,24 @@ void User::mov(){
     }
     std::string mov = recvStr();
     
-    std::pair<bool,bool> pAnswer = this->_game->execute_step(mov, this->name,this->get_inverted());
+    std::pair<bool, bool> pAnswer = this->_game->execute_step(mov, this->_name,this->get_inverted());
     if (std::get<0>(pAnswer)){
       this->_opponent->opponentMov(mov);
       this->_myTurn = false;
     }
+    
     if (std::get<1>(pAnswer)){ //end
       this->_game = nullptr;
-      ;;//To Do
+      this->_db->updateWin(this->_name, this->_opponent->get_name(), true);
+      this->_opponent->lose();
+      std::cout << "Score updated for " << this->_name;
     }
 }
 
+void User::lose(){
+    this->_game = nullptr;
+    this->_db->updateWin(this->_name, this->_opponent->get_name(), false);
+}
 
 
 void User::exit() {
@@ -104,36 +117,34 @@ void User::exit() {
     bool found = false;
     
     //on enleve l'utilisateur du vector des joueurs connectés
-    while(found == false && i < onlineUsers.size())
-    {
+    while(found == false && i < onlineUsers.size()){
         if(onlineUsers[i] != this)
             i++;
-        else
-            {
-                found = true;
-                onlineUsers.erase(onlineUsers.begin() + i);
-            }
+        else{
+            found = true;
+            onlineUsers.erase(onlineUsers.begin() + i);
+        }
     }
     
-    this->_db->updateUserDisc(this->name);
+    this->_db->updateUserDisc(this->_name);
     pthread_exit(0);
 }
 
-std::string User::get_name() const{return this->name;}
-
-std::string User::getName()
-{
-    return this->name;
+std::string User::get_name() const{
+    return this->_name;
 }
 
-User* User::findUserByName(std::string name)
-{
+std::string User::getName(){
+    return this->_name;
+}
+
+User* User::findUserByName(std::string _name){
     User * res = nullptr;
     int i = 0;
-    while(i < onlineUsers.size() && res == nullptr)
-    {
-        if(name == onlineUsers[i]->getName())
+    while(i < onlineUsers.size() && res == nullptr){
+        if(_name == onlineUsers[i]->getName()){
             res = onlineUsers[i];
+        }
         i++;
     }
     return res;
@@ -145,48 +156,41 @@ note findUserByName est un mauvais moyen pour trouver si un joueur est toujours 
 je pense que ce serait mieux de juste supprimer de la variable membre friends
  au fur et à mesure qu'un joueur se deconnecte
 */
-void User::listOnlineFriends()
-{
+void User::listOnlineFriends(){
     sendInt(friends.size());
-    for(int i = 0; i < friends.size(); i++)
-    {
-        if(findUserByName(friends[i]->getName()) != nullptr) //on regarde si il est toujours en ligne
+    for(int i = 0; i < friends.size(); i++){
+        if(findUserByName(friends[i]->getName()) != nullptr){ //on regarde si il est toujours en ligne
             sendStr(friends[i]->getName());
+        }
     }
 }
 
-void User::addFriendToList(User *new_friend)
-{
+void User::addFriendToList(User *new_friend){
     friends.push_back(new_friend);
 }
 
 /*
 normalement plus de (gros) bug prevenez moi (matias) si vous en trouvez
 */
-void User::addFriend()
-{
+void User::addFriend(){
     std::string nameOfUserToAdd = recvStr();
-    std::cout << name << " désire ajouter " << nameOfUserToAdd << std::endl;
+    std::cout << _name << " désire ajouter " << nameOfUserToAdd << std::endl;
     User* userToAdd = findUserByName(nameOfUserToAdd);
-    if(userToAdd != nullptr)
-    {
+    if(userToAdd != nullptr){
        sendInt(1);
-       userToAdd->sendfriendRequestNotification(this);
-       
+       userToAdd->sendfriendRequestNotification(this);   
     }
-    else
+    else{
         sendInt(0);
+    }
 
 }
 
-void User::recvFriendRequestAnswer()
-{
+void User::recvFriendRequestAnswer(){
     User *userAdding = findUserByName(recvStr());
     std::string answer = recvStr();
-    if(userAdding)
-    {
-        if(answer == "y")
-        {
+    if(userAdding){
+        if(answer == "y"){
             std::cout << "a accepte la requete de " << std::endl;
             userAdding->addFriendToList(this);
             this->addFriendToList(userAdding);
@@ -194,30 +198,25 @@ void User::recvFriendRequestAnswer()
     }
 }
 
-void User::sendfriendRequestNotification(User *userAdding)
-{
+void User::sendfriendRequestNotification(User *userAdding){
     sendInt(NEWFRIENDREQUEST);
     sendStr(userAdding->getName());
 }
 
-void User::removeFromFriends(User *userToRemove)
-{
+void User::removeFromFriends(User *userToRemove){
     int i = 0;
     bool found = false;
-    while(i < friends.size() && found == false)
-    {
-        if(friends[i] == userToRemove)
-        {
+    while(i < friends.size() && found == false){
+        if(friends[i] == userToRemove){
             found = true;
             friends.erase(friends.begin() + i);
-        }
-        else
+        } else{
             i++;
+        }
     }
 }
 
-void User::removeFriend()
-{
+void User::removeFriend(){
     std::string nameOfUserToDelete = recvStr();
     
     //on supprime dans les deux listes
@@ -343,10 +342,6 @@ std::string User::recvStr(){
     }
     std::string str(buffer.begin(), buffer.end());
     return str;
-}
-
-void User::updateInfo(){
-
 }
 
 bool User::get_inverted() const {return this->_isinverted;}

@@ -15,6 +15,7 @@ class AbstractUser{
         virtual std::string get_name() const = 0; 
         virtual void surrend() = 0;
         virtual void sendMsg(std::string) = 0;
+        virtual void lose() = 0;
 };
 
 #endif

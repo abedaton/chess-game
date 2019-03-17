@@ -1,6 +1,6 @@
 #include "../includes/client.hpp"
 
-Client::Client(const char* ip){
+Client::Client(const char* ip): _end(false){
 	this->_request = new Request(this, ip);
 	firstWindow();
 }
@@ -77,14 +77,18 @@ void Client::startingGame(bool playerTurn){
 }
 
 void Client::opponentMov(std::string mov){
-	
-	try{this->_game->execute_step(mov, this->get_ennemy_name(),this->get_inverted() != this->get_ennemy_inverted());} //this->get_inverted()
+	try{
+		std::pair<bool, bool> returnP = this->_game->execute_step(mov, this->get_ennemy_name(), this->get_inverted() != this->get_ennemy_inverted()); //this->get_inverted()
+		if(std::get<1>(returnP)){
+			std::cout << "END" << std::endl;
+			this->_end = true;
+		}
+	}
 	catch(MyException& e){
 		std::cout << e.what()<<std::endl;
 		std::cout << "myexception catched"<<std::endl;
-		this->connectionError(); // ??? <-------------------------------- correct façon d'arreter le jeu? -quentin
+		this->connectionError();
 	}
-	
 	this->_myTurn = true;
 }
 
@@ -268,6 +272,7 @@ void Client::menuWindow(){
         std::cin >> answer;
 		myFlush();
 		if (this->_gameStart){
+			_gameStart = false;
 			gameWindow();
 			waitForGame = false;
 		} else{
@@ -314,6 +319,10 @@ void Client::gameWindow(){
         std::cout << "Enter 1 for surrender, 2 for chat, 3 for play" << std::endl;
         std::cin >> answer;
 		myFlush();
+		if (_end){
+			std::cout << "lose" << std::endl;
+			break;
+		}
 		if (answer == 1){
 			//this->_request->surrend(); 
             break;
@@ -329,8 +338,9 @@ void Client::gameWindow(){
         }
         else if (answer == 3){
 			if (this->_myTurn){
-				try{returnP = this->_game->execute_step();}
-				catch(MyException& e){
+				try{
+					returnP = this->_game->execute_step();
+				} catch(MyException& e) {
 					std::cout << e.what()<<std::endl;
 					std::cout << "myexception catched"<<std::endl;
 					break; // ??? <-------------------------------- correct façon d'arreter le jeu? -quentin

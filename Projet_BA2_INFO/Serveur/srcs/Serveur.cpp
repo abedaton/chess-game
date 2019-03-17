@@ -45,7 +45,7 @@ void Serveur::mainLoop(){
                      this->_clients.resize(static_cast<size_t>(tmpClient));
                 }
                 this->_clients.at(static_cast<unsigned long int>(tmpClient-1)) = tmpClient;
-                User* tmpUser = new User(tmpClient, db, match); // <------ new important pour polymorphisme! - Quentin
+                User* tmpUser = new User(tmpClient, db, match); // <------ new important pour polymorphisme! - Quentin !!! BULLSHIT
                 
                 //load les amis de la bdd ici ?
                 onlineUsers.push_back(tmpUser);

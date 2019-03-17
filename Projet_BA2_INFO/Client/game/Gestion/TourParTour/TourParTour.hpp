@@ -15,6 +15,8 @@ class TourParTour: public TempsReel {
         
         std::pair<bool,std::string> execute_step() override;
         std::pair<bool,bool> execute_step(std::string,std::string,bool) override;
+        
+        using TempsReel::execute_step;
 
 };
 #endif

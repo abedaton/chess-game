@@ -40,6 +40,7 @@ class Client: AbstractClient {
 		std::string _username;
 		bool _gameStart;
 		bool _myTurn;
+		bool _end;
 		int _gameMod;
 		bool _isInverted;
 		bool _isEnnemyInverted;
