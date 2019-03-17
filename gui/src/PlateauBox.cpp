@@ -23,12 +23,58 @@ void PlateauBox::setPosition(int x, int y) {
     _pos = std::pair<int, int>(x, y);
 }
 
-void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     // std::cout << _pos.first() << "," << _pos.second() << std::endl;
-    setColor(Qt::green);
+    //setColor(Qt::red);
+    //std::cout << _color.rgb() << std::endl;
+    if(_piece != nullptr && (_brush != Qt::red && _brush != Qt::green)){
+        std::cout << "rouge" << std::endl;
+        int moves[] = {1, 2, 3};
+        int cap[] = {6};
+
+
+        _scene->showMoves(moves,cap);
+        _scene->setPriorityBox(this);
+    }
+
+    else if(_brush.color() == Qt::red && _piece == nullptr){
+
+        movePiece();
+        //std::cout << "FINAL : " << _piece << std::endl;
+
+    }
+    else if(_brush.color() == Qt::green && _piece != nullptr){
+        delete _piece;
+        movePiece();
+
+    }
+
+    else{
+        std::cout << "oupsi pas de piece" << std::endl;
+    }
+
 }
 
+
 void PlateauBox::setPiece(ChessItem *piece){
-    piece->setPos(x(),y());
+    if(piece != nullptr)
+        piece->setPos(x(),y());
+
+    //std::cout << "AVANT : " << _piece << std::endl;
     _piece = piece;
+    //std::cout << "APRES : " <<_piece << std::endl;
+}
+
+void PlateauBox::resetColor(){
+    setColor(_color);
+}
+
+ChessItem* PlateauBox::getPiece() const{
+    return _piece;
+}
+
+void PlateauBox::movePiece(){
+    setPiece(_scene->getPriorityBox()->getPiece());
+    _scene->getPriorityBox()->setPiece(nullptr);
+    _scene->resetAllColors();
 }

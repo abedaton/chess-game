@@ -28,23 +28,49 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
             else
                 box->setFirstColor(Qt::darkGray);
             box->setPosition(i, j);
+            box->_scene = this;
             _boxes[i][j] = box;
             _scene->addItem(box);
         }
         curr_y += sideLenght;
     }
-    ChessItem* pion = new ChessItem("pion");
+
+    addPiece("pionB", 4,5);
+    addPiece("pionW", 6,6);
 
 
-    _boxes[4][4]->setPiece(pion);
-    _scene->addItem(pion);
 }
 
-void PlateauScene::showMoves(int *moves) {
+void PlateauScene::showMoves(int *moves, int *cap) {
     int x, y;
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 3; ++i) {
         x = moves[i];
         y = moves[i];
+
         _boxes[x][y]->setColor(Qt::red);
     }
+
+    _boxes[cap[0]][cap[0]]->setColor(Qt::green);
+}
+
+PlateauBox* PlateauScene::getPriorityBox() const{
+    return _priorityBox;
+}
+
+void PlateauScene::setPriorityBox(PlateauBox* box){
+    _priorityBox = box;
+}
+
+void PlateauScene::resetAllColors(){
+    for(int i = 0 ;i<_size;++i){
+        for(int j = 0 ;j<_size;++j){
+            _boxes[i][j]->resetColor();
+        }
+    }
+}
+
+void PlateauScene::addPiece(std::string pieceType,int x, int y){
+    ChessItem* pion = new ChessItem(pieceType);
+    _boxes[x][y]->setPiece(pion);
+    _scene->addItem(pion);
 }

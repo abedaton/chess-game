@@ -59,8 +59,12 @@ SOURCES       = src/FenPrincipale.cpp \
 		src/Register.cpp \
 		src/Menu.cpp \
 		src/Chat.cpp \
+<<<<<<< HEAD
 		src/ChessItem.cpp \
 		src/Pendulum.cpp bin/moc_FenPrincipale.cpp \
+=======
+		src/ChessItem.cpp bin/moc_FenPrincipale.cpp \
+>>>>>>> 292d10081b17d81fea23da86c2aba4a76cc70723
 		bin/moc_GameWindow.cpp \
 		bin/moc_Login.cpp \
 		bin/moc_Register.cpp \
@@ -77,7 +81,10 @@ OBJECTS       = bin/FenPrincipale.o \
 		bin/Menu.o \
 		bin/Chat.o \
 		bin/ChessItem.o \
+<<<<<<< HEAD
 		bin/Pendulum.o \
+=======
+>>>>>>> 292d10081b17d81fea23da86c2aba4a76cc70723
 		bin/moc_FenPrincipale.o \
 		bin/moc_GameWindow.o \
 		bin/moc_Login.o \
@@ -168,8 +175,12 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		incl/Register.hpp \
 		incl/Menu.hpp \
 		incl/Chat.hpp \
+<<<<<<< HEAD
 		incl/ChessItem.hpp \
 		incl/Pendulum.hpp src/FenPrincipale.cpp \
+=======
+		incl/ChessItem.hpp src/FenPrincipale.cpp \
+>>>>>>> 292d10081b17d81fea23da86c2aba4a76cc70723
 		src/GameWindow.cpp \
 		src/Login.cpp \
 		src/main.cpp \
@@ -178,8 +189,12 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/Register.cpp \
 		src/Menu.cpp \
 		src/Chat.cpp \
+<<<<<<< HEAD
 		src/ChessItem.cpp \
 		src/Pendulum.cpp
+=======
+		src/ChessItem.cpp
+>>>>>>> 292d10081b17d81fea23da86c2aba4a76cc70723
 QMAKE_TARGET  = gui
 DESTDIR       = 
 TARGET        = gui
@@ -365,8 +380,13 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
+<<<<<<< HEAD
 	$(COPY_FILE) --parents incl/FenPrincipale.hpp incl/GameWindow.hpp incl/Login.hpp incl/PlateauBox.hpp incl/PlateauScene.hpp incl/Register.hpp incl/Menu.hpp incl/Chat.hpp incl/ChessItem.hpp incl/Pendulum.hpp $(DISTDIR)/
 	$(COPY_FILE) --parents src/FenPrincipale.cpp src/GameWindow.cpp src/Login.cpp src/main.cpp src/PlateauBox.cpp src/PlateauScene.cpp src/Register.cpp src/Menu.cpp src/Chat.cpp src/ChessItem.cpp src/Pendulum.cpp $(DISTDIR)/
+=======
+	$(COPY_FILE) --parents incl/FenPrincipale.hpp incl/GameWindow.hpp incl/Login.hpp incl/PlateauBox.hpp incl/PlateauScene.hpp incl/Register.hpp incl/Menu.hpp incl/Chat.hpp incl/ChessItem.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/FenPrincipale.cpp src/GameWindow.cpp src/Login.cpp src/main.cpp src/PlateauBox.cpp src/PlateauScene.cpp src/Register.cpp src/Menu.cpp src/Chat.cpp src/ChessItem.cpp $(DISTDIR)/
+>>>>>>> 292d10081b17d81fea23da86c2aba4a76cc70723
 
 
 clean: compiler_clean 
@@ -438,8 +458,9 @@ bin/moc_Menu.cpp: incl/Menu.hpp \
 bin/moc_Chat.cpp: incl/Chat.hpp \
 		bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nservais/Documents/git/groupe9/gui -I/home/nservais/Documents/git/groupe9/gui/src -I/home/nservais/Documents/git/groupe9/gui/incl -I/home/nservais/Documents/git/groupe9/gui/img -I/home/nservais/Documents/git/groupe9/gui/bin -I/home/nservais/Documents/git/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Chat.hpp -o bin/moc_Chat.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/groupe9/gui -I/home/achraf/groupe9/gui/src -I/home/achraf/groupe9/gui/incl -I/home/achraf/groupe9/gui/img -I/home/achraf/groupe9/gui/bin -I/home/achraf/groupe9/gui -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include incl/Chat.hpp -o bin/moc_Chat.cpp
 
+<<<<<<< HEAD
 bin/moc_Pendulum.cpp: incl/Pendulum.hpp \
 		bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -447,6 +468,8 @@ bin/moc_Pendulum.cpp: incl/Pendulum.hpp \
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
+=======
+>>>>>>> 292d10081b17d81fea23da86c2aba4a76cc70723
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all:
@@ -469,8 +492,12 @@ bin/FenPrincipale.o: src/FenPrincipale.cpp incl/FenPrincipale.hpp \
 		incl/PlateauBox.hpp \
 		incl/ChessItem.hpp \
 		incl/Register.hpp \
+<<<<<<< HEAD
 		incl/Chat.hpp \
 		incl/Pendulum.hpp
+=======
+		incl/Chat.hpp
+>>>>>>> 292d10081b17d81fea23da86c2aba4a76cc70723
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/FenPrincipale.o src/FenPrincipale.cpp
 
 bin/GameWindow.o: src/GameWindow.cpp incl/GameWindow.hpp
@@ -487,12 +514,17 @@ bin/main.o: src/main.cpp incl/FenPrincipale.hpp \
 		incl/PlateauBox.hpp \
 		incl/ChessItem.hpp \
 		incl/Register.hpp \
+<<<<<<< HEAD
 		incl/Chat.hpp \
 		incl/Pendulum.hpp
+=======
+		incl/Chat.hpp
+>>>>>>> 292d10081b17d81fea23da86c2aba4a76cc70723
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/main.o src/main.cpp
 
 bin/PlateauBox.o: src/PlateauBox.cpp incl/PlateauBox.hpp \
-		incl/ChessItem.hpp
+		incl/ChessItem.hpp \
+		incl/PlateauScene.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/PlateauBox.o src/PlateauBox.cpp
 
 bin/PlateauScene.o: src/PlateauScene.cpp incl/PlateauScene.hpp \
@@ -511,9 +543,12 @@ bin/Chat.o: src/Chat.cpp incl/Chat.hpp
 
 bin/ChessItem.o: src/ChessItem.cpp incl/ChessItem.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/ChessItem.o src/ChessItem.cpp
+<<<<<<< HEAD
 
 bin/Pendulum.o: src/Pendulum.cpp incl/Pendulum.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/Pendulum.o src/Pendulum.cpp
+=======
+>>>>>>> 292d10081b17d81fea23da86c2aba4a76cc70723
 
 bin/moc_FenPrincipale.o: bin/moc_FenPrincipale.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bin/moc_FenPrincipale.o bin/moc_FenPrincipale.cpp
