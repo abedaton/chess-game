@@ -2066,7 +2066,7 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 				mode_echec_et_mat = true;
 			}
 			else{ // 1 seul danger
-				//mout<<"[1]endager"<<std::endl;
+				//mout<<" 1 seul danger"<<std::endl;
 				//mout<<"mpos_menace: "<<mpos_menace->to_pair().first<<","<<mpos_menace->to_pair().second<<std::endl;
 				BitypeVar<MatPosi*>* dangerception = this->is_endangered(mpos_menace);
 				bool danger_indanger = dangerception->get_state();
@@ -2121,13 +2121,36 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 						//mout<<"[2]endager"<<std::endl;
 						BitypeVar<MatPosi*>* dangerzone = this->is_endangered(mpos_zone,this->get_non_active_player());
 						blocked = dangerzone->get_state();
+						
+						//if (blocked){mout<<" '1' pe dont on parle: "<<mpos_zone->to_string()<<std::endl;}
+						
+						if (blocked){
+							bool two_blockers = this->check_more_than_one_danger(mpos_zone,this->get_non_active_player());
+							if (not two_blockers){
+								
+								//verifier que bloqueur est difféernt de roi // --------------------------------------------------------------------- !!! siùilaire a au dessus avec dangerception!
+								
+								//mout<<"pas 2 blockers!"<<std::endl;
+								
+								MatPosi* mpos_blocker = dangerzone->get_var();
+								
+								//mout<<"blocker: "<<mpos_blocker->to_string()<<std::endl;
+								
+								BitypeVar<Chesspiece*> blocker_bit = this->get_plateau()->get_piece(mpos_blocker->to_pair());
+								
+								if (pe == blocker_bit.get_var()){blocked = false;} // si le seul danger de la menace est le roi
+							}
+						}
+						
+						
+						//if (blocked){mout<<"pe dont on parle: "<<mpos_zone->to_string()<<std::endl;}
 					
 						i++;
 					}
 					
 					//ss<<"une pe peut-elle bloquer la menace? "<<blocked<<std::endl;
 					//mout<<"une pe peut-elle bloquer la menace? "<<blocked<<std::endl;
-					
+
 					if (not(blocked)){mode_echec_et_mat = true;}
 					
 				}
@@ -2136,7 +2159,7 @@ bool BaseChess::check_non_active_player_king(Chesspiece* pe){
 		//else{mode_echec_et_mat = false;}
 		
 		if (not(mode_echec_et_mat)){ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"mode_echec")<<std::endl;}
-		else{ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"mode_echec_et_mat")<<std::endl;}
+		//else{ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"mode_echec_et_mat")<<std::endl;} // geré dorénavent ailleur
 	}
 	
 	this->get_active_player()->send_msg(ss.str());
@@ -2284,7 +2307,6 @@ std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bo
 	
 	std::string in = res_trinome->get_first();
 	std::string out = res_trinome->get_second();
-	bool is_roc = res_trinome->get_third();
 	
 	BitypeVar<int>* bit_taille = new BitypeVar<int>(true,this->get_plateau()->get_taille());
 	

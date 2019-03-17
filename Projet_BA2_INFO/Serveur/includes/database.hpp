@@ -34,6 +34,7 @@ class Database{
         void updateInfo(std::string table, std::string colName, std::string username, std::string newValue);
         void updateUserLog(std::string table, int logged);
         void updateUserDisc(std::string table);
+        void updateWin(std::string table, bool win);
         sqlite3* getdb();
         void createInfoTable(std::string username, int socket);
     private:
@@ -42,6 +43,7 @@ class Database{
         bool selectData(std::string sql);
         static int myCallback(void* pUser, int argc, char** argv, char** columns);
         static int callback(void* NotUsed, int argc, char** argv, char** columns);
+        static int callbackDisc(void* NotUsed, int argc, char** argv, char** columns);
         sqlite3* db;
 };
 
