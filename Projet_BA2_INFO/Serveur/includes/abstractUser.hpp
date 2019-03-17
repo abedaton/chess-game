@@ -3,14 +3,14 @@
 #define ABSTRACTUSER_HPP
 
 #include <string>
-#include "../game/ClassicChess/ClassicChess.cpp"
-#include "../game/DarkChess/DarkChess.cpp"
+#include "../game/Gestion/TourParTour/TourParTour.cpp"
+#include "../game/Gestion/Pendule/Pendule.cpp"
 
 class AbstractGame;
 
 class AbstractUser{
     public:
-        virtual void startGame(BaseChess*, AbstractUser*, bool) = 0;
+        virtual void startGame(TempsReel*, AbstractUser*, bool,bool,bool, std::string) = 0;
         virtual void opponentMov(std::string) = 0;
         virtual std::string get_name() const = 0; 
         virtual void surrend() = 0;

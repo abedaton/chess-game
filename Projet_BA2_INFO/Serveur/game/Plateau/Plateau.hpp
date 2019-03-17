@@ -42,6 +42,8 @@ class Plateau{
         BitypeVar<Chesspiece*> get_piece(std::pair<int,int>) const;
         BitypeVar<Chesspiece*> get_piece(int) const;
         
+        std::string get_limited_mode(std::string) const;
+
         bool isvalid_move(std::pair<int,int>,std::pair<int,int>,std::string);
         bool isvalid_move(std::pair<int,int>,std::pair<int,int>);
         

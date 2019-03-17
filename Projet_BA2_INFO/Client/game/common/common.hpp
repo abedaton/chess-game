@@ -17,7 +17,7 @@
 #include "MyException/MyException.cpp"
 #include "Quadrinome/Quadrinome.hpp"
 
-extern MyOstream mout;
+//extern MyOstream mout;
 
 bool is_prime(int);
 
@@ -116,7 +116,6 @@ bool is_in_vect(std::vector<Type>* vect, Type elem){
 	
 	long long unsigned int i=0;
 	while(i<vect->size() and res == false){
-		
 		if ((*vect)[i] == elem){res = true;}
 		
 		i++;

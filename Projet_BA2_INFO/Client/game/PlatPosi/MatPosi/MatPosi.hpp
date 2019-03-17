@@ -41,15 +41,15 @@ class MatPosi: public Posi{
         bool operator>( const MatPosi*) const;
         bool operator>=( const MatPosi*) const;
         
-        bool isvalid_coord(std::string);
+        bool isvalid_coord(std::string) const;
         
-        private:
-			std::string get_letter_part_of_string(std::string);
-			std::string get_number_part_of_string(std::string);
-			
-			std::string get_alphabet();
-			std::size_t get_col_from_string(std::string);
-			int get_lig_from_string(std::string);
+	private:
+		std::string get_letter_part_of_string(std::string) const ;
+		std::string get_number_part_of_string(std::string) const ;
+		
+		std::string get_alphabet() const ;
+		std::size_t get_col_from_string(std::string) const ;
+		int get_lig_from_string(std::string) const ;
         
 };
 #endif

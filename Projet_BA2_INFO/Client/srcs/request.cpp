@@ -1,7 +1,7 @@
 #include "../includes/request.hpp"
 
-Request::Request(AbstractClient* client): _client(client){
-	setup();
+Request::Request(AbstractClient* client, const char* ip): _client(client){
+	setup(ip);
 	pthread_create(&this->_listenerThread, NULL, &Request::run, static_cast<void*>(this));
 }
 
@@ -49,20 +49,6 @@ void Request::findMatch(int modDeJeu){
     sendInt(modDeJeu);
 	endProcess();
 }
-
-//std::vector<int>  Request::getMov(int coord){ //OLD
-//	waitForProcess();
-//    int protocol = 5;
-//	sendInt(protocol);
-//	sendInt(coord);
-//	std::vector<int>::size_type nbMov = static_cast<std::vector<int>::size_type>(recvInt());
-//	std::vector<int> listMov(nbMov);
-//	for (std::vector<int>::size_type c=0;c<nbMov;c++){
-//		listMov[c] = recvInt();
-//	}
-//	endProcess();
-//	return listMov;
-//}
 
 void Request::mov(std::string mov){
 	waitForProcess();
@@ -164,8 +150,8 @@ void Request::recvFriendAddNotification()
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////PRIVIET
-void Request::setup(){
-    this->_servAddr.sin_addr.s_addr	= inet_addr(IP);
+void Request::setup(const char* ip){
+    this->_servAddr.sin_addr.s_addr	= inet_addr(ip);
     this->_servAddr.sin_family = AF_INET;
     this->_servAddr.sin_port = htons(PORT);
 
@@ -215,6 +201,15 @@ void Request::listener(){
 
 void Request::startingGame(){
 	int turn = recvInt();
+	int inverted = recvInt();
+	int ennemy_inverted = recvInt();
+	std::string ennemy_name = recvStr();
+	
+	this->_client->set_inverted(static_cast<bool>(inverted-1));
+	this->_client->set_ennemy_inverted(static_cast<bool>(ennemy_inverted-1));
+	this->_client->set_ennemy_name(ennemy_name);
+	
+	//j'ai préféré mettre les setters en dehors plustôt que de tout mettre dans startgame, a vous de choisir -quentin.
 	this->_client->startingGame(static_cast<bool>(turn-1));
 }
 

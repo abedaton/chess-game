@@ -4,17 +4,18 @@
 #include <iostream>
 #include <utility>
 
-#include "../ClassicChess/ClassicChess.cpp"
+#include "../Gestion/TourParTour/TourParTour.cpp"
+#include "../Gestion/Pendule/Pendule.cpp"
 
 class GameIntelligence{
 	
 	private:
-		BaseChess* game;
+		TourParTour* game;
 	
 	private:
-		void make_classic_game(Player*, Player*);
-		BaseChess* get_game() const;
-        void set_game(BaseChess*);
+		void make_game(std::string,Player*, Player*);
+		TourParTour* get_game() const;
+        void set_game(TourParTour*);
 	
 	public:
         GameIntelligence() noexcept = default; //*< Constructor
@@ -22,10 +23,10 @@ class GameIntelligence{
         GameIntelligence(const GameIntelligence&) noexcept = default;
         GameIntelligence& operator= (const GameIntelligence&) noexcept = default;
         
-        void make_classic_game_human_and_bot(std::string,std::string);
-        void make_classic_game_two_bots(std::string,std::string);
-        void make_classic_game_two_humans(std::string);
-        void make_classic_game_two_silenced_humans(std::string);
+        void make_game_human_and_bot(std::string,std::string,std::string);
+        void make_game_two_bots(std::string,std::string,std::string);
+        void make_game_two_humans(std::string,std::string);
+        void make_game_two_silenced_humans(std::string,std::string);
         
         
         void execute_game();

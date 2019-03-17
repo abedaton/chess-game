@@ -85,7 +85,7 @@ void Pion::updt(){
 	
 	this->set_liste_depl(this->get_alternative());
 	this->decoders_update();
-	mout<<"Update Pion !"<<std::endl;
+	//mout<<"Update Pion !"<<std::endl;
 	
 }
 
