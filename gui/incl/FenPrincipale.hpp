@@ -1,5 +1,6 @@
 #ifndef FENPRINCIPALE_HPP
 #define FENPRINCIPALE_HPP
+#include "FriendList.hpp"
 #include "Chat.hpp"
 #include "GameWindow.hpp"
 #include "Login.hpp"
@@ -27,6 +28,8 @@ class FenPrincipale : public QMainWindow {
     void goToClassic();
     void goToMenu();
     void sendMessage();
+    void addFriend();
+    void removeFriend();
 
     private:
     void init_window();
@@ -39,6 +42,7 @@ class FenPrincipale : public QMainWindow {
     QDockWidget *_dockChat;
     QDockWidget *_dockPendulum;
 
+    FriendList *_friendList;
     Login *_login;
     Register *_register;
     Menu *_menu;

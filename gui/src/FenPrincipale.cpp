@@ -3,8 +3,8 @@
 FenPrincipale::FenPrincipale() {
     init_window();
     init_stack();
-    init_connect();
     init_dock();
+    init_connect();
 
     setCentralWidget(_stack);
     goToLogIn();
@@ -43,18 +43,17 @@ void FenPrincipale::init_connect() {
     connect(_gameWindow->getClassicButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
     connect(_menu->getNewGame(), SIGNAL(clicked()), this, SLOT(goToGame()));
     connect(_menu->getExit(), SIGNAL(clicked()), qApp, SLOT(quit()));
-    // connect(_chat->getLineEdit(),SIGNAL(returnPressed()),this, SLOT(sendMessage()));
+    // connect(_chat->getLineEdit(), SIGNAL(returnPressed()), this, SLOT(sendMessage()));
+    connect(_friendList->getPushButtonAddFriend(), SIGNAL(clicked()), this, SLOT(addFriend()));
+    connect(_friendList->getPushButtonRemoveFriend(), SIGNAL(clicked()), this, SLOT(removeFriend()));
 }
 
 void FenPrincipale::init_dock() {
-    // QDockWidget *dock = new QDockWidget("test", this);
-    // QTextEdit *textEdit = new QTextEdit(this);
-    // dock->setWidget(textEdit);
-    // addDockWidget(Qt::RightDockWidgetArea, dock);
-    // dock->hide();
     _dockChat = new QDockWidget(this);
-    _chat = new Chat(this);
-    _dockChat->setWidget(_chat);
+    // _chat = new Chat(this);
+    _friendList = new FriendList(this);
+    _dockChat->setWidget(_friendList);
+    // _dockChat->setWidget(_chat);
     addDockWidget(Qt::RightDockWidgetArea, _dockChat);
     _dockPendulum = new QDockWidget(this);
     _pendulum = new Pendulum(this);
@@ -124,5 +123,21 @@ void FenPrincipale::goToMenu() {
 }
 
 void FenPrincipale::sendMessage() {
-    _chat->getTextEdit()->insertPlainText(_chat->getLineEdit()->text());
+
+    // if (!_lineEdit->text().isEmpty()){
+    //     _textEdit->insertPlainText(_lineEdit->text()+"\n");
+    //     _lineEdit->clear();
+    //     _lineEdit->setFocus();
+    //     emit signalLineEdit();
+    // }
+
+    // _chat->getTextEdit()->insertPlainText(_chat->getLineEdit()->text());
+}
+
+void FenPrincipale::addFriend() {
+    _friendList->getListWidgetFriendList()->addItems(QStringList("un nouvel ami"));
+}
+
+void FenPrincipale::removeFriend() {
+
 }
