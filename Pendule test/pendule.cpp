@@ -63,7 +63,7 @@ void Pendule::run()
 
 todo pour illias/celui qui va implémenter ca avec le jeu d'échec,
 vous devez modifier gamestate avec setGameState en lui mettant
-GAMEENDED à la fin de la partie si les joueurs ont perdues d'une 
+GAMEENDED à la fin de la partie si les joueurs ont perdu d'une 
 autre manière que par temps la pendule. 
 */
 void* Pendule::checkIfTimeRanOut(void *thisptr)
