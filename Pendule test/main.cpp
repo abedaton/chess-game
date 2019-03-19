@@ -17,13 +17,8 @@
 int main(int argc, char *argv[]){
 
 	
-	//Pendule pendule(5*60);
-	Pendule pendule(10);
+	Pendule pendule(5*60);
 	std::string test;
-	
-	
-	
-
 	pendule.run();
 	while(pendule.getGameState() == PLAYING)
 	{
