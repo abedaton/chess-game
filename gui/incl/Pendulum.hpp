@@ -17,7 +17,7 @@ class Pendulum : public QWidget {
     void init_layout();
     void init_connect();
     bool _isTimeUp;
-    QLabel *_labelTimerDown;
+    QLabel *_labelTimerDown; // a changer QTimeEdit
     QTime *_timeDown;
     QLabel *_labelTimerUp;
     QTime *_timeUp;
