@@ -6,6 +6,7 @@
 #include <pthread.h>
 #include <random>
 #include <time.h>
+#include <chrono>
 #include <cmath>
 
 #include "abstractGame.hpp"
@@ -17,17 +18,18 @@ class MatchMaking{
 		MatchMaking();
 		~MatchMaking() = default;
         void waitForMatch(AbstractUser* player,int gameMod, int elo);
+        std::vector< std::vector< std::vector< AbstractUser* > > > pools;
     private:
         static void* run(void*);
-        std::vector<std::vector<std::vector<std::pair<AbstractUser*, int> > > > pools;
-        void poolSort(int mod, int rank);
+        void poolSort(int mod, int rank, AbstractUser* player);
 
         void startMatch(AbstractUser* player1, AbstractUser* player2, int gameMod);
     
     struct matchMod{
        MatchMaking* match;
        int mod;
-       int rank;
+       int elo;
+       AbstractUser* player;
     };
 };
 

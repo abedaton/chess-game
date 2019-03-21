@@ -2,7 +2,8 @@
 
 Serveur::Serveur(){}
 
-Serveur::Serveur(short unsigned int port) : _port(port) {
+Serveur::Serveur(short unsigned int port) : _port(port), _ready(false) {
+    this->_ready = false;
     this->setup();
 }
 
@@ -33,9 +34,10 @@ std::vector<User*> onlineUsers;
 
 
 void Serveur::mainLoop(){
+    this->_db = new Database();
+	this->_match = new MatchMaking();
+    this->_ready = true;
     std::thread cmdThread(&Serveur::handleCommand, *this);
-    Database* db = new Database();
-	MatchMaking* match = new MatchMaking();
     int tmpClient;
     while (true){
         if ((tmpClient = accept(this->_serv_sock, reinterpret_cast<struct sockaddr*>(&this->_address), reinterpret_cast<socklen_t*>(&this->_addrlen))) >= 0){
@@ -45,7 +47,7 @@ void Serveur::mainLoop(){
                      this->_clients.resize(static_cast<size_t>(tmpClient));
                 }
                 this->_clients.at(static_cast<unsigned long int>(tmpClient-1)) = tmpClient;
-                User* tmpUser = new User(tmpClient, db, match); // <------ new important pour polymorphisme! - Quentin !!! BULLSHIT
+                User* tmpUser = new User(tmpClient, this->_db, this->_match); // <------ new important pour polymorphisme! - Quentin !!!
                 
                 //load les amis de la bdd ici ?
                 onlineUsers.push_back(tmpUser);
@@ -74,6 +76,11 @@ void Serveur::sShutdown(){
         close(this->_clients.at(i));
     }
     close(this->_serv_sock);
+    std::cout << "ready2 = " << this->_ready << std::endl;
+    if (this->_ready){
+        delete this->_db;
+        delete this->_match;
+    }
     std::cout << "Server is now offline." << std::endl;
     exit(EXIT_SUCCESS);
 }

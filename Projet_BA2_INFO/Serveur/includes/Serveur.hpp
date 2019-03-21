@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include <atomic>
 
 class Serveur {
     public:
@@ -18,11 +19,14 @@ class Serveur {
         void setup();
         void* handleCommand();
  
+        Database* _db;
+	    MatchMaking* _match;
 
         short unsigned int _port;
         struct sockaddr_in _address;
         int _serv_sock;
         unsigned int _addrlen;
+        bool _ready;
 
         std::vector<int> _clients;
 };

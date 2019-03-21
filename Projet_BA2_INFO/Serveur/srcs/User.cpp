@@ -47,11 +47,11 @@ void User::letsRegister() {
     std::string email = recvStr();
 
     if (this->_db->isUsernameFree(username)){
-        this->_db->addUser(username, password, email);
+        this->_db->addUser(username, password, email, this->_clientSock);
         std::cout << "register successfull" << std::endl;
         this->_name = username;
         this->sendInt(1);
-        this->_db->createInfoTable(username, this->_clientSock);
+        this->_db->createInfoTable(username);
     }
     else{
          this->sendInt(0);
@@ -100,7 +100,7 @@ void User::mov(){
       this->_game = nullptr;
       this->_db->updateWin(this->_name, this->_opponent->get_name(), true);
       this->_opponent->lose();
-      std::cout << "Score updated for " << this->_name;
+      std::cout << "Score updated for " << this->_name << std::endl;;
     }
 }
 

@@ -1,25 +1,29 @@
-//#pragma GCC diagnostic ignored "-Wunused-variable"
-#ifndef ABSTRACTCLIENTT_HPP
-#define ABSTRACTCLIENTT_HPP
+#ifndef ABSTRACTCLIENT_HPP
+#define ABSTRACTCLIENT_HPP
 
-#include "../game/Gestion/TourParTour/TourParTour.cpp"
-#include "../game/Gestion/Pendule/Pendule.cpp"
+#include <string>
 
 class AbstractClient{
 	public:
-		virtual void connectionError() = 0;
-		virtual void startingGame(bool playerTurn) = 0;
+		//call by interface
+		virtual bool letsRegister(std::string username,std::string password, std::string email) = 0;
+		virtual bool login(std::string username,std::string password) = 0;
+		virtual void waitForMatch(int gameMod) = 0;
+
+		virtual void sendMessage(std::string name,std::string msg) = 0;
+		virtual void addFriend(std::string name) = 0;
+		virtual void removeFriend(std::string name) = 0;
+		virtual void getFriendList() = 0;
+		virtual void getOnlineFriendList() = 0;
+		virtual void getUserInfo() = 0;
+
+		virtual void click(std::string square) = 0;
+		virtual void exit() = 0;
+		//call by server
+		virtual void startingGame(bool playerTurn, std::string opponentName) = 0;
 		virtual void opponentMov(std::string mov) = 0;
-		virtual void printMessage(std::string) = 0;
-		
-		virtual bool get_inverted() const = 0;
-		virtual void set_inverted(bool) = 0;
-		
-		virtual bool get_ennemy_inverted() const = 0;
-		virtual void set_ennemy_inverted(bool) = 0;
-		
-		virtual std::string get_ennemy_name() const = 0;
-		virtual void set_ennemy_name(std::string) = 0;
+		virtual void recvMessage(std::string name,std::string msg) = 0;
+		virtual void connectionError() = 0;
 };
 
 #endif

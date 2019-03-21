@@ -1,3 +1,4 @@
+/*
 #include "../includes/client.hpp"
 
 Client::Client(const char* ip): _end(false){
@@ -144,10 +145,10 @@ void Client::friendsWindow()
 			
 		else if(res ==5)
 		{
-			/*
-			1. call listonlinefriends pour montrer tous les amis disponibles
-			2. laiser l'utilisateur choisir l'ami puis l'inviter à la partie
-			*/
+			
+			//1. call listonlinefriends pour montrer tous les amis disponibles
+			//2. laiser l'utilisateur choisir l'ami puis l'inviter à la partie
+			
 
 		}
 
@@ -307,7 +308,7 @@ bool Client::selectGameModeWindow(){
 		return false;
 	else{
 		this->_gameMod = atoi(&answer);
-		this->_request->findMatch(this->_gameMod);
+		this->_request->waitForMatch(this->_gameMod);
 		return true;
 	}
 }
@@ -343,7 +344,7 @@ void Client::gameWindow(){
 				} catch(MyException& e) {
 					std::cout << e.what()<<std::endl;
 					std::cout << "myexception catched"<<std::endl;
-					break; // ??? <-------------------------------- correct façon d'arreter le jeu? -quentin
+					break;
 				}
 				
 				this->_request->mov(std::get<1>(returnP));
@@ -374,3 +375,130 @@ void Client::set_ennemy_inverted(bool inverted){this->_isEnnemyInverted = invert
 
 std::string Client::get_ennemy_name() const {return this->_ennemyName;}
 void Client::set_ennemy_name(std::string name){this->_ennemyName = name;}
+*/
+
+/////////////////////////////////////////////////////////////
+
+#ifndef CLIENT_CPP
+#define CLIENT_CPP
+
+#include "../includes/client.hpp"
+
+Client::Client(const char* ip, bool interface): _game(nullptr){
+	_server = new Request(this, ip);
+	if (interface == 1){
+		_interface = new Graphyque(this);
+	} else {
+		_interface = new Terminal(this);
+	}
+}
+
+Client::~Client(){
+	if (_game != nullptr)
+		delete _game;
+	delete _interface;
+	delete _server;
+}
+
+void Client::waitForMatch(int gameMod){
+	this->_gameMod = gameMod;
+	this->_server->findMatch(gameMod);
+}
+
+
+void Client::startingGame(bool playerTurn, std::string opponentName){
+	int chessMod = this->_gameMod%4;
+	int partyMod = this->_gameMod/4;
+
+	//switch partyMod{
+	//	case 0{
+	//		_game = new party(chessMod, playerTurn);
+	//		break;
+	//	}
+	//	case 1{
+	//		_game = new party(chessMod, playerTurn);
+	//		break;
+	//	}
+	//	case 2{
+	//		_game = new party(chessMod, playerTurn);
+	//		break;
+	//	}
+	//}
+	//_game->getBord();
+	_interface->gameStart(opponentName);//+ bord
+}
+
+void Client::click(std::string square){
+	//
+}
+
+void Client::mov(std::string mov){
+	_server->mov(mov);
+	_interface->pingForUpdate();
+}
+
+void Client::opponentMov(std::string mov){
+	//_game->opponentMov(mov);
+	_interface->pingForUpdate();
+}
+
+void Client::win(){
+	_interface->win();
+	delete this->_game;
+	this->_game = nullptr;
+}
+
+void Client::lose(){
+	_interface->lose();
+	delete this->_game;
+	this->_game = nullptr;
+}
+
+bool Client::letsRegister(std::string username,std::string password, std::string email){
+	int res = _server->letsRegister(username,password,email);
+	return static_cast<bool>(res);
+}
+
+bool Client::login(std::string username,std::string password){
+	int res = _server->login(username,password);
+	return static_cast<bool>(res);
+}
+
+void Client::connectionError(){
+	_interface->connectionError();
+}
+
+void Client::exit(){
+	delete this; //:(
+}
+
+//bool Client::get_inverted() const{}
+//void Client::set_inverted(bool){}
+//
+//bool Client::get_ennemy_inverted() const{}
+//void Client::set_ennemy_inverted(bool){}
+
+void Client::sendMessage(std::string name,std::string msg){
+	//TO DO
+}
+void Client::addFriend(std::string name){
+	//TO DO
+}
+void Client::removeFriend(std::string name) {
+	//TO DO
+}
+void Client::getFriendList(){
+	//TO DO
+}
+void Client::getOnlineFriendList(){
+	//TO DO
+}
+void Client::getUserInfo(){
+	//TO DO
+}
+
+void Client::recvMessage(std::string name, std::string msg){
+	//TO DO
+}
+
+#endif

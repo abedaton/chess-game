@@ -1,3 +1,4 @@
+/*
 #pragma GCC diagnostic ignored "-Wunused-variable"
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
@@ -36,7 +37,7 @@ class Client: AbstractClient {
 		
 	private:
 		Request* _request;
-		TempsReel* _game; // TempsReel est une classe commune entre TempsReel, TourParTour et Pendule -quentin
+		TempsReel* _game;
 		std::string _username;
 		bool _gameStart;
 		bool _myTurn;
@@ -66,6 +67,59 @@ class Client: AbstractClient {
         void sendInt(int num);
 		std::string recvStr();
         int _clientSock;
+};
+
+#endif
+*/
+//////////////////////////////////////////////////////////////////////////////////////////
+#ifndef CLIENT_HPP
+#define CLIENT_HPP
+
+#include "../srcs/request.cpp"
+#include "../srcs/interface.cpp"
+#include "../srcs/terminal.cpp"
+#include "../game/Gestion/Pendule/Pendule.cpp"
+#include "../game/Gestion/TempsReel/TempsReel.cpp"
+#include "../game/Gestion/TourParTour/TourParTour.cpp"
+
+#include "abstractPlayer.hpp" //tmp
+
+
+
+class Client: public AbstractPlayer, public AbstractClient{
+	private:
+		AbstractInterface* _interface;
+		Request* _server;
+		TempsReel* _game;
+
+		int _gameMod;
+	public:
+		Client(const char* ip, bool interface);
+		~Client();
+		
+		//call by interface
+		bool letsRegister(std::string username,std::string password, std::string email) override;
+		bool login(std::string username,std::string password) override;
+		void waitForMatch(int gameMod) override;
+
+		void sendMessage(std::string name,std::string msg) override;
+		void addFriend(std::string name) override;
+		void removeFriend(std::string name) override;
+		void getFriendList() override;
+		void getOnlineFriendList() override;
+		void getUserInfo() override;
+
+		void click(std::string square) override;
+		void exit() override;
+		//call by server
+		void startingGame(bool playerTurn, std::string opponentName) override;
+		void opponentMov(std::string mov) override;
+		void recvMessage(std::string name,std::string msg) override;
+		void connectionError() override;
+		//call by game
+		void mov(std::string mov) override;
+		void win() override;
+		void lose() override;
 };
 
 #endif
