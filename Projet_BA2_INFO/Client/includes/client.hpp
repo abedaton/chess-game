@@ -83,6 +83,7 @@ class Client: AbstractClient {
 #include "../game/Gestion/TourParTour/TourParTour.cpp"
 
 #include "abstractPlayer.hpp" //tmp
+#include "../../Gui/incl/FenPrincipale.hpp"
 
 
 
