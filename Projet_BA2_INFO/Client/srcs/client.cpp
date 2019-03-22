@@ -384,14 +384,15 @@ void Client::set_ennemy_name(std::string name){this->_ennemyName = name;}
 
 #include "../includes/client.hpp"
 
-Client::Client(const char* ip, bool interface): _game(nullptr){
+Client::Client(const char* ip, bool interface, int argc, char** argv): _game(nullptr){
 	_server = new Request(this, ip);
-	if (interface == 1){
-		_interface = new Graphyque(this);
-	} else {
+	if (interface){ //CHANGEMENT HERE
+		_interface = new Graphic(this, argc, argv);
+	} else {  
 		_interface = new Terminal(this);
 	}
 }
+
 
 Client::~Client(){
 	if (_game != nullptr)

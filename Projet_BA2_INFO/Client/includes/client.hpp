@@ -83,7 +83,6 @@ class Client: AbstractClient {
 #include "../game/Gestion/TourParTour/TourParTour.cpp"
 
 #include "abstractPlayer.hpp" //tmp
-#include "../../Gui/incl/FenPrincipale.hpp"
 
 
 
@@ -95,7 +94,9 @@ class Client: public AbstractPlayer, public AbstractClient{
 
 		int _gameMod;
 	public:
-		Client(const char* ip, bool interface);
+		//Client(const char* ip, bool interface);
+		Client(const char* ip, bool interface, int argc, char** argv);
+
 		~Client();
 		
 		//call by interface

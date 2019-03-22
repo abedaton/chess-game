@@ -172,6 +172,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		Client/includes/abstractInterface.hpp \
 		Client/includes/abstractPlayer.hpp \
 		Client/includes/client.hpp \
+		Client/includes/interface.hpp \
 		Client/includes/request.hpp \
 		Client/includes/terminal.hpp \
 		Client/game/common/MyException/MyOstream/MyOstream.hpp \
@@ -367,7 +368,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Gui/incl/FenPrincipale.hpp Gui/incl/GameWindow.hpp Gui/incl/Login.hpp Gui/incl/PlateauBox.hpp Gui/incl/PlateauScene.hpp Gui/incl/Register.hpp Gui/incl/Menu.hpp Gui/incl/Chat.hpp Gui/incl/ChessItem.hpp Gui/incl/Pendulum.hpp Client/includes/abstractClient.hpp Client/includes/abstractInterface.hpp Client/includes/abstractPlayer.hpp Client/includes/client.hpp Client/includes/request.hpp Client/includes/terminal.hpp Client/game/common/MyException/MyOstream/MyOstream.hpp Client/game/common/MyException/MyException.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents Gui/incl/FenPrincipale.hpp Gui/incl/GameWindow.hpp Gui/incl/Login.hpp Gui/incl/PlateauBox.hpp Gui/incl/PlateauScene.hpp Gui/incl/Register.hpp Gui/incl/Menu.hpp Gui/incl/Chat.hpp Gui/incl/ChessItem.hpp Gui/incl/Pendulum.hpp Client/includes/abstractClient.hpp Client/includes/abstractInterface.hpp Client/includes/abstractPlayer.hpp Client/includes/client.hpp Client/includes/interface.hpp Client/includes/request.hpp Client/includes/terminal.hpp Client/game/common/MyException/MyOstream/MyOstream.hpp Client/game/common/MyException/MyException.hpp $(DISTDIR)/
 	$(COPY_FILE) --parents Gui/src/FenPrincipale.cpp Gui/src/GameWindow.cpp Gui/src/Login.cpp Gui/src/PlateauBox.cpp Gui/src/PlateauScene.cpp Gui/src/Register.cpp Gui/src/Menu.cpp Gui/src/Chat.cpp Gui/src/ChessItem.cpp Gui/src/Pendulum.cpp Client/main.cpp $(DISTDIR)/
 
 
@@ -510,7 +511,18 @@ Gui/bin/main.o: Client/main.cpp Client/srcs/client.cpp \
 		Client/includes/request.hpp \
 		Client/includes/abstractClient.hpp \
 		Client/srcs/interface.cpp \
+		Client/includes/interface.hpp \
 		Client/includes/abstractInterface.hpp \
+		Gui/incl/FenPrincipale.hpp \
+		Gui/incl/Chat.hpp \
+		Gui/incl/GameWindow.hpp \
+		Gui/incl/Login.hpp \
+		Gui/incl/Menu.hpp \
+		Gui/incl/Pendulum.hpp \
+		Gui/incl/PlateauScene.hpp \
+		Gui/incl/PlateauBox.hpp \
+		Gui/incl/ChessItem.hpp \
+		Gui/incl/Register.hpp \
 		Client/srcs/terminal.cpp \
 		Client/includes/terminal.hpp \
 		Client/game/Gestion/Pendule/Pendule.cpp \
@@ -569,17 +581,7 @@ Gui/bin/main.o: Client/main.cpp Client/srcs/client.cpp \
 		Client/game/Games/TrappistChess/TrappistChess.hpp \
 		Client/game/Gestion/TourParTour/TourParTour.cpp \
 		Client/game/Gestion/TourParTour/TourParTour.hpp \
-		Client/includes/abstractPlayer.hpp \
-		Gui/incl/FenPrincipale.hpp \
-		Gui/incl/Chat.hpp \
-		Gui/incl/GameWindow.hpp \
-		Gui/incl/Login.hpp \
-		Gui/incl/Menu.hpp \
-		Gui/incl/Pendulum.hpp \
-		Gui/incl/PlateauScene.hpp \
-		Gui/incl/PlateauBox.hpp \
-		Gui/incl/ChessItem.hpp \
-		Gui/incl/Register.hpp
+		Client/includes/abstractPlayer.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/main.o Client/main.cpp
 
 Gui/bin/moc_FenPrincipale.o: Gui/bin/moc_FenPrincipale.cpp 
