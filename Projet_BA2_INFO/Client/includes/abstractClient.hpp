@@ -13,7 +13,9 @@ class AbstractClient{
 		virtual void sendMessage(std::string name,std::string msg) = 0;
 		virtual void addFriend(std::string name) = 0;
 		virtual void removeFriend(std::string name) = 0;
+		virtual void acceptFriend(std::string name, bool accept) = 0;
 		virtual void getFriendList() = 0;
+		virtual void getFriendRequests() = 0;
 		virtual void getOnlineFriendList() = 0;
 		virtual void getUserInfo() = 0;
 

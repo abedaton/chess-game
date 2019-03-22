@@ -1,6 +1,6 @@
 #include "FenPrincipale.hpp"
 
-FenPrincipale::FenPrincipale() {
+FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
     init_window();
     init_stack();
     init_connect();
@@ -69,8 +69,8 @@ void FenPrincipale::MenuBar() {
 }
 
 void FenPrincipale::checkSignIn() {
-    QString nom = _login->getUsername();
-    QString mdp = _login->getPassword();
+    std::string nom = _login->getUsername().toStdString();
+    std::string mdp = _login->getPassword().toStdString();
 
     /*result = client->login(username, password)
      * if (username dont exist in dataBase)
@@ -78,9 +78,9 @@ void FenPrincipale::checkSignIn() {
      *
      */
 
-    if (nom == "achraf" && mdp == "achraf") {
+    if (_graphic->loginGUI(nom,mdp)) {
         goToMenu();
-        _statusBar->showMessage("Welcome " + nom + " !", 5000);
+        //_statusBar->showMessage("Welcome " + nom + " !", 5000);
 
     } else {
         _statusBar->showMessage("Username or password is incorrect", 5000);

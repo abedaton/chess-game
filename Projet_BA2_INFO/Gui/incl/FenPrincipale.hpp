@@ -10,12 +10,15 @@
 #include <QtWidgets>
 #include <iostream>
 
-class FenPrincipale : public QMainWindow {
+#include "../../Client/includes/abstractInterface.hpp"
+#include "../../Client/includes/abstractClient.hpp"
+
+class FenPrincipale : public QMainWindow, public AbstractInterface {
 
     Q_OBJECT
 
     public:
-    FenPrincipale();
+    FenPrincipale(AbstractClient* client);
     void MenuBar();
 
     public slots:
@@ -28,6 +31,8 @@ class FenPrincipale : public QMainWindow {
     void goToMenu();
     void sendMessage();
 
+    
+
     private:
     void init_window();
     void init_connect();
@@ -39,6 +44,8 @@ class FenPrincipale : public QMainWindow {
     QDockWidget *_dockChat;
     QDockWidget *_dockPendulum;
 
+    AbstractClient* _client;
+
     Login *_login;
     Register *_register;
     Menu *_menu;
@@ -46,6 +53,7 @@ class FenPrincipale : public QMainWindow {
     PlateauScene *_classicWindow;
     Chat *_chat;
     Pendulum *_pendulum;
+
 };
 
 #endif // FENPRINCIPALE_HPP

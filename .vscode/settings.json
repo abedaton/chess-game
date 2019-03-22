@@ -44,6 +44,10 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "iomanip": "cpp",
-        "atomic": "cpp"
+        "atomic": "cpp",
+        "cstddef": "cpp",
+        "list": "cpp",
+        "functional": "cpp",
+        "cinttypes": "cpp"
     }
 }

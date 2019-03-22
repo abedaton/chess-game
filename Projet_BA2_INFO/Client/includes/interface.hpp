@@ -1,7 +1,11 @@
 #include "abstractInterface.hpp"
 #include "../../Gui/incl/FenPrincipale.hpp"
+#include "client.hpp"
 
 
+
+class Client;
+class FenPrincipale;
 
 class Graphic: public AbstractInterface{
     public:
@@ -14,8 +18,11 @@ class Graphic: public AbstractInterface{
         void win() override;
         void lose() override;
 
+        bool loginGUI(std::string username,std::string password);
+
         int makeGui(int argc, char** argv);
     
     public:
-        //FenPrincipale _gui;
+        FenPrincipale* _gui;
+        AbstractClient* _client;
 };
