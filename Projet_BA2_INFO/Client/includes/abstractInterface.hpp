@@ -3,7 +3,7 @@
 
 #include "abstractClient.hpp"
 
-class AbstractInterface{
+class AbstractInterface {
     public:
         virtual void gameStart(std::string opponent) = 0;//+bord
         virtual void connectionError() = 0;

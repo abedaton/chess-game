@@ -13,6 +13,7 @@
 class Client: public AbstractPlayer, public AbstractClient{
 	private:
 		AbstractInterface* _interface;
+		FenPrincipale* _interfaceGUI; // tmp
 		Request* _server;
 		TempsReel* _game;
 

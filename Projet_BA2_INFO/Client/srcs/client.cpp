@@ -2,14 +2,13 @@
 #define CLIENT_CPP
 
 #include "../includes/client.hpp"
+#include "../../Gui/incl/FenPrincipale.hpp"
 
 Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(nullptr){
 	_server = new Request(this, ip);
 	if (terminalMod){
 		_interface = new Terminal(this);
 	} else {
-	
-		_interface = new FenPrincipale(this);
 		showGui(argc, argv);
 
 	}
@@ -110,13 +109,13 @@ void Client::addFriend(std::string name){
 void Client::removeFriend(std::string name) {
 	//TO DO
 }
-void acceptFriend(std::string name, bool accept){
+void Client::acceptFriend(std::string name, bool accept){
 	//TO DO
 }
 void Client::getFriendList(){
 	//TO DO
 }
-void getFriendRequests() {
+void Client::getFriendRequests() {
 	//TO DO
 }
 void Client::getOnlineFriendList(){
@@ -131,6 +130,12 @@ void Client::recvMessage(std::string name, std::string msg){
 }
 
 int Client::showGui(int argc, char** argv){
+	QApplication app(argc, argv);
+	_interfaceGUI = new FenPrincipale(this);
+
+    _interfaceGUI->show();
+
+    return app.exec(); 
 	
 }
 #endif

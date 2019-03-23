@@ -54,7 +54,6 @@ HEADERS += Gui/incl/FenPrincipale.hpp \
            Client/includes/abstractInterface.hpp\
            Client/includes/abstractPlayer.hpp\
            Client/includes/client.hpp\
-           Client/includes/interface.hpp\
            Client/includes/request.hpp\
            Client/includes/terminal.hpp\
            Client/game/common/MyException/MyOstream/MyOstream.hpp \
@@ -74,7 +73,6 @@ SOURCES += Gui/src/FenPrincipale.cpp \
            ###
            Client/main.cpp\
            Client/srcs/client.cpp \
-           Client/srcs/interface.cpp\
            Client/srcs/request.cpp \
            Client/srcs/terminal.cpp\
            

@@ -78,7 +78,7 @@ void FenPrincipale::checkSignIn() {
      *
      */
 
-    if (_graphic->loginGUI(nom,mdp)) {
+    if (_client->login(nom,mdp)) {
         goToMenu();
         //_statusBar->showMessage("Welcome " + nom + " !", 5000);
 
@@ -96,8 +96,11 @@ void FenPrincipale::checkRegister() {
         QMessageBox::critical(this, "Incorrect Register", "Passwords do not match");
         _statusBar->showMessage("Passwords do not match");
     } else {
-        goToMenu();
-        _statusBar->showMessage("Welcome new user !", 5000);
+        std::string* text = _register->getLinesEditText();
+        if(_client->letsRegister(text[0],text[1], text[2])){
+            goToMenu();
+            _statusBar->showMessage("Welcome new user !", 5000);
+        }
     }
 }
 

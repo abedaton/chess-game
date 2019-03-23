@@ -13,7 +13,8 @@
 #include "../../Client/includes/abstractInterface.hpp"
 #include "../../Client/includes/abstractClient.hpp"
 
-class FenPrincipale : public QMainWindow, public AbstractInterface {
+class Client;
+class FenPrincipale : public QMainWindow{
 
     Q_OBJECT
 
@@ -30,6 +31,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface {
     void goToClassic();
     void goToMenu();
     void sendMessage();
+
 
     
 

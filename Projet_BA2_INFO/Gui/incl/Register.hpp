@@ -12,10 +12,13 @@ class Register : public QWidget {
     QPushButton *getCancel() const;
     bool isSamePassword() const;
     bool isTextEmpty() const;
+    
+    std::string* getLinesEditText();
 
     signals:
     void enterPressed();
     void escapePressed();
+
 
     private:
     void init_pushButton();
@@ -33,6 +36,8 @@ class Register : public QWidget {
     QLineEdit *_email;
     QLineEdit *_mdp1;
     QLineEdit *_mdp2;
+
+    std::string _linesEditText[3];
 
     protected:
     void keyPressEvent(QKeyEvent *);
