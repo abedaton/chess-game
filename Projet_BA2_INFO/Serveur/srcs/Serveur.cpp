@@ -44,11 +44,13 @@ void Serveur::mainLoop(){
             std::cout << "Nouvelle connexion et le socket est : " << tmpClient << std::endl;
             if (tmpClient != -1){
                 if (static_cast<size_t>(tmpClient) > this->_clients.size()){
-                     this->_clients.resize(static_cast<size_t>(tmpClient));
+                    this->_clients.resize(static_cast<size_t>(tmpClient));
+                    this->_clients[tmpClient] = std::make_pair(-1, nullptr);
                 }
-                this->_clients.at(static_cast<unsigned long int>(tmpClient-1)) = tmpClient;
+                this->_clients.at(static_cast<unsigned long int>(tmpClient-1)).first = tmpClient;
                 User* tmpUser = new User(tmpClient, this->_db, this->_match); // <------ new important pour polymorphisme! - Quentin !!!
-                
+                this->_clients.at(static_cast<unsigned long int>(tmpClient-1)).second = tmpUser;
+
                 //load les amis de la bdd ici ?
                 onlineUsers.push_back(tmpUser);
             }
@@ -73,7 +75,12 @@ void* Serveur::handleCommand(){
 void Serveur::sShutdown(){
     shutdown(this->_serv_sock, SHUT_RDWR);
     for (unsigned long int i = 0; i < this->_clients.size(); i++){
-        close(this->_clients.at(i));
+        try{
+            close(this->_clients.at(i).first);
+            delete this->_clients.at(i).second;
+        }catch (std::exception& e){
+            ;;
+        }
     }
     close(this->_serv_sock);
     std::cout << "ready2 = " << this->_ready << std::endl;

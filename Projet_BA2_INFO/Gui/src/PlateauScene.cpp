@@ -8,13 +8,13 @@ PlateauScene::PlateauScene(int size, QWidget *parent) : _size(size), QGraphicsVi
 
     setScene(_scene);
 
-    setBoxes(0, 100, 65);
+    setClassicBoxes(0, 100, 65);
     int moves[] = {1, 2, 3, 4};
 
     //showMoves(moves);
 }
 
-void PlateauScene::setBoxes(int x, int y, int sideLenght) {
+void PlateauScene::setClassicBoxes(int x, int y, int sideLenght) {
     int curr_x, curr_y = y;
 
     for (int i = 0; i < _size; ++i) {
@@ -35,9 +35,10 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
         curr_y += sideLenght;
     }
 
-    addPiece("pionB", 4,5);
-    addPiece("pionW", 6,6);
-
+    //addPiece("pionB", 4,5);
+    //addPiece("pionW", 6,6);
+    setBlack();
+    setWhite();
 
 }
 
@@ -73,4 +74,42 @@ void PlateauScene::addPiece(std::string pieceType,int x, int y){
     ChessItem* pion = new ChessItem(pieceType);
     _boxes[x][y]->setPiece(pion);
     _scene->addItem(pion);
+}
+
+void PlateauScene::setBlack(){
+    //Fou
+    addPiece("fouB",0,2);
+    addPiece("fouB",0,5);
+    //Chevalier
+    addPiece("chevB",0,1);
+    addPiece("chevB",0,6);
+    //Tour
+    addPiece("tourB",0,0);
+    addPiece("tourB",0,7);
+    //Roi et reine
+    addPiece("roiB",0,3);
+    addPiece("reineB",0,4);
+
+    for(int i = 0; i<8; ++i)
+        addPiece("pionB",1,i);
+
+}
+
+void PlateauScene::setWhite(){
+    //Fou
+    addPiece("fouW",7,2);
+    addPiece("fouW",7,5);
+    //Chevalier
+    addPiece("chevW",7,1);
+    addPiece("chevW",7,6);
+    //Tour
+    addPiece("tourW",7,0);
+    addPiece("tourW",7,7);
+    //Roi et reine
+    addPiece("roiW",7,3);
+    addPiece("reineW",7,4);
+
+    for(int i = 0; i<8; ++i)
+        addPiece("pionW",6,i);
+
 }

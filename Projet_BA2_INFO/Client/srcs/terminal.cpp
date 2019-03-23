@@ -3,7 +3,7 @@
 
 #include "../includes/terminal.hpp"
 
-Terminal::Terminal(AbstractClient* client): _user(client), _end(false) {
+Terminal::Terminal(AbstractClient* client): _user(client), _end(false), _gameStart(false) {
     firstWindow();
 };
 
@@ -95,8 +95,8 @@ void Terminal::friendsWindow(){
 		else
 			std::cout << "Choix invalide veuillez réessayer:" << std::endl;
 			
-	}
 	*/
+	}
 }
 
 void Terminal::firstWindow(){

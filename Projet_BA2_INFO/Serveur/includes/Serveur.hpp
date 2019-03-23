@@ -28,7 +28,7 @@ class Serveur {
         unsigned int _addrlen;
         bool _ready;
 
-        std::vector<int> _clients;
+        std::vector< std::pair<int,User*> > _clients;
 };
 
 #endif

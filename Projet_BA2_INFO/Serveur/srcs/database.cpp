@@ -155,11 +155,11 @@ void Database::updateWin(std::string username, std::string rival, bool win){
 	// Systeme d'Elo par Arpad Elo 
 	std::cout << std::fixed;
 	std::cout << std::setprecision(5);
-	int elo1 = getInt(username, "elo"); // 1250
-	int elo2 = getInt(rival, "elo");  // 1150
+	int elo1 = getInt(username, "elo");
+	int elo2 = getInt(rival, "elo");
 	int nbrGames = getInt(username, "nbrGames"); 
 	std::cout << "Elo1 = " << elo1 << " and Elo2 = " << elo2 << std::endl;
-	int D = elo2 - elo1; // 1150 - 1250 = -100
+	int D = elo2 - elo1;
 	if (D > 400){
 		D = 400;
 	}
@@ -168,11 +168,7 @@ void Database::updateWin(std::string username, std::string rival, bool win){
 	winProb = std::pow(10, winProb);
 	winProb = 1/(winProb++);
 	
-	
-	//double winProb = 1/(1 + std::pow(10, (-D/400)); // 10 ^ 0.25
-	
-	
-	std::cout << "winProb = " << winProb << " D = " << D << std::endl; // 0.35
+	std::cout << "winProb = " << winProb << " D = " << D << std::endl;
 	int K;
 	if (nbrGames <= 30){
 		K = 40;
@@ -202,6 +198,7 @@ void Database::updateWin(std::string username, std::string rival, bool win){
 char* Database::getValue(std::string table, std::string column){
 	char* zErrMsg = 0;
 	std::string sql = "SELECT " + column + " FROM '" + table + "';";
+	std::cout << sql << std::endl;
 	char** var;
 	int rc = sqlite3_exec(this->db, sql.c_str(), callbackGetter, var, &zErrMsg);;
 	if (rc != SQLITE_OK){

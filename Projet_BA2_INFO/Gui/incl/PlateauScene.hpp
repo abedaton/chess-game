@@ -11,13 +11,17 @@ class PlateauBox;
 class PlateauScene : public QGraphicsView {
     public:
     explicit PlateauScene(int size = 8, QWidget *parent = nullptr);
-    void setBoxes(int x, int y, int sideLenght);
+    void setClassicBoxes(int x, int y, int sideLenght);
     void showMoves(int *moves = nullptr, int* cap = nullptr);
     PlateauBox* getPriorityBox() const;
     void setPriorityBox(PlateauBox* box);
     void resetAllColors();
 
     void addPiece(std::string pieceType, int x, int y);
+
+    void setBlack();
+    void setWhite();
+
 
     private:
     const int _size;

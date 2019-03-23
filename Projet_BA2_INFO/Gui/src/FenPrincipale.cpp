@@ -36,11 +36,17 @@ void FenPrincipale::init_connect() {
     connect(_login->getSI(), SIGNAL(clicked()), this, SLOT(checkSignIn()));
     connect(_login, SIGNAL(enterPressed()), this, SLOT(checkSignIn()));
     connect(_login->getRegister(), SIGNAL(clicked()), this, SLOT(goToRegister()));
+
     connect(_register->getCancel(), SIGNAL(clicked()), this, SLOT(goToLogIn()));
     connect(_register, SIGNAL(escapePressed()), this, SLOT(goToLogIn()));
     connect(_register->getOK(), SIGNAL(clicked()), this, SLOT(checkRegister()));
     connect(_register, SIGNAL(enterPressed()), this, SLOT(checkRegister()));
+
     connect(_gameWindow->getClassicButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
+    connect(_gameWindow->getDarkButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
+    connect(_gameWindow->getTrapistButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
+    connect(_gameWindow->getAntiButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
+    
     connect(_menu->getNewGame(), SIGNAL(clicked()), this, SLOT(goToGame()));
     connect(_menu->getExit(), SIGNAL(clicked()), qApp, SLOT(quit()));
     // connect(_chat->getLineEdit(),SIGNAL(returnPressed()),this, SLOT(sendMessage()));
@@ -120,6 +126,7 @@ void FenPrincipale::goToClassic() {
     _classicWindow = new PlateauScene;
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
+    //_client->waitForMatch(1); TO DO
 }
 
 void FenPrincipale::goToMenu() {
