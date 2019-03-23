@@ -13,9 +13,7 @@
 #include "../../Client/includes/abstractInterface.hpp"
 #include "../../Client/includes/abstractClient.hpp"
 
-class Client;
-class FenPrincipale : public QMainWindow{
-
+class FenPrincipale : public QMainWindow, public AbstractInterface{
     Q_OBJECT
 
     public:
@@ -32,7 +30,14 @@ class FenPrincipale : public QMainWindow{
     void goToMenu();
     void sendMessage();
 
-
+//////////////////////////////tmp
+    void myShow() override{this->show();}
+    void gameStart(std::string opponent) override{}
+    void connectionError() override{}
+    void win() override{}
+    void lose() override{}
+	void recvMessage(std::string name, std::string mov) override{}
+    void pingForUpdate() override{}
     
 
     private:

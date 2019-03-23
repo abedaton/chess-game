@@ -8,10 +8,10 @@ int main(int argc,char** argv){
     bool goodParam = true;
     std::string ip = "127.0.0.1";
 
-    for (int i = 0; i == argc; i++){
-        if (argv[i] == "-t") {
+    for (int i = 0; i < argc; i++){
+        if (! strcmp(argv[i], "-t")) {
             terminalMod = true;
-        } else if (argv[i] == "-i"){
+        } else if (! strcmp(argv[i], "-i")){
             if (i+1 < argc){
                 goodParam = false;
             } else {
@@ -21,7 +21,7 @@ int main(int argc,char** argv){
                     goodParam = false;
                 }
             }
-        } else if (argv[i] ==  "-h" || argv[i] ==  "--help"){
+        } else if (!strcmp(argv[i], "-h") || !strcmp(argv[i], "--help")){
             std::cout << "help" << std::endl; //TO Do
             goodParam = false;
         }

@@ -255,6 +255,7 @@ int Request::recvInt(int flag){
         return 0;
     } else {
         this->error();
+        return -1;
     }
 }
 

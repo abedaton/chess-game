@@ -6,7 +6,7 @@
 class AbstractClient{
 	public:
 		//call by interface
-		virtual bool letsRegister(std::string username,std::string password, std::string email) = 0;
+		virtual bool letsRegister(std::string username,std::string password1, std::string password2, std::string email) = 0;
 		virtual bool login(std::string username,std::string password) = 0;
 		virtual void waitForMatch(int gameMod) = 0;
 

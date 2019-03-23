@@ -13,7 +13,6 @@
 class Client: public AbstractPlayer, public AbstractClient{
 	private:
 		AbstractInterface* _interface;
-		FenPrincipale* _interfaceGUI; // tmp
 		Request* _server;
 		TempsReel* _game;
 
@@ -25,7 +24,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		~Client();
 		
 		//call by interface
-		bool letsRegister(std::string username,std::string password, std::string email) override;
+		bool letsRegister(std::string username,std::string password1, std::string password2, std::string email) override;
 		bool login(std::string username,std::string password) override;
 		void waitForMatch(int gameMod) override;
 

@@ -3,7 +3,7 @@
 
 #include "../includes/terminal.hpp"
 
-Terminal::Terminal(AbstractClient* client): _user(client) {
+Terminal::Terminal(AbstractClient* client): _user(client), _end(false) {
     firstWindow();
 };
 
@@ -37,7 +37,6 @@ void Terminal::lose() {
 }
 
 void Terminal::friendsWindow(){
-	/*
 	unsigned int res = 0;
 	while(res != 7){
 		std::cout << "Que désirez vous faire?: " << std::endl;
@@ -54,7 +53,7 @@ void Terminal::friendsWindow(){
 			std::cout << "Choix invalide veuillez réessayer:" << std::endl;
 			std::cin >> res;
 		}
-		
+		/*
 		if(res == 1){
 			std::string friendName;
 			std::cout<< "Veuillez entrer le nom de l'ami à ajouter: ";
@@ -128,8 +127,7 @@ bool Terminal::registerWindow(){
     std::string password;
     std::string password2;
     std::string email;
-    std::regex regEmail("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])");
-    while(true){
+	while(true){
         std::cout << "Write your new username: ";
         std::cin >> username;
         myFlush();
@@ -138,23 +136,15 @@ bool Terminal::registerWindow(){
         myFlush();
         password = getpass("New password (will not be shown): ");
         password2 = getpass("New password (again): ");
-        if (password != password2){
-            std::cout << "Password does not match!" << std::endl;
-            continue;
-        
-		}
-        if (! std::regex_match(email.begin(), email.end(), regEmail)){
-			std::cout << "Invalid email." << std::endl;
-			continue;
-        }
-		if (this->_user->letsRegister(username, password, email)){
+       
+		if (this->_user->letsRegister(username, password, password2, email)){
 			std::cout << "You are now logged in !" << std::endl;
 			this->_username = username;
 			return true;
 		}
 		else{
 			char answer;
-			std::cout << "Invalide Username.\n Write 1 for continue or 2 to go back: ";
+			std::cout << "Write 1 for continue or 2 to go back: ";
 			std::cin >> answer;
 			this->myFlush();
 			while (answer != '1' && answer != '2'){
@@ -257,6 +247,7 @@ void Terminal::gameWindow(){
 		myFlush();
 		if (_end){
 			std::cout << "lose" << std::endl;
+			this->_end = false;
 			break;
 		}
 		if (answer == 1){
