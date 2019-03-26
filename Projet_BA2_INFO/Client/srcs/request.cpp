@@ -22,11 +22,11 @@ void Request::setup(const char* ip){
     this->_servAddr.sin_addr.s_addr	= inet_addr(ip);
     this->_servAddr.sin_family = AF_INET;
     this->_servAddr.sin_port = htons(PORT);
-////////////////////////////
+
     if ((this->_clientSock = socket(AF_INET, SOCK_STREAM, 0)) < 0){
         std::cout << "A" << std::endl;
         this->error();
-    }////////////STOP/////////////////////
+    }
     if (connect(this->_clientSock, reinterpret_cast<struct sockaddr*>(&this->_servAddr), sizeof(this->_servAddr)) < 0){
         std::cout << strerror(errno) << std::endl;
         std::cout << "B" << std::endl;
