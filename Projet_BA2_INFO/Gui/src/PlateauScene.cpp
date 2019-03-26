@@ -1,6 +1,6 @@
 #include "PlateauScene.hpp"
 
-PlateauScene::PlateauScene(int size, QWidget *parent) : _size(size), QGraphicsView(parent) {
+PlateauScene::PlateauScene(int size, QWidget *parent,std::string pool_name) : _size(size), pool(pool_name) , QGraphicsView(parent) {
     _scene = new QGraphicsScene;
     _ggbox = new QGraphicsGridLayout;
     //_boxes = new PlateauBox[_size][_size];
@@ -76,7 +76,7 @@ void PlateauScene::resetAllColors(){
 }
 
 void PlateauScene::addPiece(std::string pieceType,int x, int y){
-    ChessItem* pion = new ChessItem(pieceType);
+    ChessItem* pion = new ChessItem(pieceType,this->get_pool()); // de base "pool1" // plustard nouveau parametre color!
     _boxes[x][y]->setPiece(pion);
     _scene->addItem(pion);
 }
@@ -118,3 +118,5 @@ void PlateauScene::setWhite(){
         addPiece("pionW",6,i);
 
 }
+
+std::string get_pool() const {return this->pool;}
