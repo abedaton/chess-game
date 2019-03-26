@@ -39,7 +39,7 @@ HEADERS += incl/FenPrincipale.hpp \
            incl/Menu.hpp\
            incl/Chat.hpp \
            incl/ChessItem.hpp\
-           incl/Timer.hpp
+           incl/Pendulum.hpp
 SOURCES += src/FenPrincipale.cpp \
            src/GameWindow.cpp \
            src/Login.cpp \
@@ -50,4 +50,4 @@ SOURCES += src/FenPrincipale.cpp \
            src/Menu.cpp \
            src/Chat.cpp \
            src/ChessItem.cpp\
-           src/Timer.cpp
+           src/Pendulum.cpp
