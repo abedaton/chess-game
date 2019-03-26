@@ -27,6 +27,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void goToLogIn();
     void goToGame();
     void goToClassic();
+    void goToTrappist();
     void goToMenu();
     void sendMessage();
 

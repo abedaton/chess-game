@@ -6,6 +6,7 @@
 #include <string>
 #include <cstring>
 #include <thread>
+#include "pthread.h"
 #include <mutex>
 #include <unistd.h>
 #include <arpa/inet.h>

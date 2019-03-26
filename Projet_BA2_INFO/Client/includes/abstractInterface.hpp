@@ -2,12 +2,10 @@
 #define ABSTRACTINTERFACE_HPP
 
 #include "abstractClient.hpp"
-#include <QtWidgets>
+#include <pthread.h>
 
 class AbstractInterface { 
     public:
-        void tmp(){std::cout << "tmp" << std::endl;}
-
         virtual void myShow(){}//for gui interface
         virtual void gameStart(std::string opponent) = 0;//+bord
         virtual void connectionError() = 0;

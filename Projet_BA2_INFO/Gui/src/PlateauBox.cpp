@@ -53,6 +53,9 @@ void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent* event) {
         std::cout << "oupsi pas de piece" << std::endl;
     }
 
+    char letter = 65 + std::get<1>(_pos);
+    std::cout << letter << 8 - std::get<0>(_pos) << std::endl; ///CAN
+
 }
 
 

@@ -10,8 +10,11 @@
 class PlateauBox;
 class PlateauScene : public QGraphicsView {
     public:
-    explicit PlateauScene(int size = 8, QWidget *parent = nullptr);
+    explicit PlateauScene(int size, QWidget *parent = nullptr);
+    
     void setClassicBoxes(int x, int y, int sideLenght);
+    void setTrappistBoxes(int x, int y, int sideLenght);
+
     void showMoves(int *moves = nullptr, int* cap = nullptr);
     PlateauBox* getPriorityBox() const;
     void setPriorityBox(PlateauBox* box);
@@ -29,6 +32,7 @@ class PlateauScene : public QGraphicsView {
 
     QGraphicsScene *_scene;
     PlateauBox *_boxes[8][8];
+    PlateauBox *_Tboxes[24][24];
     QGraphicsGridLayout *_ggbox;
 };
 

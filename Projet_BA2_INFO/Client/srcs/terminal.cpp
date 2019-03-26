@@ -4,10 +4,11 @@
 #include "../includes/terminal.hpp"
 
 Terminal::Terminal(AbstractClient* client): _user(client), _end(false), _gameStart(false) { 
-    firstWindow();
-};
+	client->setInterface(this);
+	firstWindow();
+}
 
-Terminal::~Terminal(){ 
+Terminal::~Terminal(){
 	std::cout << "Destructor" << std::endl;
 }
 
@@ -26,12 +27,12 @@ void Terminal::pingForUpdate(){
     //To Do
 }
 
-void Terminal::win() {
+void Terminal::win(){
 	std::cout << "you win" << std::endl;
 	this->_end = true;
 }
 
-void Terminal::lose() {
+void Terminal::lose(){
 	std::cout << "you lose" << std::endl;
 	this->_end = true;
 }
@@ -129,6 +130,8 @@ void Terminal::firstWindow(){
 	}
 	if (! exit){
 		menuWindow();
+	} else {
+		this->_user->exit();
 	}
 }
 
@@ -242,14 +245,14 @@ bool Terminal::selectGameModeWindow(){
 	if (chessMod == '5')
 		return false;
 	while (gameMod != '1' && gameMod != '2' && gameMod != '3' && gameMod != '4'){
-        std::cout << "Enter 1 for Toure Par Toure, 2 for Chrono, 3 for Temps Reel, 4 for return to the menu: " << std::endl;
-        std::cin >> chessMod;
+        std::cout << "Enter 1 for Tour Par tour, 2 for Chrono, 3 for Temps Reel, 4 for return to the menu: " << std::endl;
+        std::cin >> gameMod;
 		myFlush();
     }
 	if (gameMod == '4')
 		return false;
 	else {
-		this->_user->waitForMatch(atoi(&answer));
+		this->_user->waitForMatch(atoi(&chessMod) + (4 * atoi(&gameMod)));
 		return true;
 	}
 }

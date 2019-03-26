@@ -4,22 +4,31 @@
 #include "../includes/client.hpp"
 #include "../../Gui/incl/FenPrincipale.hpp"
 
-Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(nullptr){
-	_server = new Request(this, ip);
+Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(nullptr), _interface(nullptr){
+	this->_server = new Request(this, ip);
+	std::cout << "CREATE CLIENT" << std::endl;
+
 	if (terminalMod){
-		this->_interface = new Terminal(this);
+		AbstractInterface* useless = new Terminal(this);
+		std::cout << "CREATE TERMINAL" << std::endl;
 	} else {
 		showGui(argc, argv);
 	}
-	std::cout << this->_interface << std::endl;
 }
 
 
 Client::~Client(){
+	std::cout << "Client destructor" << std::endl;
 	if (_game != nullptr)
 		delete _game;
-	delete this->_interface;
+	if (_interface != nullptr)
+		delete this->_interface;
 	delete _server;
+	
+}
+
+void Client::setInterface(AbstractInterface* interface){
+	this->_interface = interface;
 }
 
 void Client::waitForMatch(int gameMod){
@@ -85,18 +94,22 @@ bool Client::login(std::string username,std::string password){
 	} else {
 		int res = _server->login(username,password);
 		return static_cast<bool>(res);
+		std::cout << "END LOGIN" << std::endl;
 	}
 }
 
 void Client::connectionError(){
 	std::cout << "In connectionError" << std::endl;
-	this->_interface->tmp();
-	std::cout << "2" << std::endl;
-	this->_interface->connectionError();
+	if (_interface != nullptr)
+		this->_interface->connectionError();
 }
 
 void Client::exit(){
-	delete this; //:(
+	try {
+		delete this; //:(
+	} catch(std::exception& e){
+		;;
+	}
 }
 
 //bool Client::get_inverted() const{}

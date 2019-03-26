@@ -22,6 +22,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		~Client();
 		
 		//call by interface
+		void setInterface(AbstractInterface* interface) override;
 		bool letsRegister(std::string username,std::string password1, std::string password2, std::string email) override;
 		bool login(std::string username,std::string password) override;
 		void waitForMatch(int gameMod) override;

@@ -44,7 +44,7 @@ void FenPrincipale::init_connect() {
 
     connect(_gameWindow->getClassicButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
     connect(_gameWindow->getDarkButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
-    connect(_gameWindow->getTrapistButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
+    connect(_gameWindow->getTrapistButton(), SIGNAL(clicked()), this, SLOT(goToTrappist()));
     connect(_gameWindow->getAntiButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
     
     connect(_menu->getNewGame(), SIGNAL(clicked()), this, SLOT(goToGame()));
@@ -123,10 +123,16 @@ void FenPrincipale::goToGame() {
 }
 
 void FenPrincipale::goToClassic() {
-    _classicWindow = new PlateauScene;
+    _classicWindow = new PlateauScene(8);
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
     
+}
+
+void FenPrincipale::goToTrappist(){
+    _classicWindow = new PlateauScene(24);
+    _stack->addWidget(_classicWindow);
+    _stack->setCurrentWidget(_classicWindow);
 }
 
 void FenPrincipale::goToMenu() {

@@ -1,7 +1,7 @@
 #include "../includes/database.hpp"
 
 Database::Database(){
-	int rc = sqlite3_open("test.db", &this->db);
+	int rc = sqlite3_open("database.db", &this->db);
 	if(rc != SQLITE_OK){
 		std::cout << "Can't open database: %s\n", sqlite3_errmsg(this->db);
 	} else {

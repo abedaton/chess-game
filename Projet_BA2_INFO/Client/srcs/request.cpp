@@ -1,8 +1,8 @@
 #include "../includes/request.hpp"
 
 Request::Request(AbstractClient* client, const char* ip): _client(client){
-	setup(ip);
-	pthread_create(&this->_listenerThread, NULL, &Request::run, static_cast<void*>(this));
+    std::pair<Request*, const char*> params(this, ip);
+	pthread_create(&this->_listenerThread, NULL, &Request::run, &params);
 }
 
 Request::~Request(){
@@ -12,25 +12,31 @@ Request::~Request(){
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////PRIVIET
+void* Request::run(void* tmp){
+    std::pair<Request*, const char*> params = *(std::pair<Request*, const char*>*)tmp;
+    (params.first)->setup(params.second);
+    return NULL;
+}
+
 void Request::setup(const char* ip){
     this->_servAddr.sin_addr.s_addr	= inet_addr(ip);
     this->_servAddr.sin_family = AF_INET;
     this->_servAddr.sin_port = htons(PORT);
 
     if ((this->_clientSock = socket(AF_INET, SOCK_STREAM, 0)) < 0){
+        std::cout << "A" << std::endl;
         this->error();
     }
     if (connect(this->_clientSock, reinterpret_cast<struct sockaddr*>(&this->_servAddr), sizeof(this->_servAddr)) < 0){
+        std::cout << strerror(errno) << std::endl;
+        std::cout << "B" << std::endl;
         this->error();
     } else {
         std::cout << "You're connected!" << std::endl;
     }
+    listener();
 }
 
-void* Request::run(void* tmp){
-    static_cast<Request*>(tmp)->listener();
-    return NULL;
-}
 void Request::listener(){
 	int protocol;
     while (true){
