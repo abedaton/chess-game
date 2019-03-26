@@ -14,7 +14,7 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNIClient/game/GameType/SuperGame/NGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -std=c++11 -g -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I. -IGui/src -IGui/incl -IGui/img -IGui/bin -IGui -I. -IClient -IClient/includes -I./Client/src -IClient/game/common/MyException -IClient/game/common/MyException/MyOstream -I./Client/game/GameType/SuperGame -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -IGui/bin -isystem /usr/include/libdrm -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
@@ -398,7 +398,7 @@ compiler_moc_predefs_make_all: Gui/bin/moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) Gui/bin/moc_predefs.h
 Gui/bin/moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
-	g++ -pipe -O2 -Wall -W -dM -E -o Gui/bin/moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
+	g++ -pipe -std=c++11 -g -O2 -Wall -W -dM -E -o Gui/bin/moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
 compiler_moc_header_make_all: Gui/bin/moc_FenPrincipale.cpp Gui/bin/moc_GameWindow.cpp Gui/bin/moc_Login.cpp Gui/bin/moc_Register.cpp Gui/bin/moc_Menu.cpp Gui/bin/moc_Chat.cpp Gui/bin/moc_Timer.cpp
 compiler_moc_header_clean:

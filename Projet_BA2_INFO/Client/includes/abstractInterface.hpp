@@ -6,13 +6,7 @@
 
 class AbstractInterface { 
     public:
-        void myShow(){}//for gui interface
-        void gameStart(std::string opponent) = 0;//+bord
-        void connectionError() = 0;
-        void win() = 0;
-        void lose() = 0;
-		void recvMessage(std::string name, std::string mov) = 0; 
-        void pingForUpdate() = 0;
+        void tmp(){std::cout << "tmp" << std::endl;}
 
         virtual void myShow(){}//for gui interface
         virtual void gameStart(std::string opponent) = 0;//+bord

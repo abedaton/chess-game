@@ -1,20 +1,20 @@
-#ifndef TERMINAL_CPP
-#define TERMINAL_CPP
+#ifndef TERMINAL_CPP 
+#define TERMINAL_CPP 
 
 #include "../includes/terminal.hpp"
 
-Terminal::Terminal(AbstractClient* client): _user(client), _end(false), _gameStart(false) {
+Terminal::Terminal(AbstractClient* client): _user(client), _end(false), _gameStart(false) { 
     firstWindow();
 };
 
-Terminal::~Terminal(){
+Terminal::~Terminal(){ 
 	std::cout << "Destructor" << std::endl;
 }
 
 void Terminal::connectionError(){
 	std::cout << "Connection with server lost : " << strerror(errno) << std::endl;
-	exit(EXIT_FAILURE); // tmp
-	//delete this; // :(
+	this->_user->exit();
+	//exit(EXIT_FAILURE);
 }
 
 void Terminal::gameStart(std::string opponent){ //bord
@@ -202,9 +202,9 @@ void Terminal::menuWindow(){
 	char answer;
 	bool waitForGame = false;
     while (true){
-        std::cout << "Enter 1 for exit 2 for friend list";//,(2 for chat)";
+        std::cout << "Enter 1 for exit 2 for friend list 3 for parameter";
 		if (!waitForGame)
-			std::cout <<", 3 for game";
+			std::cout <<", 4 for game";
 		std::cout << ": " << std::endl;
         std::cin >> answer;
 		myFlush();
@@ -215,32 +215,38 @@ void Terminal::menuWindow(){
 		} else{
         	if (answer == '1'){
         	    break;
-        	}
-        	else if (answer == '2'){
+        	} else if (answer == '2'){
         	    friendsWindow();
-        	}
-        	else if (answer == '3' && !waitForGame){
+        	} else if (answer == '3'){
+        	    //TO DO
+        	} else if (answer == '4' && !waitForGame){
         	    waitForGame = selectGameModeWindow();
         	}
 		}
     }
 }
 
-void Terminal::recvMessage(std::string msg, std::string mov){
-	std::cout << "Opponent: " << msg << std::endl;
+void Terminal::recvMessage(std::string username, std::string msg){
+	std::cout << username << ": " << msg << std::endl;
 }
 
 bool Terminal::selectGameModeWindow(){
-	char answer;
-    std::cout << "Enter 1 for classic, 2 for Dark, 3 for Trappist, 4 for Anti or 5 for return to the menu: " << std::endl;
-    std::cin >> answer;
-	myFlush();
-    while (answer != '1' && answer != '2' && answer != '3' && answer != '4' && answer != '5'){
+	char chessMod = ' ';
+	char gameMod = ' ';
+
+    while (chessMod != '1' && chessMod != '2' && chessMod != '3' && chessMod != '4' && chessMod != '5'){
         std::cout << "Please, enter 1 for classic, 2 for Dark, 3 for Trappist, 4 for Anti or 5 for return to the menu: " << std::endl;
-        std::cin >> answer;
+        std::cin >> chessMod;
 		myFlush();
     }
-	if (answer == '5')
+	if (chessMod == '5')
+		return false;
+	while (gameMod != '1' && gameMod != '2' && gameMod != '3' && gameMod != '4'){
+        std::cout << "Enter 1 for Toure Par Toure, 2 for Chrono, 3 for Temps Reel, 4 for return to the menu: " << std::endl;
+        std::cin >> chessMod;
+		myFlush();
+    }
+	if (gameMod == '4')
 		return false;
 	else {
 		this->_user->waitForMatch(atoi(&answer));

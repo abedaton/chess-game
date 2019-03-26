@@ -7,11 +7,11 @@
 Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(nullptr){
 	_server = new Request(this, ip);
 	if (terminalMod){
-		std::cout << "ploooooop" << std::endl;
 		this->_interface = new Terminal(this);
 	} else {
 		showGui(argc, argv);
 	}
+	std::cout << this->_interface << std::endl;
 }
 
 
@@ -90,6 +90,8 @@ bool Client::login(std::string username,std::string password){
 
 void Client::connectionError(){
 	std::cout << "In connectionError" << std::endl;
+	this->_interface->tmp();
+	std::cout << "2" << std::endl;
 	this->_interface->connectionError();
 }
 
