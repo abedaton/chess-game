@@ -19,11 +19,6 @@
 
 #define PORT 5555
 
-struct FriendRequests
-{
-    std::string name;
-};
-
 class Request{
     public:
         Request(AbstractClient* client, const char* ip);
@@ -32,18 +27,19 @@ class Request{
         int login(std::string username,std::string password);
         void findMatch(int modDeJeu);
         void chat(std::string msg); //tmp just pour chat with opponent 
-        //more fct for chat
-		//more fct for friend
-		//more fct for stat
+
         void surrend();
         void mov(std::string mov);
-        //more fct for game
 
-        bool listOnlineFriends();
-        bool addFriend(std::string name);
+        void sendMessage(std::string name, std::string msg);
+        void addFriend(std::string name);
         void removeFriend(std::string name);
-        void recvFriendAddNotification();
-        void proceedGameAndFriendRequests();
+        void acceptFriend(std::string name, bool accept);
+        void getFriendList();
+        void getFriendRequests();
+        void getOnlineFriendList();
+        void getMyInfo();
+        void getUserInfo(std::string username);
 
     private:
 		std::mutex _mutex;
@@ -59,7 +55,7 @@ class Request{
 		void listener();
         void startingGame();
         void opponentMov();
-        void recvMessage();
+        void recvMessageInGame();
 		void error();
 		inline void waitForProcess();
 		inline void endProcess();
@@ -69,13 +65,12 @@ class Request{
         void sendInt(int num);
         std::string recvStr();
 
-        std::queue<FriendRequests> friendRequests; 
+        void recvMessage();
+
 };
 
 enum Protocol : int {
-    EXIT = 0, REGISTER, LOGIN, PASS, WAITFORMATCH, GETMOV, MOV, 
-    LISTONLINEFRIENDS, ADDFRIEND, REMOVEFRIEND, NEWFRIENDREQUEST, 
-    FRIENDREQUESTANSWER, RECVMESSAGE, SENDMESSAGE
+    STARTGAME = 25, OPPONENTMOV, RECVMESSAGEINGAME
 };
 
 

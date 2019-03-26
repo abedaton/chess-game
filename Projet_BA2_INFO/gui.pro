@@ -25,15 +25,16 @@ INCLUDEPATH += ./Client/includes
 INCLUDEPATH += ./Client/src
 INCLUDEPATH += ./Client/game/common/MyException
 INCLUDEPATH += ./Client/game/common/MyException/MyOstream
+INCLUDEPATH += ./Client/game/GameType/SuperGame
 ###
 
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
-DEFINES += QT_DEPRECATED_WARNINGS
-
-# You can also make your code fail to compile if you use deprecated APIs.
+DEFINES += QT_DEPRECATED_WARNIClient/game/GameType/SuperGame/NGS
+Client/game/GameType/SuperGame/
+# You can also make your code Client/game/GameType/SuperGame/fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
@@ -48,11 +49,11 @@ HEADERS += Gui/incl/FenPrincipale.hpp \
            Gui/incl/Menu.hpp\
            Gui/incl/Chat.hpp \
            Gui/incl/ChessItem.hpp\
-           Gui/incl/Pendulum.hpp\
+           Gui/incl/Timer.hpp\
            ###
            Client/includes/abstractClient.hpp\
            Client/includes/abstractInterface.hpp\
-           Client/includes/abstractPlayer.hpp\
+           Client/game/GameTypes/SuperGame/abstractPlayer.hpp\
            Client/includes/client.hpp\
            Client/includes/request.hpp\
            Client/includes/terminal.hpp\
@@ -69,7 +70,7 @@ SOURCES += Gui/src/FenPrincipale.cpp \
            Gui/src/Menu.cpp \
            Gui/src/Chat.cpp \
            Gui/src/ChessItem.cpp \
-           Gui/src/Pendulum.cpp \
+           Gui/src/Timer.cpp \
            ###
            Client/main.cpp\
            Client/srcs/client.cpp \

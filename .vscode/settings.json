@@ -49,5 +49,7 @@
         "list": "cpp",
         "functional": "cpp",
         "cinttypes": "cpp"
-    }
+    },
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
 }

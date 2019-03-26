@@ -62,10 +62,10 @@ void FenPrincipale::init_dock() {
     _chat = new Chat(this);
     _dockChat->setWidget(_chat);
     addDockWidget(Qt::RightDockWidgetArea, _dockChat);
-    _dockPendulum = new QDockWidget(this);
-    _pendulum = new Pendulum(this);
-    _dockPendulum->setWidget(_pendulum);
-    addDockWidget(Qt::LeftDockWidgetArea, _dockPendulum);
+    _dockTimer = new QDockWidget(this);
+    _timer = new Timer(this);
+    _dockTimer->setWidget(_timer);
+    addDockWidget(Qt::LeftDockWidgetArea, _dockTimer);
 }
 
 void FenPrincipale::MenuBar() {
@@ -126,7 +126,7 @@ void FenPrincipale::goToClassic() {
     _classicWindow = new PlateauScene;
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
-    //_client->waitForMatch(1); TO DO
+    
 }
 
 void FenPrincipale::goToMenu() {
@@ -136,3 +136,9 @@ void FenPrincipale::goToMenu() {
 void FenPrincipale::sendMessage() {
     _chat->getTextEdit()->insertPlainText(_chat->getLineEdit()->text());
 }
+/*
+void FenPrincipale::gameStart(std::string opponent){
+    //_client->waitForMatch(1); TO DO
+    goToClassic();
+}
+*/

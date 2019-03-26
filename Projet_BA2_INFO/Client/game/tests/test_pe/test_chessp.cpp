@@ -1,8 +1,4 @@
 
-#include <iostream>
-
-#include "../Tester/Tester.cpp"
-
 #include "test_chessp.hpp"
 
 MyOstream mout("logfile.txt");

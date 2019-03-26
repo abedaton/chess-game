@@ -4,19 +4,17 @@
 #include "../srcs/request.cpp"
 #include "../srcs/terminal.cpp"
 #include "../../Gui/incl/FenPrincipale.hpp"
-#include "../game/Gestion/Pendule/Pendule.cpp"
-#include "../game/Gestion/TempsReel/TempsReel.cpp"
-#include "../game/Gestion/TourParTour/TourParTour.cpp"
-
-#include "abstractPlayer.hpp" //tmp
+#include "../game/GameTypes/SuperGame/SuperGame.cpp"
 
 class Client: public AbstractPlayer, public AbstractClient{
 	private:
 		AbstractInterface* _interface;
 		Request* _server;
-		TempsReel* _game;
+		SuperGame* _game;
 
 		int _gameMod;
+		void lose();
+		void win();
 	public:
 		//Client(const char* ip, bool interface);
 		Client(const char* ip, bool interface, int argc, char** argv);
@@ -35,7 +33,8 @@ class Client: public AbstractPlayer, public AbstractClient{
 		void getFriendList() override;
 		void getFriendRequests() override;
 		void getOnlineFriendList() override;
-		void getUserInfo() override;
+		void getUserInfo(std::string) override;
+		void getMyInfo() override;
 
 		void click(std::string square) override;
 		void exit() override;
@@ -46,8 +45,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		void connectionError() override;
 		//call by game
 		void mov(std::string mov) override;
-		void win() override;
-		void lose() override;
+		void movPossibleUpdate(std::vector<std::string> listMov) override;
 
 		int showGui(int argc, char** argv);
 };

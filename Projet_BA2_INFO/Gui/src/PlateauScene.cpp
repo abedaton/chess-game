@@ -35,8 +35,7 @@ void PlateauScene::setClassicBoxes(int x, int y, int sideLenght) {
         curr_y += sideLenght;
     }
 
-    //addPiece("pionB", 4,5);
-    //addPiece("pionW", 6,6);
+    
     setBlack();
     setWhite();
 
@@ -44,15 +43,21 @@ void PlateauScene::setClassicBoxes(int x, int y, int sideLenght) {
 
 void PlateauScene::showMoves(int *moves, int *cap) {
     int x, y;
-    for (int i = 0; i < 3; ++i) {
-        x = moves[i];
-        y = moves[i];
+    for (int i = 0; i < sizeof(moves)/sizeof(moves[0]); ++i) {
+        x = moves[i]/_size;
+        y = moves[i]%_size;
 
         _boxes[x][y]->setColor(Qt::red);
     }
+    
+    for (int i = 0; i < sizeof(cap)/sizeof(cap[0]); ++i) {
+        x = cap[i]/_size;
+        y = cap[i]%_size;
 
-    _boxes[cap[0]][cap[0]]->setColor(Qt::green);
+        _boxes[x][y]->setColor(Qt::green);
+    }
 }
+    
 
 PlateauBox* PlateauScene::getPriorityBox() const{
     return _priorityBox;
@@ -90,7 +95,7 @@ void PlateauScene::setBlack(){
     addPiece("roiB",0,3);
     addPiece("reineB",0,4);
 
-    for(int i = 0; i<8; ++i)
+    for(int i = 0; i<_size; ++i)
         addPiece("pionB",1,i);
 
 }
@@ -109,7 +114,7 @@ void PlateauScene::setWhite(){
     addPiece("roiW",7,3);
     addPiece("reineW",7,4);
 
-    for(int i = 0; i<8; ++i)
+    for(int i = 0; i<_size; ++i)
         addPiece("pionW",6,i);
 
 }

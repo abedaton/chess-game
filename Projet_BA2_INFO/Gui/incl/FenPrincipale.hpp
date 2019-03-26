@@ -4,7 +4,7 @@
 #include "GameWindow.hpp"
 #include "Login.hpp"
 #include "Menu.hpp"
-#include "Pendulum.hpp"
+#include "Timer.hpp"
 #include "PlateauScene.hpp"
 #include "Register.hpp"
 #include <QtWidgets>
@@ -49,7 +49,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     QStatusBar *_statusBar;
     QStackedWidget *_stack;
     QDockWidget *_dockChat;
-    QDockWidget *_dockPendulum;
+    QDockWidget *_dockTimer;
 
     AbstractClient* _client;
 
@@ -59,7 +59,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     GameWindow *_gameWindow;
     PlateauScene *_classicWindow;
     Chat *_chat;
-    Pendulum *_pendulum;
+    Timer *_timer;
 
 };
 

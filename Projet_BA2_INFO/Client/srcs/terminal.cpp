@@ -85,10 +85,20 @@ void Terminal::friendsWindow(){
 			
 
 		}
-
-		else if(res ==6)
-			;//chatWindow();
-			
+		else if*/
+		if(res == 6){
+			std::string username;
+			std::string message;
+			std::cout << "Please enter the name of the user you want to send a message: ";
+			getline(std::cin, message);
+			this->myFlush();
+			std::cout << "\nPlease enter your message";
+			getline(std::cin, message);
+			this->myFlush();
+			this->_user->sendMessage(username, message);
+			std::cout << "\nMessage Sent!" << std::endl; // Todo check if user exists
+		}
+		/*	
 		else if(res == 7)
 			;
 
@@ -275,10 +285,8 @@ void Terminal::gameWindow(){
 }
 
 void Terminal::myFlush(){
-    if (std::cin.fail()){
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    }
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
 #endif

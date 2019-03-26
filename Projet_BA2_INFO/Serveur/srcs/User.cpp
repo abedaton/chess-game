@@ -10,36 +10,11 @@ User::~User(){
     exit();
 }
 
-void User::startGame(TempsReel* game, AbstractUser* oppenent, bool turn, bool inverted,bool ennemy_inverted, std::string ennemy_name){
-    this->_game = game;
-    this->_opponent = oppenent;
-    this->_myTurn = turn;
-    this->set_inverted(inverted);
-	int protocol = 20;
-    sendInt(protocol);
-    sendInt(static_cast<int>(turn)+1);
-    sendInt(static_cast<int>(inverted)+1);
-    sendInt(static_cast<int>(ennemy_inverted)+1); //this->get_ennemy_inverted() ? (startgame player2 apres -> non?)
-    sendStr(ennemy_name); //this->get_ennemy_name()
-    std::cout << "startGame" << std::endl;
-}
 
 void User::surrend(){
     //To Do
 }
 
-void User::opponentMov(std::string mov){
-    this->_myTurn = true;
-    int protocol = 21;
-    sendInt(protocol);
-    sendStr(mov);
-}
-
-void User::sendMsg(std::string msg){
-    int protocol = 22;
-    sendInt(protocol);
-    sendStr(msg);
-}
 
 void User::letsRegister() {
     std::string username = recvStr();
@@ -83,24 +58,18 @@ void User::waitForMatch(){
 }
         
 void User::mov(){
-    if (! this->_myTurn){ //hack
-        std::cout << "should never happened" << std::endl;
+    std::pair<bool, bool> pAnswer = this->_game->serverMov(mov, this->_name,this->get_inverted());
+    if (pAnswer.first){
+      this->_opponent->mov(mov);
+      this->_myTurn = false;
+    } else {
         this->_opponent->surrend();
         this->exit();
-    }
-    std::string mov = recvStr();
-    
-    std::pair<bool, bool> pAnswer = this->_game->execute_step(mov, this->_name,this->get_inverted());
-    if (std::get<0>(pAnswer)){
-      this->_opponent->opponentMov(mov);
-      this->_myTurn = false;
-    }
-    
-    if (std::get<1>(pAnswer)){ //end
-      this->_game = nullptr;
-      this->_db->updateWin(this->_name, this->_opponent->get_name(), true);
-      this->_opponent->lose();
-      std::cout << "Score updated for " << this->_name << std::endl;;
+    } if (pAnswer.segonde){ //end
+        this->_game = nullptr;
+        this->_db->updateWin(this->_name, this->_opponent->get_name(), true);
+        this->_opponent->lose();
+        std::cout << "Score updated for " << this->_name << std::endl;
     }
 }
 
@@ -134,103 +103,6 @@ std::string User::get_name() const{
     return this->_name;
 }
 
-std::string User::getName(){
-    return this->_name;
-}
-
-User* User::findUserByName(std::string _name){
-    User * res = nullptr;
-    int i = 0;
-    while(i < onlineUsers.size() && res == nullptr){
-        if(_name == onlineUsers[i]->getName()){
-            res = onlineUsers[i];
-        }
-        i++;
-    }
-    return res;
-}
-
-
-/*
-note findUserByName est un mauvais moyen pour trouver si un joueur est toujours en ligne
-je pense que ce serait mieux de juste supprimer de la variable membre friends
- au fur et à mesure qu'un joueur se deconnecte
-*/
-void User::listOnlineFriends(){
-    sendInt(friends.size());
-    for(int i = 0; i < friends.size(); i++){
-        if(findUserByName(friends[i]->getName()) != nullptr){ //on regarde si il est toujours en ligne
-            sendStr(friends[i]->getName());
-        }
-    }
-}
-
-void User::addFriendToList(User *new_friend){
-    friends.push_back(new_friend);
-}
-
-/*
-normalement plus de (gros) bug prevenez moi (matias) si vous en trouvez
-*/
-void User::addFriend(){
-    std::string nameOfUserToAdd = recvStr();
-    std::cout << _name << " désire ajouter " << nameOfUserToAdd << std::endl;
-    User* userToAdd = findUserByName(nameOfUserToAdd);
-    if(userToAdd != nullptr){
-       sendInt(1);
-       userToAdd->sendfriendRequestNotification(this);   
-    }
-    else{
-        sendInt(0);
-    }
-
-}
-
-void User::recvFriendRequestAnswer(){
-    User *userAdding = findUserByName(recvStr());
-    std::string answer = recvStr();
-    if(userAdding){
-        if(answer == "y"){
-            std::cout << "a accepte la requete de " << std::endl;
-            userAdding->addFriendToList(this);
-            this->addFriendToList(userAdding);
-        }
-    }
-}
-
-void User::sendfriendRequestNotification(User *userAdding){
-    sendInt(NEWFRIENDREQUEST);
-    sendStr(userAdding->getName());
-}
-
-void User::removeFromFriends(User *userToRemove){
-    int i = 0;
-    bool found = false;
-    while(i < friends.size() && found == false){
-        if(friends[i] == userToRemove){
-            found = true;
-            friends.erase(friends.begin() + i);
-        } else{
-            i++;
-        }
-    }
-}
-
-void User::removeFriend(){
-    std::string nameOfUserToDelete = recvStr();
-    
-    //on supprime dans les deux listes
-    User *otherUser = findUserByName(nameOfUserToDelete);
-    if(otherUser != nullptr)
-    {
-        sendInt(1);
-        otherUser->removeFromFriends(this);
-        removeFromFriends(otherUser);
-        
-    }
-    else
-        sendInt(0);
-}
 
 //Privet
 
@@ -245,6 +117,8 @@ void User::handleClient(){
 	while (true){
         waitForProcess();
         protocol = static_cast<Protocol>(this->recvInt(MSG_DONTWAIT));
+        std::cout << "protocol = " << protocol << std::endl;
+        std::cout << "YOLOOOOOOOO" << std::endl;
         switch (protocol){
             case PASS: //0
                 break;
@@ -263,18 +137,36 @@ void User::handleClient(){
             case MOV: //5
                 this->mov();
                 break;
-            case LISTONLINEFRIENDS: 
-                this->listOnlineFriends();
+            case SURREND: // 6
                 break;
-            case ADDFRIEND:
-                addFriend();
+            case SENDMESSAGE: // 7
+                this->sendMessage();
                 break;
-            case REMOVEFRIEND:
-                removeFriend();
+            case ADDFRIEND: // 8
+                this->addFriend();
                 break;
-            case FRIENDREQUESTANSWER:
-                recvFriendRequestAnswer();
+            case REMOVEFRIEND: // 9
+                this->removeFriend();
                 break;
+            case ACCEPTFRIEND: // 10
+                this->acceptFriend();
+                break;
+            case GETFRIENDLIST: // 11
+                this->getFriendList();
+                break;
+            case GETFRIENDREQUESTS: // 12
+                this->getFriendRequests();
+                break;
+            case GETONLINEFRIENDLIST: // 13
+                this->getOnlineFriendList();
+                break;
+            case GETMYINFO: // 14
+                this->getMyInfo();
+                break;
+            case GETUSERINFO: // 15
+                this->GetUserInfo();
+                break;
+            
             default:
                 this->exit();
                 end = true;
@@ -344,5 +236,89 @@ std::string User::recvStr(){
     return str;
 }
 
+void User::sendStrToSocket(int socket, std::string str){
+    this->sendIntToSocket(socket, static_cast<int>(str.size()));
+    if (send(socket, str.c_str(), str.size(), 0) <= 0){
+        this->exit();
+    }
+}
+
+void User::sendIntToSocket(int socket, int number){
+    uint16_t convertedNum = htons(static_cast<uint16_t>(number));
+    if (send(socket, &convertedNum, sizeof(uint16_t), 0) <= 0){
+        std::cout << "Bad sentInt, client disconnected : " << std::endl;
+        this->exit();
+    }
+}
+
+
 bool User::get_inverted() const {return this->_isinverted;}
 void User::set_inverted(bool inverted){this->_isinverted = inverted;}
+
+
+void User::startGame(SuperGame* game, AbstractUser* oppenent, bool turn){
+	int protocol = 25;
+    this->_game = game;
+    this->_opponent = oppenent;
+    this->_myTurn = turn;
+    this->_inverted = ! turn;
+    sendInt(protocol);
+    sendInt(static_cast<int>(turn)+1);
+    sendStr(oppenent->get_ennemy_name());
+    std::cout << "startGame" << std::endl;
+}
+
+void User::mov(std::string mov){
+    int protocol = 26;
+    this->_myTurn = true;
+    sendInt(protocol);
+    sendStr(mov);
+}
+
+void User::sendMsg(std::string msg){
+    int protocol = 27;
+    sendInt(protocol);
+    sendStr(msg);
+}
+
+void User::sendMessage(){
+    std::cout << "Transfering Message" << std::endl;
+    int protocol = 28;
+    std::string username = recvStr();
+    std::string msg = recvStr(); // messgae du user1 vers user2
+    int friendSocket = this->_db->getInt("users", "socket");
+    sendIntToSocket(friendSocker, protocol);
+    sendStrToSocket(friendSocket, msg);
+} 
+
+void User::addFriend(){
+
+}
+
+void User::removeFriend(){
+
+}
+
+void User::acceptFriend(){
+
+}
+
+void User::getFriendList(){
+
+}
+
+void User::getFriendRequest(){
+
+}
+
+void User::getOnlineFriendList(){
+
+}
+
+void User::getMyInfo(){
+
+}
+
+void User::GetUserInfo(){
+
+}

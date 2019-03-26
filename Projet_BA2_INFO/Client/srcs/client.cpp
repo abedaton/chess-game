@@ -28,29 +28,12 @@ void Client::waitForMatch(int gameMod){
 
 
 void Client::startingGame(bool playerTurn, std::string opponentName){
-	int chessMod = this->_gameMod%4;
-	int partyMod = this->_gameMod/4;
-
-	//switch partyMod{
-	//	case 0{
-	//		_game = new party(chessMod, playerTurn);
-	//		break;
-	//	}
-	//	case 1{
-	//		_game = new party(chessMod, playerTurn);
-	//		break;
-	//	}
-	//	case 2{
-	//		_game = new party(chessMod, playerTurn);
-	//		break;
-	//	}
-	//}
-	//_game->getBord();
-	_interface->gameStart(opponentName);//+ bord
+	this->_game = new SuperGame(playerTurn, this,! playerTurn);
+	this->_interface->gameStart(opponentName);//+ bord
 }
 
 void Client::click(std::string square){
-	// TO DO
+	this->_game->click(square);
 }
 
 void Client::mov(std::string mov){
@@ -59,8 +42,11 @@ void Client::mov(std::string mov){
 }
 
 void Client::opponentMov(std::string mov){
-	//_game->opponentMov(mov);
+	bool res = _game->opponentMov(mov);
 	_interface->pingForUpdate();
+	if (res){
+		this->lose();
+	}
 }
 
 void Client::win(){
@@ -115,34 +101,41 @@ void Client::exit(){
 //bool Client::get_ennemy_inverted() const{}
 //void Client::set_ennemy_inverted(bool){}
 
-void Client::sendMessage(std::string name,std::string msg){
-	//TO DO
-}
-void Client::addFriend(std::string name){
-	//TO DO
-}
-void Client::removeFriend(std::string name) {
-	//TO DO
-}
-void Client::acceptFriend(std::string name, bool accept){
-	//TO DO
-}
-void Client::getFriendList(){
-	//TO DO
-}
-void Client::getFriendRequests() {
-	//TO DO
-}
-void Client::getOnlineFriendList(){
-	//TO DO
-}
-void Client::getUserInfo(){
+void Client::movPossibleUpdate(std::vector<std::string> listMov){
 	//TO DO
 }
 
-void Client::recvMessage(std::string name, std::string msg){
-	//TO DO
+void Client::sendMessage(std::string name,std::string msg){
+	this->_server->sendMessage(name, msg);
 }
+void Client::addFriend(std::string name){
+	this->_server->addFriend(name);
+}
+void Client::removeFriend(std::string name){
+	this->_server->removeFriend(name);
+}
+void Client::acceptFriend(std::string name, bool accept){
+	this->_server->acceptFriend(name, accept);
+}
+void Client::getFriendList(){
+	this->_server->getFriendList();
+}
+void Client::getFriendRequests() {
+	this->_server->getFriendRequests();
+}
+void Client::getOnlineFriendList(){
+	this->_server->getOnlineFriendList();
+}
+void Client::getMyInfo(){
+	this->_server->getMyInfo();
+}
+void Client::getUserInfo(std::string username){
+	this->_server->getUserInfo(username);
+}
+void Client::recvMessage(std::string name, std::string msg){
+	this->_interface->recvMessage(name, msg);
+}
+
 
 int Client::showGui(int argc, char** argv){
 	QApplication app(argc, argv);

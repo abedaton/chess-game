@@ -60,36 +60,15 @@ void MatchMaking::poolSort(int gameMod, int elo, AbstractUser* player){
 }
 
 void MatchMaking::startMatch(AbstractUser* player1, AbstractUser* player2, int gameMod){
-    SilencedHuman* play_one = new SilencedHuman(player1->get_name(),"francais");
-	SilencedHuman* play_two = new SilencedHuman(player2->get_name(),"francais");
-    Dico* dico = make_dico("Serveur/game/csv");
-    BaseChess* game;
-    switch(gameMod){
-        case 1:
-            game = new ClassicChess(play_one, play_two, play_one, dico);
-            break;
-        case 2:
-            game = new DarkChess(play_one, play_two, play_one, nullptr, dico);
-            break;
-        case 3:
-            game = new TrappistChess(play_one, play_two, play_one, dico);
-            break;
-        case 4:
-            game = new AntiChess(play_one, play_two, play_one, dico);
-            break;
-        default:
-            game = new ClassicChess(play_one, play_two, play_one, dico);
-            break;
-    }
     std::cout << "Launching Game" << std::endl;
     
-    TourParTour* tt_game = new TourParTour(game);
+    SuperGame* game = new SuperGame(gameMod, player1, true);
     
     bool p_one_inv = false;
     bool p_two_inv = true;
     
-    player1->startGame(tt_game, player2, true, p_one_inv,p_two_inv, player2->get_name());
-    player2->startGame(tt_game, player1, false,p_two_inv, p_one_inv, player1->get_name());
+    player1->startGame(game, player2, true);
+    player2->startGame(game, player1, false);
 }
 
 //On ajoute le joueur en fonction de son mode de jeu

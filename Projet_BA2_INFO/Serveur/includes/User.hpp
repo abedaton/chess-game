@@ -15,28 +15,23 @@
 
 #include "../srcs/database.cpp"
 #include "../srcs/matchMaking.cpp"
+#include "../game/GameTypes/SuperGame/SuperGame.cpp"
 
-
-
-class User: public AbstractUser{
+class User: public AbstractUser, public AbstractPlayer{
 	public:
 		User(int client_sock, Database* db, MatchMaking* match);
 		virtual ~User();		
         User(const User&) = delete;
         User& operator= (const User&) noexcept = delete;
 
-		void startGame(TempsReel*, AbstractUser*, bool,bool,bool, std::string) override;
+		void startGame(SuperGame*, AbstractUser*, bool,bool,bool, std::string) override;
 		void opponentMov(std::string mov)override;
 		void surrend() override;
 		void sendMsg(std::string msg) override;
 		void lose() override;
+		void win() override {}
+		void mov(std::string mov) override {}
 		void exit();
-
-		void sendfriendRequestNotification(User *userAdding); 
-		void removeFromFriends(User *userToRemove);
-		void addFriendToList(User *new_friend);
-		void sendMessage(std::string sender, std::string message);
-		std::string getName(); //a changer apres avoir compilé
 		std::string get_name() const override;
 		
 		bool get_inverted() const;
@@ -46,7 +41,7 @@ class User: public AbstractUser{
 		int _clientSock;
 		Database* _db;
 		MatchMaking* _match;
-		TempsReel* _game;
+		SuperGame* _game;
 		AbstractUser* _opponent;
 		bool _myTurn;
 		bool _isinverted;
@@ -63,30 +58,40 @@ class User: public AbstractUser{
 		
 		inline void waitForProcess();
 		inline void endProcess();
+
+
 		void sendInt(int num);
+		void sendStr(std::string);
+
         int recvInt();
 		int recvInt(int flag);
-		void sendStr(std::string);
+
         std::string recvStr();
 
+		void sendStrToSocket(int socket, std::string str);
+		void sendIntToSocket(int socket, int number);
+
 		static void* run(void* tmp);
+
+		void sendMessage(); 
+		void recvMessage();
+		void addFriend();
+		void removeFriend();
+		void acceptFriend();
+		void getFriendList();
+		void getFriendRequest();
+		void getOnlineFriendList();
+		void getMyInfo();
+		void GetUserInfo();
 		
-		User *findUserByName(std::string name);
-        void listOnlineFriends();
-        void addFriend();
-        void removeFriend();
-		void recvFriendRequestAnswer();
-		std::vector<User*> friends;
 };
-
-
 
 enum Protocol : int {
     PASS = 0, REGISTER, LOGIN, CHAT, WAITFORMATCH, MOV, SURREND, 
-    LISTONLINEFRIENDS, ADDFRIEND, REMOVEFRIEND, NEWFRIENDREQUEST, 
-    FRIENDREQUESTANSWER, RECVMESSAGE, SENDMESSAGE
+    SENDMESSAGE, ADDFRIEND, REMOVEFRIEND,
+	ACCEPTFRIEND, GETFRIENDLIST, GETFRIENDREQUESTS,
+	GETONLINEFRIENDLIST, GETMYINFO, GETUSERINFO
 };
 
-extern std::vector<User*> onlineUsers;
 
 #endif

@@ -10,7 +10,7 @@
 #ifndef PLATEAU_HPP
 #define PLATEAU_HPP
 
-#include "../Pieces/Pieces.cpp"
+#include "../GamePieces/Pieces/Pieces.cpp"
 
 bool detect_pair_in_list_of_pairs(std::vector<std::pair<int,int>>, std::pair<int,int>);
 bool detect_pair_in_list_of_double_pairs(std::vector<std::pair<std::pair<int,int>,AdvTuple>>, std::pair<int,int>);

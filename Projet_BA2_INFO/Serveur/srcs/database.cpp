@@ -1,6 +1,5 @@
 #include "../includes/database.hpp"
 
-
 Database::Database(){
 	int rc = sqlite3_open("test.db", &this->db);
 	if(rc != SQLITE_OK){

@@ -11,6 +11,7 @@
 
 #include "abstractGame.hpp"
 #include "abstractUser.hpp"
+#include "../game/GameTypes/SuperGame/SuperGame.cpp"
 
 
 class MatchMaking{
