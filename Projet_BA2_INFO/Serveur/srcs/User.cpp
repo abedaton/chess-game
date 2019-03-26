@@ -56,16 +56,21 @@ void User::waitForMatch(){
     int elo = _db->getInt(this->_name, "elo");
     this->_match->waitForMatch(this, gameMod, elo);
 }
-        
-void User::mov(){
-    std::pair<bool, bool> pAnswer = this->_game->serverMov(mov, this->_name,this->get_inverted());
+
+void User::recvMov(){
+    std::string mov = recvStr();
+    this->mov(mov);
+}
+
+void User::mov(std::string mov){
+    std::pair<bool, bool> pAnswer = this->_game->serverMov(mov, this->_name,this->_inverted);
     if (pAnswer.first){
-      this->_opponent->mov(mov);
+      this->_opponent->sendMov(mov);
       this->_myTurn = false;
     } else {
         this->_opponent->surrend();
         this->exit();
-    } if (pAnswer.segonde){ //end
+    } if (pAnswer.second){ //end
         this->_game = nullptr;
         this->_db->updateWin(this->_name, this->_opponent->get_name(), true);
         this->_opponent->lose();
@@ -86,14 +91,6 @@ void User::exit() {
     bool found = false;
     
     //on enleve l'utilisateur du vector des joueurs connectés
-    while(found == false && i < onlineUsers.size()){
-        if(onlineUsers[i] != this)
-            i++;
-        else{
-            found = true;
-            onlineUsers.erase(onlineUsers.begin() + i);
-        }
-    }
     
     this->_db->updateUserDisc(this->_name);
     pthread_exit(0);
@@ -117,8 +114,6 @@ void User::handleClient(){
 	while (true){
         waitForProcess();
         protocol = static_cast<Protocol>(this->recvInt(MSG_DONTWAIT));
-        std::cout << "protocol = " << protocol << std::endl;
-        std::cout << "YOLOOOOOOOO" << std::endl;
         switch (protocol){
             case PASS: //0
                 break;
@@ -135,7 +130,7 @@ void User::handleClient(){
                 this->waitForMatch();
                 break;    
             case MOV: //5
-                this->mov();
+                this->recvMov();
                 break;
             case SURREND: // 6
                 break;
@@ -251,11 +246,6 @@ void User::sendIntToSocket(int socket, int number){
     }
 }
 
-
-bool User::get_inverted() const {return this->_isinverted;}
-void User::set_inverted(bool inverted){this->_isinverted = inverted;}
-
-
 void User::startGame(SuperGame* game, AbstractUser* oppenent, bool turn){
 	int protocol = 25;
     this->_game = game;
@@ -264,11 +254,11 @@ void User::startGame(SuperGame* game, AbstractUser* oppenent, bool turn){
     this->_inverted = ! turn;
     sendInt(protocol);
     sendInt(static_cast<int>(turn)+1);
-    sendStr(oppenent->get_ennemy_name());
+    sendStr(oppenent->get_name());
     std::cout << "startGame" << std::endl;
 }
 
-void User::mov(std::string mov){
+void User::sendMov(std::string mov){
     int protocol = 26;
     this->_myTurn = true;
     sendInt(protocol);
@@ -287,7 +277,7 @@ void User::sendMessage(){
     std::string username = recvStr();
     std::string msg = recvStr(); // messgae du user1 vers user2
     int friendSocket = this->_db->getInt("users", "socket");
-    sendIntToSocket(friendSocker, protocol);
+    sendIntToSocket(friendSocket, protocol);
     sendStrToSocket(friendSocket, msg);
 } 
 
@@ -307,7 +297,7 @@ void User::getFriendList(){
 
 }
 
-void User::getFriendRequest(){
+void User::getFriendRequests(){
 
 }
 

@@ -63,10 +63,7 @@ void MatchMaking::startMatch(AbstractUser* player1, AbstractUser* player2, int g
     std::cout << "Launching Game" << std::endl;
     
     SuperGame* game = new SuperGame(gameMod, player1, true);
-    
-    bool p_one_inv = false;
-    bool p_two_inv = true;
-    
+
     player1->startGame(game, player2, true);
     player2->startGame(game, player1, false);
 }

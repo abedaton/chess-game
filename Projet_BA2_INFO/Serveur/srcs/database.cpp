@@ -101,7 +101,6 @@ bool Database::selectData(std::string sql){
 void Database::updateInfo(std::string table, std::string colName, std::string username, std::string newValue){
 	char* zErrMsg = 0;
 	std::string sql = "UPDATE '" + table + "' SET '" + colName + "' = '" + newValue + "' WHERE username = '" + username + "';";
-	std::cout << sql << std::endl;
 	int rc = sqlite3_exec(this->db, sql.c_str(), this->callback, 0, &zErrMsg);
 	if (rc != SQLITE_OK){
 		std::cout << "Error on Update: " << sqlite3_errmsg(this->db) << std::endl;

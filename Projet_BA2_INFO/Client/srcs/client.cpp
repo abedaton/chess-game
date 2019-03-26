@@ -7,7 +7,8 @@
 Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(nullptr){
 	_server = new Request(this, ip);
 	if (terminalMod){
-		_interface = new Terminal(this);
+		std::cout << "ploooooop" << std::endl;
+		this->_interface = new Terminal(this);
 	} else {
 		showGui(argc, argv);
 	}
@@ -17,7 +18,7 @@ Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(n
 Client::~Client(){
 	if (_game != nullptr)
 		delete _game;
-	delete _interface;
+	delete this->_interface;
 	delete _server;
 }
 
@@ -37,8 +38,8 @@ void Client::click(std::string square){
 }
 
 void Client::mov(std::string mov){
-	_server->mov(mov);
-	_interface->pingForUpdate();
+	this->_server->mov(mov);
+	this->_interface->pingForUpdate();
 }
 
 void Client::opponentMov(std::string mov){
@@ -88,7 +89,8 @@ bool Client::login(std::string username,std::string password){
 }
 
 void Client::connectionError(){
-	_interface->connectionError();
+	std::cout << "In connectionError" << std::endl;
+	this->_interface->connectionError();
 }
 
 void Client::exit(){
@@ -139,8 +141,8 @@ void Client::recvMessage(std::string name, std::string msg){
 
 int Client::showGui(int argc, char** argv){
 	QApplication app(argc, argv);
-	_interface = new FenPrincipale(this);
-    _interface->myShow();
+	this->_interface = new FenPrincipale(this);
+    this->_interface->myShow();
     return app.exec(); 
 }
 #endif

@@ -5,14 +5,14 @@
 #include "../TourParTour/TourParTour.cpp"
 #include "../Pendule/Pendule.cpp"
 #include "../TempsReel/TempsReel.cpp"
-#include "../../GamePieces/Pieces/Pieces.cpp"
+#include "../../GamePieces/Pieces/Pieces.cpp" //?
 
 
 class SuperGame{
 	private:
 		AbstractPlayer* _client;
 		BaseGameType* _game;
-		std::string _lastClick = nullptr;
+		std::string _lastClick;
 		std::vector<std::string> _ListMov;
 		std::vector<std::string> _bufferMov;
 		bool _inverted; 

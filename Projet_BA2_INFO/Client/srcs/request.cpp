@@ -90,7 +90,6 @@ inline void Request::endProcess(){
 }
 
  void Request::sendInt(int num){
-std::cout << "sendint" << std::endl;
     uint16_t convertedNum = htons(static_cast<uint16_t>(num));
     if (send(this->_clientSock, &convertedNum, sizeof(uint16_t), 0) <= 0){
         this->error();

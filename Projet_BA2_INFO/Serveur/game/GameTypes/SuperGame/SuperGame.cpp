@@ -3,7 +3,7 @@
 
 #include "SuperGame.hpp"
 
-SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn): _client(client), _inverted(!myTurn){
+SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn): _client(client), _inverted(!myTurn), _lastClick(""){
 	SilencedHuman* play_one = new SilencedHuman("player1", "francais");
 	SilencedHuman* play_two = new SilencedHuman("player2", "francais");
     Dico* dico = make_dico("Client/game/csv");
@@ -56,7 +56,7 @@ bool SuperGame::click(std::string square){
     bool res = false;
 	if(std::find(this->_ListMov.begin(), this->_ListMov.end(), square) != this->_ListMov.end()) {
 		res = this->turn(this->_lastClick + ';' + square);
-		this->_lastClick = nullptr;
+		this->_lastClick = "";
 		_ListMov.clear();
 	} else {
 		this->_lastClick = square;

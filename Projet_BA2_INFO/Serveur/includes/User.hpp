@@ -15,27 +15,22 @@
 
 #include "../srcs/database.cpp"
 #include "../srcs/matchMaking.cpp"
-#include "../game/GameTypes/SuperGame/SuperGame.cpp"
 
-class User: public AbstractUser, public AbstractPlayer{
+class User: public AbstractUser{
 	public:
 		User(int client_sock, Database* db, MatchMaking* match);
 		virtual ~User();		
         User(const User&) = delete;
         User& operator= (const User&) noexcept = delete;
 
-		void startGame(SuperGame*, AbstractUser*, bool,bool,bool, std::string) override;
-		void opponentMov(std::string mov)override;
+		void startGame(SuperGame*, AbstractUser*, bool) override;
+		void mov(std::string mov) override;
+		void sendMov(std::string mov) override;
 		void surrend() override;
 		void sendMsg(std::string msg) override;
 		void lose() override;
-		void win() override {}
-		void mov(std::string mov) override {}
 		void exit();
 		std::string get_name() const override;
-		
-		bool get_inverted() const;
-		void set_inverted(bool);
 		
 	private:
 		int _clientSock;
@@ -44,7 +39,7 @@ class User: public AbstractUser, public AbstractPlayer{
 		SuperGame* _game;
 		AbstractUser* _opponent;
 		bool _myTurn;
-		bool _isinverted;
+		bool _inverted;
 
 		std::mutex _mutex;
 		std::string _name;
@@ -54,7 +49,7 @@ class User: public AbstractUser, public AbstractPlayer{
 		void letsRegister();
 		void chat();
 		void waitForMatch();
-		void mov();
+		void recvMov();
 		
 		inline void waitForProcess();
 		inline void endProcess();
@@ -79,7 +74,7 @@ class User: public AbstractUser, public AbstractPlayer{
 		void removeFriend();
 		void acceptFriend();
 		void getFriendList();
-		void getFriendRequest();
+		void getFriendRequests();
 		void getOnlineFriendList();
 		void getMyInfo();
 		void GetUserInfo();
