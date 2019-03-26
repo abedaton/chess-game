@@ -1,8 +1,16 @@
 #include "../includes/request.hpp"
 
 Request::Request(AbstractClient* client, const char* ip): _client(client){
-    std::pair<Request*, const char*> params(this, ip);
-	pthread_create(&this->_listenerThread, NULL, &Request::run, &params);
+    struct tmp{
+        Request* obj;
+        const char* ip;
+    };
+
+    struct tmp* params = static_cast<struct tmp*>(malloc(sizeof(struct tmp)));
+
+    params->obj = this;
+    params->ip = ip;
+	pthread_create(&this->_listenerThread, NULL, &Request::run, static_cast<void*>(params));
 }
 
 Request::~Request(){
@@ -12,9 +20,14 @@ Request::~Request(){
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////PRIVIET
-void* Request::run(void* tmp){
-    std::pair<Request*, const char*> params = *(std::pair<Request*, const char*>*)tmp;
-    (params.first)->setup(params.second);
+void* Request::run(void* args){
+    struct tmp{
+        Request* obj;
+        const char* ip;
+    };
+    
+    struct tmp* params = static_cast<struct tmp*>(args);
+    (params->obj)->setup(params->ip);
     return NULL;
 }
 
@@ -24,15 +37,11 @@ void Request::setup(const char* ip){
     this->_servAddr.sin_port = htons(PORT);
 
     if ((this->_clientSock = socket(AF_INET, SOCK_STREAM, 0)) < 0){
-        std::cout << "A" << std::endl;
         this->error();
     }
     if (connect(this->_clientSock, reinterpret_cast<struct sockaddr*>(&this->_servAddr), sizeof(this->_servAddr)) < 0){
         std::cout << strerror(errno) << std::endl;
-        std::cout << "B" << std::endl;
         this->error();
-    } else {
-        std::cout << "You're connected!" << std::endl;
     }
     listener();
 }
