@@ -1,8 +1,8 @@
-#ifndef PENDULUM_HPP
-#define PENDULUM_HPP
+#ifndef Timer_HPP
+#define Timer_HPP
 #include <QtWidgets>
 
-class Pendulum : public QWidget {
+class Timer : public QWidget {
     Q_OBJECT
 
     private slots:
@@ -10,7 +10,7 @@ class Pendulum : public QWidget {
     void on_pushButtonSwitch_clicked();
 
     public:
-    Pendulum(QWidget *parent = nullptr);
+    Timer(QWidget *parent = nullptr);
 
     private:
     void init_widget();
@@ -23,6 +23,6 @@ class Pendulum : public QWidget {
     QTime *_timeUp;
     QPushButton *_pushButtonSwitch;
     QTimer *_timer;
-    QVBoxLayout *_vBoxLayoutPendulum;
+    QVBoxLayout *_vBoxLayoutTimer;
 };
-#endif // PENDULUM_HPP
+#endif // Timer_HPP

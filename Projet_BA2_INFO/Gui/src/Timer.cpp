@@ -1,13 +1,13 @@
-#include "Pendulum.hpp"
+#include "Timer.hpp"
 
-Pendulum::Pendulum(QWidget *parent) : QWidget(parent) {
+Timer::Timer(QWidget *parent) : QWidget(parent) {
     init_widget();
     init_layout();
     init_connect();
     _timer->start(1000);
 }
 
-void Pendulum::init_widget() {
+void Timer::init_widget() {
     _isTimeUp = false;
     _labelTimerDown = new QLabel(this);
     _labelTimerDown->setStyleSheet("font: 75 18pt Noto Sans Mono CJK JP Bold;");
@@ -24,20 +24,20 @@ void Pendulum::init_widget() {
 
 }
 
-void Pendulum::init_layout() {
-    _vBoxLayoutPendulum = new QVBoxLayout(this);
-    _vBoxLayoutPendulum->addWidget(_labelTimerUp);
-    _vBoxLayoutPendulum->addWidget(_labelTimerDown);
-    _vBoxLayoutPendulum->addWidget(_pushButtonSwitch);
-    setLayout(_vBoxLayoutPendulum);
+void Timer::init_layout() {
+    _vBoxLayoutTimer = new QVBoxLayout(this);
+    _vBoxLayoutTimer->addWidget(_labelTimerUp);
+    _vBoxLayoutTimer->addWidget(_labelTimerDown);
+    _vBoxLayoutTimer->addWidget(_pushButtonSwitch);
+    setLayout(_vBoxLayoutTimer);
 }
 
-void Pendulum::init_connect() {
+void Timer::init_connect() {
     connect(_timer, SIGNAL(timeout()), this, SLOT(on_timer_timeout()));
     connect(_pushButtonSwitch, SIGNAL(clicked()), this, SLOT(on_pushButtonSwitch_clicked()));
 }
 
-void Pendulum::on_timer_timeout() {
+void Timer::on_timer_timeout() {
     if (_isTimeUp) {
         QString timeText = _timeUp->toString("mm : ss");
         *_timeUp = _timeUp->addSecs(-1);
@@ -50,7 +50,7 @@ void Pendulum::on_timer_timeout() {
     }
 }
 
-void Pendulum::on_pushButtonSwitch_clicked() {
+void Timer::on_pushButtonSwitch_clicked() {
     if (_isTimeUp){
         _isTimeUp = false;
     }
