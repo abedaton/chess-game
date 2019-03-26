@@ -18,13 +18,7 @@ Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(n
 
 
 Client::~Client(){
-	std::cout << "Client destructor" << std::endl;
-	if (_game != nullptr)
-		delete _game;
-	if (_interface != nullptr)
-		delete this->_interface;
-	delete _server;
-	
+
 }
 
 void Client::setInterface(AbstractInterface* interface){
@@ -99,12 +93,16 @@ bool Client::login(std::string username,std::string password){
 }
 
 void Client::connectionError(){
-	std::cout << "In connectionError" << std::endl;
 	if (_interface != nullptr)
 		this->_interface->connectionError();
 }
 
 void Client::exit(){
+	if (_interface != nullptr)
+		delete this->_interface;
+	if (_game != nullptr)
+		delete _game;
+	delete _server;
 	try {
 		delete this; //:(
 	} catch(std::exception& e){
