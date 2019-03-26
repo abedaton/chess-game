@@ -10,7 +10,7 @@
 class PlateauBox;
 class PlateauScene : public QGraphicsView {
     public:
-    explicit PlateauScene(int size = 8, QWidget *parent = nullptr);
+    explicit PlateauScene(int size = 8, QWidget *parent = nullptr, std::string pool = "pool1");
     void setClassicBoxes(int x, int y, int sideLenght);
     void showMoves(int *moves = nullptr, int* cap = nullptr);
     PlateauBox* getPriorityBox() const;
@@ -22,14 +22,15 @@ class PlateauScene : public QGraphicsView {
     void setBlack();
     void setWhite();
 
-
     private:
     const int _size;
     PlateauBox* _priorityBox;
+    std::string pool;
 
     QGraphicsScene *_scene;
     PlateauBox *_boxes[8][8];
     QGraphicsGridLayout *_ggbox;
+    std::string get_pool() const;
 };
 
 #endif // PLATEAUSCENE_HPP

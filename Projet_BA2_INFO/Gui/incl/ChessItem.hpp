@@ -3,6 +3,7 @@
 
 #include <QGraphicsPixmapItem>
 #include <iostream>
+#include <sstream>
 //#include "PlateauBox.h"
 
 class ChessItem : public QGraphicsPixmapItem{
@@ -12,7 +13,8 @@ public:
     //void setBox(PlateauBox* box);
     //PlateauBox* getBox();
 
-    void setPicture(std::string pieceType);
+    void setPicture(std::string pieceType,std::string);
+    std::string get_common_path();
 private:
     //PlateauBox* _currentBox;
 
