@@ -1,5 +1,8 @@
 #ifndef FENPRINCIPALE_HPP
 #define FENPRINCIPALE_HPP
+
+#include "FriendList.hpp"
+#include "Publicity.hpp"
 #include "Chat.hpp"
 #include "GameWindow.hpp"
 #include "Login.hpp"
@@ -32,6 +35,9 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void sendMessage();
     void showFriendList();
     void setTheme(std::string pool);
+    void addFriend();
+    void removeFriend();
+
 
     void setFriendMenu();
     void setThemeMenu();
@@ -65,9 +71,12 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     QStackedWidget *_stack;
     QDockWidget *_dockChat;
     QDockWidget *_dockTimer;
-
+    QDockWidget *_dockFriendList;
+    QDockWidget *_dockPublicity;
     AbstractClient* _client;
 
+    FriendList *_friendList;
+    Publicity *_publicity;
     Login *_login;
     Register *_register;
     Menu *_menu;
