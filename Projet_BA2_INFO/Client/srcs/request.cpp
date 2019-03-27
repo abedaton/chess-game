@@ -15,6 +15,7 @@ Request::Request(AbstractClient* client, const char* ip): _client(client){
 
 Request::~Request(){
 	pthread_cancel(this->_listenerThread);
+    std::cout << "listener Thread stopped" << std::endl;
 	close(this->_clientSock);
 }
 
@@ -62,6 +63,9 @@ void Request::listener(){
                 break;
 			case RECVMESSAGEINGAME: // 27
                 recvMessageInGame(); // in game chat
+                break;
+            case RECVMESSAGE: // 28
+                recvMessage(); // in game chat
                 break;
 
             default:
@@ -207,23 +211,19 @@ void Request::surrend(){
 }
 
 void Request::sendMessage(std::string name, std::string msg){
-    std::cout << "A" << std::endl;
+    std::cout << name << ", " << msg << std::endl;
     waitForProcess();
-    std::cout << "B" << std::endl;
     int protocol = 7;
     sendInt(protocol);
-    std::cout << "C" << std::endl;
     sendStr(name);
-    std::cout << "D" << std::endl;
     sendStr(msg);
-    std::cout << "E" << std::endl;
     endProcess();
 }
 
 void Request::recvMessage(){
     std::string name = recvStr();
     std::string msg = recvStr();
-    //TO DO (send to client and interface)
+    this->_client->recvMessage(name, msg);
 }
 
 void Request::addFriend(std::string name){

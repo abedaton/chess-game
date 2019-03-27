@@ -277,9 +277,12 @@ void User::sendMessage(){
     int protocol = 28;
     std::string username = recvStr();
     std::string msg = recvStr(); // messgae du user1 vers user2
-    int friendSocket = this->_db->getInt("users", "socket");
-    sendIntToSocket(friendSocket, protocol);
-    sendStrToSocket(friendSocket, msg);
+    int friendSocket = this->_db->getUserInt("socket", username);
+    if (friendSocket >= 0){
+        sendIntToSocket(friendSocket, protocol);
+        sendStrToSocket(friendSocket, this->_name);
+        sendStrToSocket(friendSocket, msg);
+    } 
 } 
 
 void User::addFriend(){

@@ -118,7 +118,8 @@ void Client::movPossibleUpdate(std::vector<std::string> listMov){
 }
 
 void Client::sendMessage(std::string name,std::string msg){
-	this->_server->sendMessage(name, msg);
+	if( (name != "") || (msg != "") )
+		this->_server->sendMessage(name, msg);
 }
 void Client::addFriend(std::string name){
 	this->_server->addFriend(name);

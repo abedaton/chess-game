@@ -24,6 +24,7 @@ void Terminal::gameStart(std::string opponent){ //bord
 }
 
 void Terminal::pingForUpdate(){
+	std::cout << "updateBord" << std::endl;
     //To Do
 }
 
@@ -40,6 +41,8 @@ void Terminal::lose(){
 
 void Terminal::friendsWindow(){
 	unsigned int res = 0;
+	std::string username;
+	std::string message;
 	while(res != 7){
 		std::cout << "Que désirez vous faire?: " << std::endl;
 		std::cout << "1) Ajouter un ami " << std::endl;
@@ -50,22 +53,17 @@ void Terminal::friendsWindow(){
 		std::cout << "6) Chat avec des amis " << std::endl;
 		std::cout << "7) Retourner au menu principal " << std::endl;
 
+		res = 0;
 		while(res == 0 || res > 7){	
-			std::cout << "Enter a number(1-6): ";
+			std::cout << "Enter a number(1-7): ";
 			std::cin >> res;
 			this->myFlush();
 		}
 		switch(res){
 			case 1:
-				/*
-				std::string friendName;
 				std::cout<< "Veuillez entrer le nom de l'ami à ajouter: ";
-				std::cin >> friendName;
-				if(!_user->addFriend(friendName))
-					std::cout << friendName << " n'existe pas " << std::endl;
-				else
-					std::cout<< "La demande d'ami a été envoytée" << std::endl;	
-				*/
+				std::cin >> username;
+				this->_user->addFriend(username);
 				break;
 			case 2:
 				//_user->listOnlineFriends();
@@ -86,14 +84,10 @@ void Terminal::friendsWindow(){
 				// 2. laiser l'utilisateur choisir l'ami puis l'inviter à la partie
 				break;
 			case 6:
-				std::string username;
-				std::string message;
 				std::cout << "Please enter the name of the user you want to send a message: ";
-				getline(std::cin, username);
-				this->myFlush();
+				std::getline(std::cin, username);
 				std::cout << "Please enter your message: ";
-				getline(std::cin, message);
-				this->myFlush();
+				std::getline(std::cin, message);
 				this->_user->sendMessage(username, message);
 				std::cout << "Message Sent!" << std::endl; // Todo check if user exists
 				break;
@@ -199,7 +193,7 @@ void Terminal::menuWindow(){
         std::cout << "Enter 1 for exit 2 for friend list 3 for parameter";
 		if (!waitForGame)
 			std::cout <<", 4 for game";
-		std::cout << ": " << std::endl;
+		std::cout << ": ";
         std::cin >> answer;
 		myFlush();
 		if (this->_gameStart){
@@ -221,7 +215,7 @@ void Terminal::menuWindow(){
 }
 
 void Terminal::recvMessage(std::string username, std::string msg){
-	std::cout << username << ": " << msg << std::endl;
+	std::cout << "\n" << username << ": " << msg << std::endl;
 }
 
 bool Terminal::selectGameModeWindow(){
@@ -229,14 +223,14 @@ bool Terminal::selectGameModeWindow(){
 	std::string gameMod = " ";
 
     while (chessMod != "1" && chessMod != "2" && chessMod != "3" && chessMod != "4" && chessMod != "5"){
-        std::cout << "Please, enter 1 for classic, 2 for Dark, 3 for Trappist, 4 for Anti or 5 for return to the menu: " << std::endl;
+        std::cout << "Please, enter 1 for classic, 2 for Dark, 3 for Trappist, 4 for Anti or 5 for return to the menu: ";
         std::cin >> chessMod;
 		myFlush();
     }
 	if (chessMod == "5")
 		return false;
 	while (gameMod != "1" && gameMod != "2" && gameMod != "3" && gameMod != "4"){
-        std::cout << "Enter 1 for Tour Par tour, 2 for Chrono, 3 for Temps Reel, 4 for return to the menu: " << std::endl;
+        std::cout << "Enter 1 for Tour Par tour, 2 for Chrono, 3 for Temps Reel, 4 for return to the menu: ";
         std::cin >> gameMod;
 		myFlush();
     }

@@ -32,6 +32,7 @@ class Database{
         Database();
         ~Database();
         int getInt(std::string table, std::string column);
+        int getUserInt(std::string column, std::string username);
         bool isUsernameFree(std::string username);
         bool isLoginOk(std::string username, std::string password);
         void addUser(std::string username, std::string password, std::string email, int socket);
@@ -61,6 +62,7 @@ class Database{
         static int callbackGetter(void* var, int argc, char** argv, char** column);
         static int callbackSee(void* friendList, int argc, char** argv, char** column);
         char* getValue(std::string table, std::string column);
+        char* getUserValue(std::string column, std::string username);
         std::vector<std::string> getFrendList(std::string table);
 
         sqlite3* db;

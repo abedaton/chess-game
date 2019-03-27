@@ -213,6 +213,30 @@ int Database::getInt(std::string table, std::string column){
 	return atoi(val);
 }
 
+int Database::getUserInt(std::string column, std::string username){
+	char* val = getUserValue(column, username);
+	if (val != NULL){
+		int tmp = atoi(val);
+	} else {
+		val = (char*)("-2");
+	}
+	return atoi(val);
+}
+
+char* Database::getUserValue(std::string column, std::string username){
+	char* zErrMsg = 0;
+	std::string sql = "SELECT " + column + " FROM users WHERE username = '" + username + "';";
+	std::cout << sql << std::endl;
+	char** var;
+	*var = NULL;
+	int rc = sqlite3_exec(this->db, sql.c_str(), callbackGetter, var, &zErrMsg);;
+	if (rc != SQLITE_OK){
+		std::cout << "Error on getValue: " << sqlite3_errmsg(this->db) << std::endl;
+		sqlite3_free(zErrMsg);
+	}
+	return *var;
+}
+
 void Database::deleteUser(std::string username){
 	char* zErrMsg = 0;
 	std::string sql = "DROP TABLE " + username + ";";
@@ -335,7 +359,6 @@ void Database::resetStuff(){
 		sqlite3_free(zErrMsg);
 	}
 }
-
 
 // Pour kick un client si il est deja connecter et ce reconnecte
 int Database::callbackDisc(void* NotUsed, int argc, char** argv, char** columns){
