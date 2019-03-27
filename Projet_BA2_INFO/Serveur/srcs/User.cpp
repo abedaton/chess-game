@@ -272,6 +272,19 @@ void User::sendMsg(std::string msg){
     sendStr(msg);
 }
 
+void User::sendVector(std::vector<std::string> vec){
+    long length = htonl( vec.size());
+    send(this->_clientSock, &length, sizeof(length), 0);
+    //sendInt(vec.size);
+    for (int i = 0; i < vec.size(); ++i) {
+        //sendInt(vec[i].length());
+        length = htonl( vec[i].length());
+        send(this->_clientSock, &length, sizeof(length), 0);
+        //sendStr(vec[i].data());
+        send(this->_clientSock, vec[i].data(), vec[i].length(), 0);
+    }
+}
+
 void User::sendMessage(){
     std::cout << "Transfering Message" << std::endl;
     int protocol = 28;
@@ -311,7 +324,15 @@ void User::getFriendList(){
 }
 
 void User::getFriendRequests(){
-
+    std::cout << "in getFriendRequests" << std::endl;
+    int protocol = 29;
+    std::vector<std::string> friendList = this->_db->seeFriendRequests(this->_name);
+    std::cout << "Size = " << friendList.size() << std::endl;
+    for (int i = 0; i < friendList.size(); i++){
+        std::cout << "plop2: " << friendList[i] << std::endl;
+    }
+    sendInt(protocol);
+    sendVector(friendList);
 }
 
 void User::getOnlineFriendList(){

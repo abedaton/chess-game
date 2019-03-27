@@ -148,6 +148,9 @@ void Client::getUserInfo(std::string username){
 void Client::recvMessage(std::string name, std::string msg){
 	this->_interface->recvMessage(name, msg);
 }
+void Client::recvFriendRequestsList(std::vector<std::string> vec){
+	this->_interface->recvFriendRequestsList(vec);
+}
 
 
 int Client::showGui(int argc, char** argv){

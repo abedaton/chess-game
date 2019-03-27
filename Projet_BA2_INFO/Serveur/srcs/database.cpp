@@ -325,19 +325,26 @@ std::vector<std::string> Database::seeFriends(std::string username){
 
 std::vector<std::string> Database::seeFriendRequests(std::string username){
 	char* zErrMsg = 0;
-	std::vector<std::string> listRequests;
-	std::string sql =  "SELECT user1, user2 FROM friendList WHERE (user1 = '" + username + "' OR user2 = '" + username + "' AND relation = 'relation';";
+	std::vector<std::string> listRequests(0);
+	std::string sql =  "SELECT user1 FROM friendList WHERE user2 = '" + username + "' AND relation = \"relation\";"; //user1 = '" + username + "' OR 
+	std::cout << sql << std::endl;
 	int rc = sqlite3_exec(this->db, sql.c_str(), callbackSee, &listRequests, &zErrMsg);
 	if (rc != SQLITE_OK){
-		std::cout << "Error on seeFriends: " << sqlite3_errmsg(this->db) << std::endl;
+		std::cout << "Error on seeFriendsRequests: " << sqlite3_errmsg(this->db) << std::endl;
 		sqlite3_free(zErrMsg);
 	}
+	std::cout << "before print" << std::endl;
+	for (int i = 0; i < listRequests.size(); i++){
+        std::cout << "plop: " << listRequests[i] << std::endl;
+    }
+	return listRequests;
 }
 
 
 int Database::callbackSee(void* var, int argc, char** argv, char** column){
 	std::vector<std::string>* friendList = static_cast<std::vector<std::string>* >(var);
 	for (int i = 0; i < argc; i++){
+		std::cout << argv[i] << std::endl;
 		friendList->push_back(argv[i]);
 	}
 	return 0;

@@ -25,6 +25,8 @@ class Terminal: public AbstractInterface{
 		void recvMessage(std::string name, std::string mov) override;
         void pingForUpdate() override;
 
+		void recvFriendRequestsList(std::vector<std::string> vec) override;
+
     private:
         AbstractClient* _user;
         std::string _username;

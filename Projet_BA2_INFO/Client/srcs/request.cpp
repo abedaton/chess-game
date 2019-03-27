@@ -65,9 +65,11 @@ void Request::listener(){
                 recvMessageInGame(); // in game chat
                 break;
             case RECVMESSAGE: // 28
-                recvMessage(); // in game chat
+                recvMessage(); // chat
                 break;
-
+            case SEEREQUESTS: // 29
+                recvFriendRequestsList(); // voir les amis
+                break;
             default:
 				std::cout << "bad receive in listener: " << protocol << std::endl;
                 this->error();
@@ -93,6 +95,33 @@ void Request::opponentMov(){
 void Request::recvMessageInGame(){
 	std::string msg = recvStr();
 	this->_client->recvMessage("opponent", msg);
+}
+
+std::vector<std::string> Request::recvVector(){
+    std::vector<std::string> vec;
+    long size = 0;
+    recv(this->_clientSock, &size, sizeof(size), MSG_WAITALL);
+    size = ntohl(size);
+    for (int i = 0; i < size; ++i) {
+        std::string stringRead;
+        long length = 0;
+        recv(this->_clientSock, &length, sizeof(length), MSG_WAITALL);
+        length = ntohl(length);
+        while (0 < length){
+            char buffer[1024];
+            int cread;
+            cread = recv(this->_clientSock, buffer, std::min<long>(sizeof(buffer), length), MSG_WAITALL);
+            stringRead.append(buffer, cread);
+            length -= cread;
+        }
+        vec.push_back(stringRead);
+    }
+    return vec;
+}
+
+void Request::recvFriendRequestsList(){
+    std::vector<std::string> vecRequests = this->recvVector();
+    this->_client->recvFriendRequestsList(vecRequests);
 }
 
 void Request::error(){

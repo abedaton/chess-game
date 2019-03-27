@@ -65,6 +65,8 @@ class Database{
         char* getUserValue(std::string column, std::string username);
         std::vector<std::string> getFrendList(std::string table);
 
+    
+
         sqlite3* db;
 };
 

@@ -48,7 +48,7 @@ void Terminal::friendsWindow(){
 		std::cout << "1) Ajouter un ami " << std::endl;
 		std::cout << "2) Lister tous les amis connectés " << std::endl;
 		std::cout << "3) Supprimer un ami " << std::endl;
-		std::cout << "4) Consulter mes demandes d'amis/de parties " << std::endl;
+		std::cout << "4) Consulter mes demandes d'amis" << std::endl;
 		std::cout << "5) Proposer à un ami de faire une partie " << std::endl;
 		std::cout << "6) Chat avec des amis " << std::endl;
 		std::cout << "7) Retourner au menu principal " << std::endl;
@@ -77,7 +77,7 @@ void Terminal::friendsWindow(){
 				*/
 				break;
 			case 4:
-				//user->proceedGameAndFriendRequests();
+				this->_user->getFriendRequests();
 				break;
 			case 5:
 				// 1. call listonlinefriends pour montrer tous les amis disponibles
@@ -279,9 +279,106 @@ void Terminal::gameWindow(){
     }
 }
 
+void Terminal::recvFriendRequestsList(std::vector<std::string> vec){
+	if (vec.size() > 0){
+		std::cout << "\nYou have " << vec.size() << " pending requests: " << std::endl;
+		for (int i = 0; i < vec.size(); i++){
+			std::cout << "\t- " << vec[i] << std::endl;
+		}
+	} else {
+		std::cout << "\nYou have no pending requests.. :(" << std::endl;
+	}
+}
+
 void Terminal::myFlush(){
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
+
+
+
+
+/*
+std::string Affichage::affichage_plateau(){
+	// fonction assemblant toutes les parties du plateau ensemble affin de pouvoir renvoyer un plateau complet
+		
+	std::stringstream s;
+	
+	int taille_voulue_hor = this->get_taille_case_hor(); //8;
+	int taille_voulue_ver = this->get_taille_case_ver(); //2;
+		
+	std::string big_l = this->make_big_ligne();
+	std::string big_l_vide = make_big_ligne_vide();
+	std::string letter_line = crea_ligne_lettres(int(this->_plateau()->get_taille()),taille_voulue_hor);
+	
+	
+	int ver_av = (taille_voulue_ver-1)/2; // le 1 vient de la taille de la piece qui sera tjs sur 1 seul ligne!
+	int ver_ap = (taille_voulue_ver-1) - ver_av; // le 1 vient de la taille de la piece qui sera tjs sur 1 seul ligne!
+	
+	int max_decal = int(std::to_string(this->get_plateau()->get_taille()-1).size());
+	int max_reste = taille_voulue_hor-max_decal;
+	
+	s << get_decallage_de_bord_gauche(max_reste/2);
+	for(int p=0;p<(max_decal+(max_reste/2)) ;p++){s<<" ";}
+	s << letter_line << std::endl;
+	
+	s << get_decallage_de_bord_gauche(max_reste/2);
+	for(int p=0;p<(max_decal+(max_reste/2)) ;p++){s<<" ";}
+	s << big_l_vide;
+
+	for(int i=0;i<this->get_plateau()->get_taille();i++){
+		
+		int new_i = this->get_plateau()->get_taille()-1-i;
+		
+		// calcul chiffre ligne
+		std::string str_numb = std::to_string(new_i+1);
+		int numb_size = int(str_numb.size());
+		int numb_reste = taille_voulue_hor-numb_size + (max_decal-numb_size);
+        int numb_av = (numb_reste/2);
+		//
+		
+		s << get_decallage_de_bord_gauche(max_reste/2);
+		for(int p=0;p<(numb_av + numb_size -1) ;p++){s<<" ";} // -1 car -|
+		s<<big_l;
+		
+		
+		s << get_decallage_de_bord_gauche(max_reste/2);
+		for(int p=0;p<(numb_av + numb_size) ;p++){s<<" ";}
+		for(int k=0;k<ver_av;k++){s<<big_l_vide;}
+		
+		s << get_decallage_de_bord_gauche(max_reste/2);
+		s<<str_numb;
+		for(int p=0;p<numb_av;p++){s<<" ";}
+		s<<"|";
+		
+		//s << get_decallage_de_bord_gauche(numb_av);
+		s<<this->get_affichage_line(i,new_i);
+		
+        for(int p=0;p<numb_av;p++){s<<" ";}
+		s<<str_numb;
+
+		s<<std::endl;
+		s << get_decallage_de_bord_gauche(max_reste/2);
+		for(int p=0;p<(numb_av + numb_size) ;p++){s<<" ";}
+		for(int o=0;o<ver_ap;o++){s<<big_l_vide;}
+	}
+	
+	s << get_decallage_de_bord_gauche(max_reste/2);
+	for(int p=0;p<(max_decal+(max_reste/2) -1) ;p++){s<<" ";} // -1 car -|
+	s<<big_l;
+	
+	s << get_decallage_de_bord_gauche(max_reste/2);
+	for(int p=0;p<(max_decal+(max_reste/2)) ;p++){s<<" ";}
+	s << big_l_vide;
+	
+	s << get_decallage_de_bord_gauche(max_reste/2);
+	for(int p=0;p<(max_decal+(max_reste/2)) ;p++){s<<" ";}
+	s << letter_line << std::endl;
+    
+    return s.str();
+}
+
+
+*/
 
 #endif

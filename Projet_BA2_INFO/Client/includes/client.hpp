@@ -48,6 +48,8 @@ class Client: public AbstractPlayer, public AbstractClient{
 		void mov(std::string mov) override;
 		void movPossibleUpdate(std::vector<std::string> listMov) override;
 
+		void recvFriendRequestsList(std::vector<std::string> vec) override;
+
 		int showGui(int argc, char** argv);
 };
 

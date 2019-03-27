@@ -15,6 +15,7 @@
 #include <errno.h>
 #include <chrono>
 #include <queue>
+#include "math.h"
 
 #include "abstractClient.hpp"
 
@@ -67,11 +68,13 @@ class Request{
         std::string recvStr();
 
         void recvMessage();
+        void recvFriendRequestsList();
+        std::vector<std::string> recvVector();
 
 };
 
 enum Protocol : int {
-    STARTGAME = 25, OPPONENTMOV, RECVMESSAGEINGAME, RECVMESSAGE
+    STARTGAME = 25, OPPONENTMOV, RECVMESSAGEINGAME, RECVMESSAGE, SEEREQUESTS
 };
 
 

@@ -24,6 +24,8 @@ class AbstractClient{
 		virtual void getUserInfo(std::string username) = 0;
 		virtual void getMyInfo() = 0;
 
+		virtual void recvFriendRequestsList(std::vector<std::string>) = 0;
+
 		virtual void click(std::string square) = 0;
 		virtual void exit() = 0;
 		//call by server

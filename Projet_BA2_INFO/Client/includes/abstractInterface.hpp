@@ -14,6 +14,7 @@ class AbstractInterface {
 		virtual void recvMessage(std::string name, std::string mov) = 0; 
         virtual void pingForUpdate() = 0;
 
+        virtual void recvFriendRequestsList(std::vector<std::string>){}
         struct info {
             int nbGame;
             int nbWin;

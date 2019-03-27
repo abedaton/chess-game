@@ -65,6 +65,7 @@ class User: public AbstractUser{
 
 		void sendStrToSocket(int socket, std::string str);
 		void sendIntToSocket(int socket, int number);
+		void sendVector(std::vector<std::string>);
 
 		static void* run(void* tmp);
 
