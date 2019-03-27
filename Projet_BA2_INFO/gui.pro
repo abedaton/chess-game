@@ -18,6 +18,7 @@ INCLUDEPATH += ./Gui/src
 INCLUDEPATH += ./Gui/incl
 INCLUDEPATH += ./Gui/img
 INCLUDEPATH += ./Gui/bin
+INCLUDEPATH += ./Gui/advertisements
 INCLUDEPATH += ./Gui
 INCLUDEPATH += .
 
@@ -34,8 +35,8 @@ INCLUDEPATH += ./Client/game/GameType/SuperGame
 # feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
-DEFINES += QT_DEPRECATED_WARNIClient/game/GameType/SuperGame/NGS
-Client/game/GameType/SuperGame/
+#DEFINES += QT_DEPRECATED_WARNIClient/game/GameType/SuperGame/NGS
+#Client/game/GameType/SuperGame/
 # You can also make your code Client/game/GameType/SuperGame/fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -52,6 +53,8 @@ HEADERS += Gui/incl/FenPrincipale.hpp \
            Gui/incl/Chat.hpp \
            Gui/incl/ChessItem.hpp\
            Gui/incl/Timer.hpp\
+           Gui/incl/FriendList.hpp\
+           Gui/incl/Publicity.hpp\
            ###
            Client/includes/abstractClient.hpp\
            Client/includes/abstractInterface.hpp\
@@ -73,6 +76,8 @@ SOURCES += Gui/src/FenPrincipale.cpp \
            Gui/src/Chat.cpp \
            Gui/src/ChessItem.cpp \
            Gui/src/Timer.cpp \
+           Gui/src/FriendList.cpp\
+           Gui/src/Publicity.cpp\
            ###
            Client/main.cpp\
            Client/srcs/client.cpp \

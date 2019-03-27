@@ -3,8 +3,8 @@
 FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
     init_window();
     init_stack();
-    init_connect();
     init_dock();
+    init_connect();
 
     setTheme("pool0");
 
@@ -51,23 +51,37 @@ void FenPrincipale::init_connect() {
     
     connect(_menu->getNewGame(), SIGNAL(clicked()), this, SLOT(goToGame()));
     connect(_menu->getExit(), SIGNAL(clicked()), qApp, SLOT(quit()));
-    // connect(_chat->getLineEdit(),SIGNAL(returnPressed()),this, SLOT(sendMessage()));
+    connect(_friendList->getPushButtonAddFriend(), SIGNAL(clicked()), this, SLOT(addFriend()));
+    connect(_friendList->getPushButtonRemoveFriend(), SIGNAL(clicked()), this, SLOT(removeFriend()));
 }
 
 void FenPrincipale::init_dock() {
-    // QDockWidget *dock = new QDockWidget("test", this);
-    // QTextEdit *textEdit = new QTextEdit(this);
-    // dock->setWidget(textEdit);
-    // addDockWidget(Qt::RightDockWidgetArea, dock);
-    // dock->hide();
-    _dockChat = new QDockWidget(this);
     _chat = new Chat(this);
+    _dockChat = new QDockWidget(this);
     _dockChat->setWidget(_chat);
     addDockWidget(Qt::RightDockWidgetArea, _dockChat);
-    _dockTimer = new QDockWidget(this);
+
     _timer = new Timer(this);
+    _dockTimer = new QDockWidget(this);
     _dockTimer->setWidget(_timer);
     addDockWidget(Qt::LeftDockWidgetArea, _dockTimer);
+    
+    _friendList = new FriendList(this);
+    _dockFriendList = new QDockWidget(this);
+    _dockFriendList->setWidget(_friendList);
+    addDockWidget(Qt::LeftDockWidgetArea, _dockFriendList);
+    _dockFriendList->setFloating(true);
+    _dockFriendList->setAllowedAreas( Qt::NoDockWidgetArea );
+    
+    _publicity = new Publicity(this);
+    _dockPublicity = new QDockWidget(this);
+    _dockPublicity->setWidget(_publicity);
+    addDockWidget(Qt::BottomDockWidgetArea, _dockPublicity);
+
+    _dockChat->hide();
+    _dockTimer->hide();
+    _dockFriendList->hide();
+    _dockPublicity->hide();
 }
 
 void FenPrincipale::MenuBar() {
@@ -150,6 +164,15 @@ void FenPrincipale::goToMenu() {
 void FenPrincipale::sendMessage() {
     _chat->getTextEdit()->insertPlainText(_chat->getLineEdit()->text());
 }
+
+void FenPrincipale::addFriend() {
+    _friendList->getListWidgetFriendList()->addItems(QStringList("un nouvel ami"));
+}
+
+void FenPrincipale::removeFriend() {
+
+}
+
 /*
 void FenPrincipale::gameStart(std::string opponent){
     //_client->waitForMatch(1); TO DO
@@ -157,7 +180,7 @@ void FenPrincipale::gameStart(std::string opponent){
 }
 */
 void FenPrincipale::showFriendList(){
-    std::cout << "WSH MAGGLE" << std::endl;
+    _dockFriendList->show();
 }
 
 void FenPrincipale::setTheme(std::string pool){
