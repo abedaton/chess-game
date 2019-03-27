@@ -8,6 +8,7 @@
 #include "Pendulum.hpp"
 #include "PlateauScene.hpp"
 #include "Register.hpp"
+#include "Publicity.hpp"
 #include <QtWidgets>
 #include <iostream>
 
@@ -41,6 +42,7 @@ class FenPrincipale : public QMainWindow {
     QStackedWidget *_stack;
     QDockWidget *_dockChat;
     QDockWidget *_dockPendulum;
+    QDockWidget *_dockAdvertisement;
 
     FriendList *_friendList;
     Login *_login;
@@ -50,6 +52,7 @@ class FenPrincipale : public QMainWindow {
     PlateauScene *_classicWindow;
     Chat *_chat;
     Pendulum *_pendulum;
+    Publicity *_advertisement;
 };
 
 #endif // FENPRINCIPALE_HPP
