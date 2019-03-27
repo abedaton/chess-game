@@ -3,7 +3,7 @@
 
 #include "SuperGame.hpp"
 
-SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn): _client(client), _inverted(!myTurn), _lastClick(""){
+SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn): _client(client), _inverted(!myTurn){
 	SilencedHuman* play_one = new SilencedHuman("player1", "francais");
 	SilencedHuman* play_two = new SilencedHuman("player2", "francais");
     Dico* dico = make_dico("Client/game/csv");
@@ -56,18 +56,26 @@ bool SuperGame::click(std::string square){
     bool res = false;
 	if(std::find(this->_ListMov.begin(), this->_ListMov.end(), square) != this->_ListMov.end()) {
 		res = this->turn(this->_lastClick + ';' + square);
-		this->_lastClick = "";
+		this->_lastClick = " ";
 		_ListMov.clear();
 	} else {
 		this->_lastClick = square;
-        Chesspiece* pe = this->_game->get_plateau()->get_piece(this->_game->str_mov_to_int(square)).get_var();
-		std::vector<std::pair<int,int> > tmp = *this->_game->get_game()->check_all_mov(pe);
+		MatPosi* mpos = new MatPosi(square);
+        Chesspiece* pe = this->_game->get_plateau()->get_piece(mpos->to_pair()).get_var();
+		//std::vector<std::pair<int,int> > tmp = *this->_game->get_game()->check_all_mov(pe);
+		
+		//std::vector<int>* mov_vect = this->_game->return_pe_mov(int);
+		//std::vector<int>* mov_capt = this->_game->return_pe_capt(int);
+		
         this->_ListMov.clear();
+        
+        /*
         std::string tmp2;
         for (auto& i : tmp){
             tmp2 = static_cast<char>((i.first + 65));
             this->_ListMov.push_back(tmp2 + std::to_string(i.second));
         }
+        */
 	}
     return res;
 }

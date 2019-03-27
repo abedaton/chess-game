@@ -370,65 +370,6 @@ Player* BaseChess::get_other_player(Player* play) const {
 Player* BaseChess::get_active_player() const {return this->active_player;}
 Player* BaseChess::get_non_active_player() const {return this->get_other_player(this->get_active_player());}
 
-
-
-
-
-
-
-
-
-
-std::vector<std::pair<int, int>>* BaseChess::check_all_mov(Chesspiece *pe){
-
-    std::vector<std::pair<int, int>>* tmp;
-
-    std::vector<std::pair<int, int>>* res = new std::vector<std::pair<int, int>>();
-    
-    std::vector<std::string> mode_vect {"depl", "capt", "capt_same", "capt_empty", "depl_full"};
-    
-    for (long long unsigned int i = 0; i < mode_vect.size(); i++){
-		tmp = this->loop_moves(pe,mode_vect[i]);
-		res->insert(res->end(), tmp->begin(), tmp->end());
-	}
-
-    return res;
-} 
-
-
-std::vector<std::pair<int, int>>* BaseChess::loop_moves(Chesspiece *pe, std::string mode){
-
-    std::string limited_mode = this->get_plateau()->get_limited_mode(mode);
-
-    std::vector<std::pair<std::pair<int, int>, AdvTuple>> vect = pe->algo(limited_mode);
-
-    std::vector<std::pair<int, int>> *res = new std::vector<std::pair<int, int>>();
-    MatPosi *elem;
-    Posi *origin = pe->get_posi();
-    MatPosi *mposi_origi = new MatPosi(*origin);
-    std::pair<int, int> paire_origi = mposi_origi->to_pair();
-    for (long long unsigned int i = 0; i < vect.size(); i++){
-        elem = new MatPosi(vect[i].first);
-        AdvTuple adv_tup = vect[i].second;
-        std::pair<int, int> paire = elem->to_pair();
-        vect[i].first.first >= 0 && vect[i].first.second >= 0;
-        if (this->check_danger_mouvement_and_path(paire_origi, adv_tup, paire, mode)){
-            res->push_back(vect[i].first);
-        }
-    }
-    return res;
-}
-
-
-
-
-
-
-
-
-
-
-
 Player* BaseChess::get_player(std::string play_str){
 	
 	if (play_str == this->get_low_player()->get_name()){return this->get_low_player();}
@@ -854,6 +795,10 @@ std::pair<bool,BitypeVar<Chesspiece*>> BaseChess::normal_output_check(std::strin
 	Chesspiece* cap_piece;
 	std::pair<int,int> conv;
 	BitypeVar<Chesspiece*> dst;
+	
+	
+	bool has_to_defend_king = this->verify_my_king();
+	std::cout<<"has_to_defend_king? "<<has_to_defend_king<<std::endl;
 				
 	if (valid){
 		bool again = false;
@@ -878,11 +823,16 @@ std::pair<bool,BitypeVar<Chesspiece*>> BaseChess::normal_output_check(std::strin
 				// piece de l'adversaire
 				// verifier que in peut faire le déplacement vers out !
 				if(this->check_illegal_move(in,out) == true){again = true;}
+				else{again = this->consequences_legal_out_move(has_to_defend_king,mpos_out);}
 			}
 		}	
 				
 		// case vide
-		else{if(this->check_illegal_move(in,out) == true){again = true;}} //cette notation evite la mise a false de "again"
+		else{
+			if(this->check_illegal_move(in,out) == true){again = true;}
+			else{again = this->consequences_legal_out_move(has_to_defend_king,mpos_out);}
+		
+		} //cette notation evite la mise a false de "again"
 			
 		res = not(again);
 	}
@@ -1275,7 +1225,7 @@ bool BaseChess::roc_check_king_position_and_path_danger(MatPosi* mpos_roi, MatPo
 	if (valid_roc == true){
 		
 		// si le roi n'est pas en danger apres le roque:
-		BitypeVar<MatPosi*>* dang_roi_ap = this->is_endangered(mpos_roi_dst,this->get_non_active_player());
+		BitypeVar<MatPosi*>* dang_roi_ap = this->is_endangered(mpos_roi_dst,this->get_non_active_player(),"capt");
 		
 		valid_roc = not(dang_roi_ap->get_state());
 		
@@ -1292,7 +1242,7 @@ bool BaseChess::roc_check_king_position_and_path_danger(MatPosi* mpos_roi, MatPo
 			long long unsigned int j=0;
 			bool stop = false;
 			while (j<king_steps_vect->size() and stop == false){
-				BitypeVar<MatPosi*>* step_danger = this->is_endangered((*king_steps_vect)[j],this->get_non_active_player());
+				BitypeVar<MatPosi*>* step_danger = this->is_endangered((*king_steps_vect)[j],this->get_non_active_player(),"capt");
 				if(step_danger->get_state() == true){
 					stop = true;
 				};
@@ -1775,7 +1725,7 @@ bool BaseChess::can_escape_position(Chesspiece* pe ,std::string mode){
 	while(i<vect->size() and escape == false){
 		MatPosi* mpos = (*vect)[i];
 		//mout<<"cheking "<<mpos->to_string()<<std::endl;
-		escape = not(this->is_endangered(mpos,this->get_other_player(pe->get_owner()))->get_state());
+		escape = not(this->is_endangered(mpos,this->get_other_player(pe->get_owner()),"capt")->get_state());
 		//mout<<"reponce "<<escape<<std::endl;
 		
 		//bool test = not(this->is_endangered(mpos,pe->get_owner())->get_state());
@@ -1909,7 +1859,11 @@ BitypeVar<MatPosi*>* BaseChess::in_endangered_part(std::pair<int,int> paire_zone
 	return danger;
 }
 
-BitypeVar<MatPosi*>* BaseChess::is_endangered(MatPosi* mpos_zone, Player* limitator){ // pe owner
+BitypeVar<MatPosi*>* BaseChess::is_endangered(MatPosi* mpos_zone, Player* limitator){
+		return this->is_endangered(mpos_zone,limitator,"");
+}
+
+BitypeVar<MatPosi*>* BaseChess::is_endangered(MatPosi* mpos_zone, Player* limitator,std::string forced_mode){ // pe owner
 	/* fonction qui vérifie si la piece est menacée par une piece adverse, si oui elle la retourne.
 	 * (ou dans le cas d'une case vide si elle est menacée par n'importe qu'elle piece, si oui elle la retourne) */	
 	 	
@@ -1919,10 +1873,11 @@ BitypeVar<MatPosi*>* BaseChess::is_endangered(MatPosi* mpos_zone, Player* limita
 	std::string mode;
 	
 	//mout<< "is empty? "<<paire_zone.first<<","<<paire_zone.second<<std::endl;
-	
-	if (this->get_plateau()->is_empty_location(paire_zone)){mode = "depl";}
-	else {mode = "capt";}
-	
+	if (forced_mode == ""){
+		if (this->get_plateau()->is_empty_location(paire_zone)){mode = "depl";}
+		else {mode = "capt";}
+	}
+	else{mode = forced_mode;}
 	
 	//mout<<"entering is_endagered_part with "<<paire_zone.first<<","<<paire_zone.second<<" ; "<<limitator->get_name()<< " ; " <<taille << " ; "<<mode<<std::endl;
 	return this->in_endangered_part(paire_zone, limitator, taille, mode);
@@ -2590,5 +2545,117 @@ std::pair<bool,bool> BaseChess::execute_forced_step(BitypeVar<Trinome<std::strin
 
 AbstractAffichage* BaseChess::get_affich() const {return this->affich;}
 void BaseChess::set_affich(AbstractAffichage* aff){this->affich = aff;}
+
+bool BaseChess::verify_my_king(){
+	/* fonction vérifiant si mon roi est en danger */
+	
+	std::vector<Chesspiece*>* vect = this->get_kings();
+	
+	Chesspiece* pe;
+	Chesspiece* my_king;
+	bool found = false;
+	
+	long long unsigned int i=0;
+	while(i<vect->size() and not found){ // 1 seul roi a trouver
+		pe = (*vect)[i];
+		
+		if (pe->get_owner() == this->get_active_player()){
+			my_king = pe;
+			found = true;
+		}
+		
+		i++;
+	}
+
+	if (not found){throw MyException(&mout,"mon Roi introuvable!");}
+		
+	MatPosi* vict_mpos = new MatPosi(*(my_king->get_posi()));
+	BitypeVar<MatPosi*>* vict = this->is_endangered(vict_mpos);
+	
+	return vict->get_state();
+	
+}
+
+bool BaseChess::consequences_legal_out_move(bool has_to_defend_king,MatPosi* mpos_roi){
+	
+	std::string error_msg;
+	
+	BitypeVar<MatPosi*>* bit_rep = this->is_endangered(mpos_roi,this->get_non_active_player(),"capt"); //bool again = this->verify_my_king();
+	bool again = bit_rep->get_state();
+	
+	std::cout<<"king still in danger? "<<again<<std::endl;
+	
+	if (has_to_defend_king){
+		if (again){error_msg = this->get_dico()->search(this->get_active_player()->get_langue(),"laisse_roi_danger");}
+	} // si on doit proteger son roi et qu'a la fin il est tjs en danger on ne peut pas faire le movement
+						
+	else{
+		if (again){error_msg = this->get_dico()->search(this->get_active_player()->get_langue(),"mise_roi_danger");}
+	} // interdit de mettre son roi en danger!
+	
+	if (again){
+		std::stringstream ss;
+		ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"retry")<<", "<< error_msg <<std::endl;
+		this->get_active_player()->send_msg(ss.str());
+	}
+	
+	return again;
+	
+}
+
+std::vector<int>* BaseChess::return_possible_mouvement(Chesspiece* pe ,std::string mode){
+	/* fonction qui affiche les mouvements possibles d'une piece */
+	
+	std::vector<MatPosi*>* vect = this->check_possible_mouvement(pe, mode);
+	
+	std::vector<int>* stock = new std::vector<int>();
+	
+	BitypeVar<int>* bit_taille = new BitypeVar<int>(true,this->get_plateau()->get_taille());
+	
+	for(long long unsigned int i=0;i<vect->size();i++){
+		std::string temp = (*vect)[i]->to_string();
+
+		PlatPosi* temp_plat = new PlatPosi(temp,*bit_taille);
+		
+		int temp_int = temp_plat->to_sum_val();
+		
+		if (not(is_in_vect(stock,temp_int))){stock->push_back(temp_int);}
+		
+		delete temp_plat;
+		
+	}
+	
+	return stock;
+}
+
+Chesspiece* BaseChess::return_pe_from_int(int temp){
+	
+	BitypeVar<int>* bit_taille = new BitypeVar<int>(true,this->get_plateau()->get_taille());
+	BitypeVar<int>* bit_empty = new BitypeVar<int>(false,0);
+	PlatPosi* pe_ppos = new PlatPosi(temp,*bit_empty,*bit_taille);
+	std::pair<int,int> paire = pe_ppos->to_pair();
+	delete pe_ppos;
+
+	BitypeVar<Chesspiece*> bit_pe = this->get_plateau()->get_piece(paire);
+	
+	Chesspiece* pe;
+	
+	if (bit_pe.get_state() == false){throw MyException(&mout,"demande piece case vide!");}
+	else{pe = bit_pe.get_var();}
+	
+	return pe;
+}
+
+std::vector<int>* BaseChess::return_pe_mov(int pe_position){
+	
+	Chesspiece* pe = this->return_pe_from_int(pe_position);
+	return this->return_possible_mouvement(pe,"depl");
+}
+
+std::vector<int>* BaseChess::return_pe_capt(int pe_position){
+	
+	Chesspiece* pe = this->return_pe_from_int(pe_position);
+	return this->return_possible_mouvement(pe,"capt");
+}
 
 #endif

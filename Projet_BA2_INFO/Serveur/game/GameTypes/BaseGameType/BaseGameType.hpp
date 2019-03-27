@@ -28,7 +28,10 @@ class BaseGameType {
         Plateau* get_plateau() const;
         bool is_high_active() const;
 
-        std::pair<int,int> str_mov_to_int(std::string);
+        //std::pair<int,int> str_mov_to_int(std::string);
+        
+        std::vector<int>* return_pe_mov(int);
+		std::vector<int>* return_pe_capt(int);
         
 	protected:
         void set_game(BaseChess*);
