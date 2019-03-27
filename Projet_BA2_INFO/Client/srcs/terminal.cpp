@@ -44,7 +44,7 @@ void Terminal::friendsWindow(){
 	std::string username;
 	std::string message;
 	while(res != 7){
-		std::cout << "Que désirez vous faire?: " << std::endl;
+		std::cout << "\nQue désirez vous faire?: " << std::endl;
 		std::cout << "1) Ajouter un ami " << std::endl;
 		std::cout << "2) Lister tous les amis connectés " << std::endl;
 		std::cout << "3) Supprimer un ami " << std::endl;

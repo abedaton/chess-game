@@ -270,13 +270,20 @@ Database::~Database(){
 	std::cout << "All sockets set to -1" << std::endl;
 }
 
-void Database::sendFriendRequest(std::string friend1, std::string friend2){
+bool Database::sendFriendRequest(std::string friend1, std::string friend2){
 	char* zErrMsg = 0;
-	std::string sql = "INSER INTO friendList(user1, user2, relation) VALUES ('" + friend1 + "', '" + friend2 + "', waiting);";
-	int rc = sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg);
-	if (rc != SQLITE_OK){
-		std::cout << "Error on sendFriendRequest: " << sqlite3_errmsg(this->db) << std::endl;
-		sqlite3_free(zErrMsg);
+	std::string sql = "SELECT * FROM users WHERE username = '" + friend2 + "';";
+	bool exists = selectData(sql);
+	if (exists){
+		sql = "INSERT INTO friendList(user1, user2, relation) VALUES ('" + friend1 + "', '" + friend2 + "', 'waiting');";
+		int rc = sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg);
+		if (rc != SQLITE_OK){
+			std::cout << "Error on sendFriendRequest: " << sqlite3_errmsg(this->db) << std::endl;
+			sqlite3_free(zErrMsg);
+		}
+		return true;
+	} else {
+		return false;
 	}
 }
 

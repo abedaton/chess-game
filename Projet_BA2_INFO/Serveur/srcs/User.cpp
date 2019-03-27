@@ -282,11 +282,20 @@ void User::sendMessage(){
         sendIntToSocket(friendSocket, protocol);
         sendStrToSocket(friendSocket, this->_name);
         sendStrToSocket(friendSocket, msg);
-    } 
+    } else {
+        // Todo send Feedback User no exists
+    }
 } 
 
-void User::addFriend(){
 
+/////////////////////////////////////////////////////////////////////
+void User::addFriend(){
+    std::cout << "in AddFriend" << std::endl;
+    std::string user = recvStr();
+    bool result = this->_db->sendFriendRequest(this->_name, user);
+    if (!result){
+        // TODO send feedback user no exists
+    }
 }
 
 void User::removeFriend(){

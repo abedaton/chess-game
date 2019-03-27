@@ -44,7 +44,7 @@ class Database{
         void createInfoTable(std::string username);
         void deleteUser(std::string username);
 
-        void sendFriendRequest(std::string friend1, std::string friend2);
+        bool sendFriendRequest(std::string friend1, std::string friend2);
         
         std::vector<std::string> seeFriendRequests(std::string username);
         std::vector<std::string> seeFriends(std::string username);
