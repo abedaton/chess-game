@@ -6,11 +6,8 @@
 
 Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(nullptr), _interface(nullptr){
 	this->_server = new Request(this, ip);
-	std::cout << "CREATE CLIENT" << std::endl;
-
 	if (terminalMod){
 		AbstractInterface* useless = new Terminal(this);
-		std::cout << "CREATE TERMINAL" << std::endl;
 	} else {
 		showGui(argc, argv);
 	}
@@ -18,7 +15,7 @@ Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(n
 
 
 Client::~Client(){
-
+	;;
 }
 
 void Client::setInterface(AbstractInterface* interface){

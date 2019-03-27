@@ -38,6 +38,7 @@ class Database{
         void updateInfo(std::string table, std::string colName, std::string username, std::string newValue);
         void updateUserLog(std::string table, int logged);
         void updateUserDisc(std::string table);
+        void resetStuff();
         void updateWin(std::string username, std::string rival, bool win);
         void createInfoTable(std::string username);
         void deleteUser(std::string username);

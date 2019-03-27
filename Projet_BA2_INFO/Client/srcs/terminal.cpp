@@ -37,6 +37,7 @@ void Terminal::lose(){
 	this->_end = true;
 }
 
+
 void Terminal::friendsWindow(){
 	unsigned int res = 0;
 	while(res != 7){
@@ -49,64 +50,54 @@ void Terminal::friendsWindow(){
 		std::cout << "6) Chat avec des amis " << std::endl;
 		std::cout << "7) Retourner au menu principal " << std::endl;
 
-		std::cin >> res;
 		while(res == 0 || res > 7){	
-			std::cout << "Choix invalide veuillez réessayer:" << std::endl;
+			std::cout << "Enter a number(1-6): ";
 			std::cin >> res;
-		}
-		/*
-		if(res == 1){
-			std::string friendName;
-			std::cout<< "Veuillez entrer le nom de l'ami à ajouter: ";
-			std::cin >> friendName;
-			if(!_user->addFriend(friendName))
-				std::cout << friendName << " n'existe pas " << std::endl;
-			else
-				std::cout<< "La demande d'ami a été envoytée" << std::endl;	
-		}
-
-		else if(res == 2){
-			_user->listOnlineFriends();
-		}	
-
-		else if(res == 3){
-			std::string friendName;
-			std::cout<< "Veuillez entrer le nom de l'ami à supprimer: ";
-			std::cin >> friendName;
-			_user->removeFriend(friendName);
-		}
-		else if(res == 4){
-			_user->proceedGameAndFriendRequests();
-		}		
-			
-		else if(res ==5){
-			
-			// 1. call listonlinefriends pour montrer tous les amis disponibles
-			// 2. laiser l'utilisateur choisir l'ami puis l'inviter à la partie
-			
-
-		}
-		else if*/
-		if(res == 6){
-			std::string username;
-			std::string message;
-			std::cout << "Please enter the name of the user you want to send a message: ";
-			getline(std::cin, message);
 			this->myFlush();
-			std::cout << "\nPlease enter your message";
-			getline(std::cin, message);
-			this->myFlush();
-			this->_user->sendMessage(username, message);
-			std::cout << "\nMessage Sent!" << std::endl; // Todo check if user exists
 		}
-		/*	
-		else if(res == 7)
-			;
-
-		else
-			std::cout << "Choix invalide veuillez réessayer:" << std::endl;
-			
-	*/
+		switch(res){
+			case 1:
+				/*
+				std::string friendName;
+				std::cout<< "Veuillez entrer le nom de l'ami à ajouter: ";
+				std::cin >> friendName;
+				if(!_user->addFriend(friendName))
+					std::cout << friendName << " n'existe pas " << std::endl;
+				else
+					std::cout<< "La demande d'ami a été envoytée" << std::endl;	
+				*/
+				break;
+			case 2:
+				//_user->listOnlineFriends();
+				break;
+			case 3:
+				/*
+				std::string friendName;
+				std::cout<< "Veuillez entrer le nom de l'ami à supprimer: ";
+				std::cin >> friendName;
+				_user->removeFriend(friendName);
+				*/
+				break;
+			case 4:
+				//user->proceedGameAndFriendRequests();
+				break;
+			case 5:
+				// 1. call listonlinefriends pour montrer tous les amis disponibles
+				// 2. laiser l'utilisateur choisir l'ami puis l'inviter à la partie
+				break;
+			case 6:
+				std::string username;
+				std::string message;
+				std::cout << "Please enter the name of the user you want to send a message: ";
+				getline(std::cin, username);
+				this->myFlush();
+				std::cout << "Please enter your message: ";
+				getline(std::cin, message);
+				this->myFlush();
+				this->_user->sendMessage(username, message);
+				std::cout << "Message Sent!" << std::endl; // Todo check if user exists
+				break;
+		}
 	}
 }
 

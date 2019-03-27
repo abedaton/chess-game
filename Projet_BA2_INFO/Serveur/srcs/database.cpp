@@ -326,6 +326,16 @@ int Database::callback(void* NotUsed, int argc, char** argv, char** columns){
 	return 0;
 }
 
+void Database::resetStuff(){
+	char* zErrMsg = 0;
+	std::string sql = "UPDATE users SET loggedIn = 0, socket = -1;";
+	int rc = sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg);
+	if (rc != SQLITE_OK){
+		std::cout << "Error on resetStuff: " << sqlite3_errmsg(this->db) << std::endl;
+		sqlite3_free(zErrMsg);
+	}
+}
+
 
 // Pour kick un client si il est deja connecter et ce reconnecte
 int Database::callbackDisc(void* NotUsed, int argc, char** argv, char** columns){

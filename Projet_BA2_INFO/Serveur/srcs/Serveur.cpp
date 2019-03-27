@@ -32,6 +32,7 @@ void Serveur::setup(){
 
 void Serveur::mainLoop(){
     this->_db = new Database();
+    this->_db->resetStuff();
 	this->_match = new MatchMaking();
     this->_ready = true;
     std::thread cmdThread(&Serveur::handleCommand, *this);
