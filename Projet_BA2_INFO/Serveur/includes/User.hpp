@@ -77,7 +77,6 @@ class User: public AbstractUser{
 		void getFriendList();
 		void getFriendRequests();
 		void getOnlineFriendList();
-		void getMyInfo();
 		void GetUserInfo();
 		
 };
@@ -85,8 +84,7 @@ class User: public AbstractUser{
 enum Protocol : int {
     PASS = 0, REGISTER, LOGIN, CHAT, WAITFORMATCH, MOV, SURREND, 
     SENDMESSAGE, ADDFRIEND, REMOVEFRIEND,
-	ACCEPTFRIEND, GETFRIENDLIST, GETFRIENDREQUESTS,
-	GETONLINEFRIENDLIST, GETMYINFO, GETUSERINFO
+	ACCEPTFRIEND, GETFRIENDLIST, GETFRIENDREQUESTS, GETUSERINFO
 };
 
 

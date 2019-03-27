@@ -6,6 +6,8 @@ FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
     init_connect();
     init_dock();
 
+    setTheme("pool0");
+
     setCentralWidget(_stack);
     goToLogIn();
 }
@@ -70,10 +72,9 @@ void FenPrincipale::init_dock() {
 
 void FenPrincipale::MenuBar() {
     _menuReglages = menuBar()->addMenu("&Réglages");
-    _menuReglages = menuBar()->addMenu("&Ami(s)");
-    _menuReglages = menuBar()->addMenu("&Thème");
     QAction *actionLangues = new QAction("&Langues", this);
     _menuReglages->addAction(actionLangues);
+    
 }
 
 void FenPrincipale::checkSignIn() {
@@ -126,19 +127,23 @@ void FenPrincipale::goToGame() {
 
 void FenPrincipale::goToClassic() {
     //std::string pool = "pool2";
-    _classicWindow = new PlateauScene("classic", "pool0");
+ 
+    _classicWindow = new PlateauScene("classic", _pool);
+    
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
     
 }
 
 void FenPrincipale::goToTrappist(){
-    _classicWindow = new PlateauScene("trappist","pool1");
+    _classicWindow = new PlateauScene("trappist", _pool);
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
 }
 
 void FenPrincipale::goToMenu() {
+    setFriendMenu();
+    setThemeMenu();
     _stack->setCurrentWidget(_menu);
 }
 
@@ -151,3 +156,56 @@ void FenPrincipale::gameStart(std::string opponent){
     goToClassic();
 }
 */
+void FenPrincipale::showFriendList(){
+    std::cout << "WSH MAGGLE" << std::endl;
+}
+
+void FenPrincipale::setTheme(std::string pool){
+    _pool = pool;
+}
+
+void FenPrincipale::setFriendMenu(){
+    _menuAmis = menuBar()->addMenu("&Ami(s)");
+    QAction *actionAmis = new QAction("&Voir ses amis", this);
+    _menuAmis->addAction(actionAmis);
+    connect(actionAmis,&QAction::triggered,this,&FenPrincipale::showFriendList);
+}
+
+void FenPrincipale::setThemeMenu(){
+    _menuThemes = menuBar()->addMenu("&Thème");
+    QAction* pool0 = new QAction("&Classic",this);
+    _menuThemes->addAction(pool0);
+    connect(pool0,&QAction::triggered,this,&FenPrincipale::setPool0);
+    
+    QAction* pool1 = new QAction("&Trappist",this);
+    _menuThemes->addAction(pool1);
+    connect(pool1,&QAction::triggered,this,&FenPrincipale::setPool1);
+    
+    QAction* pool2 = new QAction("&Donald Trump :)",this);
+    _menuThemes->addAction(pool2);
+    connect(pool2,&QAction::triggered,this,&FenPrincipale::setPool2);
+    
+    QAction* pool3 = new QAction("&Is that us ???",this);
+    _menuThemes->addAction(pool3);
+    connect(pool3,&QAction::triggered,this,&FenPrincipale::setPool3);
+
+    QAction* pool4 = new QAction("&Named Piece",this);
+    _menuThemes->addAction(pool4);
+    connect(pool4,&QAction::triggered,this,&FenPrincipale::setPool4);
+}
+
+void FenPrincipale::setPool0(){
+    setTheme("pool0");
+}
+void FenPrincipale::setPool1(){
+    setTheme("pool1");
+}
+void FenPrincipale::setPool2(){
+    setTheme("pool2");
+}
+void FenPrincipale::setPool3(){
+    setTheme("pool3");
+}
+void FenPrincipale::setPool4(){
+    setTheme("pool4");
+}

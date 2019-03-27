@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_FenPrincipale_t {
-    QByteArrayData data[22];
-    char stringdata0[217];
+    QByteArrayData data[32];
+    char stringdata0[318];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,23 +42,36 @@ QT_MOC_LITERAL(7, 73, 11), // "goToClassic"
 QT_MOC_LITERAL(8, 85, 12), // "goToTrappist"
 QT_MOC_LITERAL(9, 98, 8), // "goToMenu"
 QT_MOC_LITERAL(10, 107, 11), // "sendMessage"
-QT_MOC_LITERAL(11, 119, 6), // "myShow"
-QT_MOC_LITERAL(12, 126, 9), // "gameStart"
-QT_MOC_LITERAL(13, 136, 11), // "std::string"
-QT_MOC_LITERAL(14, 148, 8), // "opponent"
-QT_MOC_LITERAL(15, 157, 15), // "connectionError"
-QT_MOC_LITERAL(16, 173, 3), // "win"
-QT_MOC_LITERAL(17, 177, 4), // "lose"
-QT_MOC_LITERAL(18, 182, 11), // "recvMessage"
-QT_MOC_LITERAL(19, 194, 4), // "name"
-QT_MOC_LITERAL(20, 199, 3), // "mov"
-QT_MOC_LITERAL(21, 203, 13) // "pingForUpdate"
+QT_MOC_LITERAL(11, 119, 14), // "showFriendList"
+QT_MOC_LITERAL(12, 134, 8), // "setTheme"
+QT_MOC_LITERAL(13, 143, 11), // "std::string"
+QT_MOC_LITERAL(14, 155, 4), // "pool"
+QT_MOC_LITERAL(15, 160, 13), // "setFriendMenu"
+QT_MOC_LITERAL(16, 174, 12), // "setThemeMenu"
+QT_MOC_LITERAL(17, 187, 8), // "setPool0"
+QT_MOC_LITERAL(18, 196, 8), // "setPool1"
+QT_MOC_LITERAL(19, 205, 8), // "setPool2"
+QT_MOC_LITERAL(20, 214, 8), // "setPool3"
+QT_MOC_LITERAL(21, 223, 8), // "setPool4"
+QT_MOC_LITERAL(22, 232, 6), // "myShow"
+QT_MOC_LITERAL(23, 239, 9), // "gameStart"
+QT_MOC_LITERAL(24, 249, 8), // "opponent"
+QT_MOC_LITERAL(25, 258, 15), // "connectionError"
+QT_MOC_LITERAL(26, 274, 3), // "win"
+QT_MOC_LITERAL(27, 278, 4), // "lose"
+QT_MOC_LITERAL(28, 283, 11), // "recvMessage"
+QT_MOC_LITERAL(29, 295, 4), // "name"
+QT_MOC_LITERAL(30, 300, 3), // "mov"
+QT_MOC_LITERAL(31, 304, 13) // "pingForUpdate"
 
     },
     "FenPrincipale\0checkSignIn\0\0checkRegister\0"
     "goToRegister\0goToLogIn\0goToGame\0"
     "goToClassic\0goToTrappist\0goToMenu\0"
-    "sendMessage\0myShow\0gameStart\0std::string\0"
+    "sendMessage\0showFriendList\0setTheme\0"
+    "std::string\0pool\0setFriendMenu\0"
+    "setThemeMenu\0setPool0\0setPool1\0setPool2\0"
+    "setPool3\0setPool4\0myShow\0gameStart\0"
     "opponent\0connectionError\0win\0lose\0"
     "recvMessage\0name\0mov\0pingForUpdate"
 };
@@ -70,7 +83,7 @@ static const uint qt_meta_data_FenPrincipale[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      16,   14, // methods
+      25,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -78,22 +91,31 @@ static const uint qt_meta_data_FenPrincipale[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   94,    2, 0x0a /* Public */,
-       3,    0,   95,    2, 0x0a /* Public */,
-       4,    0,   96,    2, 0x0a /* Public */,
-       5,    0,   97,    2, 0x0a /* Public */,
-       6,    0,   98,    2, 0x0a /* Public */,
-       7,    0,   99,    2, 0x0a /* Public */,
-       8,    0,  100,    2, 0x0a /* Public */,
-       9,    0,  101,    2, 0x0a /* Public */,
-      10,    0,  102,    2, 0x0a /* Public */,
-      11,    0,  103,    2, 0x0a /* Public */,
-      12,    1,  104,    2, 0x0a /* Public */,
-      15,    0,  107,    2, 0x0a /* Public */,
-      16,    0,  108,    2, 0x0a /* Public */,
-      17,    0,  109,    2, 0x0a /* Public */,
-      18,    2,  110,    2, 0x0a /* Public */,
-      21,    0,  115,    2, 0x0a /* Public */,
+       1,    0,  139,    2, 0x0a /* Public */,
+       3,    0,  140,    2, 0x0a /* Public */,
+       4,    0,  141,    2, 0x0a /* Public */,
+       5,    0,  142,    2, 0x0a /* Public */,
+       6,    0,  143,    2, 0x0a /* Public */,
+       7,    0,  144,    2, 0x0a /* Public */,
+       8,    0,  145,    2, 0x0a /* Public */,
+       9,    0,  146,    2, 0x0a /* Public */,
+      10,    0,  147,    2, 0x0a /* Public */,
+      11,    0,  148,    2, 0x0a /* Public */,
+      12,    1,  149,    2, 0x0a /* Public */,
+      15,    0,  152,    2, 0x0a /* Public */,
+      16,    0,  153,    2, 0x0a /* Public */,
+      17,    0,  154,    2, 0x0a /* Public */,
+      18,    0,  155,    2, 0x0a /* Public */,
+      19,    0,  156,    2, 0x0a /* Public */,
+      20,    0,  157,    2, 0x0a /* Public */,
+      21,    0,  158,    2, 0x0a /* Public */,
+      22,    0,  159,    2, 0x0a /* Public */,
+      23,    1,  160,    2, 0x0a /* Public */,
+      25,    0,  163,    2, 0x0a /* Public */,
+      26,    0,  164,    2, 0x0a /* Public */,
+      27,    0,  165,    2, 0x0a /* Public */,
+      28,    2,  166,    2, 0x0a /* Public */,
+      31,    0,  171,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -110,7 +132,16 @@ static const uint qt_meta_data_FenPrincipale[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 13,   19,   20,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 13,   24,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 13,   29,   30,
     QMetaType::Void,
 
        0        // eod
@@ -131,13 +162,22 @@ void FenPrincipale::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 6: _t->goToTrappist(); break;
         case 7: _t->goToMenu(); break;
         case 8: _t->sendMessage(); break;
-        case 9: _t->myShow(); break;
-        case 10: _t->gameStart((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 11: _t->connectionError(); break;
-        case 12: _t->win(); break;
-        case 13: _t->lose(); break;
-        case 14: _t->recvMessage((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< std::string(*)>(_a[2]))); break;
-        case 15: _t->pingForUpdate(); break;
+        case 9: _t->showFriendList(); break;
+        case 10: _t->setTheme((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 11: _t->setFriendMenu(); break;
+        case 12: _t->setThemeMenu(); break;
+        case 13: _t->setPool0(); break;
+        case 14: _t->setPool1(); break;
+        case 15: _t->setPool2(); break;
+        case 16: _t->setPool3(); break;
+        case 17: _t->setPool4(); break;
+        case 18: _t->myShow(); break;
+        case 19: _t->gameStart((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 20: _t->connectionError(); break;
+        case 21: _t->win(); break;
+        case 22: _t->lose(); break;
+        case 23: _t->recvMessage((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< std::string(*)>(_a[2]))); break;
+        case 24: _t->pingForUpdate(); break;
         default: ;
         }
     }
@@ -170,13 +210,13 @@ int FenPrincipale::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 16)
+        if (_id < 25)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 16;
+        _id -= 25;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 16)
+        if (_id < 25)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 16;
+        _id -= 25;
     }
     return _id;
 }

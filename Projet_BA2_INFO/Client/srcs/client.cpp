@@ -74,6 +74,7 @@ bool Client::letsRegister(std::string username,std::string password1, std::strin
 		error = "Password doesn't match";
 	} else {
 		error = "Success";
+		this->_name = username;
 		answer = static_cast<bool>(_server->letsRegister(username, password1, email));
 	}
 	return answer; //pair
@@ -83,15 +84,16 @@ bool Client::login(std::string username,std::string password){
 	if (username.empty() || password.empty()){
 		return false;
 	} else {
+		this->_name = username;
 		int res = _server->login(username,password);
 		return static_cast<bool>(res);
-		std::cout << "END LOGIN" << std::endl;
 	}
 }
 
 void Client::connectionError(){
-	if (_interface != nullptr)
+	if (_interface != nullptr){
 		this->_interface->connectionError();
+	}
 }
 
 void Client::exit(){
@@ -132,17 +134,11 @@ void Client::removeFriend(std::string name){
 void Client::acceptFriend(std::string name, bool accept){
 	this->_server->acceptFriend(name, accept);
 }
-void Client::getFriendList(){
-	this->_server->getFriendList();
-}
 void Client::getFriendRequests() {
 	this->_server->getFriendRequests();
 }
-void Client::getOnlineFriendList(){
-	this->_server->getOnlineFriendList();
-}
-void Client::getMyInfo(){
-	this->_server->getMyInfo();
+void Client::getFriendList(){
+	this->_server->getFriendList();
 }
 void Client::getUserInfo(std::string username){
 	this->_server->getUserInfo(username);
@@ -152,6 +148,9 @@ void Client::recvMessage(std::string name, std::string msg){
 }
 void Client::recvFriendRequestsList(std::vector<std::string> vec){
 	this->_interface->recvFriendRequestsList(vec);
+}
+void Client::recvFriendList(std::vector<std::pair<std::string, bool> > frendList){
+	this->_interface->recvFriendList(frendList);
 }
 
 

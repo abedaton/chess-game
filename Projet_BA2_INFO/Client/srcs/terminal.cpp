@@ -48,7 +48,7 @@ void Terminal::friendsWindow(){
 	while(res != 8){
 		std::cout << "\nQue désirez vous faire?: " << std::endl;
 		std::cout << "1) Ajouter un ami " << std::endl;
-		std::cout << "2) Lister tous les amis connectés " << std::endl;
+		std::cout << "2) Lister tous les amis " << std::endl;
 		std::cout << "3) Supprimer un ami " << std::endl;
 		std::cout << "4) Consulter mes demandes d'amis" << std::endl;
 		std::cout << "5) Accepter une demandes d'amis" << std::endl;
@@ -70,15 +70,12 @@ void Terminal::friendsWindow(){
 				this->_user->addFriend(username);
 				break;
 			case 2:
-				//_user->listOnlineFriends();
+				this->_user->getFriendList();
 				break;
 			case 3:
-				/*
-				std::string friendName;
-				std::cout<< "Veuillez entrer le nom de l'ami à supprimer: ";
-				std::cin >> friendName;
-				_user->removeFriend(friendName);
-				*/
+				std::cout << "Veuillez entrer le nom de l'ami à supprimer: ";
+				std::cin >> username;
+				this->_user->removeFriend(username);
 				break;
 			case 4:
 				this->_user->getFriendRequests();
@@ -165,8 +162,7 @@ bool Terminal::registerWindow(){
 			std::cout << "You are now logged in !" << std::endl;
 			this->_username = username;
 			return true;
-		}
-		else{
+		} else {
 			char answer;
 			std::cout << "Write 1 for continue or 2 to go back: ";
 			std::cin >> answer;
@@ -314,6 +310,18 @@ void Terminal::recvFriendRequestsList(std::vector<std::string> vec){
 		}
 	} else {
 		std::cout << "\nYou have no pending requests.. :(" << std::endl;
+	}
+}
+
+void Terminal::recvFriendList(std::vector<std::pair<std::string, bool> > frendList){
+	this->_friendList = frendList;
+	if (frendList.size() > 0){
+		std::cout << "\nYou have " << frendList.size() << " friends: " << std::endl;
+		for (int i = 0; i < frendList.size(); i++){
+			std::cout << "\t- " << frendList[i].first << ": " << (frendList[i].second ? "connected" : "disconnected") << std::endl;
+		}
+	} else {
+		std::cout << "\nSorry you dont have any friend.. :(" << std::endl;
 	}
 }
 

@@ -30,6 +30,17 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void goToTrappist();
     void goToMenu();
     void sendMessage();
+    void showFriendList();
+    void setTheme(std::string pool);
+
+    void setFriendMenu();
+    void setThemeMenu();
+
+    void setPool0();
+    void setPool1();
+    void setPool2();
+    void setPool3();
+    void setPool4();
 
 //////////////////////////////tmp
     void myShow() override{this->show();}
@@ -47,6 +58,9 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void init_stack();
     void init_dock();
     QMenu *_menuReglages;
+    QMenu *_menuAmis;
+    QMenu* _menuThemes;
+
     QStatusBar *_statusBar;
     QStackedWidget *_stack;
     QDockWidget *_dockChat;
@@ -61,6 +75,8 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     PlateauScene *_classicWindow;
     Chat *_chat;
     Timer *_timer;
+
+    std::string _pool;
 
 };
 

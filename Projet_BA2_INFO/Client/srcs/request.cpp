@@ -70,6 +70,9 @@ void Request::listener(){
             case SEEREQUESTS: // 29
                 recvFriendRequestsList(); // voir les amis
                 break;
+            case RECVFRIENDLIST: //30
+                recvFriendList();
+                break;
             default:
 				std::cout << "bad receive in listener: " << protocol << std::endl;
                 this->error();
@@ -122,6 +125,16 @@ std::vector<std::string> Request::recvVector(){
 void Request::recvFriendRequestsList(){
     std::vector<std::string> vecRequests = this->recvVector();
     this->_client->recvFriendRequestsList(vecRequests);
+}
+
+void Request::recvFriendList(){
+    int len = recvInt()-1;
+    std::vector<std::pair<std::string, bool> > frendList(len); 
+    for (int i=0; i<len; i++){
+        frendList[i].first = recvStr();
+        frendList[i].second = static_cast<bool>( recvInt()-1 );
+    }
+    this->_client->recvFriendList(frendList);
 }
 
 void Request::error(){
@@ -294,23 +307,9 @@ void Request::getFriendRequests(){
     endProcess();
 }
 
-void Request::getOnlineFriendList(){
-    waitForProcess();
-    int protocol = 13;
-    sendInt(protocol);
-    endProcess();
-}
-
-void Request::getMyInfo(){
-    waitForProcess();
-    int protocol = 14;
-    sendInt(protocol);
-    endProcess();
-}
-
 void Request::getUserInfo(std::string username){
     waitForProcess();
-    int protocol = 15;
+    int protocol = 13;
     sendInt(protocol);
     sendStr(username);
     endProcess();

@@ -294,11 +294,9 @@ void Database::acceptFriend(std::string friend1, std::string friend2, bool accep
 	std::string sql;
 	if (accept){
 		sql = "UPDATE friendList SET relation = 'ami' WHERE user1 = '" + friend2 + "' AND user2 = '" + friend1 + "' AND relation = 'waiting';";
-		//sql += "INSERT INTO friendList(user1, user2, relation) VALUES ('" + friend1 + "', '" + friend2 + "', 'ami');";
 	} else {
 		sql = "DELETE FROM friendList WHERE (user1 = '" + friend1 + "' AND user2 = '" + friend2 + "') OR (user1 = '" + friend2 + "' AND user2 = '" + friend1 + "') AND relation = 'waiting';";
 	}
-	std::cout << sql << std::endl;
 	int rc = sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg);
 	if (rc != SQLITE_OK){
 		std::cout << "Error on acceptRequest: " << sqlite3_errmsg(this->db) << std::endl;
@@ -308,7 +306,7 @@ void Database::acceptFriend(std::string friend1, std::string friend2, bool accep
 
 void Database::deleteFriend(std::string friend1, std::string friend2){
 	char* zErrMsg = 0;
-	std::string sql = "DELETE FROM friendList WHERE (user1 = '" + friend1 + "' AND user2 = '" + friend2 + "') OR (user1 = '" + friend1 + "' user2 = '" + friend2 + "') AND relation = 'ami';";
+	std::string sql = "DELETE FROM friendList WHERE (user1 = '" + friend1 + "' AND user2 = '" + friend2 + "') OR (user1 = '" + friend2 + "' AND user2 = '" + friend1 + "') AND relation = 'ami';";
 	int rc = sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg);
 	if (rc != SQLITE_OK){
 		std::cout << "Error on deleteFriend: " << sqlite3_errmsg(this->db) << std::endl;
@@ -319,12 +317,13 @@ void Database::deleteFriend(std::string friend1, std::string friend2){
 std::vector<std::string> Database::seeFriends(std::string username){
 	char* zErrMsg = 0;
 	std::vector<std::string> friendList;
-	std::string sql =  "SELECT user1, user2 FROM friendList WHERE (user1 = '" + username + "' OR user2 = '" + username + "' AND relation = 'ami';";
+	std::string sql =  "SELECT user1, user2 FROM friendList WHERE (user1 = '" + username + "') OR (user2 = '" + username + "') AND relation = 'ami';";
 	int rc = sqlite3_exec(this->db, sql.c_str(), callbackSee, &friendList, &zErrMsg);
 	if (rc != SQLITE_OK){
 		std::cout << "Error on seeFriends: " << sqlite3_errmsg(this->db) << std::endl;
 		sqlite3_free(zErrMsg);
 	}
+	return friendList;
 }
 
 std::vector<std::string> Database::seeFriendRequests(std::string username){

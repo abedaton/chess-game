@@ -13,6 +13,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		SuperGame* _game;
 
 		int _gameMod;
+		std::string _name;
 		void lose();
 		void win();
 	public:
@@ -33,9 +34,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		void acceptFriend(std::string name, bool accept) override;
 		void getFriendList() override;
 		void getFriendRequests() override;
-		void getOnlineFriendList() override;
 		void getUserInfo(std::string) override;
-		void getMyInfo() override;
 
 		void click(std::string square) override;
 		void exit() override;
@@ -49,6 +48,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		void movPossibleUpdate(std::vector<std::string> listMov) override;
 
 		void recvFriendRequestsList(std::vector<std::string> vec) override;
+		void recvFriendList(std::vector<std::pair<std::string, bool> > frendList) override;
 
 		int showGui(int argc, char** argv);
 };

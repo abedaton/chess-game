@@ -153,13 +153,7 @@ void User::handleClient(){
             case GETFRIENDREQUESTS: // 12
                 this->getFriendRequests();
                 break;
-            case GETONLINEFRIENDLIST: // 13
-                this->getOnlineFriendList();
-                break;
-            case GETMYINFO: // 14
-                this->getMyInfo();
-                break;
-            case GETUSERINFO: // 15
+            case GETUSERINFO: // 13
                 this->GetUserInfo();
                 break;
             
@@ -286,7 +280,6 @@ void User::sendVector(std::vector<std::string> vec){
 }
 
 void User::sendMessage(){
-    std::cout << "Transfering Message" << std::endl;
     int protocol = 28;
     std::string username = recvStr();
     std::string msg = recvStr(); // messgae du user1 vers user2
@@ -303,7 +296,6 @@ void User::sendMessage(){
 
 /////////////////////////////////////////////////////////////////////
 void User::addFriend(){
-    std::cout << "in AddFriend" << std::endl;
     std::string user = recvStr();
     bool result = this->_db->sendFriendRequest(this->_name, user);
     if (!result){
@@ -312,37 +304,38 @@ void User::addFriend(){
 }
 
 void User::removeFriend(){
-
+    std::string username = recvStr();
+    this->_db->deleteFriend(this->_name, username);
 }
 
 void User::acceptFriend(){
-    std::cout << "in accept friend" << std::endl;
     std::string user = this->recvStr();
     bool answer = (this->recvInt()-1) ? 1 : 0;
-    std::cout << "answer = " << answer << std::endl;
     this->_db->acceptFriend(this->_name, user, answer);
 }
 
-void User::getFriendList(){
-
-}
-
 void User::getFriendRequests(){
-    std::cout << "in getFriendRequests" << std::endl;
     int protocol = 29;
     std::vector<std::string> friendList = this->_db->seeFriendRequests(this->_name);
     sendInt(protocol);
     sendVector(friendList);
 }
 
-void User::getOnlineFriendList(){
-
-}
-
-void User::getMyInfo(){
-
+void User::getFriendList(){
+    int protocol = 30;
+    std::vector<std::string> friendList = this->_db->seeFriends(this->_name);
+    friendList.erase(std::remove(friendList.begin(), friendList.end(), this->_name), friendList.end());
+    sendInt(protocol);
+    sendInt(friendList.size()+1);
+    for (auto userName : friendList){
+        sendStr(userName);
+        int tmp = this->_db->getUserInt("loggedIn", userName);
+        sendInt(tmp+1);
+    }
 }
 
 void User::GetUserInfo(){
+    std::string username;
+    username = recvStr();
 
 }

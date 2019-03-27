@@ -6,7 +6,6 @@
 
 class AbstractInterface { 
     public:
-        std::vector<std::string> _friendRequest;
         virtual void myShow(){}//for gui interface
         virtual void gameStart(std::string opponent) = 0;//+bord
         virtual void connectionError() = 0;
@@ -16,17 +15,20 @@ class AbstractInterface {
         virtual void pingForUpdate() = 0;
 
         virtual void recvFriendRequestsList(std::vector<std::string> vec){this->_friendRequest = vec;}
+        virtual void recvFriendList(std::vector<std::pair<std::string, bool> > frendList){this->_friendList = frendList;}
         struct info {
             int nbGame;
             int nbWin;
             int elo;
-
         };
-    private:
+    protected:
         bool _darkChessMod = false;
         bool _chronoMod = false;
-        std::string _opponentName = "";
+        std::string _ennemyName;
+        std::string  _username;
         struct info _info;
+        std::vector<std::string> _friendRequest;
+        std::vector<std::pair<std::string, bool> > _friendList;
 };
 
 #endif

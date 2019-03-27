@@ -20,11 +20,10 @@ class AbstractClient{
 		virtual void acceptFriend(std::string name, bool accept) = 0;
 		virtual void getFriendList() = 0;
 		virtual void getFriendRequests() = 0;
-		virtual void getOnlineFriendList() = 0;
 		virtual void getUserInfo(std::string username) = 0;
-		virtual void getMyInfo() = 0;
 
 		virtual void recvFriendRequestsList(std::vector<std::string>) = 0;
+		virtual void recvFriendList(std::vector<std::pair<std::string, bool> >) = 0;
 
 		virtual void click(std::string square) = 0;
 		virtual void exit() = 0;

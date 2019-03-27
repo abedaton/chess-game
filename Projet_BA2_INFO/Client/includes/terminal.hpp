@@ -26,14 +26,15 @@ class Terminal: public AbstractInterface{
         void pingForUpdate() override;
 
 		void recvFriendRequestsList(std::vector<std::string> vec) override;
+		void recvFriendList(std::vector<std::pair<std::string, bool> > frendList) override;
+
 
     private:
         AbstractClient* _user;
-        std::string _username;
+
 		bool _gameStart;
 		bool _end;
         //bord
-		std::string _ennemyName;
 
         void firstWindow();
 		bool registerWindow();
