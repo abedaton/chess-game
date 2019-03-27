@@ -22,6 +22,7 @@ void FenPrincipale::init_window() {
 
 void FenPrincipale::init_stack() {
     _register = new Register(this);
+    
     _login = new Login(this);
     _gameWindow = new GameWindow(this);
     _menu = new Menu(this);
@@ -59,6 +60,15 @@ void FenPrincipale::init_dock() {
     _pendulum = new Pendulum(this);
     _dockPendulum->setWidget(_pendulum);
     addDockWidget(Qt::LeftDockWidgetArea, _dockPendulum);
+
+    _advertisement     = new Publicity(this);
+    _dockAdvertisement = new QDockWidget(this);
+    
+    _dockAdvertisement->setWidget(_advertisement);
+    addDockWidget(Qt::BottomDockWidgetArea, _dockAdvertisement);
+    _dockAdvertisement->setMinimumWidth(600);
+    _dockAdvertisement->setMinimumHeight(200);
+    //_dockAdvertisement->setWindowFlags(Qt::Window | Qt::FramelessWindowHint); // setMinimumHeight ne marche plus si je laisse cette ligne
 }
 
 void FenPrincipale::MenuBar() {
