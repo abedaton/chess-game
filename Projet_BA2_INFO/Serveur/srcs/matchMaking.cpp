@@ -22,6 +22,7 @@ void MatchMaking::poolSort(int gameMod, int elo, AbstractUser* player){
     } else {
         rank = 2;
     }
+    std::cout << "gameMod: " << gameMod << ", rank: " << rank << std::endl;
     std::vector<AbstractUser*>* vect = &(pools[gameMod][rank]);
     vect->push_back(player);
     if (vect->size() > 1){

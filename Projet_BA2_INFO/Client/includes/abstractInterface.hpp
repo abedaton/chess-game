@@ -14,6 +14,17 @@ class AbstractInterface {
 		virtual void recvMessage(std::string name, std::string mov) = 0; 
         virtual void pingForUpdate() = 0;
 
+        struct info {
+            int nbGame;
+            int nbWin;
+            int elo;
+
+        };
+    private:
+        bool _darkChessMod = false;
+        bool _chronoMod = false;
+        std::string _opponentName = "";
+        struct info _info;
 };
 
 #endif

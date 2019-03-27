@@ -234,25 +234,26 @@ void Terminal::recvMessage(std::string username, std::string msg){
 }
 
 bool Terminal::selectGameModeWindow(){
-	char chessMod = ' ';
-	char gameMod = ' ';
+	std::string chessMod = " ";
+	std::string gameMod = " ";
 
-    while (chessMod != '1' && chessMod != '2' && chessMod != '3' && chessMod != '4' && chessMod != '5'){
+    while (chessMod != "1" && chessMod != "2" && chessMod != "3" && chessMod != "4" && chessMod != "5"){
         std::cout << "Please, enter 1 for classic, 2 for Dark, 3 for Trappist, 4 for Anti or 5 for return to the menu: " << std::endl;
         std::cin >> chessMod;
 		myFlush();
     }
-	if (chessMod == '5')
+	if (chessMod == "5")
 		return false;
-	while (gameMod != '1' && gameMod != '2' && gameMod != '3' && gameMod != '4'){
+	while (gameMod != "1" && gameMod != "2" && gameMod != "3" && gameMod != "4"){
         std::cout << "Enter 1 for Tour Par tour, 2 for Chrono, 3 for Temps Reel, 4 for return to the menu: " << std::endl;
         std::cin >> gameMod;
 		myFlush();
     }
-	if (gameMod == '4')
+	if (gameMod == "4")
 		return false;
-	else {
-		this->_user->waitForMatch(atoi(&chessMod) + (4 * atoi(&gameMod)));
+	else { 
+		int tmp = std::stoi(chessMod)-1 + (4 * (std::stoi(gameMod)-1));
+		this->_user->waitForMatch(tmp);
 		return true;
 	}
 }

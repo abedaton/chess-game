@@ -53,6 +53,7 @@ void User::chat(){
 
 void User::waitForMatch(){
     int gameMod = recvInt();
+    std::cout << "gamemod = " << gameMod << std::endl;
     int elo = _db->getInt(this->_name, "elo");
     this->_match->waitForMatch(this, gameMod, elo);
 }

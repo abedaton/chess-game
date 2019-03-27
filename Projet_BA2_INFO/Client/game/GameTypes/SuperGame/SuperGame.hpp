@@ -8,11 +8,11 @@
 #include "../../GamePieces/Pieces/Pieces.cpp"
 
 
-class SuperGame{
+class SuperGame{ 
 	private:
 		AbstractPlayer* _client;
 		BaseGameType* _game;
-		std::string _lastClick = nullptr;
+		std::string _lastClick = " ";
 		std::vector<std::string> _ListMov;
 		std::vector<std::string> _bufferMov;
 		bool _inverted; 

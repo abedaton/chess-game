@@ -32,7 +32,7 @@ void Client::waitForMatch(int gameMod){
 
 
 void Client::startingGame(bool playerTurn, std::string opponentName){
-	this->_game = new SuperGame(playerTurn, this,! playerTurn);
+	this->_game = new SuperGame(this->_gameMod, this, playerTurn);
 	this->_interface->gameStart(opponentName);//+ bord
 }
 

@@ -37,11 +37,11 @@ void Request::setup(const char* ip){
     this->_servAddr.sin_port = htons(PORT);
 
     if ((this->_clientSock = socket(AF_INET, SOCK_STREAM, 0)) < 0){
-        this->error();
+        //this->error();
     }
     if (connect(this->_clientSock, reinterpret_cast<struct sockaddr*>(&this->_servAddr), sizeof(this->_servAddr)) < 0){
         std::cout << strerror(errno) << std::endl;
-        this->error();
+        //this->error();
     }
     listener();
 }

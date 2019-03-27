@@ -56,7 +56,7 @@ bool SuperGame::click(std::string square){
     bool res = false;
 	if(std::find(this->_ListMov.begin(), this->_ListMov.end(), square) != this->_ListMov.end()) {
 		res = this->turn(this->_lastClick + ';' + square);
-		this->_lastClick = nullptr;
+		this->_lastClick = " ";
 		_ListMov.clear();
 	} else {
 		this->_lastClick = square;
