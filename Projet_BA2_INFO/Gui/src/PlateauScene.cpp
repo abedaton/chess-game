@@ -1,6 +1,15 @@
 #include "PlateauScene.hpp"
 
-PlateauScene::PlateauScene(int size, std::string pool_name, QWidget *parent) : _size(size), pool(pool_name) , QGraphicsView(parent) {
+PlateauScene::PlateauScene(std::string game_type , std::string pool_name, QWidget *parent) : _size(0), _game_type(game_type) , _pool(pool_name) , QGraphicsView(parent) {
+    
+    if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
+		this->set_size(8);
+	}
+	else if (this->get_game_type() == "trappist") {
+		this->set_size(24);
+	}
+	else{throw std::invalid_argument("mode de jeu inconnu");}
+    
     _scene = new QGraphicsScene;
     _ggbox = new QGraphicsGridLayout;
     //_boxes = new PlateauBox[_size][_size];
@@ -42,8 +51,15 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
     
     //setBlack();
     //setWhite();
-    setHigh("W");
-    setLow("B");
+    if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
+		setHigh("W");
+		setLow("B");
+	}
+	else if (this->get_game_type() == "trappist") {
+		setHighTrappist("W");
+		setLowTrappist("B");
+	}
+	else{throw std::invalid_argument("mode de jeu inconnu");}
 
 }
 
@@ -152,11 +168,129 @@ void PlateauScene::setHigh(std::string suffix){
         addPiece("pion",suffix,6,i);
 }
 
-void PlateauScene::setBlackTrappist(){
-    // TO DO
+void PlateauScene::setHighTrappist(std::string suffix){
+	
+	//ligne 24
+	addPiece("pion",suffix,23,1);
+    addPiece("fauc",suffix,23,3);
+    addPiece("pion",suffix,23,5);
+    addPiece("pion",suffix,23,18);
+    addPiece("fauc",suffix,23,20);
+    addPiece("pion",suffix,23,22);
+    
+    //ligne 23
+	addPiece("pion",suffix,22,2);
+    addPiece("pion",suffix,22,4);
+    addPiece("pion",suffix,22,19);
+    addPiece("pion",suffix,22,21);
+    
+    //ligne 22
+    addPiece("pion",suffix,21,3);
+    addPiece("pion",suffix,21,20);
+    
+    //ligne 17
+	addPiece("pion",suffix,16,4);
+	addPiece("fonc",suffix,16,5);
+	addPiece("chev",suffix,16,10);
+	addPiece("fou",suffix,16,11);
+	addPiece("fou",suffix,16,12);
+	addPiece("chev",suffix,16,13);
+	addPiece("fonc",suffix,16,18);
+	addPiece("pion",suffix,16,19);
+	
+	// ligne 16
+	addPiece("pion",suffix,15,5);
+	addPiece("tour",suffix,15,6);
+	addPiece("chan",suffix,15,7);
+	addPiece("gard",suffix,15,8);
+	addPiece("chev",suffix,15,9);
+	addPiece("fou",suffix,15,10);
+	addPiece("reine",suffix,15,11);
+	addPiece("roi",suffix,15,12);
+	addPiece("fou",suffix,15,13);
+	addPiece("chev",suffix,15,14);
+	addPiece("gard",suffix,15,15);
+	addPiece("chan",suffix,15,16);
+	addPiece("tour",suffix,15,17);
+	addPiece("pion",suffix,15,18);
+	
+	// ligne 15
+	addPiece("pion",suffix,14,6);
+	addPiece("pion",suffix,14,7);
+	addPiece("pion",suffix,14,8);
+	addPiece("pion",suffix,14,9);
+	addPiece("pion",suffix,14,10);
+	addPiece("pion",suffix,14,11);
+	addPiece("pion",suffix,14,12);
+	addPiece("pion",suffix,14,13);
+	addPiece("pion",suffix,14,14);
+	addPiece("pion",suffix,14,15);
+	addPiece("pion",suffix,14,16);
+	addPiece("pion",suffix,14,17);
+	
 }
 
-void PlateauScene::setWhiteTrappist(){
-    // TO DO
+void PlateauScene::setLowTrappist(std::string suffix){
+	
+	// ligne 10
+	addPiece("pion",suffix,9,6);
+	addPiece("pion",suffix,9,7);
+	addPiece("pion",suffix,9,8);
+	addPiece("pion",suffix,9,9);
+	addPiece("pion",suffix,9,10);
+	addPiece("pion",suffix,9,11);
+	addPiece("pion",suffix,9,12);
+	addPiece("pion",suffix,9,13);
+	addPiece("pion",suffix,9,14);
+	addPiece("pion",suffix,9,15);
+	addPiece("pion",suffix,9,16);
+	addPiece("pion",suffix,9,17);
+	
+	// ligne 9
+	addPiece("pion",suffix,8,5);
+	addPiece("tour",suffix,8,6);
+	addPiece("chan",suffix,8,7);
+	addPiece("gard",suffix,8,8);
+	addPiece("chev",suffix,8,9);
+	addPiece("fou",suffix,8,10);
+	addPiece("reine",suffix,8,11);
+	addPiece("roi",suffix,8,12);
+	addPiece("fou",suffix,8,13);
+	addPiece("chev",suffix,8,14);
+	addPiece("gard",suffix,8,15);
+	addPiece("chan",suffix,8,16);
+	addPiece("tour",suffix,8,17);
+	addPiece("pion",suffix,8,18);
+    
+    //ligne 8
+	addPiece("pion",suffix,7,4);
+	addPiece("fonc",suffix,7,5);
+	addPiece("chev",suffix,7,10);
+	addPiece("fou",suffix,7,11);
+	addPiece("fou",suffix,7,12);
+	addPiece("chev",suffix,7,13);
+	addPiece("fonc",suffix,7,18);
+	addPiece("pion",suffix,7,19);
+    
+    //ligne 3
+    addPiece("pion",suffix,2,3);
+    addPiece("pion",suffix,2,20);
+    
+    //ligne 2
+    addPiece("pion",suffix,1,2);
+    addPiece("pion",suffix,1,4);
+    addPiece("pion",suffix,1,19);
+    addPiece("pion",suffix,1,21);
+    
+    //ligne 1
+    addPiece("pion",suffix,0,1);
+    addPiece("fauc",suffix,0,3);
+    addPiece("pion",suffix,0,5);
+    addPiece("pion",suffix,0,18);
+    addPiece("fauc",suffix,0,20);
+    addPiece("pion",suffix,0,22);
+   
 }
-std::string PlateauScene::get_pool() const {return this->pool;}
+std::string PlateauScene::get_pool() const {return this->_pool;}
+std::string PlateauScene::get_game_type() const {return this->_game_type;}
+void PlateauScene::set_size(int taille){this->_size = taille;}
