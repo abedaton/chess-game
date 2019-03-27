@@ -126,14 +126,14 @@ void FenPrincipale::goToGame() {
 
 void FenPrincipale::goToClassic() {
     //std::string pool = "pool2";
-    _classicWindow = new PlateauScene(8, "pool3");
+    _classicWindow = new PlateauScene("classic", "pool0");
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
     
 }
 
 void FenPrincipale::goToTrappist(){
-    _classicWindow = new PlateauScene(24);
+    _classicWindow = new PlateauScene("trappist","pool1");
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
 }
