@@ -45,7 +45,7 @@ void Terminal::friendsWindow(){
 	std::string message;
 	std::string tmpanswer;
 	bool answer;
-	while(res != 8){
+	while(res != 9){
 		std::cout << "\nQue désirez vous faire?: " << std::endl;
 		std::cout << "1) Ajouter un ami " << std::endl;
 		std::cout << "2) Lister tous les amis " << std::endl;
@@ -54,11 +54,12 @@ void Terminal::friendsWindow(){
 		std::cout << "5) Accepter une demandes d'amis" << std::endl;
 		std::cout << "6) Proposer à un ami de faire une partie " << std::endl;
 		std::cout << "7) Chat avec des amis " << std::endl;
-		std::cout << "8) Retourner au menu principal " << std::endl;
+		std::cout << "8) Voir les stats d'un joueur " << std::endl;
+		std::cout << "9) Retourner au menu principal " << std::endl;
 
 		res = 0;
-		while(res == 0 || res > 8){	
-			std::cout << "Enter a number(1-7): ";
+		while(res == 0 || res > 9){	
+			std::cout << "Enter a number(1-9): ";
 			std::cin >> res;
 			this->myFlush();
 		}
@@ -113,6 +114,11 @@ void Terminal::friendsWindow(){
 				std::getline(std::cin, message);
 				this->_user->sendMessage(username, message);
 				std::cout << "Message Sent!" << std::endl; // Todo check if user exists
+				break;
+			case 8:
+				std::cout << "Please enter the name of the user you want to see de stat: ";
+				std::getline(std::cin, username);
+				this->_user->getUserInfo(username);
 				break;
 		}
 	}
@@ -212,7 +218,7 @@ void Terminal::menuWindow(){
 	char answer;
 	bool waitForGame = false;
     while (true){
-        std::cout << "Enter 1 for exit 2 for friend list 3 for parameter";
+        std::cout << "Enter 1 for exit 2 for friend list 3 to see your stat";
 		if (!waitForGame)
 			std::cout <<", 4 for game";
 		std::cout << ": ";
@@ -228,7 +234,7 @@ void Terminal::menuWindow(){
         	} else if (answer == '2'){
         	    friendsWindow();
         	} else if (answer == '3'){
-        	    //TO DO
+        	    this->_user->getUserInfo();
         	} else if (answer == '4' && !waitForGame){
         	    waitForGame = selectGameModeWindow();
         	}
@@ -323,6 +329,32 @@ void Terminal::recvFriendList(std::vector<std::pair<std::string, bool> > frendLi
 	} else {
 		std::cout << "\nSorry you dont have any friend.. :(" << std::endl;
 	}
+}
+
+void Terminal::recvInfo(std::string username, int nbrGames, int win, int elo){
+	if (username == this->_username){
+		this->_info.nbrGames = nbrGames;
+		this->_info.win = win;
+		this->_info.elo = elo;
+	}
+	int lose = nbrGames - win;
+	double ratio = (static_cast<float>(win)/static_cast<float>(nbrGames))*100.0;
+	std::string rank;
+	if (elo < 1000)
+		rank = "bronze";
+	else if (elo < 1700)
+		rank = "argent";
+	else
+		rank = "or";
+
+	std::cout << "\n" << username << " stat:" << std::endl;	
+	std::cout << "\t-nbrGames: " << nbrGames << std::endl;
+	std::cout << "\t-win: " << win << std::endl;
+	std::cout << "\t-lose: " << nbrGames-win << std::endl;
+	std::cout << "\t-Ratio: " << ratio << "\%" << std::endl;
+	std::cout << "\t-Elo(n Musk): " << elo << std::endl;
+	std::cout << "\t-rank: " << rank << std::endl;
+
 }
 
 void Terminal::myFlush(){

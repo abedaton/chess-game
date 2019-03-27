@@ -27,6 +27,7 @@ class Terminal: public AbstractInterface{
 
 		void recvFriendRequestsList(std::vector<std::string> vec) override;
 		void recvFriendList(std::vector<std::pair<std::string, bool> > frendList) override;
+		void recvInfo(std::string username, int nbrGames, int win, int elo) override;
 
 
     private:

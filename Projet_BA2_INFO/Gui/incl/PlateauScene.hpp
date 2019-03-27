@@ -16,6 +16,7 @@ class PlateauScene : public QGraphicsView {
     //void setTrappistBoxes(int x, int y, int sideLenght);
 
     void showMoves(int *moves = nullptr, int* cap = nullptr);
+    void showMoves(std::vector<std::pair<int,int> > deplacement);
     PlateauBox* getPriorityBox() const;
     void setPriorityBox(PlateauBox* box);
     void resetAllColors();

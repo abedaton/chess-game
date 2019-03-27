@@ -337,5 +337,13 @@ void User::getFriendList(){
 void User::GetUserInfo(){
     std::string username;
     username = recvStr();
-
+    int protocol = 31;
+    int games = this->_db->getInt(username, "nbrGames");
+    int win = this->_db->getInt(username, "win");
+    int elo = this->_db->getInt(username, "elo");
+    sendInt(protocol);
+    sendStr(username);
+    sendInt(games);    
+    sendInt(win);
+    sendInt(elo);
 }

@@ -35,6 +35,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		void getFriendList() override;
 		void getFriendRequests() override;
 		void getUserInfo(std::string) override;
+		void getUserInfo() override;
 
 		void click(std::string square) override;
 		void exit() override;
@@ -49,6 +50,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 
 		void recvFriendRequestsList(std::vector<std::string> vec) override;
 		void recvFriendList(std::vector<std::pair<std::string, bool> > frendList) override;
+		void recvInfo(std::string username, int nbrgames, int win, int elo) override;
 
 		int showGui(int argc, char** argv);
 };
