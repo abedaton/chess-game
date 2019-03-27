@@ -316,7 +316,11 @@ void User::removeFriend(){
 }
 
 void User::acceptFriend(){
-
+    std::cout << "in accept friend" << std::endl;
+    std::string user = this->recvStr();
+    bool answer = (this->recvInt()-1) ? 1 : 0;
+    std::cout << "answer = " << answer << std::endl;
+    this->_db->acceptFriend(this->_name, user, answer);
 }
 
 void User::getFriendList(){
@@ -327,10 +331,6 @@ void User::getFriendRequests(){
     std::cout << "in getFriendRequests" << std::endl;
     int protocol = 29;
     std::vector<std::string> friendList = this->_db->seeFriendRequests(this->_name);
-    std::cout << "Size = " << friendList.size() << std::endl;
-    for (int i = 0; i < friendList.size(); i++){
-        std::cout << "plop2: " << friendList[i] << std::endl;
-    }
     sendInt(protocol);
     sendVector(friendList);
 }

@@ -6,6 +6,7 @@
 
 class AbstractInterface { 
     public:
+        std::vector<std::string> _friendRequest;
         virtual void myShow(){}//for gui interface
         virtual void gameStart(std::string opponent) = 0;//+bord
         virtual void connectionError() = 0;
@@ -14,7 +15,7 @@ class AbstractInterface {
 		virtual void recvMessage(std::string name, std::string mov) = 0; 
         virtual void pingForUpdate() = 0;
 
-        virtual void recvFriendRequestsList(std::vector<std::string>){}
+        virtual void recvFriendRequestsList(std::vector<std::string> vec){this->_friendRequest = vec;}
         struct info {
             int nbGame;
             int nbWin;

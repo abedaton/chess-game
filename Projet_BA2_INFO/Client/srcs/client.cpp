@@ -122,7 +122,9 @@ void Client::sendMessage(std::string name,std::string msg){
 		this->_server->sendMessage(name, msg);
 }
 void Client::addFriend(std::string name){
-	this->_server->addFriend(name);
+	if (this->_name != name){
+		this->_server->addFriend(name);
+	}
 }
 void Client::removeFriend(std::string name){
 	this->_server->removeFriend(name);

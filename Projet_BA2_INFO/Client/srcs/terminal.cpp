@@ -43,18 +43,21 @@ void Terminal::friendsWindow(){
 	unsigned int res = 0;
 	std::string username;
 	std::string message;
-	while(res != 7){
+	std::string tmpanswer;
+	bool answer;
+	while(res != 8){
 		std::cout << "\nQue désirez vous faire?: " << std::endl;
 		std::cout << "1) Ajouter un ami " << std::endl;
 		std::cout << "2) Lister tous les amis connectés " << std::endl;
 		std::cout << "3) Supprimer un ami " << std::endl;
 		std::cout << "4) Consulter mes demandes d'amis" << std::endl;
-		std::cout << "5) Proposer à un ami de faire une partie " << std::endl;
-		std::cout << "6) Chat avec des amis " << std::endl;
-		std::cout << "7) Retourner au menu principal " << std::endl;
+		std::cout << "5) Accepter une demandes d'amis" << std::endl;
+		std::cout << "6) Proposer à un ami de faire une partie " << std::endl;
+		std::cout << "7) Chat avec des amis " << std::endl;
+		std::cout << "8) Retourner au menu principal " << std::endl;
 
 		res = 0;
-		while(res == 0 || res > 7){	
+		while(res == 0 || res > 8){	
 			std::cout << "Enter a number(1-7): ";
 			std::cin >> res;
 			this->myFlush();
@@ -63,6 +66,7 @@ void Terminal::friendsWindow(){
 			case 1:
 				std::cout<< "Veuillez entrer le nom de l'ami à ajouter: ";
 				std::cin >> username;
+				
 				this->_user->addFriend(username);
 				break;
 			case 2:
@@ -80,10 +84,32 @@ void Terminal::friendsWindow(){
 				this->_user->getFriendRequests();
 				break;
 			case 5:
+				std::cout<< "Veuillez entrer le nom de l'ami pour réponde à sa demande d'amis: ";
+				std::cin >> username;
+				this->myFlush();
+				if(std::find(this->_friendRequest.begin(), this->_friendRequest.end(), username) == this->_friendRequest.end()){
+					std::cout << "Cette personne ne vous à pas demandé en ami" << std::endl;
+					break;
+				}
+					
+				std::cout << "Acceptez vous ça demande d'amis(yes, no): ";
+				std::cin >> tmpanswer;
+				this->myFlush();
+				if (tmpanswer == "yes"){
+					answer = true;
+				} else if(tmpanswer == "no"){
+					answer = false;
+				} else {
+					std::cout << "Invalid input" << std::endl;
+					break;
+				}
+				this->_user->acceptFriend(username, answer);
+				break;
+			case 6:
 				// 1. call listonlinefriends pour montrer tous les amis disponibles
 				// 2. laiser l'utilisateur choisir l'ami puis l'inviter à la partie
 				break;
-			case 6:
+			case 7:
 				std::cout << "Please enter the name of the user you want to send a message: ";
 				std::getline(std::cin, username);
 				std::cout << "Please enter your message: ";
@@ -280,6 +306,7 @@ void Terminal::gameWindow(){
 }
 
 void Terminal::recvFriendRequestsList(std::vector<std::string> vec){
+	this->_friendRequest = vec;
 	if (vec.size() > 0){
 		std::cout << "\nYou have " << vec.size() << " pending requests: " << std::endl;
 		for (int i = 0; i < vec.size(); i++){

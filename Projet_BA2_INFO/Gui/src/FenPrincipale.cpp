@@ -70,6 +70,8 @@ void FenPrincipale::init_dock() {
 
 void FenPrincipale::MenuBar() {
     _menuReglages = menuBar()->addMenu("&Réglages");
+    _menuReglages = menuBar()->addMenu("&Ami(s)");
+    _menuReglages = menuBar()->addMenu("&Thème");
     QAction *actionLangues = new QAction("&Langues", this);
     _menuReglages->addAction(actionLangues);
 }
