@@ -1,89 +1,27 @@
 #include "ChessItem.hpp"
 
-ChessItem::ChessItem(std::string pieceType, QGraphicsItem *parent) : QGraphicsPixmapItem(parent){
-    setPicture(pieceType);
+ChessItem::ChessItem(std::string pieceType,std::string pool_name,std::string suffix, int size, QGraphicsItem *parent) : _suffix(suffix), _size(size), QGraphicsPixmapItem(parent){
+    setPicture(pieceType,pool_name);
 }
 
-void ChessItem::setPicture(std::string pieceType){
-    if(pieceType == "pionB"){
-        QPixmap pic("./Gui/img/pionB.png");
-        pic = pic.scaled(65,65);
-        setPixmap(pic);
-    }
 
-    else if(pieceType == "pionW"){
-        QPixmap pic("./Gui/img/pionW.png");
-        pic = pic.scaled(65,65);
-        setPixmap(pic);
-    }
+std::string ChessItem::get_common_path(){return "./Gui/img";}
+
+void ChessItem::setPicture(std::string pieceType,std::string pool){
+	
+	std::string pic_name;
+	
+	std::stringstream ss;
+	ss<<this->get_common_path();
+	if (pool != "") {ss<<"/"<<pool<<"/";}
+	ss<<pieceType<<_suffix<<".png";
+	pic_name = ss.str(); // ! pas d'utilisation de ss.str() directement (-> obligé de passer par variable) sinon peut generer problèmes!
+	const QString qstr = QString::fromStdString(pic_name);
+	
+	QPixmap pic(qstr);
     
-    // FOU
-    else if(pieceType == "fouB"){
-        QPixmap pic("./Gui/img/fouB.png");
-        pic = pic.scaled(65,65);
-        setPixmap(pic);
-    }
-
-    else if(pieceType == "fouW"){
-        QPixmap pic("./Gui/img/fouW.png");
-        pic = pic.scaled(65,65);
-        setPixmap(pic);
-    }
-
-    // TOUR
-    else if(pieceType == "tourB"){
-        QPixmap pic("./Gui/img/tourB.png");
-        pic = pic.scaled(65,65);
-        setPixmap(pic);
-    }
-
-    else if(pieceType == "tourW"){
-        QPixmap pic("./Gui/img/tourW.png");
-        pic = pic.scaled(65,65);
-        setPixmap(pic);
-    }
-
-    // CHEVALIER
-    else if(pieceType == "chevB"){
-        QPixmap pic("./Gui/img/chevB.png");
-        pic = pic.scaled(65,65);
-        setPixmap(pic);
-    }
-
-    else if(pieceType == "chevW"){
-        QPixmap pic("./Gui/img/chevW.png");
-        pic = pic.scaled(65,65);
-        setPixmap(pic);
-    }
-
-    // REINE
-    else if(pieceType == "reineB"){
-        QPixmap pic("./Gui/img/reineB.png");
-        pic = pic.scaled(65,65);
-        setPixmap(pic);
-    }
-
-    else if(pieceType == "reineW"){
-        QPixmap pic("./Gui/img/reineW.png");
-        pic = pic.scaled(65,65);
-        setPixmap(pic);
-    }
-
-    //ROI
-
-    else if(pieceType == "roiB"){
-        QPixmap pic("./Gui/img/roiB.png");
-        pic = pic.scaled(65,65);
-        setPixmap(pic);
-    }
-
-    else if(pieceType == "roiW"){
-        QPixmap pic("./Gui/img/roiW.png");
-        pic = pic.scaled(65,65);
-        setPixmap(pic);
-    }
-
-
+    pic = pic.scaled(_size,_size);
+    setPixmap(pic);
 
 }
 /*

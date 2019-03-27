@@ -37,7 +37,7 @@ class Register : public QWidget {
     QLineEdit *_mdp1;
     QLineEdit *_mdp2;
 
-    std::string _linesEditText[3];
+    std::string _linesEditText[4];
 
     protected:
     void keyPressEvent(QKeyEvent *);

@@ -64,8 +64,9 @@ void Register::keyPressEvent(QKeyEvent *event) {
 
 std::string* Register::getLinesEditText(){
     _linesEditText[0] = _nom->text().toStdString();
-    _linesEditText[1] = _mdp1->text().toStdString();
-    _linesEditText[2] = _email->text().toStdString();
-
+    _linesEditText[1] = _email->text().toStdString();
+    _linesEditText[2] = _mdp1->text().toStdString();
+    _linesEditText[3] = _mdp2->text().toStdString();
+    
     return _linesEditText;
 }

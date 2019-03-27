@@ -103,7 +103,7 @@ void FenPrincipale::checkRegister() {
         _statusBar->showMessage("Passwords do not match");
     } else {
         std::string* text = _register->getLinesEditText();
-        if(_client->letsRegister(text[0],text[1], "TO DO",text[2])){
+        if(_client->letsRegister(text[0], text[2], text[3], text[1])){
             goToMenu();
             _statusBar->showMessage("Welcome new user !", 5000);
         }
@@ -123,7 +123,8 @@ void FenPrincipale::goToGame() {
 }
 
 void FenPrincipale::goToClassic() {
-    _classicWindow = new PlateauScene(8);
+    //std::string pool = "pool2";
+    _classicWindow = new PlateauScene(8, "pool3");
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
     
