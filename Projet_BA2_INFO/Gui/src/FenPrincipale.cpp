@@ -14,7 +14,7 @@ FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
 
 void FenPrincipale::init_window() {
     setWindowTitle("On Veut Pas D'Échec");
-    setWindowIcon(QIcon("img/chess_icon.png"));
+    setWindowIcon(QIcon("./Gui/img/logo_compl_v1.png"));
     // setStyleSheet("background-image:url(img/retro_space.png)");
     resize(QDesktopWidget().availableGeometry(this).size() * 0.5);
     _statusBar = new QStatusBar(this);
@@ -71,17 +71,19 @@ void FenPrincipale::init_dock() {
     _dockFriendList->setWidget(_friendList);
     addDockWidget(Qt::LeftDockWidgetArea, _dockFriendList);
     _dockFriendList->setFloating(true);
-    _dockFriendList->setAllowedAreas( Qt::NoDockWidgetArea );
+    _dockFriendList->setAllowedAreas(Qt::NoDockWidgetArea);
     
     _publicity = new Publicity(this);
     _dockPublicity = new QDockWidget(this);
     _dockPublicity->setWidget(_publicity);
     addDockWidget(Qt::BottomDockWidgetArea, _dockPublicity);
+    _dockPublicity->setFloating(true);
+    _dockPublicity->setAllowedAreas(Qt::NoDockWidgetArea);
 
     _dockChat->hide();
     _dockTimer->hide();
     _dockFriendList->hide();
-    _dockPublicity->hide();
+    // _dockPublicity->hide();
 }
 
 void FenPrincipale::MenuBar() {

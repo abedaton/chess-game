@@ -11,11 +11,15 @@ void Publicity::init()
 {
 	_timer = new QTimer(this); 
 	_pub_label = new QLabel(this);
-	setPubToRandomImage();
+    _pub_label->setPixmap(QPixmap("./Gui/advertisements/achraf_pub2.png"));
+    _vBoxLayout = new QVBoxLayout();
+    _vBoxLayout->addWidget(_pub_label);
+    setLayout(_vBoxLayout);
+	// setPubToRandomImage();
 	
-	connect(_timer, SIGNAL(timeout()), this, SLOT(on_timer_timeout()));
-	//_timer->start(2*60*1000); 
-	_timer->start(30*1000); 
+	// connect(_timer, SIGNAL(timeout()), this, SLOT(on_timer_timeout()));
+	// //_timer->start(2*60*1000); 
+	// _timer->start(30*1000); 
 }
 
 void Publicity::setPubToRandomImage()

@@ -16,7 +16,7 @@ class Publicity : public QWidget {
     void setPubToRandomImage();
 
 
-    
+    QVBoxLayout *_vBoxLayout;
     QLabel* _pub_label;
     QTimer *_timer;
     
