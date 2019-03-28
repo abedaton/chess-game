@@ -89,8 +89,7 @@ class BaseChess{
         
         virtual std::pair<bool,bool> execute_forced_step(std::string,Player*);
         virtual std::pair<bool,bool> execute_forced_step(std::string, bool,Player*);
-				std::vector<std::pair<int, int>>* check_all_mov(Chesspiece *pe);
-				std::vector<std::pair<int, int>>* loop_moves(Chesspiece *pe, std::string mode);
+				
         virtual std::pair<bool,bool> execute_forced_step(std::string, bool, std::string,Player*);
         virtual std::pair<bool,bool> execute_forced_step(std::string,std::string,Player*);
 				Plateau* get_plateau() const;
@@ -226,7 +225,8 @@ class BaseChess{
 
 		bool more_dangers_part(std::pair<int,int>, Player*, int, std::string);
 		
-		BitypeVar<MatPosi*>* in_endangered_part(std::pair<int,int>, Player*, int, std::string);			
+		BitypeVar<MatPosi*>* in_endangered_part(std::pair<int,int>, Player*, int, std::string);
+		BitypeVar<MatPosi*>* is_endangered(MatPosi*,Player*,std::string);		
 		BitypeVar<MatPosi*>* is_endangered(MatPosi*,Player*);
 		BitypeVar<MatPosi*>* is_endangered(MatPosi*);
 		
@@ -271,6 +271,14 @@ class BaseChess{
 		
 		AbstractAffichage* get_affich() const;
 		void set_affich(AbstractAffichage*);
+		
+		bool verify_my_king();
+		bool consequences_legal_out_move(bool,MatPosi*);
+		
+		
+		std::vector<std::pair<int,int>>* return_possible_mouvement(Chesspiece*,std::string);
+		Chesspiece* return_pe_from_str(std::string);
+		std::vector<std::pair<int,int>> return_pe_mov(std::string);
 		
 };
 #endif

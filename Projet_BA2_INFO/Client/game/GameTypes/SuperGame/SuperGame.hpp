@@ -19,7 +19,7 @@ class SuperGame{
 
 		bool turn(std::string first);
 
-		std::vector<std::string> split(std::string strToSplit);
+		//std::vector<std::string> split(std::string strToSplit);
 		
 
 	public:

@@ -44,6 +44,7 @@ void BaseGameType::change_active_player(){
 	this->get_game()->change_active_player();
 }
 
+/*
 std::pair<int, int> BaseGameType::str_mov_to_int(std::string square){
 	char line = std::toupper(square[0]);
 	std::string col = square.substr(1, square.size());
@@ -59,6 +60,9 @@ std::pair<int, int> BaseGameType::str_mov_to_int(std::string square){
 
 	return std::make_pair(int_line, int_col);
 }
+*/
+
+std::vector<std::pair<int,int>> BaseGameType::return_pe_mov(std::string coords){return this->get_game()->return_pe_mov(coords);}
 
 
 #endif

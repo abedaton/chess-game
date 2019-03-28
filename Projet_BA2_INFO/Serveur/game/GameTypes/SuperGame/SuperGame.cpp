@@ -60,14 +60,21 @@ bool SuperGame::click(std::string square){
 		_ListMov.clear();
 	} else {
 		this->_lastClick = square;
-        Chesspiece* pe = this->_game->get_plateau()->get_piece(this->_game->str_mov_to_int(square)).get_var();
-		std::vector<std::pair<int,int> > tmp = *this->_game->get_game()->check_all_mov(pe);
+		
+		std::vector<std::pair<int,int>> tmp = this->_game->return_pe_mov(square);
+		
+		//MatPosi* mpos = new MatPosi(square);
+        //Chesspiece* pe = this->_game->get_plateau()->get_piece(mpos->to_pair()).get_var();
+		//std::vector<std::pair<int,int> > tmp = *this->_game->get_game()->check_all_mov(pe);
+		
         this->_ListMov.clear();
+        
         std::string tmp2;
         for (auto& i : tmp){
             tmp2 = static_cast<char>((i.first + 65));
             this->_ListMov.push_back(tmp2 + std::to_string(i.second));
         }
+        
 	}
     return res;
 }

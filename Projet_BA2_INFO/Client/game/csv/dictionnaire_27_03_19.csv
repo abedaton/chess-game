@@ -57,3 +57,5 @@ liste_capt;liste capture;capture list;vang lijst;
 not_pos_roc;roque impossible;impossible roc;roc onmogelijk;
 draw;EGALITE;DRAW;GELIJK SPEL;
 oblige_capt;vous etes oblige de capturer quand vous le pouvez;you need to capt when you have the possibility;u moet nemen als u de mogelijkheid heeft;
+mise_roi_danger;vous ne pouvez par mettre votre roi en danger!;You can't put your king in danger!;U kunt uw koning niet in gevaar zeten!;
+laisse_roi_danger;vous ne pouvez par laisser votre roi en danger!;You can't leave your king in danger!;U kunt uw koning niet in gevaar laten!;
