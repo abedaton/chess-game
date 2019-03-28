@@ -63,7 +63,8 @@ HEADERS += Gui/incl/FenPrincipale.hpp \
            Client/includes/request.hpp\
            Client/includes/terminal.hpp\
            Client/game/common/MyException/MyOstream/MyOstream.hpp \
-           Client/game/common/MyException/MyException.hpp
+           Client/game/common/MyException/MyException.hpp \
+    Gui/incl/StatWindow.hpp
 
 SOURCES += Gui/src/FenPrincipale.cpp \
            Gui/src/GameWindow.cpp \
@@ -83,4 +84,5 @@ SOURCES += Gui/src/FenPrincipale.cpp \
            Client/srcs/client.cpp \
            Client/srcs/request.cpp \
            Client/srcs/terminal.cpp\
+    Gui/src/StatWindow.cpp
            

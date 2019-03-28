@@ -28,10 +28,12 @@ void FenPrincipale::init_stack() {
     _gameWindow = new GameWindow(this);
     _menu = new Menu(this);
     _stack = new QStackedWidget(this);
+    _statWindow = new StatWindow(this);
     _stack->addWidget(_login);
     _stack->addWidget(_register);
     _stack->addWidget(_menu);
     _stack->addWidget(_gameWindow);
+    _stack->addWidget(_statWindow);
 }
 
 void FenPrincipale::init_connect() {
@@ -51,8 +53,11 @@ void FenPrincipale::init_connect() {
     
     connect(_menu->getNewGame(), SIGNAL(clicked()), this, SLOT(goToGame()));
     connect(_menu->getExit(), SIGNAL(clicked()), qApp, SLOT(quit()));
+    connect(_menu->getStat(), SIGNAL(clicked()), this, SLOT(goToStat()));
     connect(_friendList->getPushButtonAddFriend(), SIGNAL(clicked()), this, SLOT(addFriend()));
     connect(_friendList->getPushButtonRemoveFriend(), SIGNAL(clicked()), this, SLOT(removeFriend()));
+
+
 }
 
 void FenPrincipale::init_dock() {
@@ -141,6 +146,10 @@ void FenPrincipale::goToGame() {
     _stack->setCurrentWidget(_gameWindow);
 }
 
+void FenPrincipale::goToStat(){
+    _stack->setCurrentWidget(_statWindow);
+}
+
 void FenPrincipale::goToClassic() {
     //std::string pool = "pool2";
  
@@ -148,6 +157,7 @@ void FenPrincipale::goToClassic() {
     
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
+    //_client->waitForMatch(1);
     
 }
 

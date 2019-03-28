@@ -10,6 +10,7 @@
 #include "Timer.hpp"
 #include "PlateauScene.hpp"
 #include "Register.hpp"
+#include "StatWindow.hpp"
 #include <QtWidgets>
 #include <iostream>
 
@@ -32,6 +33,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void goToClassic();
     void goToTrappist();
     void goToMenu();
+    void goToStat();
     void sendMessage();
     void showFriendList();
     void setTheme(std::string pool);
@@ -82,6 +84,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     Menu *_menu;
     GameWindow *_gameWindow;
     PlateauScene *_classicWindow;
+    StatWindow* _statWindow;
     Chat *_chat;
     Timer *_timer;
 
