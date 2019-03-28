@@ -1,5 +1,13 @@
 #include "FenPrincipale.hpp"
 
+// TODO link list d'amis
+// TODO link chat
+// TODO link le jeu
+// TODO dark chess brouillard
+// TODO leaderboard
+// TODO timer
+// TODO fenetre d'attend matchmaking
+
 FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
     init_window();
     init_stack();
@@ -56,8 +64,7 @@ void FenPrincipale::init_connect() {
     connect(_menu->getStat(), SIGNAL(clicked()), this, SLOT(goToStat()));
     connect(_friendList->getPushButtonAddFriend(), SIGNAL(clicked()), this, SLOT(addFriend()));
     connect(_friendList->getPushButtonRemoveFriend(), SIGNAL(clicked()), this, SLOT(removeFriend()));
-
-
+    connect(_friendList->getListWidgetFriendList(), SIGNAL(itemClicked(QListWidgetItem *)),this, SLOT(showFriend(QListWidgetItem *)));
 }
 
 void FenPrincipale::init_dock() {
@@ -88,7 +95,7 @@ void FenPrincipale::init_dock() {
     _dockChat->hide();
     _dockTimer->hide();
     _dockFriendList->hide();
-    // _dockPublicity->hide();
+    _dockPublicity->hide();
 }
 
 void FenPrincipale::MenuBar() {
@@ -243,4 +250,16 @@ void FenPrincipale::setPool3(){
 }
 void FenPrincipale::setPool4(){
     setTheme("pool4");
+}
+
+void FenPrincipale::showFriend(QListWidgetItem *item){
+    QCursor cursor;
+    QPoint point = this->mapFromGlobal(cursor.pos());
+    QMenu menu;
+    menu.addAction("Chat");
+    menu.addAction("profile");
+    menu.addAction("Chat");
+    menu.addAction("Chat");
+    menu.addAction("Chat");
+    menu.exec(point);
 }

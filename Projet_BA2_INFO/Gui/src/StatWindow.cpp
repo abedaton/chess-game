@@ -25,7 +25,7 @@ void StatWindow::init_layout(){
 }
 
 void StatWindow::showPlayerStats(){
-    if (_lineEdit->text().isEmpty()){
+    if (_search->text().isEmpty()){
         //Check dans la data base les stats du joueur connecté
     } else {
         //_lineEdit->text() et on cherche dans la database

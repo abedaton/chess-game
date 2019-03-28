@@ -11,6 +11,7 @@
 #include "PlateauScene.hpp"
 #include "Register.hpp"
 #include "StatWindow.hpp"
+
 #include <QtWidgets>
 #include <iostream>
 
@@ -39,6 +40,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void setTheme(std::string pool);
     void addFriend();
     void removeFriend();
+    void showFriend(QListWidgetItem *item);
 
 
     void setFriendMenu();
