@@ -16,7 +16,12 @@ class AbstractInterface {
 
         virtual void recvFriendRequestsList(std::vector<std::string> vec){this->_friendRequest = vec;}
         virtual void recvFriendList(std::vector<std::pair<std::string, bool> > frendList){this->_friendList = frendList;}
-        virtual void recvInfo(std::string username, int nbrGames, int win, int elo){}
+        virtual void recvInfo(std::string username, int nbrGames, int win, int elo){
+			(void)username;
+			(void)nbrGames;
+			(void)win;
+			(void)elo;
+		}
         struct info {
             int nbrGames;
             int win;

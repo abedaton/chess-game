@@ -965,8 +965,8 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 	Trinome<std::string,BitypeVar<Chesspiece*>,std::pair<bool,bool>>* roc_trinome;
 	std::pair<bool,bool> roc_bool_info;
 	
-	Roi* roi;
-	Tour* tour;
+	Roi* roi = nullptr;
+	Tour* tour = nullptr;
 	
 	bool in_is_king;
 	bool in_is_tour;
@@ -1010,7 +1010,7 @@ Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* BaseChess:
 	/* fonction lancé suite a une demande de roc en ayant spécifié une piece sur deux */
 	
 	Chesspiece* in_piece;
-	Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* res;
+	Trinome<Trinome<bool,bool,bool>*,BitypeVar<Chesspiece*>,std::string>* res = nullptr;
 
 	if (in_pe.get_state() == true){
 		in_piece = in_pe.get_var();
@@ -2267,8 +2267,8 @@ bool BaseChess::verify_kings(){
 	
 	//MatPosi* mpos_echec;
 	
-	Chesspiece* active_player_king;
-	Chesspiece* non_active_player_king;
+	Chesspiece* active_player_king = nullptr;
+	Chesspiece* non_active_player_king = nullptr;
 	
 	long long unsigned int i=0;
 	while(i<vect->size() and (not(act_found) or not(non_act_found))){ // 1 seul roi a trouver

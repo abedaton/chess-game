@@ -272,8 +272,8 @@ std::pair<bool, bool> DarkChess::execute_forced_step(BitypeVar<Trinome<std::stri
 
 					bool in_is_king, in_is_tour;
 
-					Roi *roi;
-					Tour *tour;
+					Roi *roi = nullptr;
+					Tour *tour = nullptr;
 
 					bool good_type_in_pe = true;
 

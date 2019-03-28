@@ -1,6 +1,6 @@
 #include "PlateauScene.hpp"
 
-PlateauScene::PlateauScene(std::string game_type , std::string pool_name, QWidget *parent) : _size(0), _game_type(game_type) , _pool(pool_name) , QGraphicsView(parent) {
+PlateauScene::PlateauScene(std::string game_type , std::string pool_name, QWidget *parent) : QGraphicsView(parent), _size(0), _game_type(game_type) , _pool(pool_name){
     
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
 		this->set_size(8);
@@ -21,7 +21,7 @@ PlateauScene::PlateauScene(std::string game_type , std::string pool_name, QWidge
     setBoxes(0, 100, 520/_size);
     //setTrappistBoxes(0, 100, 17);
     
-    int moves[] = {1, 2, 3, 4};
+    //int moves[] = {1, 2, 3, 4}; ------------------------------------------------- !!! enleve le warning
 
     //showMoves(moves);
 }
@@ -108,14 +108,14 @@ void PlateauScene::showMoves(std::vector<std::pair<int,int> > deplacement){
 void PlateauScene::showMoves(int *moves, int *cap) {
     
     int x, y;
-    for (int i = 0; i < sizeof(moves)/sizeof(moves[0]); ++i) {
+    for (unsigned i = 0; i < sizeof(moves)/sizeof(moves[0]); ++i) {
         x = moves[i]/_size;
         y = moves[i]%_size;
 
         _boxes[x][y]->setColor(Qt::red);
     }
     
-    for (int i = 0; i < sizeof(cap)/sizeof(cap[0]); ++i) {
+    for (unsigned i = 0; i < sizeof(cap)/sizeof(cap[0]); ++i) {
         x = cap[i]/_size;
         y = cap[i]%_size;
 

@@ -28,6 +28,7 @@ int main(int argc,char** argv){
     }
     if (goodParam){
         Client* client = new Client(ip.c_str() , terminalMod, argc, argv);
+        (void)(*client); // OK????
     } else {
         std::cout << "Invalide parameter." << std::endl;
     }

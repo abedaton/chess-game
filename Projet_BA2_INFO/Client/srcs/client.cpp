@@ -8,6 +8,7 @@ Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(n
 	this->_server = new Request(this, ip);
 	if (terminalMod){
 		AbstractInterface* useless = new Terminal(this);
+		(void)useless;
 	} else {
 		showGui(argc, argv);
 	}
@@ -97,8 +98,8 @@ void Client::connectionError(){
 }
 
 void Client::exit(){
-	if (_interface != nullptr)
-		delete this->_interface;
+	//if (_interface != nullptr) --------------------------------------------------------- // !!! enleve warning (classe abstraite)
+	//	delete this->_interface;
 	if (_game != nullptr)
 		delete _game;
 	delete _server;
@@ -117,6 +118,7 @@ void Client::exit(){
 
 void Client::movPossibleUpdate(std::vector<std::string> listMov){
 	//TO DO
+	(void)listMov;
 }
 
 void Client::sendMessage(std::string name,std::string msg){

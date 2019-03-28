@@ -8,9 +8,9 @@
 
 class Client: public AbstractPlayer, public AbstractClient{
 	private:
-		AbstractInterface* _interface;
 		Request* _server;
 		SuperGame* _game;
+		AbstractInterface* _interface;
 
 		int _gameMod;
 		std::string _name;

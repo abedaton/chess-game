@@ -1,6 +1,6 @@
 #include "ChessItem.hpp"
 
-ChessItem::ChessItem(std::string pieceType,std::string pool_name,std::string suffix, int size, QGraphicsItem *parent) : _suffix(suffix), _size(size), QGraphicsPixmapItem(parent){
+ChessItem::ChessItem(std::string pieceType,std::string pool_name,std::string suffix, int size, QGraphicsItem *parent) : QGraphicsPixmapItem(parent), _size(size), _suffix(suffix){
     setPicture(pieceType,pool_name);
 }
 

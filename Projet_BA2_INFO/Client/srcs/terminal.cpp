@@ -3,7 +3,7 @@
 
 #include "../includes/terminal.hpp"
 
-Terminal::Terminal(AbstractClient* client): _user(client), _end(false), _gameStart(false) { 
+Terminal::Terminal(AbstractClient* client): _user(client), _gameStart(false), _end(false) { 
 	client->setInterface(this);
 	firstWindow();
 }
@@ -19,6 +19,7 @@ void Terminal::connectionError(){
 }
 
 void Terminal::gameStart(std::string opponent){ //bord
+	(void)opponent;
 	this->_gameStart = true;
     std::cout << "Game is starting. Please press a random key to continue" << std::endl;
 }
@@ -311,7 +312,7 @@ void Terminal::recvFriendRequestsList(std::vector<std::string> vec){
 	this->_friendRequest = vec;
 	if (vec.size() > 0){
 		std::cout << "\nYou have " << vec.size() << " pending requests: " << std::endl;
-		for (int i = 0; i < vec.size(); i++){
+		for (unsigned i = 0; i < vec.size(); i++){
 			std::cout << "\t- " << vec[i] << std::endl;
 		}
 	} else {
@@ -323,7 +324,7 @@ void Terminal::recvFriendList(std::vector<std::pair<std::string, bool> > frendLi
 	this->_friendList = frendList;
 	if (frendList.size() > 0){
 		std::cout << "\nYou have " << frendList.size() << " friends: " << std::endl;
-		for (int i = 0; i < frendList.size(); i++){
+		for (unsigned i = 0; i < frendList.size(); i++){
 			std::cout << "\t- " << frendList[i].first << ": " << (frendList[i].second ? "connected" : "disconnected") << std::endl;
 		}
 	} else {
@@ -337,7 +338,7 @@ void Terminal::recvInfo(std::string username, int nbrGames, int win, int elo){
 		this->_info.win = win;
 		this->_info.elo = elo;
 	}
-	int lose = nbrGames - win;
+	//int lose = nbrGames - win; //--------------------------------------------------------- !!! enleve warning
 	double ratio = (static_cast<float>(win)/static_cast<float>(nbrGames))*100.0;
 	std::string rank;
 	if (elo < 1000)

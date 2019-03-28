@@ -73,30 +73,36 @@ bool SuperGame::click(std::string square){
 }
 
 bool SuperGame::turn(std::string mov){
+	bool result = false;
     if (! this->_game->is_high_active()){
 		this->_client->mov(mov);
         std::pair<bool, bool> res = this->_game->execute_step(mov, "player1", this->_inverted);
 		if (res.second)
-			return true;
-	} else {
+			result = true;
+	}
+	else {
 		this->_bufferMov.push_back(mov);
 	}
+	return result;
 }
 
 bool SuperGame::opponentMov(std::string mov){
+	bool result = false;
     std::pair<bool, bool> res = this->_game->execute_step(mov, "player2",! this->_inverted);
 	if (res.second)
-		return true;
+		result = true;
 	else if (! this->_bufferMov.empty()){
 		mov = this->_bufferMov.front();
 		this->_bufferMov.erase(_bufferMov.begin());
         res = this->_game->execute_step(mov, "player1",! this->_inverted);
 		if (res.first) {
 			this->turn(mov);
-        } else {
+        }
+        else {
 			this->_bufferMov.clear();
         }
 	}
+	return result;
 }
 
 std::pair<bool, bool> SuperGame::serverMov(std::string mov, std::string username, bool inverted){

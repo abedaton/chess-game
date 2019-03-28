@@ -34,8 +34,8 @@ class PlateauScene : public QGraphicsView {
     private:
     int _size;
     PlateauBox* _priorityBox;
-    std::string _pool;
     std::string _game_type;
+    std::string _pool;
 
     QGraphicsScene *_scene;
     std::vector<std::vector<PlateauBox*>> _boxes;

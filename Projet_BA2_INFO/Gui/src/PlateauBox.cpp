@@ -1,6 +1,6 @@
 #include "PlateauBox.hpp"
 
-PlateauBox::PlateauBox(int x, int y, int sideLenght = 65, QGraphicsItem *parent) : _sideLenght(sideLenght), QGraphicsRectItem(parent) {
+PlateauBox::PlateauBox(int x, int y, int sideLenght = 65, QGraphicsItem *parent) : QGraphicsRectItem(parent), _sideLenght(sideLenght) {
     setRect(0, 0, sideLenght, sideLenght);
     setPos(x,y);
     // setPen(_pen);
@@ -24,6 +24,9 @@ void PlateauBox::setPosition(int x, int y) {
 }
 
 void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent* event) {
+	
+	(void)event;
+	
     // std::cout << _pos.first() << "," << _pos.second() << std::endl;
     //setColor(Qt::red);
     //std::cout << _color.rgb() << std::endl;

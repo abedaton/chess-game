@@ -47,11 +47,11 @@ void BaseGameType::change_active_player(){
 std::pair<int, int> BaseGameType::str_mov_to_int(std::string square){
 	char line = std::toupper(square[0]);
 	std::string col = square.substr(1, square.size());
-	int int_line;
+	int int_line = 0; // ---------------------------------------------------------- enleve warning
 	int int_col = std::stoi(col);
 	std::string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	
-    for (int i = 0; i < alphabet.size(); ++i){
+    for (unsigned i = 0; i < alphabet.size(); ++i){
         if (alphabet[i] == line){
             int_line = i;
         }
