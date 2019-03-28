@@ -1,20 +1,35 @@
-#include "../includes/client.hpp"
+#ifndef CLIENT_CPP
+#define CLIENT_CPP
 
+<<<<<<< HEAD
 Client::Client(const char* ip){
 	this->_request = new Request(this, ip);
 	firstWindow();
+=======
+#include "../includes/client.hpp"
+#include "../../Gui/incl/FenPrincipale.hpp"
+
+Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(nullptr), _interface(nullptr){
+	this->_server = new Request(this, ip);
+	if (terminalMod){
+		AbstractInterface* useless = new Terminal(this);
+		(void)useless;
+	} else {
+		showGui(argc, argv);
+	}
+>>>>>>> Partie_Serveur
 }
+
 
 Client::~Client(){
-	std::cout << "Destructor" << std::endl;
+	;;
 }
 
-void Client::connectionError(){
-	std::cout << "Connection with server lost : " << strerror(errno) << std::endl;
-	exit(EXIT_FAILURE); // tmp
-	//delete this; // :(
+void Client::setInterface(AbstractInterface* interface){
+	this->_interface = interface;
 }
 
+<<<<<<< HEAD
 void Client::startingGame(bool playerTurn){
 	std::cout << "Game is starting. Please press a random key to continue" << std::endl;
 	this->_myTurn = playerTurn;
@@ -87,226 +102,129 @@ void Client::opponentMov(std::string mov){
 	
 	this->_myTurn = true;
 }
+=======
+void Client::waitForMatch(int gameMod){
+	this->_gameMod = gameMod;
+	this->_server->findMatch(gameMod);
+}
 
-void Client::friendsWindow()
-{
-	unsigned int res = 0;
-	
-	while(res != 7)
-	{
-		std::cout << "Que désirez vous faire?: " << std::endl;
-		std::cout << "1) Ajouter un ami " << std::endl;
-		std::cout << "2) Lister tous les amis connectés " << std::endl;
-		std::cout << "3) Supprimer un ami " << std::endl;
-		std::cout << "4) Consulter mes demandes d'amis/de parties " << std::endl;
-		std::cout << "5) Proposer à un ami de faire une partie " << std::endl;
-		std::cout << "6) Chat avec des amis " << std::endl;
-		std::cout << "7) Retourner au menu principal " << std::endl;
+>>>>>>> Partie_Serveur
 
-		std::cin >> res;
-		while(res == 0 || res > 7)
-		{	
-			std::cout << "Choix invalide veuillez réessayer:" << std::endl;
-			std::cin >> res;
-		}
-		
-		if(res == 1)
-		{
-			std::string friendName;
-			std::cout<< "Veuillez entrer le nom de l'ami à ajouter: ";
-			std::cin >> friendName;
-			if(!_request->addFriend(friendName))
-				std::cout << friendName << " n'existe pas " << std::endl;
-			else
-				std::cout<< "La demande d'ami a été envoytée" << std::endl;	
-		}
+void Client::startingGame(bool playerTurn, std::string opponentName){
+	this->_game = new SuperGame(this->_gameMod, this, playerTurn);
+	this->_interface->gameStart(opponentName);//+ bord
+}
 
-		else if(res == 2)
-		{			
-			_request->listOnlineFriends();
-		}	
+void Client::click(std::string square){
+	this->_game->click(square);
+}
 
-		else if(res == 3)
-		{
-			std::string friendName;
-			std::cout<< "Veuillez entrer le nom de l'ami à supprimer: ";
-			std::cin >> friendName;
-			_request->removeFriend(friendName);
-		}
-		else if(res == 4)
-		{
-			_request->proceedGameAndFriendRequests();
-		}		
-			
-		else if(res ==5)
-		{
-			/*
-			1. call listonlinefriends pour montrer tous les amis disponibles
-			2. laiser l'utilisateur choisir l'ami puis l'inviter à la partie
-			*/
+void Client::mov(std::string mov){
+	this->_server->mov(mov);
+	this->_interface->pingForUpdate();
+}
 
-		}
-
-		else if(res ==6)
-			;//chatWindow();
-			
-		else if(res == 7)
-			;
-
-		else
-			std::cout << "Choix invalide veuillez réessayer:" << std::endl;
-			
+void Client::opponentMov(std::string mov){
+	bool res = _game->opponentMov(mov);
+	_interface->pingForUpdate();
+	if (res){
+		this->lose();
 	}
 }
 
-void Client::firstWindow(){
-	bool log = false;
-	bool exit = false;
-	char answer;
-	while(! log && !exit){
-		answer = ' ';
-		while ( answer != '1' && answer != '2' && answer != '3' ) {
-			std::cout << "Write 1 for login, 2 for register or 3 for exit:" << std::endl;
-			std::cin >> answer;
-			this->myFlush();
-		}
-		if (answer == '1')
-			log=logInWindow();
-		else if (answer == '2')
-			log=registerWindow();
-		else
-			exit = true;
+void Client::win(){
+	_interface->win();
+	delete this->_game;
+	this->_game = nullptr;
+}
+
+void Client::lose(){
+	_interface->lose();
+	delete this->_game;
+	this->_game = nullptr;
+}
+
+bool Client::letsRegister(std::string username,std::string password1, std::string password2, std::string email){
+	std::string error;
+	bool answer = false;
+	std::regex regEmail("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])");
+	if (username.empty() || password1.empty()){
+		error = "Please fill in all fields";
+	} else if (! std::regex_match(email.begin(), email.end(), regEmail)){
+		error = "Invalid email";
+	} else if(password1 != password2){
+		error = "Password doesn't match";
+	} else {
+		error = "Success";
+		this->_name = username;
+		answer = static_cast<bool>(_server->letsRegister(username, password1, email));
 	}
-	if (! exit){
-		menuWindow();
-	}
+	return answer; //pair
 }
 
-bool Client::registerWindow(){
-    std::string username;
-    std::string password;
-    std::string password2;
-    std::string email;
-    std::regex regEmail("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])");
-    while(true){
-        std::cout << "Write your new username: ";
-        std::cin >> username;
-        myFlush();
-        std::cout << "Write your email: ";
-        std::cin >> email;
-        myFlush();
-        password = getpass("New password (will not be shown): ");
-        password2 = getpass("New password (again): ");
-        if (password != password2){
-            std::cout << "Password does not match!" << std::endl;
-            continue;
-        
-		}
-        if (! std::regex_match(email.begin(), email.end(), regEmail)){
-			std::cout << "Invalid email." << std::endl;
-			continue;
-        }
-		if (this->_request->letsRegister(username,password,email)){
-			std::cout << "You are now logged in !" << std::endl;
-			this->_username = username;
-			return true;
-		}
-		else{
-			char answer;
-			std::cout << "Invalide Username.\n Write 1 for continue or 2 to go back: ";
-			std::cin >> answer;
-			this->myFlush();
-			while (answer != '1' && answer != '2'){
-				std::cout << "Please write 1 for continue or 2 to go back: ";
-				std::cin >> answer;
-				this->myFlush();
-			}
-			if (answer == '2')
-				return false;
-		}
-    }
-}
-
-bool Client::logInWindow(){
-	std::string username;
-    std::string password;
-    while(true){
-        std::cout << "Write your username :";
-        std::cin >> username;
-        this->myFlush();
-        password = getpass("Password (password will not be shown) :");
-        if(this->_request->login(username,password)){
-			std::cout << "You are now logged in !" << std::endl;
-			this->_username = username;
-			return true;
-		}
-		else{
-			char answer;
-			std::cout << "Invalid username or password." << std::endl;
-			std::cout << "Write 1 for continue or 2 to go back: ";
-			std::cin >> answer;
-			myFlush();
-			while (answer != '1' && answer != '2'){
-				std::cout << "Please write 1 for continue or 2 to go back: ";
-				std::cin >> answer;
-				myFlush();
-			}
-			if (answer == '2')
-				return false;
-		}
-    }
-}
-
-void Client::menuWindow(){
-	char answer;
-	bool waitForGame = false;
-    while (true){
-        std::cout << "Enter 1 for exit 2 for friend list";//,(2 for chat)";
-		if (!waitForGame)
-			std::cout <<", 3 for game";
-		std::cout << ": " << std::endl;
-        std::cin >> answer;
-		myFlush();
-		if (this->_gameStart){
-			gameWindow();
-			waitForGame = false;
-		} else{
-        	if (answer == '1'){
-        	    break;
-        	}
-        	else if (answer == '2'){
-        	    friendsWindow();
-        	}
-        	else if (answer == '3' && !waitForGame){
-        	    waitForGame = selectGameModeWindow();
-        	}
-		}
-    }
-}
-
-void Client::printMessage(std::string msg){
-	std::cout << "Opponent: " << msg << std::endl;
-}
-
-bool Client::selectGameModeWindow(){
-	char answer;
-    std::cout << "Enter 1 for classic, 2 for Dark, 3 for Trappist, 4 for Anti or 5 for return to the menu: " << std::endl;
-    std::cin >> answer;
-	myFlush();
-    while (answer != '1' && answer != '2' && answer != '3' && answer != '4' && answer != '5'){
-        std::cout << "Please, enter 1 for classic, 2 for Dark, 3 for Trappist, 4 for Anti or 5 for return to the menu: " << std::endl;
-        std::cin >> answer;
-		myFlush();
-    }
-	if (answer == '5')
+bool Client::login(std::string username,std::string password){
+	if (username.empty() || password.empty()){
 		return false;
-	else{
-		this->_gameMod = atoi(&answer);
-		this->_request->findMatch(this->_gameMod);
-		return true;
+	} else {
+		this->_name = username;
+		int res = _server->login(username,password);
+		return static_cast<bool>(res);
 	}
 }
 
+void Client::connectionError(){
+	if (_interface != nullptr){
+		this->_interface->connectionError();
+	}
+}
+
+void Client::exit(){
+	//if (_interface != nullptr) --------------------------------------------------------- // !!! enleve warning (classe abstraite)
+	//	delete this->_interface;
+	if (_game != nullptr)
+		delete _game;
+	delete _server;
+	try {
+		delete this; //:(
+	} catch(std::exception& e){
+		;;
+	}
+}
+
+//bool Client::get_inverted() const{}
+//void Client::set_inverted(bool){}
+//
+//bool Client::get_ennemy_inverted() const{}
+//void Client::set_ennemy_inverted(bool){}
+
+void Client::movPossibleUpdate(std::vector<std::string> listMov){
+	//TO DO
+	(void)listMov;
+}
+
+void Client::sendMessage(std::string name,std::string msg){
+	if( (name != "") || (msg != "") )
+		this->_server->sendMessage(name, msg);
+}
+void Client::addFriend(std::string name){
+	if (this->_name != name){
+		this->_server->addFriend(name);
+	}
+}
+void Client::removeFriend(std::string name){
+	this->_server->removeFriend(name);
+}
+void Client::acceptFriend(std::string name, bool accept){
+	this->_server->acceptFriend(name, accept);
+}
+void Client::getFriendRequests() {
+	this->_server->getFriendRequests();
+}
+void Client::getFriendList(){
+	this->_server->getFriendList();
+}
+
+<<<<<<< HEAD
 void Client::gameWindow(){
 	int answer;
 	std::pair<bool, std::string> returnP;
@@ -347,14 +265,36 @@ void Client::gameWindow(){
 			}
         }
     }
+=======
+void Client::getUserInfo(){
+	this->getUserInfo(this->_name);
 }
 
-void Client::myFlush(){
-    if (std::cin.fail()){
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    }
+void Client::getUserInfo(std::string username){
+	this->_server->getUserInfo(username);
 }
+void Client::recvMessage(std::string name, std::string msg){
+	this->_interface->recvMessage(name, msg);
+>>>>>>> Partie_Serveur
+}
+void Client::recvFriendRequestsList(std::vector<std::string> vec){
+	this->_interface->recvFriendRequestsList(vec);
+}
+void Client::recvFriendList(std::vector<std::pair<std::string, bool> > frendList){
+	this->_interface->recvFriendList(frendList);
+}
+void Client::recvInfo(std::string username, int nbrgames, int win, int elo){
+	this->_interface->recvInfo(username, nbrgames, win, elo);
+}
+
+
+int Client::showGui(int argc, char** argv){
+	QApplication app(argc, argv);
+	this->_interface = new FenPrincipale(this);
+    this->_interface->myShow();
+    return app.exec(); 
+}
+<<<<<<< HEAD
 
 bool Client::get_inverted() const {return this->_isInverted;}
 void Client::set_inverted(bool inverted){this->_isInverted = inverted;}
@@ -364,3 +304,6 @@ void Client::set_ennemy_inverted(bool inverted){this->_isEnnemyInverted = invert
 
 std::string Client::get_ennemy_name() const {return this->_ennemyName;}
 void Client::set_ennemy_name(std::string name){this->_ennemyName = name;}
+=======
+#endif
+>>>>>>> Partie_Serveur

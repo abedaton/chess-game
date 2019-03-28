@@ -1,18 +1,12 @@
-#pragma GCC diagnostic ignored "-Wunused-variable"
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
-#include <string>
-#include <vector>
-#include <iostream>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <stdio.h>
-#include <regex>
-
 #include "../srcs/request.cpp"
+#include "../srcs/terminal.cpp"
+#include "../../Gui/incl/FenPrincipale.hpp"
+#include "../game/GameTypes/SuperGame/SuperGame.cpp"
 
+<<<<<<< HEAD
 #define PORT 5555
 
 
@@ -44,27 +38,55 @@ class Client: AbstractClient {
 		bool _isInverted;
 		bool _isEnnemyInverted;
 		std::string _ennemyName;
+=======
+class Client: public AbstractPlayer, public AbstractClient{
+	private:
+		Request* _server;
+		SuperGame* _game;
+		AbstractInterface* _interface;
+>>>>>>> Partie_Serveur
 
-		void firstWindow();
-		bool registerWindow();
-		bool logInWindow();
-		void friendsWindow();
-		void chatWindow();
-		void menuWindow();
-		bool selectGameModeWindow();
-		void gameWindow();
+		int _gameMod;
+		std::string _name;
+		void lose();
+		void win();
+	public:
+		//Client(const char* ip, bool interface);
+		Client(const char* ip, bool interface, int argc, char** argv);
+
+		~Client();
 		
-		static void myFlush();
+		//call by interface
+		void setInterface(AbstractInterface* interface) override;
+		bool letsRegister(std::string username,std::string password1, std::string password2, std::string email) override;
+		bool login(std::string username,std::string password) override;
+		void waitForMatch(int gameMod) override;
 
-        void setup(std::string ip);
-        void handleClient();
-		void sShutdown();
+		void sendMessage(std::string name,std::string msg) override;
+		void addFriend(std::string name) override;
+		void removeFriend(std::string name) override;
+		void acceptFriend(std::string name, bool accept) override;
+		void getFriendList() override;
+		void getFriendRequests() override;
+		void getUserInfo(std::string) override;
+		void getUserInfo() override;
 
-        void sendStr(std::string str);
-        int recvInt();
-        void sendInt(int num);
-		std::string recvStr();
-        int _clientSock;
+		void click(std::string square) override;
+		void exit() override;
+		//call by server
+		void startingGame(bool playerTurn, std::string opponentName) override;
+		void opponentMov(std::string mov) override;
+		void recvMessage(std::string name,std::string msg) override;
+		void connectionError() override;
+		//call by game
+		void mov(std::string mov) override;
+		void movPossibleUpdate(std::vector<std::string> listMov) override;
+
+		void recvFriendRequestsList(std::vector<std::string> vec) override;
+		void recvFriendList(std::vector<std::pair<std::string, bool> > frendList) override;
+		void recvInfo(std::string username, int nbrgames, int win, int elo) override;
+
+		int showGui(int argc, char** argv);
 };
 
 #endif

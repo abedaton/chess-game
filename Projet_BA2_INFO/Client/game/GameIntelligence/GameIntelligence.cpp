@@ -1,20 +1,29 @@
 #include "GameIntelligence.hpp"
 
+<<<<<<< HEAD
 TourParTour* GameIntelligence::get_game() const{
 	return this->game;
 }
 
 void GameIntelligence::set_game(TourParTour* jeu){
+=======
+BaseGameType* GameIntelligence::get_game() const{
+	return this->game;
+}
+
+void GameIntelligence::set_game(BaseGameType* jeu){
+>>>>>>> Partie_Serveur
 	this->game = jeu;
 }
 
-void GameIntelligence::make_game(std::string game_type, Player* player_one, Player* player_two){
+void GameIntelligence::make_game(std::string game_rule, std::string game_type, Player* player_one, Player* player_two){
 	
 	mout<<player_one<<std::endl;
 	mout<<player_two<<std::endl;
 	
-	Dico* dico = make_dico("../../csv");
+	Dico* dico = make_dico("../../../csv");
 	
+<<<<<<< HEAD
 	BaseChess* serv;
 	
 	if (game_type == "classic"){serv = new ClassicChess(player_one,player_two,player_one,dico);}
@@ -25,48 +34,87 @@ void GameIntelligence::make_game(std::string game_type, Player* player_one, Play
 	
 	TourParTour* big_game = new TourParTour(serv);
 	this->set_game(big_game);
+=======
+	BaseChess* game_part;
+>>>>>>> Partie_Serveur
 
+	if (game_rule == "classic"){
+		
+		Affichage* aff = new Affichage();
+		game_part = new ClassicChess(player_one,player_two,player_one,dico,aff);
+		
+	}
+	else if (game_rule == "dark"){
+		
+		AffichageDarkChess* aff = new AffichageDarkChess();
+		game_part = new DarkChess(player_one, player_two, player_one,nullptr, dico,aff);
+		
+	}
+	else if (game_rule == "trappist"){
+		
+		Affichage* aff = new Affichage();
+		game_part = new TrappistChess(player_one,player_two,player_one,dico,aff);
+		
+	}
+	else if (game_rule == "anti"){
+		
+		Affichage* aff = new Affichage();
+		game_part = new AntiChess(player_one,player_two,player_one,dico,aff);
+		
+	}
+	else{throw MyException(&mout,"game_rule inconnu!");}
+	
+	
+	BaseGameType* game;
+	
+	if (game_type == "tour_par_tour"){game = new TourParTour(game_part);}
+	else if (game_type == "temps_reel"){game = new TempsReel(game_part);}
+	else if (game_type == "pendule"){game = new Pendule(game_part);}
+	else{throw MyException(&mout,"game_rule inconnu!");}
+	
+	this->set_game(game);
+	
 }
 
-void GameIntelligence::make_game_human_and_bot(std::string game_type, std::string langue,std::string tag_bot){
+void GameIntelligence::make_game_human_and_bot(std::string game_rule, std::string game_type, std::string langue,std::string tag_bot){
 	/* fonction peremttant de lancer une partie classique avec 1 joueurs humains et un bot de test */
 	
 	Human* player_one = new Human("player1",langue);
 	
-	Bot* player_two = make_bot("player2",tag_bot,"../../bots_csv");
+	Bot* player_two = make_bot("player2",tag_bot,"../../../bots_csv");
 	
-	this->make_game(game_type,player_one,player_two);
+	this->make_game(game_rule,game_type,player_one,player_two);
 	
 }
 
-void GameIntelligence::make_game_two_bots(std::string game_type, std::string tag_bot_one, std::string tag_bot_two){
+void GameIntelligence::make_game_two_bots(std::string game_rule, std::string game_type, std::string tag_bot_one, std::string tag_bot_two){
 	/* fonction peremttant de lancer une partie classique avec 2 bots de test */
 	
-	Bot* player_one = make_bot("player1",tag_bot_one,"../../bots_csv");
+	Bot* player_one = make_bot("player1",tag_bot_one,"../../../bots_csv");
 	
-	Bot* player_two = make_bot("player2",tag_bot_two,"../../bots_csv");
+	Bot* player_two = make_bot("player2",tag_bot_two,"../../../bots_csv");
 	
-	this->make_game(game_type,player_one,player_two);
+	this->make_game(game_rule,game_type,player_one,player_two);
 }
 
-void GameIntelligence::make_game_two_humans(std::string game_type, std::string langue){
+void GameIntelligence::make_game_two_humans(std::string game_rule, std::string game_type, std::string langue){
 	/* fonction peremttant de lancer une partie classique avec 2 joueurs humains */
 	
 	Human* player_one = new Human("player1",langue);
 	
 	Human* player_two = new Human("player2",langue);
 	
-	this->make_game(game_type,player_one,player_two);
+	this->make_game(game_rule,game_type,player_one,player_two);
 }
 
-void GameIntelligence::make_game_two_silenced_humans(std::string game_type, std::string langue){
+void GameIntelligence::make_game_two_silenced_humans(std::string game_rule, std::string game_type, std::string langue){
 	/* fonction peremttant de lancer une partie classique avec 2 joueurs humains */
 	
 	SilencedHuman* player_one = new SilencedHuman("player1",langue);
 	
 	SilencedHuman* player_two = new SilencedHuman("player2",langue);
 	
-	this->make_game(game_type,player_one,player_two);
+	this->make_game(game_rule,game_type,player_one,player_two);
 }
 
 void GameIntelligence::execute_game(){

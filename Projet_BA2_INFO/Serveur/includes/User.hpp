@@ -16,81 +16,94 @@
 #include "../srcs/database.cpp"
 #include "../srcs/matchMaking.cpp"
 
-
-
 class User: public AbstractUser{
 	public:
 		User(int client_sock, Database* db, MatchMaking* match);
-		virtual ~User() = default;		
+		virtual ~User();		
         User(const User&) = delete;
         User& operator= (const User&) noexcept = delete;
 
+<<<<<<< HEAD
 		void startGame(TempsReel*, AbstractUser*, bool,bool,bool, std::string) override;
 		void opponentMov(std::string mov)override;
+=======
+		void startGame(SuperGame*, AbstractUser*, bool) override;
+		void mov(std::string mov) override;
+		void sendMov(std::string mov) override;
+>>>>>>> Partie_Serveur
 		void surrend() override;
 		void sendMsg(std::string msg) override;
+		void lose() override;
 		void exit();
-
-		void sendfriendRequestNotification(User *userAdding); 
-		void removeFromFriends(User *userToRemove);
-		void addFriendToList(User *new_friend);
-		void sendMessage(std::string sender, std::string message);
-		std::string getName(); //a changer apres avoir compilé
 		std::string get_name() const override;
 		
+<<<<<<< HEAD
 		bool get_inverted() const;
 		void set_inverted(bool);
 		
+=======
+>>>>>>> Partie_Serveur
 	private:
 		int _clientSock;
 		Database* _db;
 		MatchMaking* _match;
+<<<<<<< HEAD
 		TempsReel* _game;
 		AbstractUser* _opponent;
 		bool _myTurn;
 		bool _isinverted;
+=======
+		SuperGame* _game;
+		AbstractUser* _opponent;
+		bool _myTurn;
+		bool _inverted;
+>>>>>>> Partie_Serveur
 
 		std::mutex _mutex;
-		std::string name;
+		std::string _name;
 		
 		void handleClient();
 		void checkLogin();
 		void letsRegister();
 		void chat();
 		void waitForMatch();
-		void mov();
+		void recvMov();
 		
 		inline void waitForProcess();
 		inline void endProcess();
+
+
 		void sendInt(int num);
+		void sendStr(std::string);
+
         int recvInt();
 		int recvInt(int flag);
-		void sendStr(std::string);
+
         std::string recvStr();
 
+		void sendStrToSocket(int socket, std::string str);
+		void sendIntToSocket(int socket, int number);
+		void sendVector(std::vector<std::string>);
+
 		static void* run(void* tmp);
-		
 
-		void updateInfo(); // update le nom et socket dans la database
-		void updateInfoDisc(); // quand le client se deconnecte
-		void updateInfoMatch(); 
+		void sendMessage(); 
+		void recvMessage();
+		void addFriend();
+		void removeFriend();
+		void acceptFriend();
+		void getFriendList();
+		void getFriendRequests();
+		void getOnlineFriendList();
+		void GetUserInfo();
 		
-		User *findUserByName(std::string name);
-        void listOnlineFriends();
-        void addFriend();
-        void removeFriend();
-		void recvFriendRequestAnswer();
-		std::vector<User*> friends;
 };
-
-
 
 enum Protocol : int {
     PASS = 0, REGISTER, LOGIN, CHAT, WAITFORMATCH, MOV, SURREND, 
-    LISTONLINEFRIENDS, ADDFRIEND, REMOVEFRIEND, NEWFRIENDREQUEST, 
-    FRIENDREQUESTANSWER, RECVMESSAGE, SENDMESSAGE
+    SENDMESSAGE, ADDFRIEND, REMOVEFRIEND,
+	ACCEPTFRIEND, GETFRIENDLIST, GETFRIENDREQUESTS, GETUSERINFO
 };
 
-extern std::vector<User*> onlineUsers;
 
 #endif

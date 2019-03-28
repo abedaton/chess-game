@@ -1,7 +1,7 @@
 
 //#include <iostream>
 
-#include "../../Pieces/Pieces.cpp"
+#include "../../GamePieces/Pieces/Pieces.cpp"
 
 MyOstream mout("logfile.txt");
 

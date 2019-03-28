@@ -1,6 +1,8 @@
 
 #include <iostream>
 
+#include "../Tester/Tester.cpp"
+
 typedef Trinome<std::string,std::string,BitypeVar<bool>> TriVect;
 
 template <typename Type>

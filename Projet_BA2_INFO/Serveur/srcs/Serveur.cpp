@@ -2,7 +2,8 @@
 
 Serveur::Serveur(){}
 
-Serveur::Serveur(short unsigned int port) : _port(port) {
+Serveur::Serveur(short unsigned int port) : _port(port), _ready(false) {
+    this->_ready = false;
     this->setup();
 }
 
@@ -29,26 +30,24 @@ void Serveur::setup(){
     this->mainLoop();
 }
 
-std::vector<User*> onlineUsers; 
-
-
 void Serveur::mainLoop(){
+    this->_db = new Database();
+    this->_db->resetStuff();
+	this->_match = new MatchMaking();
+    this->_ready = true;
     std::thread cmdThread(&Serveur::handleCommand, *this);
-    Database* db = new Database();
-	MatchMaking* match = new MatchMaking();
     int tmpClient;
     while (true){
         if ((tmpClient = accept(this->_serv_sock, reinterpret_cast<struct sockaddr*>(&this->_address), reinterpret_cast<socklen_t*>(&this->_addrlen))) >= 0){
             std::cout << "Nouvelle connexion et le socket est : " << tmpClient << std::endl;
             if (tmpClient != -1){
                 if (static_cast<size_t>(tmpClient) > this->_clients.size()){
-                     this->_clients.resize(static_cast<size_t>(tmpClient));
+                    this->_clients.resize(static_cast<size_t>(tmpClient));
+                    this->_clients[tmpClient] = std::make_pair(-1, nullptr);
                 }
-                this->_clients.at(static_cast<unsigned long int>(tmpClient-1)) = tmpClient;
-                User* tmpUser = new User(tmpClient, db, match); // <------ new important pour polymorphisme! - Quentin
-                
-                //load les amis de la bdd ici ?
-                onlineUsers.push_back(tmpUser);
+                this->_clients.at(static_cast<unsigned long int>(tmpClient-1)).first = tmpClient;
+                User* tmpUser = new User(tmpClient, this->_db, this->_match); // <------ new important pour polymorphisme! - Quentin !!!
+                this->_clients.at(static_cast<unsigned long int>(tmpClient-1)).second = tmpUser;
             }
         }
     }
@@ -71,9 +70,19 @@ void* Serveur::handleCommand(){
 void Serveur::sShutdown(){
     shutdown(this->_serv_sock, SHUT_RDWR);
     for (unsigned long int i = 0; i < this->_clients.size(); i++){
-        close(this->_clients.at(i));
+        try{
+            close(this->_clients.at(i).first);
+            delete this->_clients.at(i).second;
+        }catch (std::exception& e){
+            ;;
+        }
     }
     close(this->_serv_sock);
+    std::cout << "ready2 = " << this->_ready << std::endl;
+    if (this->_ready){
+        delete this->_db;
+        delete this->_match;
+    }
     std::cout << "Server is now offline." << std::endl;
     exit(EXIT_SUCCESS);
 }

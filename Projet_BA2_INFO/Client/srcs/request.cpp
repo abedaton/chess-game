@@ -1,15 +1,40 @@
 #include "../includes/request.hpp"
 
+<<<<<<< HEAD
 Request::Request(AbstractClient* client, const char* ip): _client(client){
 	setup(ip);
 	pthread_create(&this->_listenerThread, NULL, &Request::run, static_cast<void*>(this));
+=======
+
+/*
+ * Constructeur de Request,
+ * @params client et son ip
+ * cree et lance un thread pour exécuter la request
+ */
+Request::Request(AbstractClient* client, const char* ip): _client(client){
+    struct tmp{
+        Request* obj;
+        const char* ip;
+    };
+
+    struct tmp* params = static_cast<struct tmp*>(malloc(sizeof(struct tmp)));
+
+    params->obj = this;
+    params->ip = ip;
+	pthread_create(&this->_listenerThread, NULL, &Request::run, static_cast<void*>(params));
+>>>>>>> Partie_Serveur
 }
 
+/*
+ * Destructeur de request
+ */
 Request::~Request(){
 	pthread_cancel(this->_listenerThread);
+    std::cout << "listener Thread stopped" << std::endl;
 	close(this->_clientSock);
 }
 
+<<<<<<< HEAD
 int Request::letsRegister(std::string username,std::string password, std::string email){
     std::cout << "sending" << std::endl;
 	waitForProcess();
@@ -64,65 +89,26 @@ void Request::surrend(){
 	sendInt(protocol);
 	endProcess();
 }
+=======
+>>>>>>> Partie_Serveur
 
-void Request::removeFriend(std::string name)
-{
-    waitForProcess();
-    sendInt(REMOVEFRIEND);
-    sendStr(name);
-
-    int res = recvInt();
-    if(res == 0)
-        std::cout << "L'utilisateur à supprimer n'a pas été trouvé " << std::endl;
-    else
-        std::cout << "L'utilisateur a correctement été supprimé" << std::endl;
-    endProcess();
-
-}
-
-void Request::proceedGameAndFriendRequests()
-{
-    std::cout << "Vous avez " << friendRequests.size() << " demandes d'amis " << std::endl;
-    while(friendRequests.size() > 0)
-    {
-        FriendRequests newPotentialFriend = friendRequests.front();
-        friendRequests.pop();
-        
-        std::cout << newPotentialFriend.name << " souhaite vous ajouter en ami: " << std::endl;
-        char res = 0;
-        while(res != 'y' && res != 'n')
-        {
-            std::cout << "veuillez appuyer sur y pour l'accepter, n pour le refuser: ";
-            std::cin >> res;
-        }
-
-        
-        sendInt(FRIENDREQUESTANSWER);
-        sendStr(newPotentialFriend.name);
-        char toSend[2] = {0, 0};
-        
-        toSend[0] = res;
-        sendStr(toSend);
-    }
+//////////////////////////////////////////////////////////////////////////////////////////////PRIVIET
+/*
+ * Lance la requête dans le thread du constructeur
+ */
+void* Request::run(void* args){
+    struct tmp{
+        Request* obj;
+        const char* ip;
+    };
     
-}
-
-
-bool Request::listOnlineFriends()
-{
-    waitForProcess();
-    sendInt(LISTONLINEFRIENDS);
-    int friendsOnline = recvInt();
-  
-    std::cout << "Vous avez: " << friendsOnline <<  "ami(s) en ligne" << std::endl; 
-    for(int i = 0; i < friendsOnline; i++)
-        std::cout << recvStr() << " est en ligne " << std::endl;
-    
-    endProcess();
-    return true;
+    struct tmp* params = static_cast<struct tmp*>(args);
+    (params->obj)->setup(params->ip);
+    return NULL;
 }
 
 /*
+<<<<<<< HEAD
 Retourne vrai/faux selon le fait que l'utilisateur existe ou pas.
 l'autre client (qu'on ajoute) doit aller dans le menu consulter 
 mes demandes d'amis pour l'accepter et le serveur se charge du reste.
@@ -150,44 +136,56 @@ void Request::recvFriendAddNotification()
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////PRIVIET
+=======
+ * Initialisation
+ */
+>>>>>>> Partie_Serveur
 void Request::setup(const char* ip){
     this->_servAddr.sin_addr.s_addr	= inet_addr(ip);
     this->_servAddr.sin_family = AF_INET;
     this->_servAddr.sin_port = htons(PORT);
 
     if ((this->_clientSock = socket(AF_INET, SOCK_STREAM, 0)) < 0){
-        this->error();
+        //this->error();
     }
     if (connect(this->_clientSock, reinterpret_cast<struct sockaddr*>(&this->_servAddr), sizeof(this->_servAddr)) < 0){
-        this->error();
-    } else {
-        std::cout << "You're connected!" << std::endl;
+        std::cout << strerror(errno) << std::endl;
+        //this->error();
     }
+    listener();
 }
 
-void* Request::run(void* tmp){
-    static_cast<Request*>(tmp)->listener();
-    return NULL;
-}
+/*
+ * Attend de recevoir un protocol pour exécuter la bonne méthode
+ */
 void Request::listener(){
 	int protocol;
     while (true){
 		waitForProcess();
         protocol = recvInt(MSG_DONTWAIT);
         switch (protocol){
-			case (0):
+			case 0:
                 break;
-            case (20):
+            case STARTGAME: // 25
 				startingGame();
                 break;
-            case (21):
+            case OPPONENTMOV: // 26
                 opponentMov();
                 break;
-			case (22):
-                recvMessage();
+			case RECVMESSAGEINGAME: // 27
+                recvMessageInGame(); // in game chat
                 break;
-            case (NEWFRIENDREQUEST):
-                recvFriendAddNotification();
+            case RECVMESSAGE: // 28
+                recvMessage(); // chat
+                break;
+            case SEEREQUESTS: // 29
+                recvFriendRequestsList(); // voir les amis
+                break;
+            case RECVFRIENDLIST: //30
+                recvFriendList();
+                break;
+            case RECVINFO: //31
+                recvInfo();
                 break;
             default:
 				std::cout << "bad receive in listener: " << protocol << std::endl;
@@ -199,8 +197,12 @@ void Request::listener(){
     }
 }
 
+/*
+ * Lance la partie
+ */
 void Request::startingGame(){
 	int turn = recvInt();
+<<<<<<< HEAD
 	int inverted = recvInt();
 	int ennemy_inverted = recvInt();
 	std::string ennemy_name = recvStr();
@@ -211,31 +213,108 @@ void Request::startingGame(){
 	
 	//j'ai préféré mettre les setters en dehors plustôt que de tout mettre dans startgame, a vous de choisir -quentin.
 	this->_client->startingGame(static_cast<bool>(turn-1));
+=======
+	std::string ennemy_name = recvStr();
+
+	this->_client->startingGame(static_cast<bool>(turn-1), ennemy_name);
+>>>>>>> Partie_Serveur
 }
 
+/*
+ * Recoit le move d'un string
+ */
 void Request::opponentMov(){
 	std::string mov = recvStr();
 	this->_client->opponentMov(mov);
 }
 
-void Request::recvMessage(){
+/*
+ * Recoit un messsage du chat
+ */ 
+void Request::recvMessageInGame(){
 	std::string msg = recvStr();
-	this->_client->printMessage(msg);
+	this->_client->recvMessage("opponent", msg);
 }
 
+/*
+ * Recoit un vecteur 
+ */
+std::vector<std::string> Request::recvVector(){
+    std::vector<std::string> vec;
+    long size = 0;
+    recv(this->_clientSock, &size, sizeof(size), MSG_WAITALL);
+    size = ntohl(size);
+    for (int i = 0; i < size; ++i) {
+        std::string stringRead;
+        long length = 0;
+        recv(this->_clientSock, &length, sizeof(length), MSG_WAITALL);
+        length = ntohl(length);
+        while (0 < length){
+            char buffer[1024];
+            int cread;
+            cread = recv(this->_clientSock, buffer, std::min<long>(sizeof(buffer), length), MSG_WAITALL);
+            stringRead.append(buffer, cread);
+            length -= cread;
+        }
+        vec.push_back(stringRead);
+    }
+    return vec;
+}
+
+/*
+ * recoit la liste des demandes d'ami
+ */
+void Request::recvFriendRequestsList(){
+    std::vector<std::string> vecRequests = this->recvVector();
+    this->_client->recvFriendRequestsList(vecRequests);
+}
+
+/*
+ * Recoit la liste d'ami
+ */
+void Request::recvFriendList(){
+    int len = recvInt()-1;
+    std::vector<std::pair<std::string, bool> > frendList(len); 
+    for (int i=0; i<len; i++){
+        frendList[i].first = recvStr();
+        frendList[i].second = static_cast<bool>( recvInt()-1 );
+    }
+    this->_client->recvFriendList(frendList);
+}
+
+void Request::recvInfo(){
+    std::string username = recvStr();
+    int nbrgames = recvInt();
+    int win = recvInt();
+    int elo = recvInt();
+    this->_client->recvInfo(username, nbrgames, win, elo);
+}
+
+/*
+ * Gère en cas d'erreur
+ */
 void Request::error(){
 	this->_client->connectionError();
 }
 
+/*
+ * lock le mutex en attendant que tout soit delock
+ */
 inline void Request::waitForProcess(){
 	this->_mutex.lock();
 }
 
 
+/*
+ * delock le mutex
+ */
 inline void Request::endProcess(){
 	this->_mutex.unlock();
 }
 
+/*
+ * Envoie un entier
+ */
  void Request::sendInt(int num){
     uint16_t convertedNum = htons(static_cast<uint16_t>(num));
     if (send(this->_clientSock, &convertedNum, sizeof(uint16_t), 0) <= 0){
@@ -243,6 +322,9 @@ inline void Request::endProcess(){
     }
 }
 
+/*
+ * Recoit un entier
+ */
 int Request::recvInt(){
     uint16_t tmpAnswer;
     if (recv(this->_clientSock, &tmpAnswer, sizeof(uint16_t), MSG_WAITALL) <= 0){
@@ -251,6 +333,10 @@ int Request::recvInt(){
     return ntohs(tmpAnswer);
 }
 
+/*
+ * recoit un entier
+ * le flag est pour éviter le wait for all, vu la surcharge
+ */
 int Request::recvInt(int flag){
 	uint16_t Answer;
     int res = recv(this->_clientSock, &Answer, sizeof(uint16_t), flag);
@@ -260,9 +346,13 @@ int Request::recvInt(int flag){
         return 0;
     } else {
         this->error();
+        return -1;
     }
 }
 
+/*
+ * envoie un std::string
+ */
 void Request::sendStr(std::string str){
     this->sendInt(static_cast<int>(str.size()));
     if (send(this->_clientSock, str.c_str(), str.size(), 0) <= 0){
@@ -270,6 +360,9 @@ void Request::sendStr(std::string str){
     }
 }
 
+/*
+ * Recoit un string
+ */
 std::string Request::recvStr(){
     int len_str = recvInt();
     std::vector<char> buffer(static_cast<long unsigned int>(len_str));
@@ -279,3 +372,167 @@ std::string Request::recvStr(){
     std::string str(buffer.begin(), buffer.end());
     return str;
 }
+<<<<<<< HEAD
+=======
+
+
+/*
+ * Permet de créer un compte
+ */
+int Request::letsRegister(std::string username,std::string password, std::string email){
+    std::cout << "sending" << std::endl;
+	waitForProcess();
+    int protocol = 1;
+    sendInt(protocol);
+    sendStr(username);
+    sendStr(password);
+    sendStr(email);
+	int res = recvInt();
+	endProcess();
+    return res;
+}
+/*
+ * Requête de login
+ */ 
+int Request::login(std::string username,std::string password){
+	waitForProcess();
+    int protocol = 2;
+    sendInt(protocol);
+    sendStr(username);
+    sendStr(password);
+	int res = recvInt();
+	endProcess();
+    return res;
+}
+
+/*
+ * Requête pour le chat
+ */
+void Request::chat(std::string msg){
+	waitForProcess();
+    int protocol = 3;
+    sendInt(protocol);
+    sendStr(msg);
+	endProcess();
+}
+
+/*
+ * Permet de trouver un match en fonction du mode de jeu
+ */
+void Request::findMatch(int modDeJeu){
+	waitForProcess();
+    int protocol = 4;
+	sendInt(protocol);
+    sendInt(modDeJeu);
+	endProcess();
+}
+
+/*
+ * Exécute le mouvement
+ */
+void Request::mov(std::string mov){
+	waitForProcess();
+    int protocol = 5;
+	sendInt(protocol);
+	sendStr(mov);
+	endProcess();
+}
+
+/*
+ * Requête d'abandon
+ */
+void Request::surrend(){
+	waitForProcess();
+	int protocol = 6;
+	sendInt(protocol);
+	endProcess();
+}
+
+/*
+ * Requête d'envoi de message
+ */
+void Request::sendMessage(std::string name, std::string msg){
+    std::cout << name << ", " << msg << std::endl;
+    waitForProcess();
+    int protocol = 7;
+    sendInt(protocol);
+    sendStr(name);
+    sendStr(msg);
+    endProcess();
+}
+
+/*
+ * Recoit un message
+ */ 
+void Request::recvMessage(){
+    std::string name = recvStr();
+    std::string msg = recvStr();
+    this->_client->recvMessage(name, msg);
+}
+
+/*
+ * Requête d'ajout d'ami
+ */
+void Request::addFriend(std::string name){
+    waitForProcess();
+    int protocol = 8;
+    sendInt(protocol);
+    sendStr(name);
+    endProcess();
+}
+
+/*
+ * Requête de retrait d'ami
+ */
+void Request::removeFriend(std::string name){
+    waitForProcess();
+    int protocol = 9;
+    sendInt(protocol);
+    sendStr(name);
+    endProcess();
+}
+
+/* 
+ * Requête d'accepter un ami
+ */
+void Request::acceptFriend(std::string name, bool accept){
+    waitForProcess();
+    int protocol = 10;
+    sendInt(protocol);
+    sendStr(name);
+    sendInt(static_cast<int>(accept)+1);
+    endProcess();
+}
+
+/*
+ * Accesseur de la liste d'amis
+ */
+void Request::getFriendList(){
+    waitForProcess();
+    int protocol = 11;
+    sendInt(protocol);
+    endProcess();
+}
+
+/*
+ * Recevoir une demande d'ami
+ */ 
+void Request::getFriendRequests(){
+    waitForProcess();
+    int protocol = 12;
+    sendInt(protocol);
+    endProcess();
+}
+
+/*
+ * recevoir les données d'un utilisateur, son elo etc
+ */
+void Request::getUserInfo(std::string username){
+    waitForProcess();
+    int protocol = 13;
+    sendInt(protocol);
+    sendStr(username);
+    endProcess();
+}
+
+>>>>>>> Partie_Serveur

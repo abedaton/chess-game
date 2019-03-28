@@ -1,7 +1,7 @@
 
 //#include <iostream>
 
-#include "../../AffichageDarkChess/Affichage/Affichage.cpp"
+#include "../../GameAffichages/AffichageDarkChess/Affichage/Affichage.cpp"
 
 MyOstream mout("logfile.txt");
 
