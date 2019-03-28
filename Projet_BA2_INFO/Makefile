@@ -431,6 +431,7 @@ Gui/bin/moc_FenPrincipale.cpp: Gui/incl/FriendList.hpp \
 		Gui/incl/PlateauScene.hpp \
 		Gui/incl/PlateauBox.hpp \
 		Gui/incl/ChessItem.hpp \
+		Gui/incl/FenPrincipale.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
 		Client/includes/abstractInterface.hpp \
@@ -524,12 +525,36 @@ Gui/bin/Login.o: Gui/src/Login.cpp Gui/incl/Login.hpp
 
 Gui/bin/PlateauBox.o: Gui/src/PlateauBox.cpp Gui/incl/PlateauBox.hpp \
 		Gui/incl/ChessItem.hpp \
-		Gui/incl/PlateauScene.hpp
+		Gui/incl/PlateauScene.hpp \
+		Gui/incl/FenPrincipale.hpp \
+		Gui/incl/FriendList.hpp \
+		Gui/incl/Publicity.hpp \
+		Gui/incl/Chat.hpp \
+		Gui/incl/GameWindow.hpp \
+		Gui/incl/Login.hpp \
+		Gui/incl/Menu.hpp \
+		Gui/incl/Timer.hpp \
+		Gui/incl/Register.hpp \
+		Gui/incl/StatWindow.hpp \
+		Client/includes/abstractInterface.hpp \
+		Client/includes/abstractClient.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/PlateauBox.o Gui/src/PlateauBox.cpp
 
 Gui/bin/PlateauScene.o: Gui/src/PlateauScene.cpp Gui/incl/PlateauScene.hpp \
 		Gui/incl/PlateauBox.hpp \
-		Gui/incl/ChessItem.hpp
+		Gui/incl/ChessItem.hpp \
+		Gui/incl/FenPrincipale.hpp \
+		Gui/incl/FriendList.hpp \
+		Gui/incl/Publicity.hpp \
+		Gui/incl/Chat.hpp \
+		Gui/incl/GameWindow.hpp \
+		Gui/incl/Login.hpp \
+		Gui/incl/Menu.hpp \
+		Gui/incl/Timer.hpp \
+		Gui/incl/Register.hpp \
+		Gui/incl/StatWindow.hpp \
+		Client/includes/abstractInterface.hpp \
+		Client/includes/abstractClient.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/PlateauScene.o Gui/src/PlateauScene.cpp
 
 Gui/bin/Register.o: Gui/src/Register.cpp Gui/incl/Register.hpp

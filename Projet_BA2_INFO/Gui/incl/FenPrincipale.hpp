@@ -18,6 +18,7 @@
 #include "../../Client/includes/abstractInterface.hpp"
 #include "../../Client/includes/abstractClient.hpp"
 
+class PlateauScene;
 class FenPrincipale : public QMainWindow, public AbstractInterface{
     Q_OBJECT
 
@@ -51,6 +52,8 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void setPool2();
     void setPool3();
     void setPool4();
+
+    void sendPosition(std::string pos);
 
 //////////////////////////////tmp
     void myShow() override{this->show();}

@@ -164,7 +164,7 @@ void FenPrincipale::goToStat(){
 void FenPrincipale::goToClassic() {
     //std::string pool = "pool2";
  
-    _classicWindow = new PlateauScene("classic", _pool);
+    _classicWindow = new PlateauScene("classic", _pool,this,this);
     
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
@@ -173,7 +173,7 @@ void FenPrincipale::goToClassic() {
 }
 
 void FenPrincipale::goToTrappist(){
-    _classicWindow = new PlateauScene("trappist", _pool);
+    _classicWindow = new PlateauScene("trappist", _pool, this,this);
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
 }
@@ -266,4 +266,9 @@ void FenPrincipale::showFriend(QListWidgetItem *item){
     menu.addAction("Chat");
     menu.addAction("Chat");
     menu.exec(point);
+}
+void FenPrincipale::sendPosition(std::string pos){
+    std::cout << "coucou bande de nouille " << pos << std::endl;
+    //quand on lance le jeu
+    //_client->click(pos);
 }

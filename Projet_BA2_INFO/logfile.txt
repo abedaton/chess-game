@@ -1,0 +1,1 @@
+MyException(demande piece case vide!)

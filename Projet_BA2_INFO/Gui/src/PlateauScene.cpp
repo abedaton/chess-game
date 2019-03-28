@@ -1,6 +1,6 @@
 #include "PlateauScene.hpp"
 
-PlateauScene::PlateauScene(std::string game_type , std::string pool_name, QWidget *parent) : QGraphicsView(parent), _size(0), _game_type(game_type) , _pool(pool_name){
+PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPrincipale *mainWindow, QWidget *parent) : QGraphicsView(parent), _size(0), _game_type(game_type) , _pool(pool_name), _mainWindow(mainWindow){
     
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
 		this->set_size(8);
@@ -324,6 +324,10 @@ void PlateauScene::setFog(std::vector<std::vector<int> > *fog){
     }
 }
 */
+
+void PlateauScene::sendPosition(std::string pos){
+    _mainWindow->sendPosition(pos);
+}
 
 std::string PlateauScene::get_pool() const {return this->_pool;}
 std::string PlateauScene::get_game_type() const {return this->_game_type;}
