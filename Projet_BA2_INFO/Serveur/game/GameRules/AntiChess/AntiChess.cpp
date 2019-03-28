@@ -10,11 +10,7 @@ extern MyOstream mout;
 
 //--------------------AntiChess----------------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/AntiChess/AntiChess.cpp
-AntiChess::AntiChess(Player* p_low, Player* p_high,Player* deb_player, Dico* dict) : BaseChess(p_low,p_high,deb_player,dict){
-=======
 AntiChess::AntiChess(Player* p_low, Player* p_high,Player* deb_player, Dico* dict, AbstractAffichage* aff) : BaseChess(p_low,p_high,deb_player,dict,aff){
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/AntiChess/AntiChess.cpp
 	
 	if((deb_player != p_low) and (deb_player != p_high)){throw MyException(&mout,"joueur devant commencé inconnnu!");}
 	
@@ -145,10 +141,6 @@ void AntiChess::initialise_low_pieces(){
 void AntiChess::affichage(){
 	/* fonction affaichant le tableau de jeu ainsi que les joueurs l'entourant */
 	
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/AntiChess/AntiChess.cpp
-	Affichage* aff = new Affichage(this->get_plateau(), this->get_dico(),"Symbole_","",this->get_active_player()->get_langue(),this->get_low_player(), this->get_high_player(),"*" ,"");
-	this->get_active_player()->send_msg(aff->get_affichage(),true);
-=======
 	AbstractAffichage* aff = this->get_affich();
 		
 	aff->set_active_player(this->get_active_player());
@@ -156,7 +148,6 @@ void AntiChess::affichage(){
 	
 	aff->show();
 	//this->get_active_player()->send_msg(aff->get_affichage(),true);
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/AntiChess/AntiChess.cpp
 }
 
 std::pair<bool,std::string> AntiChess::execute_step(Player* play){

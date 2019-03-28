@@ -795,13 +795,10 @@ std::pair<bool,BitypeVar<Chesspiece*>> BaseChess::normal_output_check(std::strin
 	Chesspiece* cap_piece;
 	std::pair<int,int> conv;
 	BitypeVar<Chesspiece*> dst;
-<<<<<<< HEAD:Projet_BA2_INFO/Client/game/Games/BaseChess/BaseChess.cpp
-=======
 	
 	
 	bool has_to_defend_king = this->verify_my_king();
 	std::cout<<"has_to_defend_king? "<<has_to_defend_king<<std::endl;
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Client/game/GameRules/BaseChess/BaseChess.cpp
 				
 	if (valid){
 		bool again = false;
@@ -826,23 +823,16 @@ std::pair<bool,BitypeVar<Chesspiece*>> BaseChess::normal_output_check(std::strin
 				// piece de l'adversaire
 				// verifier que in peut faire le déplacement vers out !
 				if(this->check_illegal_move(in,out) == true){again = true;}
-<<<<<<< HEAD:Projet_BA2_INFO/Client/game/Games/BaseChess/BaseChess.cpp
-=======
 				else{again = this->consequences_legal_out_move(has_to_defend_king,mpos_out);}
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Client/game/GameRules/BaseChess/BaseChess.cpp
 			}
 		}	
 				
 		// case vide
-<<<<<<< HEAD:Projet_BA2_INFO/Client/game/Games/BaseChess/BaseChess.cpp
-		else{if(this->check_illegal_move(in,out) == true){again = true;}} //cette notation evite la mise a false de "again"
-=======
 		else{
 			if(this->check_illegal_move(in,out) == true){again = true;}
 			else{again = this->consequences_legal_out_move(has_to_defend_king,mpos_out);}
 		
 		} //cette notation evite la mise a false de "again"
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Client/game/GameRules/BaseChess/BaseChess.cpp
 			
 		res = not(again);
 	}
@@ -1235,11 +1225,7 @@ bool BaseChess::roc_check_king_position_and_path_danger(MatPosi* mpos_roi, MatPo
 	if (valid_roc == true){
 		
 		// si le roi n'est pas en danger apres le roque:
-<<<<<<< HEAD:Projet_BA2_INFO/Client/game/Games/BaseChess/BaseChess.cpp
-		BitypeVar<MatPosi*>* dang_roi_ap = this->is_endangered(mpos_roi_dst,this->get_non_active_player());
-=======
 		BitypeVar<MatPosi*>* dang_roi_ap = this->is_endangered(mpos_roi_dst,this->get_non_active_player(),"capt");
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Client/game/GameRules/BaseChess/BaseChess.cpp
 		
 		valid_roc = not(dang_roi_ap->get_state());
 		
@@ -1256,11 +1242,7 @@ bool BaseChess::roc_check_king_position_and_path_danger(MatPosi* mpos_roi, MatPo
 			long long unsigned int j=0;
 			bool stop = false;
 			while (j<king_steps_vect->size() and stop == false){
-<<<<<<< HEAD:Projet_BA2_INFO/Client/game/Games/BaseChess/BaseChess.cpp
-				BitypeVar<MatPosi*>* step_danger = this->is_endangered((*king_steps_vect)[j],this->get_non_active_player());
-=======
 				BitypeVar<MatPosi*>* step_danger = this->is_endangered((*king_steps_vect)[j],this->get_non_active_player(),"capt");
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Client/game/GameRules/BaseChess/BaseChess.cpp
 				if(step_danger->get_state() == true){
 					stop = true;
 				};
@@ -2409,7 +2391,6 @@ std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bo
 std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,std::string player_name,Player* play){
 	
 	return this->execute_forced_step(merged_coords,false,player_name,play);
-<<<<<<< HEAD:Projet_BA2_INFO/Client/game/Games/BaseChess/BaseChess.cpp
 	
 }
 
@@ -2458,63 +2439,12 @@ std::pair<bool,bool> BaseChess::execute_forced_step_play(std::string merged_coor
 
 std::pair<bool,bool> BaseChess::execute_forced_step_play(std::string merged_coords,std::string player_name,std::string str_play){
 	
-=======
-	
-}
-
-std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,Player* play){	
-	return this->execute_forced_step(merged_coords,false,play);
-}
-
-//--------------------
-
-
-std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bool invert_y){
-	
-	return this->execute_forced_step(merged_coords,invert_y,this->get_active_player());
-	
-}
-
-std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bool invert_y,std::string player_name){
-	
-	return this->execute_forced_step(merged_coords,invert_y,player_name,this->get_active_player());
-		
-}
-
-std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,std::string player_name){
-	
-	return this->execute_forced_step(merged_coords,player_name,this->get_active_player());
-	
-}
-
-std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords){
-	return this->execute_forced_step(merged_coords,this->get_active_player());
-}
-
-//***********************************************************
-
-std::pair<bool,bool> BaseChess::execute_forced_step_play(std::string merged_coords,bool invert_y,std::string str_play){
-	
-	return this->execute_forced_step(merged_coords,invert_y,this->get_player(str_play));
-	
-}
-
-std::pair<bool,bool> BaseChess::execute_forced_step_play(std::string merged_coords,bool invert_y,std::string player_name,std::string str_play){
-	
-	return this->execute_forced_step(merged_coords,invert_y,player_name,this->get_player(str_play));
-		
-}
-
-std::pair<bool,bool> BaseChess::execute_forced_step_play(std::string merged_coords,std::string player_name,std::string str_play){
-	
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Client/game/GameRules/BaseChess/BaseChess.cpp
 	return this->execute_forced_step(merged_coords,player_name,this->get_player(str_play));
 	
 }
 
 std::pair<bool,bool> BaseChess::execute_forced_step_play(std::string merged_coords,std::string str_play){
 	return this->execute_forced_step(merged_coords,this->get_player(str_play));
-<<<<<<< HEAD:Projet_BA2_INFO/Client/game/Games/BaseChess/BaseChess.cpp
 }
 //****************************************
 
@@ -2535,28 +2465,6 @@ std::string BaseChess::get_affichage_pat() const{
 	ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"draw")<<" !"<<std::endl;
 	return ss.str();
 }
-=======
-}
-//****************************************
-
-
-
-bool BaseChess::check_pat(){
-	
-	bool can_move = this->can_player_move(this->get_active_player());
-	
-	bool echec_et_mat = not can_move;
-	
-	//mout << "		EN ECHEC ET MAT ?" << echec_et_mat <<std::endl;
-	return echec_et_mat;
-}
-
-std::string BaseChess::get_affichage_pat() const{
-	std::stringstream ss;
-	ss<<this->get_dico()->search(this->get_active_player()->get_langue(),"draw")<<" !"<<std::endl;
-	return ss.str();
-}
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Client/game/GameRules/BaseChess/BaseChess.cpp
 
 std::string BaseChess::get_affichage_resultat(bool end, bool abandon, bool pat) const{
 		
@@ -2635,8 +2543,6 @@ std::pair<bool,bool> BaseChess::execute_forced_step(BitypeVar<Trinome<std::strin
 	return this->execute_forced_step(bit,this->get_active_player());
 }
 
-<<<<<<< HEAD:Projet_BA2_INFO/Client/game/Games/BaseChess/BaseChess.cpp
-=======
 AbstractAffichage* BaseChess::get_affich() const {return this->affich;}
 void BaseChess::set_affich(AbstractAffichage* aff){this->affich = aff;}
 
@@ -2752,5 +2658,4 @@ std::vector<std::pair<int,int>> BaseChess::return_pe_mov(std::string coords){
 	return *mov_vect;
 }
 
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Client/game/GameRules/BaseChess/BaseChess.cpp
 #endif

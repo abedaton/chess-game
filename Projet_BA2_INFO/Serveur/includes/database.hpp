@@ -39,11 +39,6 @@ class Database{
         void updateInfo(std::string table, std::string colName, std::string username, std::string newValue);
         void updateUserLog(std::string table, int logged);
         void updateUserDisc(std::string table);
-<<<<<<< HEAD
-        void updateWin(std::string table, bool win);
-        sqlite3* getdb();
-        void createInfoTable(std::string username, int socket);
-=======
         void resetStuff();
         void updateWin(std::string username, std::string rival, bool win);
         void createInfoTable(std::string username);
@@ -56,7 +51,6 @@ class Database{
 
         void acceptFriend(std::string friend1, std::string friend2, bool accept);
         void deleteFriend(std::string friend1, std::string friend2);
->>>>>>> Partie_Serveur
     private:
         void createTable();
         void updateAllSockets();
@@ -65,8 +59,6 @@ class Database{
         static int myCallback(void* pUser, int argc, char** argv, char** columns);
         static int callback(void* NotUsed, int argc, char** argv, char** columns);
         static int callbackDisc(void* NotUsed, int argc, char** argv, char** columns);
-<<<<<<< HEAD
-=======
         static int callbackGetter(void* var, int argc, char** argv, char** column);
         static int callbackSee(void* friendList, int argc, char** argv, char** column);
         char* getValue(std::string table, std::string column);
@@ -75,7 +67,6 @@ class Database{
 
     
 
->>>>>>> Partie_Serveur
         sqlite3* db;
 };
 

@@ -23,41 +23,23 @@ class User: public AbstractUser{
         User(const User&) = delete;
         User& operator= (const User&) noexcept = delete;
 
-<<<<<<< HEAD
-		void startGame(TempsReel*, AbstractUser*, bool,bool,bool, std::string) override;
-		void opponentMov(std::string mov)override;
-=======
 		void startGame(SuperGame*, AbstractUser*, bool) override;
 		void mov(std::string mov) override;
 		void sendMov(std::string mov) override;
->>>>>>> Partie_Serveur
 		void surrend() override;
 		void sendMsg(std::string msg) override;
 		void lose() override;
 		void exit();
 		std::string get_name() const override;
 		
-<<<<<<< HEAD
-		bool get_inverted() const;
-		void set_inverted(bool);
-		
-=======
->>>>>>> Partie_Serveur
 	private:
 		int _clientSock;
 		Database* _db;
 		MatchMaking* _match;
-<<<<<<< HEAD
-		TempsReel* _game;
-		AbstractUser* _opponent;
-		bool _myTurn;
-		bool _isinverted;
-=======
 		SuperGame* _game;
 		AbstractUser* _opponent;
 		bool _myTurn;
 		bool _inverted;
->>>>>>> Partie_Serveur
 
 		std::mutex _mutex;
 		std::string _name;

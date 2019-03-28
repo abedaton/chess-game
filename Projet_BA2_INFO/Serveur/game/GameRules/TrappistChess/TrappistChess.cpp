@@ -8,11 +8,7 @@ extern MyOstream mout;
 
 //--------------------TrappistChess----------------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/TrappistChess/TrappistChess.cpp
-TrappistChess::TrappistChess(Player* p_low, Player* p_high,Player* deb_player, Dico* dict) : BaseChess(p_low,p_high,deb_player,dict){
-=======
 TrappistChess::TrappistChess(Player* p_low, Player* p_high,Player* deb_player, Dico* dict, AbstractAffichage* aff) : BaseChess(p_low,p_high,deb_player,dict,aff){
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/TrappistChess/TrappistChess.cpp
 	
 	if((deb_player != p_low) and (deb_player != p_high)){throw MyException(&mout,"joueur devant commencé inconnnu!");}
 	
@@ -339,10 +335,6 @@ void TrappistChess::initialise_low_pieces()
 void TrappistChess::affichage(){
 	/* fonction affaichant le tableau de jeu ainsi que les joueurs l'entourant */
 	
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/TrappistChess/TrappistChess.cpp
-	Affichage* aff = new Affichage(this->get_plateau(), this->get_dico(),"Symbole_","",this->get_active_player()->get_langue(),this->get_low_player(), this->get_high_player(),"*" ,"",6,3);
-	this->get_active_player()->send_msg(aff->get_affichage(),true);
-=======
 	AbstractAffichage* aff = this->get_affich();
 	
 	aff->set_active_player(this->get_active_player());
@@ -350,7 +342,6 @@ void TrappistChess::affichage(){
 	
 	aff->show();
 	//this->get_active_player()->send_msg(aff->get_affichage(),true);
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/TrappistChess/TrappistChess.cpp
 }
 
 std::pair<bool,std::string> TrappistChess::execute_step(Player* play){
@@ -535,8 +526,6 @@ bool TrappistChess::check_roc_accept(BitypeVar<Chesspiece*> in_pe) const {
 	(void)in_pe;
 	return false;
 }
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/TrappistChess/TrappistChess.cpp
-=======
 
 void TrappistChess::initialise_size_affichage_plat_squares(){
 	
@@ -545,4 +534,3 @@ void TrappistChess::initialise_size_affichage_plat_squares(){
 	aff->set_taille_case_hor(6);
 	aff->set_taille_case_ver(3);
 }
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/TrappistChess/TrappistChess.cpp

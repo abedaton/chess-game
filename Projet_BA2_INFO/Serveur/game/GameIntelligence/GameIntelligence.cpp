@@ -1,18 +1,10 @@
 #include "GameIntelligence.hpp"
 
-<<<<<<< HEAD
-TourParTour* GameIntelligence::get_game() const{
-	return this->game;
-}
-
-void GameIntelligence::set_game(TourParTour* jeu){
-=======
 BaseGameType* GameIntelligence::get_game() const{
 	return this->game;
 }
 
 void GameIntelligence::set_game(BaseGameType* jeu){
->>>>>>> Partie_Serveur
 	this->game = jeu;
 }
 
@@ -23,20 +15,7 @@ void GameIntelligence::make_game(std::string game_rule, std::string game_type, P
 	
 	Dico* dico = make_dico("../../../csv");
 	
-<<<<<<< HEAD
-	BaseChess* serv;
-	
-	if (game_type == "classic"){serv = new ClassicChess(player_one,player_two,player_one,dico);}
-	else if (game_type == "dark"){serv = new DarkChess(player_one, player_two, player_one,nullptr, dico);}
-	else if (game_type == "trappist"){serv = new TrappistChess(player_one,player_two,player_one,dico);}
-	else if (game_type == "anti"){serv = new AntiChess(player_one,player_two,player_one,dico);}
-	else{throw MyException(&mout,"game_type inconnu!");}
-	
-	TourParTour* big_game = new TourParTour(serv);
-	this->set_game(big_game);
-=======
 	BaseChess* game_part;
->>>>>>> Partie_Serveur
 
 	if (game_rule == "classic"){
 		

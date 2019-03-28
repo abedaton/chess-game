@@ -18,11 +18,7 @@ class DarkChess : public BaseChess{
 		Player* locked_player;
 
 	public:
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/DarkChess/DarkChess.hpp
-		DarkChess(Player *, Player *, Player*,Player*, Dico *); //*< Constructor
-=======
 		DarkChess(Player *, Player *, Player*,Player*, Dico *,AbstractAffichage*); //*< Constructor
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/DarkChess/DarkChess.hpp
 		DarkChess() noexcept = default;        //*< Constructor
 		~DarkChess() noexcept = default;       // Destructor
 		DarkChess(const DarkChess &) noexcept = default;
@@ -45,13 +41,7 @@ class DarkChess : public BaseChess{
 		void affichage() override;
 
 		void make_fog(Player*);
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/DarkChess/DarkChess.hpp
-		std::vector<std::pair<int, int>> *check_all_mov(Chesspiece *);
-
-		std::vector<std::pair<int, int>>* loop_moves(Chesspiece*, std::string);
-=======
 		
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/DarkChess/DarkChess.hpp
 
 		bool check_non_active_player_king(Chesspiece*) override;
 		
@@ -65,11 +55,8 @@ class DarkChess : public BaseChess{
 		
 		using BaseChess::execute_forced_step;
 		using BaseChess::execute_step;
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/DarkChess/DarkChess.hpp
-=======
 		
 		std::vector<std::pair<int, int>>* check_all_mov(Chesspiece *pe);
 		std::vector<std::pair<int, int>>* loop_moves(Chesspiece *pe, std::string mode);
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/DarkChess/DarkChess.hpp
 };
 #endif

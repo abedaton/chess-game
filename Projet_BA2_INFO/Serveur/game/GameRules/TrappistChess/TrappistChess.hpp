@@ -36,16 +36,10 @@ class TrappistChess: public BaseChess{
 		std::pair<bool,std::string> execute_step(Player*) override;
 		
 		std::pair<bool,bool> execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>*,Player*) override;
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/TrappistChess/TrappistChess.hpp
-		
-		using BaseChess::execute_forced_step;
-		using BaseChess::execute_step;
-=======
 		
 		using BaseChess::execute_forced_step;
 		using BaseChess::execute_step;
 		
 		void initialise_size_affichage_plat_squares() override;
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/TrappistChess/TrappistChess.hpp
 };
 #endif

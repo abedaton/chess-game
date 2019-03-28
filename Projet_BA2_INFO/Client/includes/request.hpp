@@ -20,14 +20,6 @@
 #include "abstractClient.hpp"
 
 #define PORT 5555
-<<<<<<< HEAD
-
-struct FriendRequests
-{
-    std::string name;
-};
-=======
->>>>>>> Partie_Serveur
 
 class Request{
     public:
@@ -75,16 +67,12 @@ class Request{
         void sendInt(int num);
         std::string recvStr();
 
-<<<<<<< HEAD
-        std::queue<FriendRequests> friendRequests; 
-=======
         void recvMessage();
         void recvFriendRequestsList();
         void recvFriendList();
         void recvInfo();
         std::vector<std::string> recvVector();
 
->>>>>>> Partie_Serveur
 };
 
 enum Protocol : int {

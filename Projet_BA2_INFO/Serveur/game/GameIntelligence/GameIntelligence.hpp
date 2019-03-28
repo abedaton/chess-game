@@ -4,33 +4,19 @@
 #include <iostream>
 #include <utility>
 
-<<<<<<< HEAD
-#include "../Gestion/TourParTour/TourParTour.cpp"
-#include "../Gestion/Pendule/Pendule.cpp"
-=======
 #include "../GameTypes/TourParTour/TourParTour.cpp"
 #include "../GameTypes/Pendule/Pendule.cpp"
 #include "../GameTypes/TempsReel/TempsReel.cpp"
->>>>>>> Partie_Serveur
 
 class GameIntelligence{
 	
 	private:
-<<<<<<< HEAD
-		TourParTour* game;
-	
-	private:
-		void make_game(std::string,Player*, Player*);
-		TourParTour* get_game() const;
-        void set_game(TourParTour*);
-=======
 		BaseGameType* game;
 	
 	private:
 		void make_game(std::string,std::string,Player*, Player*);
 		BaseGameType* get_game() const;
         void set_game(BaseGameType*);
->>>>>>> Partie_Serveur
 	
 	public:
         GameIntelligence() noexcept = default; //*< Constructor

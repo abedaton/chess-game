@@ -89,15 +89,10 @@ class BaseChess{
         
         virtual std::pair<bool,bool> execute_forced_step(std::string,Player*);
         virtual std::pair<bool,bool> execute_forced_step(std::string, bool,Player*);
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/BaseChess/BaseChess.hpp
-        virtual std::pair<bool,bool> execute_forced_step(std::string, bool, std::string,Player*);
-        virtual std::pair<bool,bool> execute_forced_step(std::string,std::string,Player*);
-=======
 				
         virtual std::pair<bool,bool> execute_forced_step(std::string, bool, std::string,Player*);
         virtual std::pair<bool,bool> execute_forced_step(std::string,std::string,Player*);
 				Plateau* get_plateau() const;
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/BaseChess/BaseChess.hpp
         
         virtual std::pair<bool,bool> execute_forced_step(std::string);
         virtual std::pair<bool,bool> execute_forced_step(std::string, bool);
@@ -109,11 +104,7 @@ class BaseChess{
         virtual std::pair<bool,bool> execute_forced_step_play(std::string, bool, std::string,std::string);
         virtual std::pair<bool,bool> execute_forced_step_play(std::string,std::string,std::string);
         
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/BaseChess/BaseChess.hpp
-        friend class TempsReel;
-=======
         friend class BaseGameType;
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/BaseChess/BaseChess.hpp
 		
         
 	protected:
@@ -132,13 +123,8 @@ class BaseChess{
 		void inc_action_cnt();
 		
 		int get_player_row(Player*) const;
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/BaseChess/BaseChess.hpp
-		
-		Plateau* get_plateau() const;
-=======
 		
 		
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/BaseChess/BaseChess.hpp
 		void set_plateau(Plateau*);
 		
 		Dico* get_dico() const;
@@ -282,8 +268,6 @@ class BaseChess{
 		virtual bool verify_all_eaten();
 		
 		virtual std::pair<bool,std::string> execute_step(Player*) = 0;
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/BaseChess/BaseChess.hpp
-=======
 		
 		AbstractAffichage* get_affich() const;
 		void set_affich(AbstractAffichage*);
@@ -295,7 +279,6 @@ class BaseChess{
 		std::vector<std::pair<int,int>>* return_possible_mouvement(Chesspiece*,std::string);
 		Chesspiece* return_pe_from_str(std::string);
 		std::vector<std::pair<int,int>> return_pe_mov(std::string);
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/BaseChess/BaseChess.hpp
 		
 };
 #endif

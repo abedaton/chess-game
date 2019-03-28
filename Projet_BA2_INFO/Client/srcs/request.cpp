@@ -1,10 +1,5 @@
 #include "../includes/request.hpp"
 
-<<<<<<< HEAD
-Request::Request(AbstractClient* client, const char* ip): _client(client){
-	setup(ip);
-	pthread_create(&this->_listenerThread, NULL, &Request::run, static_cast<void*>(this));
-=======
 
 /*
  * Constructeur de Request,
@@ -22,7 +17,6 @@ Request::Request(AbstractClient* client, const char* ip): _client(client){
     params->obj = this;
     params->ip = ip;
 	pthread_create(&this->_listenerThread, NULL, &Request::run, static_cast<void*>(params));
->>>>>>> Partie_Serveur
 }
 
 /*
@@ -34,63 +28,6 @@ Request::~Request(){
 	close(this->_clientSock);
 }
 
-<<<<<<< HEAD
-int Request::letsRegister(std::string username,std::string password, std::string email){
-    std::cout << "sending" << std::endl;
-	waitForProcess();
-    int protocol = 1;
-    sendInt(protocol);
-    sendStr(username);
-    sendStr(password);
-    sendStr(email);
-	int res = recvInt();
-	endProcess();
-    return res;
-}
-
-int Request::login(std::string username,std::string password){
-	waitForProcess();
-    int protocol = 2;
-    sendInt(protocol);
-    sendStr(username);
-    sendStr(password);
-	int res = recvInt();
-	endProcess();
-    return res;
-}
-
-void Request::chat(std::string msg){
-	waitForProcess();
-    int protocol = 3;
-    sendInt(protocol);
-    sendStr(msg);
-	endProcess();
-}
-
-void Request::findMatch(int modDeJeu){
-	waitForProcess();
-    int protocol = 4;
-	sendInt(protocol);
-    sendInt(modDeJeu);
-	endProcess();
-}
-
-void Request::mov(std::string mov){
-	waitForProcess();
-    int protocol = 5;
-	sendInt(protocol);
-	sendStr(mov);
-	endProcess();
-}
-
-void Request::surrend(){
-	waitForProcess();
-	int protocol = 6;
-	sendInt(protocol);
-	endProcess();
-}
-=======
->>>>>>> Partie_Serveur
 
 //////////////////////////////////////////////////////////////////////////////////////////////PRIVIET
 /*
@@ -108,38 +45,8 @@ void* Request::run(void* args){
 }
 
 /*
-<<<<<<< HEAD
-Retourne vrai/faux selon le fait que l'utilisateur existe ou pas.
-l'autre client (qu'on ajoute) doit aller dans le menu consulter 
-mes demandes d'amis pour l'accepter et le serveur se charge du reste.
-*/
-bool Request::addFriend(std::string name)
-{
-    waitForProcess();
-    sendInt(ADDFRIEND);
-    sendStr(name);
-    std::cout << "Vous avez ajouté: \"" << name << "\" à votre liste d'amis veuillez attendre sa réponse" << std::endl;
-    bool res = recvInt();
-    std::cout << "res was :" << res ;
-    endProcess();
-    return res;
-}
-
-//todo thread safe friendRequests?
-void Request::recvFriendAddNotification()
-{
-    FriendRequests newPotentialFriend;
-    newPotentialFriend.name = recvStr();
-    friendRequests.push(newPotentialFriend);
-}
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////PRIVIET
-=======
  * Initialisation
  */
->>>>>>> Partie_Serveur
 void Request::setup(const char* ip){
     this->_servAddr.sin_addr.s_addr	= inet_addr(ip);
     this->_servAddr.sin_family = AF_INET;
@@ -202,22 +109,9 @@ void Request::listener(){
  */
 void Request::startingGame(){
 	int turn = recvInt();
-<<<<<<< HEAD
-	int inverted = recvInt();
-	int ennemy_inverted = recvInt();
-	std::string ennemy_name = recvStr();
-	
-	this->_client->set_inverted(static_cast<bool>(inverted-1));
-	this->_client->set_ennemy_inverted(static_cast<bool>(ennemy_inverted-1));
-	this->_client->set_ennemy_name(ennemy_name);
-	
-	//j'ai préféré mettre les setters en dehors plustôt que de tout mettre dans startgame, a vous de choisir -quentin.
-	this->_client->startingGame(static_cast<bool>(turn-1));
-=======
 	std::string ennemy_name = recvStr();
 
 	this->_client->startingGame(static_cast<bool>(turn-1), ennemy_name);
->>>>>>> Partie_Serveur
 }
 
 /*
@@ -372,8 +266,6 @@ std::string Request::recvStr(){
     std::string str(buffer.begin(), buffer.end());
     return str;
 }
-<<<<<<< HEAD
-=======
 
 
 /*
@@ -535,4 +427,3 @@ void Request::getUserInfo(std::string username){
     endProcess();
 }
 
->>>>>>> Partie_Serveur

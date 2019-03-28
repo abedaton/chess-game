@@ -3,12 +3,6 @@
 MyOstream mout("logfile.txt");
 
 int main(int argc,char** argv){
-<<<<<<< HEAD
-    if (argc > 1){
-        new Client(argv[1]);
-    } else {
-        Client* client = new Client("127.0.0.1");
-=======
     std::regex regip("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$");
     bool terminalMod = false;
     bool goodParam = true;
@@ -37,7 +31,6 @@ int main(int argc,char** argv){
         (void)(*client); // OK????
     } else {
         std::cout << "Invalide parameter." << std::endl;
->>>>>>> Partie_Serveur
     }
     return 0;
 }

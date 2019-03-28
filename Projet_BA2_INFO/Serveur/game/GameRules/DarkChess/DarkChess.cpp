@@ -6,11 +6,7 @@ extern MyOstream mout;
 
 //--------------------DarkChess----------------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/DarkChess/DarkChess.cpp
-DarkChess::DarkChess(Player* p_low, Player* p_high,Player* deb_player,Player* locked_play, Dico* dict) : BaseChess(p_low,p_high,deb_player,dict), fog((*(new std::vector<std::vector<int>>()))), locked_player(locked_play){
-=======
 DarkChess::DarkChess(Player* p_low, Player* p_high,Player* deb_player,Player* locked_play, Dico* dict, AbstractAffichage* aff) : BaseChess(p_low,p_high,deb_player,dict,aff), fog((*(new std::vector<std::vector<int>>()))), locked_player(locked_play){
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/DarkChess/DarkChess.cpp
 	
 	if((deb_player != p_low) and (deb_player != p_high)){throw MyException(&mout,"joueur devant commencé inconnnu!");}
 	if((locked_play != nullptr) and (locked_play != p_low) and (locked_play != p_high)){throw MyException(&mout,"joueur etant verouille inconnnu!");}
@@ -153,13 +149,6 @@ void DarkChess::initialise_low_pieces(){
 }
 
 void DarkChess::affichage(Player* play){
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/DarkChess/DarkChess.cpp
-    /* fonction affaichant le tableau de jeu ainsi que les joueurs l'entourant */
-    make_fog(play);
-    AffichageDarkChess *aff = new AffichageDarkChess(this->get_plateau(), this->get_dico(), "Symbole_", "",play->get_langue(),
-                                                     this->get_low_player(), this->get_high_player(), "*", "", this->get_fog());
-    this->get_active_player()->send_msg(aff->get_affichage(), true);
-=======
 	/* fonction affaichant le tableau de jeu ainsi que les joueurs l'entourant */
 	
 	make_fog(play);
@@ -175,7 +164,6 @@ void DarkChess::affichage(Player* play){
 	
 	aff->show();
 	//this->get_active_player()->send_msg(aff->get_affichage(),true);
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/DarkChess/DarkChess.cpp
 }
 
 void DarkChess::affichage(){
@@ -458,49 +446,3 @@ std::vector<std::pair<int, int>>* DarkChess::loop_moves(Chesspiece *pe, std::str
     }
     return res;
 }
-<<<<<<< HEAD:Projet_BA2_INFO/Serveur/game/Games/DarkChess/DarkChess.cpp
-
-bool DarkChess::check_non_active_player_king(Chesspiece* pe) {
-	/* fonction qui vérifie l'état du roi adverse sur le plateau
-	 * (en echec, en echec et mat, coincé, ...) */
-	(void) *pe;
-	return false;
-	
-}
-
-std::vector<Chesspiece*>* DarkChess::evolution_possibilities(){
-	
-	Tour* tour = new Tour();
-	Fous* fous = new Fous();
-	Chevalier* chevalier = new Chevalier();
-	Dame* dame = new Dame();
-	
-	std::vector<Chesspiece*>* chess_vect = new std::vector<Chesspiece*>();
-	chess_vect->push_back(tour);
-	chess_vect->push_back(fous);
-	chess_vect->push_back(chevalier);
-	chess_vect->push_back(dame);
-	
-	return chess_vect;
-	
-}
-
-bool DarkChess::roc_check_king_position_and_path_danger(MatPosi* mpos_roi, MatPosi* mpos_roi_dst, bool gauche_isking,int co_roi_dst,std::vector<MatPosi>* between_vect){
-	
-	MatPosi tmp_mpos_roi = *mpos_roi;
-	(void)tmp_mpos_roi;
-	
-	MatPosi tmp_mpos_roi_dst = *mpos_roi_dst;
-	(void)tmp_mpos_roi_dst;
-	
-	(void)gauche_isking;
-	(void)co_roi_dst;
-	
-	std::vector<MatPosi> tmp_between_vect = *between_vect;
-	(void)tmp_between_vect;
-			
-	return true; // retourne si roc est valide
-	
-}
-=======
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Serveur/game/GameRules/DarkChess/DarkChess.cpp

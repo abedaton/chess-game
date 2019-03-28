@@ -5,24 +5,9 @@ User::User(int client_sock, Database* db, MatchMaking* match) : _clientSock(clie
     pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
 }
 
-<<<<<<< HEAD
-void User::startGame(TempsReel* game, AbstractUser* oppenent, bool turn, bool inverted,bool ennemy_inverted, std::string ennemy_name){
-    this->_game = game;
-    this->_opponent = oppenent;
-    this->_myTurn = turn;
-    this->set_inverted(inverted);
-	int protocol = 20;
-    sendInt(protocol);
-    sendInt(static_cast<int>(turn)+1);
-    sendInt(static_cast<int>(inverted)+1);
-    sendInt(static_cast<int>(ennemy_inverted)+1); //this->get_ennemy_inverted() ? (startgame player2 apres -> non?)
-    sendStr(ennemy_name); //this->get_ennemy_name()
-    std::cout << "startGame" << std::endl;
-=======
 User::~User(){
     std::cout << "destructor" << std::endl;
     exit();
->>>>>>> Partie_Serveur
 }
 
 
@@ -72,20 +57,6 @@ void User::waitForMatch(){
     int elo = _db->getInt(this->_name, "elo");
     this->_match->waitForMatch(this, gameMod, elo);
 }
-<<<<<<< HEAD
-        
-void User::mov(){
-    if (! this->_myTurn){ //hack
-        std::cout << "should never happened" << std::endl;
-        this->_opponent->surrend();
-        this->exit();
-    }
-    std::string mov = recvStr();
-    
-    std::pair<bool,bool> pAnswer = this->_game->execute_step(mov, this->name,this->get_inverted());
-    if (std::get<0>(pAnswer)){
-      this->_opponent->opponentMov(mov);
-=======
 
 void User::recvMov(){
     std::string mov = recvStr();
@@ -96,7 +67,6 @@ void User::mov(std::string mov){
     std::pair<bool, bool> pAnswer = this->_game->serverMov(mov, this->_name,this->_inverted);
     if (pAnswer.first){
       this->_opponent->sendMov(mov);
->>>>>>> Partie_Serveur
       this->_myTurn = false;
     } else {
         this->_opponent->surrend();
@@ -123,53 +93,12 @@ void User::exit() {
     
     //on enleve l'utilisateur du vector des joueurs connectés
     
-<<<<<<< HEAD
-    this->_db->updateUserDisc(this->name);
-    pthread_exit(0);
-}
-
-std::string User::get_name() const{return this->name;}
-
-std::string User::getName()
-{
-    return this->name;
-}
-
-User* User::findUserByName(std::string name)
-{
-    User * res = nullptr;
-    int i = 0;
-    while(i < onlineUsers.size() && res == nullptr)
-    {
-        if(name == onlineUsers[i]->getName())
-            res = onlineUsers[i];
-        i++;
-    }
-    return res;
-}
-
-
-/*
-note findUserByName est un mauvais moyen pour trouver si un joueur est toujours en ligne
-je pense que ce serait mieux de juste supprimer de la variable membre friends
- au fur et à mesure qu'un joueur se deconnecte
-*/
-void User::listOnlineFriends()
-{
-    sendInt(friends.size());
-    for(int i = 0; i < friends.size(); i++)
-    {
-        if(findUserByName(friends[i]->getName()) != nullptr) //on regarde si il est toujours en ligne
-            sendStr(friends[i]->getName());
-    }
-=======
     this->_db->updateUserDisc(this->_name);
     pthread_exit(0);
 }
 
 std::string User::get_name() const{
     return this->_name;
->>>>>>> Partie_Serveur
 }
 
 
@@ -337,12 +266,6 @@ void User::sendMsg(std::string msg){
     sendStr(msg);
 }
 
-<<<<<<< HEAD
-}
-
-bool User::get_inverted() const {return this->_isinverted;}
-void User::set_inverted(bool inverted){this->_isinverted = inverted;}
-=======
 void User::sendVector(std::vector<std::string> vec){
     long length = htonl( vec.size());
     send(this->_clientSock, &length, sizeof(length), 0);
@@ -424,4 +347,3 @@ void User::GetUserInfo(){
     sendInt(win);
     sendInt(elo);
 }
->>>>>>> Partie_Serveur

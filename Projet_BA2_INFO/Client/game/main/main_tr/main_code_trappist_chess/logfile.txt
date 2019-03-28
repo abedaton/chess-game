@@ -121,11 +121,7 @@ ou end pour abandonner la partie
 ou liste_depl pour afficher la liste de deplacements possibles de la piece
 ou liste_capt pour afficher la liste de capture possibles de la piece
 ou lang pour changer la langue
-<<<<<<< HEAD:Projet_BA2_INFO/Client/game/main/main_code_trappist_chess/logfile.txt
-g1
-=======
 g4
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Client/game/main/main_tr/main_code_trappist_chess/logfile.txt
 
 [Human(player2)] ()
 
@@ -213,11 +209,7 @@ g4
       |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
      -|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|-
       |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-<<<<<<< HEAD:Projet_BA2_INFO/Client/game/main/main_code_trappist_chess/logfile.txt
-  4   |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |   4
-=======
   4   |      |      |      |      |      |      | Fa*  |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |   4
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Client/game/main/main_tr/main_code_trappist_chess/logfile.txt
       |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
      -|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|-
       |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -229,11 +221,7 @@ g4
       |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
      -|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|-
       |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-<<<<<<< HEAD:Projet_BA2_INFO/Client/game/main/main_code_trappist_chess/logfile.txt
-  1   |      |  P*  |      |      |      |  P*  | Fa*  |      |      |      |      |      |      |      |      |      |      |      |  P*  |      | Fa*  |      |  P*  |      |   1
-=======
   1   |      |  P*  |      |      |      |  P*  |      |      |      |      |      |      |      |      |      |      |      |      |  P*  |      | Fa*  |      |  P*  |      |   1
->>>>>>> Partie_Serveur:Projet_BA2_INFO/Client/game/main/main_tr/main_code_trappist_chess/logfile.txt
       |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
      -|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|-
       |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
