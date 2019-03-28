@@ -91,7 +91,22 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
 
 // }
 
+void PlateauScene::showMoves(std::vector<std::pair<int,int> > deplacement){
+    int x, y;
+    const int size = deplacement.size();
+    for(int i = 0; i < size ; ++i){
+        x = std::get<0>(deplacement[i]);
+        y = std::get<1>(deplacement[i]);
+        
+        if(_boxes[x][y]->getPiece() == nullptr)
+            _boxes[x][y]->setColor(Qt::green);
+        else 
+            _boxes[x][y]->setColor(Qt::red);
+    }
+}
+
 void PlateauScene::showMoves(int *moves, int *cap) {
+    
     int x, y;
     for (int i = 0; i < sizeof(moves)/sizeof(moves[0]); ++i) {
         x = moves[i]/_size;
@@ -254,11 +269,15 @@ void PlateauScene::setLowTrappist(std::string suffix){
 	addPiece("chev",suffix,8,9);
 	addPiece("fou",suffix,8,10);
 	addPiece("reine",suffix,8,11);
+    
 	addPiece("roi",suffix,8,12);
 	addPiece("fou",suffix,8,13);
 	addPiece("chev",suffix,8,14);
+    
 	addPiece("gard",suffix,8,15);
+    
 	addPiece("chan",suffix,8,16);
+    
 	addPiece("tour",suffix,8,17);
 	addPiece("pion",suffix,8,18);
     
@@ -276,11 +295,7 @@ void PlateauScene::setLowTrappist(std::string suffix){
     addPiece("pion",suffix,2,3);
     addPiece("pion",suffix,2,20);
     
-    //ligne 2
-    addPiece("pion",suffix,1,2);
-    addPiece("pion",suffix,1,4);
-    addPiece("pion",suffix,1,19);
-    addPiece("pion",suffix,1,21);
+  
     
     //ligne 1
     addPiece("pion",suffix,0,1);

@@ -140,6 +140,11 @@ void Client::getFriendRequests() {
 void Client::getFriendList(){
 	this->_server->getFriendList();
 }
+
+void Client::getUserInfo(){
+	this->getUserInfo(this->_name);
+}
+
 void Client::getUserInfo(std::string username){
 	this->_server->getUserInfo(username);
 }
@@ -151,6 +156,9 @@ void Client::recvFriendRequestsList(std::vector<std::string> vec){
 }
 void Client::recvFriendList(std::vector<std::pair<std::string, bool> > frendList){
 	this->_interface->recvFriendList(frendList);
+}
+void Client::recvInfo(std::string username, int nbrgames, int win, int elo){
+	this->_interface->recvInfo(username, nbrgames, win, elo);
 }
 
 
