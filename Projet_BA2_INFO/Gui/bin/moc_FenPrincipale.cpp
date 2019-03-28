@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'FenPrincipale.hpp'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.11.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.5)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'FenPrincipale.hpp' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.11.1. It"
+#error "This file was generated using the moc from 5.9.5. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -192,7 +192,7 @@ void FenPrincipale::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject FenPrincipale::staticMetaObject = {
+const QMetaObject FenPrincipale::staticMetaObject = {
     { &QMainWindow::staticMetaObject, qt_meta_stringdata_FenPrincipale.data,
       qt_meta_data_FenPrincipale,  qt_static_metacall, nullptr, nullptr}
 };
