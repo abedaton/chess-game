@@ -30,8 +30,7 @@ class BaseGameType {
 
         //std::pair<int,int> str_mov_to_int(std::string);
         
-        std::vector<int>* return_pe_mov(int);
-		std::vector<int>* return_pe_capt(int);
+        std::vector<std::pair<int,int>> return_pe_mov(std::string);
         
 	protected:
         void set_game(BaseChess*);

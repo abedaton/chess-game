@@ -276,10 +276,9 @@ class BaseChess{
 		bool consequences_legal_out_move(bool,MatPosi*);
 		
 		
-		std::vector<int>* return_possible_mouvement(Chesspiece*,std::string);
-		Chesspiece* return_pe_from_int(int);
-		std::vector<int>* return_pe_mov(int);
-		std::vector<int>* return_pe_capt(int);
+		std::vector<std::pair<int,int>>* return_possible_mouvement(Chesspiece*,std::string);
+		Chesspiece* return_pe_from_str(std::string);
+		std::vector<std::pair<int,int>> return_pe_mov(std::string);
 		
 };
 #endif

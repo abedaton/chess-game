@@ -62,8 +62,7 @@ std::pair<int, int> BaseGameType::str_mov_to_int(std::string square){
 }
 */
 
-std::vector<int>* BaseGameType::return_pe_mov(int position){return this->get_game()->return_pe_mov(position);}
-std::vector<int>* BaseGameType::return_pe_capt(int position){return this->get_game()->return_pe_capt(position);}
+std::vector<std::pair<int,int>> BaseGameType::return_pe_mov(std::string coords){return this->get_game()->return_pe_mov(coords);}
 
 
 #endif

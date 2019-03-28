@@ -2603,12 +2603,12 @@ bool BaseChess::consequences_legal_out_move(bool has_to_defend_king,MatPosi* mpo
 	
 }
 
-std::vector<int>* BaseChess::return_possible_mouvement(Chesspiece* pe ,std::string mode){
+std::vector<std::pair<int,int>>* BaseChess::return_possible_mouvement(Chesspiece* pe ,std::string mode){
 	/* fonction qui affiche les mouvements possibles d'une piece */
 	
 	std::vector<MatPosi*>* vect = this->check_possible_mouvement(pe, mode);
 	
-	std::vector<int>* stock = new std::vector<int>();
+	std::vector<std::pair<int,int>>* stock = new std::vector<std::pair<int,int>>();
 	
 	BitypeVar<int>* bit_taille = new BitypeVar<int>(true,this->get_plateau()->get_taille());
 	
@@ -2617,7 +2617,7 @@ std::vector<int>* BaseChess::return_possible_mouvement(Chesspiece* pe ,std::stri
 
 		PlatPosi* temp_plat = new PlatPosi(temp,*bit_taille);
 		
-		int temp_int = temp_plat->to_sum_val();
+		std::pair<int,int> temp_int = temp_plat->to_pair();
 		
 		if (not(is_in_vect(stock,temp_int))){stock->push_back(temp_int);}
 		
@@ -2628,11 +2628,11 @@ std::vector<int>* BaseChess::return_possible_mouvement(Chesspiece* pe ,std::stri
 	return stock;
 }
 
-Chesspiece* BaseChess::return_pe_from_int(int temp){
+Chesspiece* BaseChess::return_pe_from_str(std::string coords){
 	
 	BitypeVar<int>* bit_taille = new BitypeVar<int>(true,this->get_plateau()->get_taille());
-	BitypeVar<int>* bit_empty = new BitypeVar<int>(false,0);
-	PlatPosi* pe_ppos = new PlatPosi(temp,*bit_empty,*bit_taille);
+	//BitypeVar<int>* bit_empty = new BitypeVar<int>(false,0);
+	PlatPosi* pe_ppos = new PlatPosi(coords,*bit_taille);
 	std::pair<int,int> paire = pe_ppos->to_pair();
 	delete pe_ppos;
 
@@ -2646,16 +2646,16 @@ Chesspiece* BaseChess::return_pe_from_int(int temp){
 	return pe;
 }
 
-std::vector<int>* BaseChess::return_pe_mov(int pe_position){
+std::vector<std::pair<int,int>> BaseChess::return_pe_mov(std::string coords){
 	
-	Chesspiece* pe = this->return_pe_from_int(pe_position);
-	return this->return_possible_mouvement(pe,"depl");
-}
-
-std::vector<int>* BaseChess::return_pe_capt(int pe_position){
+	Chesspiece* pe = this->return_pe_from_str(coords);
 	
-	Chesspiece* pe = this->return_pe_from_int(pe_position);
-	return this->return_possible_mouvement(pe,"capt");
+	std::vector<std::pair<int,int>>* mov_vect = this->return_possible_mouvement(pe,"depl");
+	std::vector<std::pair<int,int>>* capt_vect = this->return_possible_mouvement(pe,"capt");
+	
+	mov_vect->insert( mov_vect->end(), capt_vect->begin(), capt_vect->end() );
+	
+	return *mov_vect;
 }
 
 #endif
