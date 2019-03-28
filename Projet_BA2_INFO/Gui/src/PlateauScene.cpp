@@ -4,6 +4,9 @@ PlateauScene::PlateauScene(std::string game_type , std::string pool_name, QWidge
     
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
 		this->set_size(8);
+        if(_game_type == "dark"){
+
+        }
 	}
 	else if (this->get_game_type() == "trappist") {
 		this->set_size(24);
@@ -306,6 +309,22 @@ void PlateauScene::setLowTrappist(std::string suffix){
     addPiece("pion",suffix,0,22);
    
 }
+
+/*
+void PlateauScene::setFog(std::vector<std::vector<int> > *fog){
+
+    for(int i = 0 ; i < 8 ; ++i){
+        for(int j = 0; j < 8 ; ++j){
+            if(fog[i][j] == 1){
+
+
+
+            }
+        }
+    }
+}
+*/
+
 std::string PlateauScene::get_pool() const {return this->_pool;}
 std::string PlateauScene::get_game_type() const {return this->_game_type;}
 void PlateauScene::set_size(int taille){this->_size = taille;}

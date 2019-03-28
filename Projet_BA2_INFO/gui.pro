@@ -55,6 +55,7 @@ HEADERS += Gui/incl/FenPrincipale.hpp \
            Gui/incl/Timer.hpp\
            Gui/incl/FriendList.hpp\
            Gui/incl/Publicity.hpp\
+           Gui/incl/StatWindow.hpp \
            ###
            Client/includes/abstractClient.hpp\
            Client/includes/abstractInterface.hpp\
@@ -63,8 +64,8 @@ HEADERS += Gui/incl/FenPrincipale.hpp \
            Client/includes/request.hpp\
            Client/includes/terminal.hpp\
            Client/game/common/MyException/MyOstream/MyOstream.hpp \
-           Client/game/common/MyException/MyException.hpp \
-    Gui/incl/StatWindow.hpp
+           Client/game/common/MyException/MyException.hpp
+
 
 SOURCES += Gui/src/FenPrincipale.cpp \
            Gui/src/GameWindow.cpp \
@@ -79,10 +80,11 @@ SOURCES += Gui/src/FenPrincipale.cpp \
            Gui/src/Timer.cpp \
            Gui/src/FriendList.cpp\
            Gui/src/Publicity.cpp\
+           Gui/src/StatWindow.cpp \
            ###
            Client/main.cpp\
            Client/srcs/client.cpp \
            Client/srcs/request.cpp \
-           Client/srcs/terminal.cpp\
-    Gui/src/StatWindow.cpp
+           Client/srcs/terminal.cpp
+
            

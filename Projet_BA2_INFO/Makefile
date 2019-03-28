@@ -62,8 +62,8 @@ SOURCES       = Gui/src/FenPrincipale.cpp \
 		Gui/src/Timer.cpp \
 		Gui/src/FriendList.cpp \
 		Gui/src/Publicity.cpp \
-		Client/main.cpp \
-		Gui/src/StatWindow.cpp Gui/bin/moc_FenPrincipale.cpp \
+		Gui/src/StatWindow.cpp \
+		Client/main.cpp Gui/bin/moc_FenPrincipale.cpp \
 		Gui/bin/moc_GameWindow.cpp \
 		Gui/bin/moc_Login.cpp \
 		Gui/bin/moc_Register.cpp \
@@ -85,8 +85,8 @@ OBJECTS       = Gui/bin/FenPrincipale.o \
 		Gui/bin/Timer.o \
 		Gui/bin/FriendList.o \
 		Gui/bin/Publicity.o \
-		Gui/bin/main.o \
 		Gui/bin/StatWindow.o \
+		Gui/bin/main.o \
 		Gui/bin/moc_FenPrincipale.o \
 		Gui/bin/moc_GameWindow.o \
 		Gui/bin/moc_Login.o \
@@ -182,6 +182,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		Gui/incl/Timer.hpp \
 		Gui/incl/FriendList.hpp \
 		Gui/incl/Publicity.hpp \
+		Gui/incl/StatWindow.hpp \
 		Client/includes/abstractClient.hpp \
 		Client/includes/abstractInterface.hpp \
 		Client/game/GameTypes/SuperGame/AbstractPlayer.hpp \
@@ -189,8 +190,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		Client/includes/request.hpp \
 		Client/includes/terminal.hpp \
 		Client/game/common/MyException/MyOstream/MyOstream.hpp \
-		Client/game/common/MyException/MyException.hpp \
-		Gui/incl/StatWindow.hpp Gui/src/FenPrincipale.cpp \
+		Client/game/common/MyException/MyException.hpp Gui/src/FenPrincipale.cpp \
 		Gui/src/GameWindow.cpp \
 		Gui/src/Login.cpp \
 		Gui/src/PlateauBox.cpp \
@@ -202,8 +202,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		Gui/src/Timer.cpp \
 		Gui/src/FriendList.cpp \
 		Gui/src/Publicity.cpp \
-		Client/main.cpp \
-		Gui/src/StatWindow.cpp
+		Gui/src/StatWindow.cpp \
+		Client/main.cpp
 QMAKE_TARGET  = cli
 DESTDIR       = 
 TARGET        = cli
@@ -385,8 +385,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Gui/incl/FenPrincipale.hpp Gui/incl/GameWindow.hpp Gui/incl/Login.hpp Gui/incl/PlateauBox.hpp Gui/incl/PlateauScene.hpp Gui/incl/Register.hpp Gui/incl/Menu.hpp Gui/incl/Chat.hpp Gui/incl/ChessItem.hpp Gui/incl/Timer.hpp Gui/incl/FriendList.hpp Gui/incl/Publicity.hpp Client/includes/abstractClient.hpp Client/includes/abstractInterface.hpp Client/game/GameTypes/SuperGame/AbstractPlayer.hpp Client/includes/client.hpp Client/includes/request.hpp Client/includes/terminal.hpp Client/game/common/MyException/MyOstream/MyOstream.hpp Client/game/common/MyException/MyException.hpp Gui/incl/StatWindow.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents Gui/src/FenPrincipale.cpp Gui/src/GameWindow.cpp Gui/src/Login.cpp Gui/src/PlateauBox.cpp Gui/src/PlateauScene.cpp Gui/src/Register.cpp Gui/src/Menu.cpp Gui/src/Chat.cpp Gui/src/ChessItem.cpp Gui/src/Timer.cpp Gui/src/FriendList.cpp Gui/src/Publicity.cpp Client/main.cpp Gui/src/StatWindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents Gui/incl/FenPrincipale.hpp Gui/incl/GameWindow.hpp Gui/incl/Login.hpp Gui/incl/PlateauBox.hpp Gui/incl/PlateauScene.hpp Gui/incl/Register.hpp Gui/incl/Menu.hpp Gui/incl/Chat.hpp Gui/incl/ChessItem.hpp Gui/incl/Timer.hpp Gui/incl/FriendList.hpp Gui/incl/Publicity.hpp Gui/incl/StatWindow.hpp Client/includes/abstractClient.hpp Client/includes/abstractInterface.hpp Client/game/GameTypes/SuperGame/AbstractPlayer.hpp Client/includes/client.hpp Client/includes/request.hpp Client/includes/terminal.hpp Client/game/common/MyException/MyOstream/MyOstream.hpp Client/game/common/MyException/MyException.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents Gui/src/FenPrincipale.cpp Gui/src/GameWindow.cpp Gui/src/Login.cpp Gui/src/PlateauBox.cpp Gui/src/PlateauScene.cpp Gui/src/Register.cpp Gui/src/Menu.cpp Gui/src/Chat.cpp Gui/src/ChessItem.cpp Gui/src/Timer.cpp Gui/src/FriendList.cpp Gui/src/Publicity.cpp Gui/src/StatWindow.cpp Client/main.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -553,6 +553,9 @@ Gui/bin/FriendList.o: Gui/src/FriendList.cpp Gui/incl/FriendList.hpp
 Gui/bin/Publicity.o: Gui/src/Publicity.cpp Gui/incl/Publicity.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/Publicity.o Gui/src/Publicity.cpp
 
+Gui/bin/StatWindow.o: Gui/src/StatWindow.cpp Gui/incl/StatWindow.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/StatWindow.o Gui/src/StatWindow.cpp
+
 Gui/bin/main.o: Client/main.cpp Client/srcs/client.cpp \
 		Client/includes/client.hpp \
 		Client/srcs/request.cpp \
@@ -640,9 +643,6 @@ Gui/bin/main.o: Client/main.cpp Client/srcs/client.cpp \
 		Client/game/GameTypes/TempsReel/TempsReel.cpp \
 		Client/game/GameTypes/TempsReel/TempsReel.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/main.o Client/main.cpp
-
-Gui/bin/StatWindow.o: Gui/src/StatWindow.cpp Gui/incl/StatWindow.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/StatWindow.o Gui/src/StatWindow.cpp
 
 Gui/bin/moc_FenPrincipale.o: Gui/bin/moc_FenPrincipale.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/moc_FenPrincipale.o Gui/bin/moc_FenPrincipale.cpp
