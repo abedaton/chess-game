@@ -4,13 +4,13 @@
 #define ABSTRACTINTERFACE_HPP
 
 #include "abstractClient.hpp"
-#include "../game/Plateau/AbstractPlateau.hpp"
+//#include "../../game/Plateau/AbstractPlateau.hpp"
 #include <pthread.h>
 
 class AbstractInterface { 
     public:
         virtual void myShow(){}//for gui interface
-        virtual void gameStart(std::string opponent, AbstractPlateau* board){this->_ennemyName = opponent;this->_board = board;};
+        virtual void gameStart(std::string opponent){this->_ennemyName = opponent;};
         virtual void connectionError() = 0;
         virtual void win() = 0;
         virtual void lose() = 0;
@@ -35,7 +35,7 @@ class AbstractInterface {
         bool _chronoMod = false;
         std::string _ennemyName;
         std::string  _username;
-        AbstractPlateau* _board;
+        //AbstractPlateau* _board;
         struct info _info;
         std::vector<std::string> _friendRequest;
         std::vector<std::pair<std::string, bool> > _friendList;

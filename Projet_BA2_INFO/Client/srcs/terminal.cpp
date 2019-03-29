@@ -32,9 +32,8 @@ void Terminal::connectionError(){
 /*
  * Affiche sur le terminal que le jeu commence
  */
-void Terminal::gameStart(std::string opponent, AbstractPlateau* board){
+void Terminal::gameStart(std::string opponent){
 	this->_ennemyName = opponent;
-	this->_board = board;
 	this->_gameStart = true;
     std::cout << "\nGame is starting. Please press a random key to continue" << std::endl;
 }

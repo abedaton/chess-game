@@ -27,8 +27,6 @@ Request::Request(AbstractClient* client, const char* ip): _client(client){
  * Destructeur de request
  */
 Request::~Request(){
-	pthread_cancel(this->_listenerThread);
-    std::cout << "listener Thread stopped" << std::endl;
 	close(this->_clientSock);
 }
 

@@ -96,7 +96,6 @@ void Serveur::sShutdown(){
         }
     }
     close(this->_serv_sock);
-    std::cout << "ready2 = " << this->_ready << std::endl;
     if (this->_ready){
         delete this->_db;
         delete this->_match;

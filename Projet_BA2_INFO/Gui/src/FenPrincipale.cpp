@@ -182,7 +182,6 @@ void FenPrincipale::goToTrappist(){
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
 }
-
 void FenPrincipale::goToMenu() {
     setFriendMenu();
     setThemeMenu();
@@ -202,9 +201,8 @@ void FenPrincipale::removeFriend() {
 }
 
 
-void FenPrincipale::gameStart(std::string opponent, AbstractPlateau* board){
+void FenPrincipale::gameStart(std::string opponent){
 	this->_ennemyName = opponent;
-	this->_board = board;
     //_client->waitForMatch(1); TO DO
     goToClassic();
 }

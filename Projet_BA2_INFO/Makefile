@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -std=c++11 -g -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -IGui/src -IGui/incl -IGui/img -IGui/bin -IGui/advertisements -IGui -I. -IClient -IClient/includes -I./Client/src -IClient/game/common/MyException -IClient/game/common/MyException/MyOstream -I./Client/game/GameType/SuperGame -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -IGui/bin -isystem /usr/include/libdrm -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I. -IGui/src -IGui/incl -IGui/img -IGui/bin -IGui/advertisements -IGui -I. -IClient -IClient/includes -I./Client/src -Igame/common/MyException -Igame/common/MyException/MyOstream -I./game/GameType/SuperGame -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -IGui/bin -isystem /usr/include/libdrm -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = cli1.0.0
-DISTDIR = /home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/bin/cli1.0.0
+DISTDIR = /mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin/cli1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -185,12 +185,12 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		Gui/incl/StatWindow.hpp \
 		Client/includes/abstractClient.hpp \
 		Client/includes/abstractInterface.hpp \
-		Client/game/GameTypes/SuperGame/AbstractPlayer.hpp \
+		game/GameTypes/SuperGame/abstractPlayer.hpp \
 		Client/includes/client.hpp \
 		Client/includes/request.hpp \
 		Client/includes/terminal.hpp \
-		Client/game/common/MyException/MyOstream/MyOstream.hpp \
-		Client/game/common/MyException/MyException.hpp Gui/src/FenPrincipale.cpp \
+		game/common/MyException/MyOstream/MyOstream.hpp \
+		game/common/MyException/MyException.hpp Gui/src/FenPrincipale.cpp \
 		Gui/src/GameWindow.cpp \
 		Gui/src/Login.cpp \
 		Gui/src/PlateauBox.cpp \
@@ -385,7 +385,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Gui/incl/FenPrincipale.hpp Gui/incl/GameWindow.hpp Gui/incl/Login.hpp Gui/incl/PlateauBox.hpp Gui/incl/PlateauScene.hpp Gui/incl/Register.hpp Gui/incl/Menu.hpp Gui/incl/Chat.hpp Gui/incl/ChessItem.hpp Gui/incl/Timer.hpp Gui/incl/FriendList.hpp Gui/incl/Publicity.hpp Gui/incl/StatWindow.hpp Client/includes/abstractClient.hpp Client/includes/abstractInterface.hpp Client/game/GameTypes/SuperGame/AbstractPlayer.hpp Client/includes/client.hpp Client/includes/request.hpp Client/includes/terminal.hpp Client/game/common/MyException/MyOstream/MyOstream.hpp Client/game/common/MyException/MyException.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents Gui/incl/FenPrincipale.hpp Gui/incl/GameWindow.hpp Gui/incl/Login.hpp Gui/incl/PlateauBox.hpp Gui/incl/PlateauScene.hpp Gui/incl/Register.hpp Gui/incl/Menu.hpp Gui/incl/Chat.hpp Gui/incl/ChessItem.hpp Gui/incl/Timer.hpp Gui/incl/FriendList.hpp Gui/incl/Publicity.hpp Gui/incl/StatWindow.hpp Client/includes/abstractClient.hpp Client/includes/abstractInterface.hpp game/GameTypes/SuperGame/abstractPlayer.hpp Client/includes/client.hpp Client/includes/request.hpp Client/includes/terminal.hpp game/common/MyException/MyOstream/MyOstream.hpp game/common/MyException/MyException.hpp $(DISTDIR)/
 	$(COPY_FILE) --parents Gui/src/FenPrincipale.cpp Gui/src/GameWindow.cpp Gui/src/Login.cpp Gui/src/PlateauBox.cpp Gui/src/PlateauScene.cpp Gui/src/Register.cpp Gui/src/Menu.cpp Gui/src/Chat.cpp Gui/src/ChessItem.cpp Gui/src/Timer.cpp Gui/src/FriendList.cpp Gui/src/Publicity.cpp Gui/src/StatWindow.cpp Client/main.cpp $(DISTDIR)/
 
 
@@ -436,56 +436,55 @@ Gui/bin/moc_FenPrincipale.cpp: Gui/incl/FriendList.hpp \
 		Gui/incl/StatWindow.hpp \
 		Client/includes/abstractInterface.hpp \
 		Client/includes/abstractClient.hpp \
-		Client/game/Plateau/AbstractPlateau.hpp \
 		Gui/incl/FenPrincipale.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/incl -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/img -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/bin -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/advertisements -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/includes -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException/MyOstream -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/FenPrincipale.hpp -o Gui/bin/moc_FenPrincipale.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/FenPrincipale.hpp -o Gui/bin/moc_FenPrincipale.cpp
 
 Gui/bin/moc_GameWindow.cpp: Gui/incl/GameWindow.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/incl -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/img -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/bin -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/advertisements -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/includes -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException/MyOstream -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/GameWindow.hpp -o Gui/bin/moc_GameWindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/GameWindow.hpp -o Gui/bin/moc_GameWindow.cpp
 
 Gui/bin/moc_Login.cpp: Gui/incl/Login.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/incl -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/img -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/bin -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/advertisements -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/includes -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException/MyOstream -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Login.hpp -o Gui/bin/moc_Login.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Login.hpp -o Gui/bin/moc_Login.cpp
 
 Gui/bin/moc_Register.cpp: Gui/incl/Register.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/incl -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/img -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/bin -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/advertisements -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/includes -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException/MyOstream -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Register.hpp -o Gui/bin/moc_Register.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Register.hpp -o Gui/bin/moc_Register.cpp
 
 Gui/bin/moc_Menu.cpp: Gui/incl/Menu.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/incl -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/img -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/bin -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/advertisements -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/includes -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException/MyOstream -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Menu.hpp -o Gui/bin/moc_Menu.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Menu.hpp -o Gui/bin/moc_Menu.cpp
 
 Gui/bin/moc_Chat.cpp: Gui/incl/Chat.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/incl -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/img -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/bin -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/advertisements -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/includes -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException/MyOstream -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Chat.hpp -o Gui/bin/moc_Chat.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Chat.hpp -o Gui/bin/moc_Chat.cpp
 
 Gui/bin/moc_Timer.cpp: Gui/incl/Timer.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/incl -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/img -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/bin -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/advertisements -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/includes -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException/MyOstream -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Timer.hpp -o Gui/bin/moc_Timer.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Timer.hpp -o Gui/bin/moc_Timer.cpp
 
 Gui/bin/moc_FriendList.cpp: Gui/incl/FriendList.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/incl -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/img -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/bin -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/advertisements -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/includes -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException/MyOstream -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/FriendList.hpp -o Gui/bin/moc_FriendList.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/FriendList.hpp -o Gui/bin/moc_FriendList.cpp
 
 Gui/bin/moc_Publicity.cpp: Gui/incl/Publicity.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/incl -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/img -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/bin -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/advertisements -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/includes -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException/MyOstream -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Publicity.hpp -o Gui/bin/moc_Publicity.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Publicity.hpp -o Gui/bin/moc_Publicity.cpp
 
 Gui/bin/moc_StatWindow.cpp: Gui/incl/StatWindow.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/incl -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/img -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/bin -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui/advertisements -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Gui -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/includes -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/src -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/common/MyException/MyOstream -I/home/achraf/GUIgroupe9/groupe9/Projet_BA2_INFO/Client/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/StatWindow.hpp -o Gui/bin/moc_StatWindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/StatWindow.hpp -o Gui/bin/moc_StatWindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -515,8 +514,7 @@ Gui/bin/FenPrincipale.o: Gui/src/FenPrincipale.cpp Gui/incl/FenPrincipale.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
 		Client/includes/abstractInterface.hpp \
-		Client/includes/abstractClient.hpp \
-		Client/game/Plateau/AbstractPlateau.hpp
+		Client/includes/abstractClient.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/FenPrincipale.o Gui/src/FenPrincipale.cpp
 
 Gui/bin/GameWindow.o: Gui/src/GameWindow.cpp Gui/incl/GameWindow.hpp
@@ -601,71 +599,75 @@ Gui/bin/main.o: Client/main.cpp Client/srcs/client.cpp \
 		Gui/incl/ChessItem.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
-		Client/game/GameTypes/SuperGame/SuperGame.cpp \
-		Client/game/GameTypes/SuperGame/SuperGame.hpp \
-		Client/game/GameTypes/SuperGame/AbstractPlayer.hpp \
-		Client/game/GameTypes/TourParTour/TourParTour.cpp \
-		Client/game/GameTypes/TourParTour/TourParTour.hpp \
-		Client/game/GameTypes/BaseGameType/BaseGameType.cpp \
-		Client/game/GameTypes/BaseGameType/BaseGameType.hpp \
-		Client/game/GameRules/AntiChess/AntiChess.cpp \
-		Client/game/GameRules/AntiChess/AntiChess.hpp \
-		Client/game/GameRules/BaseChess/BaseChess.cpp \
-		Client/game/GameRules/BaseChess/BaseChess.hpp \
-		Client/game/GameAffichages/Affichage/Affichage.cpp \
-		Client/game/GameAffichages/Affichage/Affichage.hpp \
-		Client/game/GameAffichages/Affichage/AbstractAffichage/AbstractAffichage.cpp \
-		Client/game/GameAffichages/Affichage/AbstractAffichage/AbstractAffichage.hpp \
-		Client/game/Plateau/Plateau.cpp \
-		Client/game/Plateau/Plateau.hpp \
-		Client/game/GamePieces/Pieces/Pieces.cpp \
-		Client/game/GamePieces/Pieces/Pieces.hpp \
-		Client/game/GamePieces/Pieces/Chesspiece/Chesspiece.cpp \
-		Client/game/GamePieces/Pieces/Chesspiece/Chesspiece.hpp \
-		Client/game/GamePlayers/Bot/Bot.cpp \
-		Client/game/GamePlayers/Bot/Bot.hpp \
-		Client/game/GamePlayers/SilencedHuman/SilencedHuman.cpp \
-		Client/game/GamePlayers/SilencedHuman/SilencedHuman.hpp \
-		Client/game/GamePlayers/SilencedHuman/Human/Human.cpp \
-		Client/game/GamePlayers/SilencedHuman/Human/Human.hpp \
-		Client/game/GamePlayers/SilencedHuman/Human/Player/Player.cpp \
-		Client/game/GamePlayers/SilencedHuman/Human/Player/Player.hpp \
-		Client/game/AdvTuple/AdvTuple.cpp \
-		Client/game/AdvTuple/AdvTuple.hpp \
-		Client/game/PlatPosi/PlatPosi.cpp \
-		Client/game/PlatPosi/PlatPosi.hpp \
-		Client/game/PlatPosi/MatPosi/MatPosi.cpp \
-		Client/game/PlatPosi/MatPosi/MatPosi.hpp \
-		Client/game/PlatPosi/MatPosi/Posi/Posi.cpp \
-		Client/game/PlatPosi/MatPosi/Posi/Posi.hpp \
-		Client/game/Interpret/Interpret.cpp \
-		Client/game/Interpret/Interpret.hpp \
-		Client/game/Dico/Dico.cpp \
-		Client/game/Dico/Dico.hpp \
-		Client/game/Dico/CsvReader/CsvReader.cpp \
-		Client/game/Dico/CsvReader/CsvReader.hpp \
-		Client/game/common/common.cpp \
-		Client/game/common/common.hpp \
-		Client/game/common/BitypeVar/BitypeVar.hpp \
-		Client/game/common/MyException/MyException.cpp \
-		Client/game/common/MyException/MyException.hpp \
-		Client/game/common/MyException/MyOstream/MyOstream.hpp \
-		Client/game/common/Quadrinome/Quadrinome.hpp \
-		Client/game/common/Quadrinome/Trinome/Trinome.hpp \
-		Client/game/GameRules/ClassicChess/ClassicChess.cpp \
-		Client/game/GameRules/ClassicChess/ClassicChess.hpp \
-		Client/game/GameRules/DarkChess/DarkChess.cpp \
-		Client/game/GameRules/DarkChess/DarkChess.hpp \
-		Client/game/GameAffichages/AffichageDarkChess/AffichageDarkChess.cpp \
-		Client/game/GameAffichages/AffichageDarkChess/AffichageDarkChess.hpp \
-		Client/game/GameRules/TrappistChess/TrappistChess.cpp \
-		Client/game/GameRules/TrappistChess/TrappistChess.hpp \
-		Client/game/GameTypes/Pendule/Pendule.cpp \
-		Client/game/GameTypes/Pendule/Pendule.hpp \
-		Client/game/GameTypes/Pendule/Pendulum/Pendulum.cpp \
-		Client/game/GameTypes/Pendule/Pendulum/Pendulum.hpp \
-		Client/game/GameTypes/TempsReel/TempsReel.cpp \
-		Client/game/GameTypes/TempsReel/TempsReel.hpp
+		Client/includes/abstractInterface.hpp \
+		Client/srcs/terminal.cpp \
+		Client/includes/terminal.hpp \
+		game/GameTypes/SuperGame/SuperGame.cpp \
+		game/GameTypes/SuperGame/SuperGame.hpp \
+		game/GameTypes/SuperGame/AbstractPlayer.hpp \
+		game/GameTypes/TourParTour/TourParTour.cpp \
+		game/GameTypes/TourParTour/TourParTour.hpp \
+		game/GameTypes/BaseGameType/BaseGameType.cpp \
+		game/GameTypes/BaseGameType/BaseGameType.hpp \
+		game/GameRules/AntiChess/AntiChess.cpp \
+		game/GameRules/AntiChess/AntiChess.hpp \
+		game/GameRules/BaseChess/BaseChess.cpp \
+		game/GameRules/BaseChess/BaseChess.hpp \
+		game/GameAffichages/Affichage/Affichage.cpp \
+		game/GameAffichages/Affichage/Affichage.hpp \
+		game/GameAffichages/Affichage/AbstractAffichage/AbstractAffichage.cpp \
+		game/GameAffichages/Affichage/AbstractAffichage/AbstractAffichage.hpp \
+		game/Plateau/Plateau.cpp \
+		game/Plateau/Plateau.hpp \
+		game/Plateau/AbstractPlateau.hpp \
+		game/GamePieces/Pieces/Pieces.cpp \
+		game/GamePieces/Pieces/Pieces.hpp \
+		game/GamePieces/Pieces/Chesspiece/Chesspiece.cpp \
+		game/GamePieces/Pieces/Chesspiece/Chesspiece.hpp \
+		game/GamePlayers/Bot/Bot.cpp \
+		game/GamePlayers/Bot/Bot.hpp \
+		game/GamePlayers/SilencedHuman/SilencedHuman.cpp \
+		game/GamePlayers/SilencedHuman/SilencedHuman.hpp \
+		game/GamePlayers/SilencedHuman/Human/Human.cpp \
+		game/GamePlayers/SilencedHuman/Human/Human.hpp \
+		game/GamePlayers/SilencedHuman/Human/Player/Player.cpp \
+		game/GamePlayers/SilencedHuman/Human/Player/Player.hpp \
+		game/AdvTuple/AdvTuple.cpp \
+		game/AdvTuple/AdvTuple.hpp \
+		game/PlatPosi/PlatPosi.cpp \
+		game/PlatPosi/PlatPosi.hpp \
+		game/PlatPosi/MatPosi/MatPosi.cpp \
+		game/PlatPosi/MatPosi/MatPosi.hpp \
+		game/PlatPosi/MatPosi/Posi/Posi.cpp \
+		game/PlatPosi/MatPosi/Posi/Posi.hpp \
+		game/Interpret/Interpret.cpp \
+		game/Interpret/Interpret.hpp \
+		game/Dico/Dico.cpp \
+		game/Dico/Dico.hpp \
+		game/Dico/CsvReader/CsvReader.cpp \
+		game/Dico/CsvReader/CsvReader.hpp \
+		game/common/common.cpp \
+		game/common/common.hpp \
+		game/common/BitypeVar/BitypeVar.hpp \
+		game/common/MyException/MyException.cpp \
+		game/common/MyException/MyException.hpp \
+		game/common/MyException/MyOstream/MyOstream.hpp \
+		game/common/Quadrinome/Quadrinome.hpp \
+		game/common/Quadrinome/Trinome/Trinome.hpp \
+		game/GameRules/ClassicChess/ClassicChess.cpp \
+		game/GameRules/ClassicChess/ClassicChess.hpp \
+		game/GameRules/DarkChess/DarkChess.cpp \
+		game/GameRules/DarkChess/DarkChess.hpp \
+		game/GameAffichages/AffichageDarkChess/AffichageDarkChess.cpp \
+		game/GameAffichages/AffichageDarkChess/AffichageDarkChess.hpp \
+		game/GameRules/TrappistChess/TrappistChess.cpp \
+		game/GameRules/TrappistChess/TrappistChess.hpp \
+		game/GameTypes/Pendule/Pendule.cpp \
+		game/GameTypes/Pendule/Pendule.hpp \
+		game/GameTypes/Pendule/Pendulum/Pendulum.cpp \
+		game/GameTypes/Pendule/Pendulum/Pendulum.hpp \
+		game/GameTypes/TempsReel/TempsReel.cpp \
+		game/GameTypes/TempsReel/TempsReel.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/main.o Client/main.cpp
 
 Gui/bin/moc_FenPrincipale.o: Gui/bin/moc_FenPrincipale.cpp 

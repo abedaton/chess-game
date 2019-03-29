@@ -77,8 +77,10 @@ void MatchMaking::poolSort(int gameMod, int elo, AbstractUser* player){
  */
 void MatchMaking::startMatch(AbstractUser* player1, AbstractUser* player2, int gameMod){
     std::cout << "Launching Game" << std::endl;
-    
-    SuperGame* game = new SuperGame(gameMod, player1, true, player1->get_name(), player2->get_name());
+    SilencedHuman* play_one = new SilencedHuman(player1->get_name(), player2->get_name());
+    SilencedHuman* play_two = new SilencedHuman(player2->get_name(), player1->get_name());
+
+    SuperGame* game = new SuperGame(gameMod, player1, true, play_one, play_two);
 
     player1->startGame(game, player2, true);
     player2->startGame(game, player1, false);

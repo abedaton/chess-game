@@ -3,7 +3,7 @@
 #define ABSTRACTUSER_HPP
 
 #include <string>
-#include "../game/GameTypes/SuperGame/SuperGame.cpp"
+#include "../../game/GameTypes/SuperGame/SuperGame.cpp"
 
 class AbstractGame;
 

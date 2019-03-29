@@ -26,9 +26,12 @@ INCLUDEPATH += .
 INCLUDEPATH += ./Client
 INCLUDEPATH += ./Client/includes
 INCLUDEPATH += ./Client/src
-INCLUDEPATH += ./Client/game/common/MyException
-INCLUDEPATH += ./Client/game/common/MyException/MyOstream
-INCLUDEPATH += ./Client/game/GameType/SuperGame
+#INCLUDEPATH += ./Client/game/common/MyException
+#INCLUDEPATH += ./Client/game/common/MyException/MyOstream
+#INCLUDEPATH += ./Client/game/GameType/SuperGame
+INCLUDEPATH += ./game/common/MyException
+INCLUDEPATH += ./game/common/MyException/MyOstream
+INCLUDEPATH += ./game/GameType/SuperGame
 ###
 
 # The following define makes your compiler warn you if you use any
@@ -59,12 +62,15 @@ HEADERS += Gui/incl/FenPrincipale.hpp \
            ###
            Client/includes/abstractClient.hpp\
            Client/includes/abstractInterface.hpp\
-           Client/game/GameTypes/SuperGame/abstractPlayer.hpp\
+           #Client/game/GameTypes/SuperGame/abstractPlayer.hpp\
+           game/GameTypes/SuperGame/abstractPlayer.hpp\
            Client/includes/client.hpp\
            Client/includes/request.hpp\
            Client/includes/terminal.hpp\
-           Client/game/common/MyException/MyOstream/MyOstream.hpp \
-           Client/game/common/MyException/MyException.hpp
+           #Client/game/common/MyException/MyOstream/MyOstream.hpp \
+           #Client/game/common/MyException/MyException.hpp
+           game/common/MyException/MyOstream/MyOstream.hpp \
+           game/common/MyException/MyException.hpp
 
 
 SOURCES += Gui/src/FenPrincipale.cpp \

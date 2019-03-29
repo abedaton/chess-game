@@ -18,7 +18,7 @@ class Terminal: public AbstractInterface{
         Terminal(AbstractClient* client);
         ~Terminal();
         void connectionError() override;
-		void gameStart(std::string opponent, AbstractPlateau* board) override;
+		void gameStart(std::string opponent) override;
 		void win() override;
 		void lose() override;
 

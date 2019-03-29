@@ -6,7 +6,7 @@
 #include "../../Gui/incl/FenPrincipale.hpp"
 #include "../srcs/terminal.cpp"
 
-#include "../game/GameTypes/SuperGame/SuperGame.cpp"
+#include "../../game/GameTypes/SuperGame/SuperGame.cpp"
 
 
 class Client: public AbstractPlayer, public AbstractClient{

@@ -42,9 +42,11 @@ void Client::waitForMatch(int gameMod){
  * Lance une partie
  */
 void Client::startingGame(bool playerTurn, std::string opponentName){
-	this->_game = new SuperGame(this->_gameMod, this, playerTurn, this->_name, opponentName);
+	Human* play_one = new Human(this->_name, opponentName);
+	SilencedHuman* play_two = new SilencedHuman(opponentName, this->_name);
+	this->_game = new SuperGame(this->_gameMod, this, playerTurn, play_one, play_two);
 	Plateau* board = this->_game->getBoard();
-	this->_interface->gameStart(opponentName, board);
+	this->_interface->gameStart(opponentName);
 }
 
 /*
@@ -145,11 +147,6 @@ void Client::exit(){
 	if (_game != nullptr)
 		delete _game;
 	delete _server;
-	try {
-		delete this; //:(
-	} catch(std::exception& e){
-		;;
-	}
 }
 
 void Client::movPossibleUpdate(std::vector<std::string> listMov){
