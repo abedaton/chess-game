@@ -4,6 +4,14 @@
 
 #include "FenPrincipale.hpp"
 
+// TODO link list d'amis
+// TODO link chat
+// TODO link le jeu
+// TODO dark chess brouillard
+// TODO leaderboard
+// TODO timer
+// TODO fenetre d'attend matchmaking
+
 FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
     init_window();
     init_stack();
@@ -20,7 +28,7 @@ void FenPrincipale::init_window() {
     setWindowTitle("On Veut Pas D'Échec");
     setWindowIcon(QIcon("./Gui/img/logo_compl_v1.png"));
     // setStyleSheet("background-image:url(img/retro_space.png)");
-    resize(QDesktopWidget().availableGeometry(this).size() * 0.5);
+    resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
     _statusBar = new QStatusBar(this);
     setStatusBar(_statusBar);
     MenuBar();
@@ -32,10 +40,12 @@ void FenPrincipale::init_stack() {
     _gameWindow = new GameWindow(this);
     _menu = new Menu(this);
     _stack = new QStackedWidget(this);
+    _statWindow = new StatWindow(this);
     _stack->addWidget(_login);
     _stack->addWidget(_register);
     _stack->addWidget(_menu);
     _stack->addWidget(_gameWindow);
+    _stack->addWidget(_statWindow);
 }
 
 void FenPrincipale::init_connect() {
@@ -52,11 +62,18 @@ void FenPrincipale::init_connect() {
     connect(_gameWindow->getDarkButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
     connect(_gameWindow->getTrapistButton(), SIGNAL(clicked()), this, SLOT(goToTrappist()));
     connect(_gameWindow->getAntiButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
-    
+    connect(_gameWindow->getExitButton(), SIGNAL(clicked()), this,SLOT(goToMenu()));    
+
     connect(_menu->getNewGame(), SIGNAL(clicked()), this, SLOT(goToGame()));
     connect(_menu->getExit(), SIGNAL(clicked()), qApp, SLOT(quit()));
+    connect(_menu->getStat(), SIGNAL(clicked()), this, SLOT(goToStat()));
     connect(_friendList->getPushButtonAddFriend(), SIGNAL(clicked()), this, SLOT(addFriend()));
     connect(_friendList->getPushButtonRemoveFriend(), SIGNAL(clicked()), this, SLOT(removeFriend()));
+    connect(_friendList->getListWidgetFriendList(), SIGNAL(itemClicked(QListWidgetItem *)),this, SLOT(showFriend(QListWidgetItem *)));
+
+    //connect(_statWindow,SIGNAL(enterPressed()), this, SLOT(fonctionjsp qui appelle StatWindow::getPlayerStats ))
+    connect(_statWindow->getExitButton(), SIGNAL(clicked()), this, SLOT(goToMenu()));
+
 }
 
 void FenPrincipale::init_dock() {
@@ -87,7 +104,7 @@ void FenPrincipale::init_dock() {
     _dockChat->hide();
     _dockTimer->hide();
     _dockFriendList->hide();
-    // _dockPublicity->hide();
+    _dockPublicity->hide();
 }
 
 void FenPrincipale::MenuBar() {
@@ -145,18 +162,23 @@ void FenPrincipale::goToGame() {
     _stack->setCurrentWidget(_gameWindow);
 }
 
+void FenPrincipale::goToStat(){
+    _stack->setCurrentWidget(_statWindow);
+}
+
 void FenPrincipale::goToClassic() {
     //std::string pool = "pool2";
  
-    _classicWindow = new PlateauScene("classic", _pool);
+    _classicWindow = new PlateauScene("classic", _pool,this,this);
     
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
+    //_client->waitForMatch(1);
     
 }
 
 void FenPrincipale::goToTrappist(){
-    _classicWindow = new PlateauScene("trappist", _pool);
+    _classicWindow = new PlateauScene("trappist", _pool, this,this);
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
 }
@@ -241,4 +263,20 @@ void FenPrincipale::setPool4(){
     setTheme("pool4");
 }
 
+void FenPrincipale::showFriend(QListWidgetItem *item){
+    QCursor cursor;
+    QPoint point = this->mapFromGlobal(cursor.pos());
+    QMenu menu;
+    menu.addAction("Chat");
+    menu.addAction("profile");
+    menu.addAction("Chat");
+    menu.addAction("Chat");
+    menu.addAction("Chat");
+    menu.exec(point);
+}
+void FenPrincipale::sendPosition(std::string pos){
+    std::cout << "coucou bande de nouille " << pos << std::endl;
+    //quand on lance le jeu
+    //_client->click(pos);
+}
 #endif

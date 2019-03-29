@@ -2,6 +2,7 @@
 #define PLATEAUBOX_CPP
 #include "PlateauBox.hpp"
 
+
 PlateauBox::PlateauBox(int x, int y, int sideLenght = 65, QGraphicsItem *parent) : QGraphicsRectItem(parent), _sideLenght(sideLenght) {
     setRect(0, 0, sideLenght, sideLenght);
     setPos(x,y);
@@ -38,7 +39,7 @@ void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent* event) {
         int cap[] = {6};
 
 
-        _scene->showMoves(moves,cap);
+        //_scene->showMoves(moves,cap);
         _scene->setPriorityBox(this);
     }
 
@@ -58,8 +59,17 @@ void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent* event) {
         std::cout << "oupsi pas de piece" << std::endl;
     }
 
+
+    std::string numer = std::to_string(8 - std::get<0>(_pos));
     char letter = 65 + std::get<1>(_pos);
-    std::cout << letter << 8 - std::get<0>(_pos) << std::endl; ///CAN
+    std::string output = letter+numer;
+
+    std::cout << output << std::endl; ///CAN
+
+    sendPosition(output);
+
+
+
 
 }
 
@@ -86,5 +96,13 @@ void PlateauBox::movePiece(){
     _scene->getPriorityBox()->setPiece(nullptr);
     _scene->resetAllColors();
 }
+/*
+AbstractClient* PlateauBox::getClient() const{
+    return _scene->getClient();
+}
+*/
 
+void PlateauBox::sendPosition(std::string pos){
+    _scene->sendPosition(pos);
+}
 #endif

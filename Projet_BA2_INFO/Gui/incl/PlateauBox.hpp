@@ -22,6 +22,9 @@ class PlateauBox : public QGraphicsRectItem {
     ChessItem* getPiece() const;
     void resetColor();
     void movePiece();
+    //AbstractClient* getClient() const;
+
+    void sendPosition(std::string pos);
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 

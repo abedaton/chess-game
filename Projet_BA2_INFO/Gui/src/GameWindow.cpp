@@ -12,6 +12,7 @@ void GameWindow::init_pushButton() {
     _darkButton = new QPushButton("Dark Chess", this);
     _trapistButton = new QPushButton("Trapist Chess", this);
     _antiButton = new QPushButton("Anti Chess", this);
+    _exitButton = new QPushButton("Exit", this);
 }
 
 void GameWindow::init_layout() {
@@ -20,6 +21,7 @@ void GameWindow::init_layout() {
     _gbox->addWidget(_darkButton, 4, 0, 8, 4);
     _gbox->addWidget(_trapistButton, 0, 4, 8, 4);
     _gbox->addWidget(_antiButton, 4, 4, 8, 4);
+    _gbox->addWidget(_exitButton,9,4);
     this->setLayout(_gbox);
 }
 
@@ -37,5 +39,9 @@ QPushButton *GameWindow::getTrapistButton() const {
 
 QPushButton *GameWindow::getAntiButton() const {
     return _antiButton;
+}
+
+QPushButton* GameWindow::getExitButton() const {
+    return _exitButton;
 }
 #endif

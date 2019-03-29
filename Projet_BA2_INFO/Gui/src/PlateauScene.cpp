@@ -2,10 +2,13 @@
 #define PLATEAUSCENE_CPP
 #include "PlateauScene.hpp"
 
-PlateauScene::PlateauScene(std::string game_type , std::string pool_name, QWidget *parent) : QGraphicsView(parent), _size(0), _game_type(game_type) , _pool(pool_name){
+PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPrincipale *mainWindow, QWidget *parent) : QGraphicsView(parent), _size(0), _game_type(game_type) , _pool(pool_name), _mainWindow(mainWindow){
     
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
 		this->set_size(8);
+        if(_game_type == "dark"){
+
+        }
 	}
 	else if (this->get_game_type() == "trappist") {
 		this->set_size(24);
@@ -56,6 +59,7 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
 		setHigh("W");
 		setLow("B");
+
 	}
 	else if (this->get_game_type() == "trappist") {
 		setHighTrappist("W");
@@ -308,6 +312,24 @@ void PlateauScene::setLowTrappist(std::string suffix){
     addPiece("pion",suffix,0,22);
    
 }
+
+
+void PlateauScene::setFog(std::vector<std::vector<int> > *fog){
+
+    for(int i = 0 ; i < 8 ; ++i){
+        for(int j = 0; j < 8 ; ++j){
+            if(fog->at(i).at(j) == 1){
+                addPiece("fog","", i,j);
+            }
+        }
+    }
+}
+
+
+void PlateauScene::sendPosition(std::string pos){
+    _mainWindow->sendPosition(pos);
+}
+
 std::string PlateauScene::get_pool() const {return this->_pool;}
 std::string PlateauScene::get_game_type() const {return this->_game_type;}
 void PlateauScene::set_size(int taille){this->_size = taille;}

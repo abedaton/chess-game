@@ -12,12 +12,15 @@
 #include "Timer.hpp"
 #include "PlateauScene.hpp"
 #include "Register.hpp"
+#include "StatWindow.hpp"
+
 #include <QtWidgets>
 #include <iostream>
 
 #include "../../Client/includes/abstractInterface.hpp"
 #include "../../Client/includes/abstractClient.hpp"
 
+class PlateauScene;
 class FenPrincipale : public QMainWindow, public AbstractInterface{
     Q_OBJECT
 
@@ -34,11 +37,13 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void goToClassic();
     void goToTrappist();
     void goToMenu();
+    void goToStat();
     void sendMessage();
     void showFriendList();
     void setTheme(std::string pool);
     void addFriend();
     void removeFriend();
+    void showFriend(QListWidgetItem *item);
 
 
     void setFriendMenu();
@@ -49,6 +54,8 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void setPool2();
     void setPool3();
     void setPool4();
+
+    void sendPosition(std::string pos);
 
 //////////////////////////////tmp
     void myShow() override{this->show();}
@@ -83,6 +90,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     Menu *_menu;
     GameWindow *_gameWindow;
     PlateauScene *_classicWindow;
+    StatWindow* _statWindow;
     Chat *_chat;
     Timer *_timer;
 

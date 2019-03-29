@@ -11,6 +11,7 @@ class Menu : public QWidget {
     explicit Menu(QWidget *parent = nullptr);
     QPushButton *getNewGame() const;
     QPushButton *getExit() const;
+    QPushButton *getStat() const;
 
     private:
     void init_pushButton();
@@ -18,6 +19,7 @@ class Menu : public QWidget {
 
     QPushButton *_newGame;
     QPushButton *_exit;
+    QPushButton *_stat;
 
     QVBoxLayout *_vBoxLayoutMenu;
 };

@@ -2,6 +2,7 @@
 #ifndef PLATEAUSCENE_HPP
 #define PLATEAUSCENE_HPP
 #include "PlateauBox.hpp"
+#include "FenPrincipale.hpp"
 #include <QGraphicsGridLayout>
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -9,9 +10,11 @@
 #include <iostream>
 
 class PlateauBox;
+class FenPrincipale;
+
 class PlateauScene : public QGraphicsView {
     public:
-    explicit PlateauScene(std::string game_type , std::string pool_name = "pool1", QWidget *parent = nullptr );
+    explicit PlateauScene(std::string game_type , std::string pool_name = "pool1", FenPrincipale* mainWindow = nullptr ,QWidget *parent = nullptr );
     
     void setBoxes(int x, int y, int sideLenght);
     //void setTrappistBoxes(int x, int y, int sideLenght);
@@ -32,9 +35,15 @@ class PlateauScene : public QGraphicsView {
     void setHighTrappist(std::string suffix);
     void setLowTrappist(std::string suffix);
 
+    void setFog(std::vector<std::vector<int> >* fog);
+
+    //AbstractClient* getClient() const;
+    void sendPosition(std::string pos);
+
     private:
     int _size;
     PlateauBox* _priorityBox;
+    FenPrincipale* _mainWindow;
     std::string _game_type;
     std::string _pool;
 
