@@ -24,7 +24,7 @@ void FenPrincipale::init_window() {
     setWindowTitle("On Veut Pas D'Échec");
     setWindowIcon(QIcon("./Gui/img/logo_compl_v1.png"));
     // setStyleSheet("background-image:url(img/retro_space.png)");
-    resize(QDesktopWidget().availableGeometry(this).size() * 0.5);
+    resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
     _statusBar = new QStatusBar(this);
     setStatusBar(_statusBar);
     MenuBar();
@@ -58,7 +58,8 @@ void FenPrincipale::init_connect() {
     connect(_gameWindow->getDarkButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
     connect(_gameWindow->getTrapistButton(), SIGNAL(clicked()), this, SLOT(goToTrappist()));
     connect(_gameWindow->getAntiButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
-    
+    connect(_gameWindow->getExitButton(), SIGNAL(clicked()), this,SLOT(goToMenu()));    
+
     connect(_menu->getNewGame(), SIGNAL(clicked()), this, SLOT(goToGame()));
     connect(_menu->getExit(), SIGNAL(clicked()), qApp, SLOT(quit()));
     connect(_menu->getStat(), SIGNAL(clicked()), this, SLOT(goToStat()));
@@ -67,7 +68,7 @@ void FenPrincipale::init_connect() {
     connect(_friendList->getListWidgetFriendList(), SIGNAL(itemClicked(QListWidgetItem *)),this, SLOT(showFriend(QListWidgetItem *)));
 
     //connect(_statWindow,SIGNAL(enterPressed()), this, SLOT(fonctionjsp qui appelle StatWindow::getPlayerStats ))
-
+    connect(_statWindow->getExitButton(), SIGNAL(clicked()), this, SLOT(goToMenu()));
 
 }
 

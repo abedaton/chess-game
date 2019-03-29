@@ -11,6 +11,7 @@ class GameWindow : public QWidget {
     QPushButton *getDarkButton() const;
     QPushButton *getTrapistButton() const;
     QPushButton *getAntiButton() const;
+    QPushButton *getExitButton() const;
 
     private:
     void init_pushButton();
@@ -20,6 +21,7 @@ class GameWindow : public QWidget {
     QPushButton *_darkButton;
     QPushButton *_trapistButton;
     QPushButton *_antiButton;
+    QPushButton* _exitButton;
 
     QGridLayout *_gbox;
 };

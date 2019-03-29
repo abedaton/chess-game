@@ -8,17 +8,20 @@ StatWindow::StatWindow(QWidget *parent) : QWidget(parent){
 void StatWindow::init_window(){
     _search = new QLineEdit(this);
     _search->setPlaceholderText(QString("Search player..."));
-    _gbox = new QGridLayout(this);
 
     _textEdit = new QTextEdit(this);
     _textEdit->setReadOnly(true);
 
+    _exitButton = new QPushButton("Exit", this);
+
+    _gbox = new QGridLayout(this);
 
 }
 
 void StatWindow::init_layout(){
     _gbox->addWidget(_search,0,2,1,5);
-    _gbox->addWidget(_textEdit,1,3,5,5);
+    _gbox->addWidget(_textEdit,1,2,5,5);
+    _gbox->addWidget(_exitButton,2,7);
     this->setLayout(_gbox);
 
 
@@ -40,4 +43,8 @@ void StatWindow::keyPressEvent(QKeyEvent *event) {
         std::cout << _search->text().toStdString() << std::endl;
         emit enterPressed();
     }
+}
+
+QPushButton* StatWindow::getExitButton(){
+    return _exitButton;
 }

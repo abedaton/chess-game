@@ -34,7 +34,7 @@ class PlateauScene : public QGraphicsView {
     void setHighTrappist(std::string suffix);
     void setLowTrappist(std::string suffix);
 
-    //void setFog(std::vector<std::vector<int> >* fog);
+    void setFog(std::vector<std::vector<int> >* fog);
 
     //AbstractClient* getClient() const;
     void sendPosition(std::string pos);

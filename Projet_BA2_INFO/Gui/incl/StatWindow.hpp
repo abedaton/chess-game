@@ -9,12 +9,13 @@
 #include <QTextEdit>
 #include <QKeyEvent>
 #include <iostream>
+#include <QPushButton>
 class StatWindow : public QWidget
 {
     Q_OBJECT
 public:
     explicit StatWindow(QWidget *parent = nullptr);
-
+    QPushButton* getExitButton();
 private:
     void init_window();
     void init_layout();
@@ -22,6 +23,7 @@ private:
     QLineEdit *_search;
     QTextEdit *_textEdit;
     QGridLayout* _gbox;
+    QPushButton* _exitButton;
 
 signals:
     void enterPressed();

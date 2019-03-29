@@ -57,6 +57,7 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
 		setHigh("W");
 		setLow("B");
+
 	}
 	else if (this->get_game_type() == "trappist") {
 		setHighTrappist("W");
@@ -310,20 +311,18 @@ void PlateauScene::setLowTrappist(std::string suffix){
    
 }
 
-/*
+
 void PlateauScene::setFog(std::vector<std::vector<int> > *fog){
 
     for(int i = 0 ; i < 8 ; ++i){
         for(int j = 0; j < 8 ; ++j){
-            if(fog[i][j] == 1){
-
-
-
+            if(fog->at(i).at(j) == 1){
+                addPiece("fog","", i,j);
             }
         }
     }
 }
-*/
+
 
 void PlateauScene::sendPosition(std::string pos){
     _mainWindow->sendPosition(pos);
