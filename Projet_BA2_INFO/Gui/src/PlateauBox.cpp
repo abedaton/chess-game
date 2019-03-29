@@ -10,6 +10,10 @@ PlateauBox::PlateauBox(int x, int y, int sideLenght = 65, QGraphicsItem *parent)
     _brush.setStyle(Qt::SolidPattern);
     setBrush(_brush);
     _piece = nullptr;
+    if(_sideLenght >= 50)
+        _plateauSize = 8;
+    else 
+        _plateauSize = 24;
 }
 
 void PlateauBox::setColor(QColor color) {
@@ -59,8 +63,9 @@ void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent* event) {
         std::cout << "oupsi pas de piece" << std::endl;
     }
 
+    
 
-    std::string numer = std::to_string(8 - std::get<0>(_pos));
+    std::string numer = std::to_string(_plateauSize - std::get<0>(_pos));
     char letter = 65 + std::get<1>(_pos);
     std::string output = letter+numer;
 
