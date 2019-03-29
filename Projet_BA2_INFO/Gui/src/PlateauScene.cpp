@@ -43,7 +43,7 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
         
         char chr = 65 + i;
         //wsh
-        
+
         std::string str(1,chr);
         setPosText(textX,50, str);
         
@@ -70,6 +70,8 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
             _boxes[i][j] = box;
             _scene->addItem(box);
             
+            
+            
             // setPosText(-50,125, "wsh");
             // setPosText(-50,125+sideLenght, "wsh");
             // setPosText(sideLenght/2 - 13 ,50, "wsh");
@@ -87,6 +89,8 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
 		setHigh("W");
 		setLow("B");
         //addPiece("fog","", 7,1);
+        //addFog(7,1);
+        //removeFog(7,1);
 
 
 	}
@@ -188,6 +192,22 @@ void PlateauScene::addPiece(std::string pieceType,std::string suffix,int x, int 
     _boxes[x][y]->setPiece(pion);
     _scene->addItem(pion);
 }
+
+void PlateauScene::addFog(int x, int y){
+    ChessItem* fog = new ChessItem("fog",this->get_pool(),"", 520/_size); // de base "pool1" // plustard nouveau parametre color!
+    _boxes[x][y]->setFog(fog);
+    _scene->addItem(fog);
+
+    if(_boxes[x][y]->getPiece() != nullptr)
+        _scene->removeItem(_boxes[x][y]->getPiece());
+}
+
+void PlateauScene::removeFog(int x, int y){
+    _boxes[x][y]->removeFog();
+    if(_boxes[x][y]->getPiece() != nullptr)
+        _scene->addItem(_boxes[x][y]->getPiece());
+}
+
 void PlateauScene::setLow(std::string suffix){
     //Fou
     addPiece("fou",suffix,0,2);
@@ -354,9 +374,10 @@ void PlateauScene::setFog(std::vector<std::vector<int> > *fog){
 
     for(int i = 0 ; i < 8 ; ++i){
         for(int j = 0; j < 8 ; ++j){
-            if(fog->at(i).at(j) == 1){
-                addPiece("fog","", i,j);
-            }
+            if(fog->at(i).at(j) == 1)
+                addFog(i,j);
+            else
+                removeFog(i,j);  
         }
     }
 }

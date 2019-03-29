@@ -10,6 +10,7 @@ PlateauBox::PlateauBox(int x, int y, int sideLenght = 65, QGraphicsItem *parent)
     _brush.setStyle(Qt::SolidPattern);
     setBrush(_brush);
     _piece = nullptr;
+    _fog = nullptr;
     if(_sideLenght >= 50)
         _plateauSize = 8;
     else 
@@ -110,4 +111,18 @@ AbstractClient* PlateauBox::getClient() const{
 void PlateauBox::sendPosition(std::string pos){
     _scene->sendPosition(pos);
 }
+
+void PlateauBox::setFog(ChessItem* fog){
+    if(fog != nullptr)
+        fog->setPos(x(),y());
+    _fog = fog;
+}
+
+void PlateauBox::removeFog(){
+    if(_fog != nullptr)
+        delete _fog;
+    
+    _fog = nullptr;
+}
+
 #endif

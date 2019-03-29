@@ -27,7 +27,8 @@ class PlateauScene : public QGraphicsView {
     void resetAllColors();
     //wsh
     void addPiece(std::string pieceType,std::string suffix, int x, int y);
-
+    void addFog(int x, int y);
+    void removeFog(int x, int y);
     //void setBlack();
     //void setWhite();
     

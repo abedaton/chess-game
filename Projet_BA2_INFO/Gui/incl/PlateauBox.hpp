@@ -22,6 +22,10 @@ class PlateauBox : public QGraphicsRectItem {
     ChessItem* getPiece() const;
     void resetColor();
     void movePiece();
+
+    void setFog(ChessItem* fog);
+    void removeFog();
+
     //AbstractClient* getClient() const;
 
     void sendPosition(std::string pos);
@@ -36,6 +40,8 @@ class PlateauBox : public QGraphicsRectItem {
     QPen _pen;
     std::pair<int, int> _pos;
     ChessItem* _piece;
+    ChessItem* _fog;
+
     
     int _plateauSize;
 };
