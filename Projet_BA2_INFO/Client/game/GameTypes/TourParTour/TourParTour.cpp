@@ -1,3 +1,4 @@
+#pragma once
 #ifndef TOURPARTOUR_HPP
 #define TOUTPARTOUR_HPP
 #include "TourParTour.hpp"

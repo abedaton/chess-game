@@ -1,4 +1,6 @@
 #pragma once
+#ifndef AFFICHAGEGRAPH_HPP
+#define AFFICHAGEGRAPH_HPP
 #include "../Affichage/Affichage.cpp"
 
 class AffichageGraph : public Affichage{
@@ -8,3 +10,4 @@ class AffichageGraph : public Affichage{
 		AffichageGraph(const AffichageGraph&) noexcept = default;
 		AffichageGraph& operator= (const AffichageGraph&) noexcept = default;
 };
+#endif

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef Timer_HPP
 #define Timer_HPP
 #include <QtWidgets>

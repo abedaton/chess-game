@@ -1,3 +1,5 @@
+#ifndef LOGIN_CPP
+#define LOGIN_CPP
 #include "Login.hpp"
 
 Login::Login(QWidget *parent) : QWidget(parent) {
@@ -64,3 +66,4 @@ void Login::keyPressEvent(QKeyEvent *event) {
         emit enterPressed();
     }
 }
+#endif

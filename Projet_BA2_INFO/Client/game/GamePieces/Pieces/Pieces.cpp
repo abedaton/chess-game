@@ -1,3 +1,4 @@
+#pragma once
 #ifndef PIECES_CPP
 #define PIECES_CPP
 #include "Pieces.hpp"

@@ -30,7 +30,7 @@ class User: public AbstractUser{
 		void sendMsg(std::string msg) override;
 		void lose() override;
 		void exit();
-		std::string get_name() const override;
+		std::string get_name() override;
 		
 	private:
 		int _clientSock;

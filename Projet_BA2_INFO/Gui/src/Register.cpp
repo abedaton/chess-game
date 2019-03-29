@@ -1,3 +1,6 @@
+#ifndef REGISTER_CPP
+#define REGISTER_CPP
+
 #include "Register.hpp"
 #include <iostream>
 
@@ -70,3 +73,5 @@ std::string* Register::getLinesEditText(){
     
     return _linesEditText;
 }
+
+#endif

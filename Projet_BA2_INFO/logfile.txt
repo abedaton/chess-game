@@ -1,0 +1,1 @@
+MyException(execution impossible, ce n'est pas le tour de ce joueur)

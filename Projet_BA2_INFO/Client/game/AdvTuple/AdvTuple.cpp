@@ -1,3 +1,6 @@
+#pragma once
+#ifndef ADVTUPLE_CPP
+#define ADVTUPLE_CPP
 #include "AdvTuple.hpp"
 
 
@@ -147,3 +150,4 @@ std::vector<std::pair<int,int>>* AdvTuple::get_res(int limite,Posi posi){
 	
 	return set_res;
 }
+#endif

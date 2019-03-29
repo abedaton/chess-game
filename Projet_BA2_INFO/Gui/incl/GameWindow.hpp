@@ -1,3 +1,4 @@
+#pragma once
 #ifndef GAMEWINDOW_HPP
 #define GAMEWINDOW_HPP
 

@@ -480,6 +480,46 @@ void BaseChess::show_bitype_vect(std::vector<BitypeVar<Chesspiece*>> vect){
 	this->get_active_player()->send_msg(ss_glob.str());
 }
 
+std::vector<std::pair<int, int>>* BaseChess::check_all_mov(Chesspiece *pe){
+
+    std::vector<std::pair<int, int>>* tmp;
+
+    std::vector<std::pair<int, int>>* res = new std::vector<std::pair<int, int>>();
+    
+    std::vector<std::string> mode_vect {"depl", "capt", "capt_same", "capt_empty", "depl_full"};
+    
+    for (long long unsigned int i = 0; i < mode_vect.size(); i++){
+		tmp = this->loop_moves(pe,mode_vect[i]);
+		res->insert(res->end(), tmp->begin(), tmp->end());
+	}
+
+    return res;
+}
+
+
+std::vector<std::pair<int, int>>* BaseChess::loop_moves(Chesspiece *pe, std::string mode){
+
+    std::string limited_mode = this->get_plateau()->get_limited_mode(mode);
+
+    std::vector<std::pair<std::pair<int, int>, AdvTuple>> vect = pe->algo(limited_mode);
+
+    std::vector<std::pair<int, int>> *res = new std::vector<std::pair<int, int>>();
+    MatPosi *elem;
+    Posi *origin = pe->get_posi();
+    MatPosi *mposi_origi = new MatPosi(*origin);
+    std::pair<int, int> paire_origi = mposi_origi->to_pair();
+    for (long long unsigned int i = 0; i < vect.size(); i++){
+        elem = new MatPosi(vect[i].first);
+        AdvTuple adv_tup = vect[i].second;
+        std::pair<int, int> paire = elem->to_pair();
+        vect[i].first.first >= 0 && vect[i].first.second >= 0;
+        if (this->check_danger_mouvement_and_path(paire_origi, adv_tup, paire, mode)){
+            res->push_back(vect[i].first);
+        }
+    }
+    return res;
+}
+
 BitypeVar<std::vector<MatPosi>*>* BaseChess::calculate_zones_between_zones(MatPosi* begin, MatPosi* end){
 	/* surcharge de fonction permettant d'ommetre le Player*, qui sera par default le joueur actif */
 	
@@ -2656,6 +2696,28 @@ std::vector<std::pair<int,int>> BaseChess::return_pe_mov(std::string coords){
 	mov_vect->insert( mov_vect->end(), capt_vect->begin(), capt_vect->end() );
 	
 	return *mov_vect;
+}
+
+std::vector<std::string> *BaseChess::possible_mov(std::string position){
+	MatPosi pos(position);
+	BitypeVar<Chesspiece*> piece = get_plateau()->get_piece(pos.to_pair());
+	std::vector<MatPosi*> *depl = check_possible_mouvement(piece.get_var(),"depl");
+	std::cout << depl->size() << std::endl;
+	std::vector<MatPosi*> *capt = check_possible_mouvement(piece.get_var(),"capt");
+	std::vector<std::string> *res = new std::vector<std::string>();
+	for (unsigned int i=0; i < depl->size();i++){
+		std::cout<<"i : "<< i <<" depl :  "<< depl->at(i)->to_string() <<std::endl;
+		res->push_back(depl->at(i)->to_string());
+	}
+
+	for (unsigned int i=0; i < capt->size();i++){
+		res->push_back(capt->at(i)->to_string());
+	}
+	return res;
+}
+
+bool BaseChess::myTurn(std::string username){
+	return (this->active_player->get_name() != username);
 }
 
 #endif

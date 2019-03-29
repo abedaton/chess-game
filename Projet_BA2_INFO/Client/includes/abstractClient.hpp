@@ -1,3 +1,4 @@
+#pragma once
 #ifndef ABSTRACTCLIENT_HPP
 #define ABSTRACTCLIENT_HPP
 

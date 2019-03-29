@@ -1,4 +1,6 @@
-
+#pragma once
+#ifndef TRAPPISTCHESS_CPP
+#define TRAPPISTCHESS_CPP
 #include "TrappistChess.hpp"
 #include <sstream>
 
@@ -534,3 +536,4 @@ void TrappistChess::initialise_size_affichage_plat_squares(){
 	aff->set_taille_case_hor(6);
 	aff->set_taille_case_ver(3);
 }
+#endif

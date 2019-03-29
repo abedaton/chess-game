@@ -3,9 +3,9 @@
 
 #include "SuperGame.hpp"
 
-SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn): _client(client), _inverted(!myTurn){
-	SilencedHuman* play_one = new SilencedHuman("player1", "francais");
-	SilencedHuman* play_two = new SilencedHuman("player2", "francais");
+SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn, std::string player1, std::string player2): _client(client), _inverted(!myTurn){
+	SilencedHuman* play_one = new SilencedHuman(player1, player2);
+	SilencedHuman* play_two = new SilencedHuman(player2, player1);
     Dico* dico = make_dico("Client/game/csv");
     BaseChess* game;
 

@@ -1,11 +1,12 @@
+#pragma once
 #ifndef SUPERGAME_CPP
 #define SUPERGAME_CPP
 
 #include "SuperGame.hpp"
 
-SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn): _client(client), _inverted(!myTurn){
-	SilencedHuman* play_one = new SilencedHuman("player1", "francais");
-	SilencedHuman* play_two = new SilencedHuman("player2", "francais");
+SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn, std::string player1, std::string player2): _client(client), _inverted(!myTurn){
+	Human* play_one = new Human(player1, player2);
+	SilencedHuman* play_two = new SilencedHuman(player2, player1);
     Dico* dico = make_dico("Client/game/csv");
     BaseChess* game;
 
@@ -54,28 +55,19 @@ SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn): _client(
 
 bool SuperGame::click(std::string square){
     bool res = false;
+    char* tmp = (char*)square.c_str();
+    tmp[0] = std::toupper(tmp[0]);
+    square = tmp;
 	if(std::find(this->_ListMov.begin(), this->_ListMov.end(), square) != this->_ListMov.end()) {
+        std::cout << "mov: " << this->_lastClick + ';' + square << std::endl; //TO DELETE
 		res = this->turn(this->_lastClick + ';' + square);
 		this->_lastClick = " ";
 		_ListMov.clear();
 	} else {
 		this->_lastClick = square;
-		
-		std::vector<std::pair<int,int>> tmp = this->_game->return_pe_mov(square);
-		
-		//MatPosi* mpos = new MatPosi(square);
-        //Chesspiece* pe = this->_game->get_plateau()->get_piece(mpos->to_pair()).get_var();
-		//std::vector<std::pair<int,int> > tmp = *this->_game->get_game()->check_all_mov(pe);
-		
-        this->_ListMov.clear();
-        
-        std::string tmp2;
-        for (auto& i : tmp){
-            tmp2 = static_cast<char>((i.first + 65));
-            this->_ListMov.push_back(tmp2 + std::to_string(i.second));
-        }
-        
-	}
+		this->_ListMov = *(this->_game->possible_mov(square) );
+    }
+    this->_client->movPossibleUpdate(this->_ListMov);
     return res;
 }
 
@@ -86,27 +78,28 @@ bool SuperGame::turn(std::string mov){
         std::pair<bool, bool> res = this->_game->execute_step(mov, "player1", this->_inverted);
 		if (res.second)
 			result = true;
-	}
-	else {
+	} else {
 		this->_bufferMov.push_back(mov);
 	}
 	return result;
 }
 
-bool SuperGame::opponentMov(std::string mov){
-	bool result = false;
+int SuperGame::opponentMov(std::string mov){
+    int result = 0;
     std::pair<bool, bool> res = this->_game->execute_step(mov, "player2",! this->_inverted);
+    this->_ListMov.clear();
+    this->_client->movPossibleUpdate(this->_ListMov);
 	if (res.second)
-		result = true;
+		result = -1;
 	else if (! this->_bufferMov.empty()){
 		mov = this->_bufferMov.front();
 		this->_bufferMov.erase(_bufferMov.begin());
         res = this->_game->execute_step(mov, "player1",! this->_inverted);
-		if (res.first) {
-			this->turn(mov);
-        }
-        else {
-			this->_bufferMov.clear();
+		if (! res.first) {
+            this->_bufferMov.clear();
+        } else if(res.second) {
+            this->_client->movPossibleUpdate(this->_ListMov);
+            result = 1;
         }
 	}
 	return result;

@@ -1,45 +1,68 @@
+#pragma once
 #ifndef TERMINAL_CPP 
 #define TERMINAL_CPP 
 
 #include "../includes/terminal.hpp"
 
+/*
+ * Constructeur de l'objet terminal
+ * Permet l'affichage en mode terminal des fonctionnalités et du jeu
+ */
 Terminal::Terminal(AbstractClient* client): _user(client), _gameStart(false), _end(false) { 
 	client->setInterface(this);
 	firstWindow();
 }
 
+/*
+ * Destructeur 
+ */
 Terminal::~Terminal(){
 	std::cout << "Destructor" << std::endl;
 }
 
+/*
+ * Indique une erreur de connexion avec le serveur et quitte
+ */
 void Terminal::connectionError(){
 	std::cout << "Connection with server lost : " << strerror(errno) << std::endl;
 	this->_user->exit();
 	//exit(EXIT_FAILURE);
 }
 
-void Terminal::gameStart(std::string opponent){ //bord
-	(void)opponent;
+/*
+ * Affiche sur le terminal que le jeu commence
+ */
+void Terminal::gameStart(std::string opponent, AbstractPlateau* board){
+	this->_ennemyName = opponent;
+	this->_board = board;
 	this->_gameStart = true;
-    std::cout << "Game is starting. Please press a random key to continue" << std::endl;
+    std::cout << "\nGame is starting. Please press a random key to continue" << std::endl;
 }
 
-void Terminal::pingForUpdate(){
+void Terminal::movPossibleUpdate(std::vector<std::string> listMov){
 	std::cout << "updateBord" << std::endl;
     //To Do
 }
 
+/*
+ * Affiche que le joueur a gagné sa partie et termine la partie
+ */
 void Terminal::win(){
-	std::cout << "you win" << std::endl;
+	std::cout << "you won" << std::endl;
 	this->_end = true;
 }
 
+/*
+ * Affiche que le joueur a perdu sa partie et termine la partie
+ */ 
 void Terminal::lose(){
-	std::cout << "you lose" << std::endl;
+	std::cout << "you lost" << std::endl;
 	this->_end = true;
 }
 
-
+/*
+ * Affiche le menu liste d'amis
+ */
 void Terminal::friendsWindow(){
 	unsigned int res = 0;
 	std::string username;
@@ -94,9 +117,9 @@ void Terminal::friendsWindow(){
 				std::cout << "Acceptez vous ça demande d'amis(yes, no): ";
 				std::cin >> tmpanswer;
 				this->myFlush();
-				if (tmpanswer == "yes"){
+				if ((tmpanswer == "yes") || (tmpanswer == "Yes") || (tmpanswer == "nope'nt") || (tmpanswer == "y") || (tmpanswer == "Y")){
 					answer = true;
-				} else if(tmpanswer == "no"){
+				} else if((tmpanswer == "no") || (tmpanswer == "No") || (tmpanswer == "yes'nt") || (tmpanswer == "n") || (tmpanswer == "N")){
 					answer = false;
 				} else {
 					std::cout << "Invalid input" << std::endl;
@@ -125,6 +148,9 @@ void Terminal::friendsWindow(){
 	}
 }
 
+/*
+ * Premier affichage au lancement du client
+ */
 void Terminal::firstWindow(){
 	bool log = false;
 	bool exit = false;
@@ -150,6 +176,9 @@ void Terminal::firstWindow(){
 	}
 }
 
+/*
+ * Affichage de l'inscription au jeu
+ */ 
 bool Terminal::registerWindow(){
     std::string username;
     std::string password;
@@ -185,6 +214,9 @@ bool Terminal::registerWindow(){
     }
 }
 
+/*
+ * Affichage de l'interface de connexion
+ */
 bool Terminal::logInWindow(){
 	std::string username;
     std::string password;
@@ -215,6 +247,9 @@ bool Terminal::logInWindow(){
     }
 }
 
+/*
+ * Affiche le menu principal
+ */
 void Terminal::menuWindow(){
 	char answer;
 	bool waitForGame = false;
@@ -243,10 +278,16 @@ void Terminal::menuWindow(){
     }
 }
 
+/*
+ * Affiche un message recu par le chat
+ */
 void Terminal::recvMessage(std::string username, std::string msg){
 	std::cout << "\n" << username << ": " << msg << std::endl;
 }
 
+/*
+ * Affiche la fenetre de sélection du mode de jeu
+ */
 bool Terminal::selectGameModeWindow(){
 	std::string chessMod = " ";
 	std::string gameMod = " ";
@@ -266,12 +307,16 @@ bool Terminal::selectGameModeWindow(){
 	if (gameMod == "4")
 		return false;
 	else { 
-		int tmp = std::stoi(chessMod)-1 + (4 * (std::stoi(gameMod)-1));
+		this->_chessMod = std::stoi(chessMod)-1;
+		int tmp = this->_chessMod + (4 * (std::stoi(gameMod)-1));
 		this->_user->waitForMatch(tmp);
 		return true;
 	}
 }
 
+/*
+ * Affichage principal en pleine partie
+ */
 void Terminal::gameWindow(){
 	int answer;
 	std::string square;
@@ -287,8 +332,7 @@ void Terminal::gameWindow(){
 		if (answer == 1){
 			//this->_user->surrend(); 
             break;
-        }
-        else if (answer == 2){
+        } else if (answer == 2) {
             std::string msg;
 			std::cout << "Enter a message for your opponent: \n" << std::endl;
 			std::cin.clear();
@@ -296,18 +340,28 @@ void Terminal::gameWindow(){
 			std::getline(std::cin, msg);
 			this->myFlush();
 			this->_user->sendMessage("SOMEONE", msg);
-        }
-        else if (answer == 3){
+        } else if (answer == 3) {
 			std::cout << "Choose a square" << std::endl;
 			std::cin >> square;
 			this->myFlush();
-			//regex To Do
-			_user->click(square);
+			std::regex regClick;
+			if (this->_chessMod != 2){ 
+				regClick.assign("^[a-hA-H][1-8]$");
+			} else {
+				regClick.assign("^[a-xA-X][1-24]$");
+			}
+			if (std::regex_match(square.begin(), square.end(), regClick))
+				_user->click(square);
+			else
+				std::cout << "Wrong input, it needs to be a square (ex: A4)" << std::endl;
 			
         }
     }
 }
 
+/*
+ * Affiche les demandes d'amis 
+ */
 void Terminal::recvFriendRequestsList(std::vector<std::string> vec){
 	this->_friendRequest = vec;
 	if (vec.size() > 0){
@@ -320,6 +374,9 @@ void Terminal::recvFriendRequestsList(std::vector<std::string> vec){
 	}
 }
 
+/*
+ * Affiche la liste d'amis reçue
+ */
 void Terminal::recvFriendList(std::vector<std::pair<std::string, bool> > frendList){
 	this->_friendList = frendList;
 	if (frendList.size() > 0){
@@ -332,14 +389,19 @@ void Terminal::recvFriendList(std::vector<std::pair<std::string, bool> > frendLi
 	}
 }
 
+/*
+ * Affiche les infos sur un joueur
+ */
 void Terminal::recvInfo(std::string username, int nbrGames, int win, int elo){
 	if (username == this->_username){
 		this->_info.nbrGames = nbrGames;
 		this->_info.win = win;
 		this->_info.elo = elo;
 	}
-	//int lose = nbrGames - win; //--------------------------------------------------------- !!! enleve warning
-	double ratio = (static_cast<float>(win)/static_cast<float>(nbrGames))*100.0;
+	double ratio = 100;
+	if(nbrGames-win != 0){
+		ratio = (static_cast<float>(win)/static_cast<float>(nbrGames))*100.0;
+	}
 	std::string rank;
 	if (elo < 1000)
 		rank = "bronze";
@@ -358,12 +420,25 @@ void Terminal::recvInfo(std::string username, int nbrGames, int win, int elo){
 
 }
 
+/*
+ * Nettoie un string
+ */
 void Terminal::myFlush(){
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
 
+void Terminal::updateBoardClassic(){ 
+	//this->_ennemyName;
+	//this->_board;
+	//this->_username;
+	//this->_chessMod;
+}
+
+void Terminal::updateBoardDark(){ 
+
+}
 
 
 /*

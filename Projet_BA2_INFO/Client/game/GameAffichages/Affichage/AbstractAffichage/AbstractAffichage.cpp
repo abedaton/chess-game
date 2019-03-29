@@ -1,5 +1,6 @@
 #pragma once
-
+#ifndef ABSTRACTAFFICHAGE_CPP
+#define ABSTRACTAFFICHAGE_CPP
 #include "AbstractAffichage.hpp"
 
 //AbstractAffichage::AbstractAffichage(Plateau* plat, Dico* dict,std::string pre,std::string suf ,std::string lang ,Player* play_low, Player* play_high,Player* play_active, std::string symb_low, std::string symb_high) : plateau(plat), dico(dict), dico_prefix(pre), dico_suffix(suf), dico_language(lang), low_player(play_low), high_player(play_high),active_player(play_active),low_player_symbol(symb_low),high_player_symbol(symb_high), taille_case_hor(8), taille_case_ver(3){} //*< Constructor
@@ -55,3 +56,5 @@ void AbstractAffichage::set_low_player_symbol(std::string lp_symbol){this->low_p
 void AbstractAffichage::set_high_player_symbol(std::string hp_symbol){this->high_player_symbol = hp_symbol;}
 void AbstractAffichage::set_taille_case_hor(int size_hor){this->taille_case_hor = size_hor;}
 void AbstractAffichage::set_taille_case_ver(int size_ver){this->taille_case_ver = size_ver;}
+
+#endif

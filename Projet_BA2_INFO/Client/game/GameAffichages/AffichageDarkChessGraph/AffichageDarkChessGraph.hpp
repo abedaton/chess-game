@@ -1,4 +1,6 @@
 #pragma once
+#ifndef AFFICHAGEDARKCHESSGRAPH_HPP
+#define AFFICHAGEDARKCHESSGRAPH_HPP
 #include "../AffichageDarkChess/AffichageDarkChess.cpp"
 
 class AffichageDarkChessGraph : public AffichageDarkChess{
@@ -8,3 +10,4 @@ class AffichageDarkChessGraph : public AffichageDarkChess{
 		AffichageDarkChessGraph(const AffichageDarkChessGraph&) noexcept = default;
 		AffichageDarkChessGraph& operator= (const AffichageDarkChessGraph&) noexcept = default;
 };
+#endif

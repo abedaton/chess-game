@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CHESSITEM_H
 #define CHESSITEM_H
 

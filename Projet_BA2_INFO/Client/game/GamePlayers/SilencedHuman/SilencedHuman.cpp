@@ -1,4 +1,6 @@
-
+#pragma once
+#ifndef SILENCEDHUMAN_CPP
+#define SILENCEDHUMAN_CPP
 #include "SilencedHuman.hpp"
 
 SilencedHuman::SilencedHuman(std::string nom,std::string lang) : Human(nom,lang) {} //*< Constructor
@@ -16,3 +18,4 @@ void SilencedHuman::send_msg(std::string msg,bool endline){
 	(void)endline;
 		
 }
+#endif

@@ -1,4 +1,6 @@
-
+#pragma once
+#ifndef CSVREADER_CPP
+#define CSVREADER_CPP
 #include "CsvReader.hpp"
 
 extern MyOstream mout;
@@ -174,3 +176,4 @@ std::vector<std::string> CsvReader::search_col(std::string langue){
 	
 }
 
+#endif

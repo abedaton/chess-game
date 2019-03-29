@@ -1,3 +1,5 @@
+#ifndef MENU_CPP
+#define MENU_CPP
 #include "Menu.hpp"
 
 Menu::Menu(QWidget *parent) : QWidget(parent) {
@@ -25,3 +27,4 @@ QPushButton *Menu::getNewGame() const{
 QPushButton *Menu::getExit() const{
     return _exit;
 }
+#endif

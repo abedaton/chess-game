@@ -32,6 +32,9 @@ class BaseGameType {
         
         std::vector<std::pair<int,int>> return_pe_mov(std::string);
         
+        std::vector<std::string>* possible_mov(std::string);
+        virtual bool myTurn(std::string);
+
 	protected:
         void set_game(BaseChess*);
         void change_active_player();

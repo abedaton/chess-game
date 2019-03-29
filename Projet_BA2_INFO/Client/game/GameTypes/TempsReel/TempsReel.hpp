@@ -12,6 +12,7 @@ class TempsReel: public BaseGameType {
         virtual ~TempsReel() noexcept = default; //Destructor
         TempsReel(const TempsReel&) noexcept = default;
         TempsReel& operator= (const TempsReel&) noexcept = default;
+        bool myTurn(std::string) override;
 
 };
 #endif

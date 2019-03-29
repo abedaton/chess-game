@@ -22,7 +22,7 @@ int main(int argc,char** argv){
                 }
             }
         } else if (!strcmp(argv[i], "-h") || !strcmp(argv[i], "--help")){
-            std::cout << "help" << std::endl; //TO Do
+            std::cout << "Usage: ./cli [OPTION]\n\nOPTION:\n\t-t   start the game in terminal mod\n\t-i [4.2.1.127]   connect to a spécific ip" << std::endl; //TO Do
             goodParam = false;
         }
     }
@@ -30,7 +30,7 @@ int main(int argc,char** argv){
         Client* client = new Client(ip.c_str() , terminalMod, argc, argv);
         (void)(*client); // OK????
     } else {
-        std::cout << "Invalide parameter." << std::endl;
+        std::cout << "Invalide parameter.\nEnter './cli --help' for more information." << std::endl;
     }
     return 0;
 }

@@ -1,3 +1,6 @@
+#pragma once
+#ifndef PLATEAU_CPP
+#define PLATEAU_CPP
 
 #include "Plateau.hpp"
 
@@ -354,3 +357,5 @@ int Plateau::end_position(){
 }
 
 //PlatPosi* Plateau::convert_coord(int sum_coords){return 0;}
+
+#endif

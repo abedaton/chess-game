@@ -1,3 +1,4 @@
+#pragma once
 #ifndef PENDULE_CPP
 #define PENDULE_CPP
 

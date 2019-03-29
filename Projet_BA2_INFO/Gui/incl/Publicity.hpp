@@ -1,3 +1,4 @@
+#pragma once
 #ifndef PUBLICITY_HPP
 #define PUBLICITY_HPP
 #include <QtWidgets>

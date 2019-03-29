@@ -1,10 +1,13 @@
+#pragma once
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
 #include "../srcs/request.cpp"
-#include "../srcs/terminal.cpp"
 #include "../../Gui/incl/FenPrincipale.hpp"
+#include "../srcs/terminal.cpp"
+
 #include "../game/GameTypes/SuperGame/SuperGame.cpp"
+
 
 class Client: public AbstractPlayer, public AbstractClient{
 	private:
@@ -36,7 +39,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		void getFriendRequests() override;
 		void getUserInfo(std::string) override;
 		void getUserInfo() override;
-
+		
 		void click(std::string square) override;
 		void exit() override;
 		//call by server

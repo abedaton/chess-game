@@ -56,7 +56,5 @@ class DarkChess : public BaseChess{
 		using BaseChess::execute_forced_step;
 		using BaseChess::execute_step;
 		
-		std::vector<std::pair<int, int>>* check_all_mov(Chesspiece *pe);
-		std::vector<std::pair<int, int>>* loop_moves(Chesspiece *pe, std::string mode);
 };
 #endif

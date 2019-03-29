@@ -1,4 +1,6 @@
-
+#pragma once
+#ifndef HUMAN_CPP
+#define HUMAN_CPP
 #include "Human.hpp"
 
 Human::Human(std::string nom,std::string lang) : Player(nom,lang) {} //*< Constructor
@@ -19,3 +21,4 @@ std::string Human::next_input(){
 std::string Human::get_type_prefix() const{
 	return "Human";
 }
+#endif

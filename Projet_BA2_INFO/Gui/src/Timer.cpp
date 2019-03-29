@@ -1,3 +1,6 @@
+#ifndef TIMER_CPP
+#define TIMER_CPP
+
 #include "Timer.hpp"
 
 Timer::Timer(QWidget *parent) : QWidget(parent) {
@@ -58,3 +61,4 @@ void Timer::on_pushButtonSwitch_clicked() {
         _isTimeUp = true;
     }
 }
+#endif

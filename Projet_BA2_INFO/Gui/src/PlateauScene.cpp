@@ -1,3 +1,5 @@
+#ifndef PLATEAUSCENE_CPP
+#define PLATEAUSCENE_CPP
 #include "PlateauScene.hpp"
 
 PlateauScene::PlateauScene(std::string game_type , std::string pool_name, QWidget *parent) : QGraphicsView(parent), _size(0), _game_type(game_type) , _pool(pool_name){
@@ -309,3 +311,4 @@ void PlateauScene::setLowTrappist(std::string suffix){
 std::string PlateauScene::get_pool() const {return this->_pool;}
 std::string PlateauScene::get_game_type() const {return this->_game_type;}
 void PlateauScene::set_size(int taille){this->_size = taille;}
+#endif

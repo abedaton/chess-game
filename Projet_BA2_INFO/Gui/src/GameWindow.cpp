@@ -1,3 +1,5 @@
+#ifndef GAMEWINDOW_CPP
+#define GAMEWINDOW_CPP
 #include "GameWindow.hpp"
 
 GameWindow::GameWindow(QWidget *parent) : QWidget(parent) {
@@ -36,3 +38,4 @@ QPushButton *GameWindow::getTrapistButton() const {
 QPushButton *GameWindow::getAntiButton() const {
     return _antiButton;
 }
+#endif

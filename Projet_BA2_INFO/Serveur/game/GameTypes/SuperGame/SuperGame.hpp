@@ -24,7 +24,7 @@ class SuperGame{
 
 	public:
 		
-		SuperGame(int gameMod, AbstractPlayer* client, bool myTurn); // constructor
+		SuperGame(int gameMod, AbstractPlayer* client, bool myTurn, std::string player1, std::string player2); // constructor
 		bool opponentMov(std::string mov);
 		bool click(std::string square);
 		std::vector<std::string> getListMov();

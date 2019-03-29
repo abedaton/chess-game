@@ -1,3 +1,4 @@
+#pragma once
 #ifndef Pendulum_CPP
 #define Pendulum_CPP
 

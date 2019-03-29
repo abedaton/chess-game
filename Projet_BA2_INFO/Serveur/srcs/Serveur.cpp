@@ -1,12 +1,21 @@
+#pragma once
+#ifndef SERVER_CPP
+#define SERVER_CPP
 #include "../includes/Serveur.hpp"
 
 Serveur::Serveur(){}
 
+/*
+ * Constructeur
+ */
 Serveur::Serveur(short unsigned int port) : _port(port), _ready(false) {
     this->_ready = false;
     this->setup();
 }
 
+/*
+ * Initialisation du serveur
+ */
 void Serveur::setup(){
     this->_address.sin_family = AF_INET;
     this->_address.sin_port = htons(this->_port);
@@ -30,6 +39,9 @@ void Serveur::setup(){
     this->mainLoop();
 }
 
+/*
+ * Crée des sockets et attend les clients et crée leur objet
+ */
 void Serveur::mainLoop(){
     this->_db = new Database();
     this->_db->resetStuff();
@@ -54,6 +66,9 @@ void Serveur::mainLoop(){
 }
 
 
+/*
+ * Permet de shutdown
+ */
 void* Serveur::handleCommand(){
     std::string command;
     while (true) {
@@ -67,6 +82,9 @@ void* Serveur::handleCommand(){
 }
 
 
+/*
+ * Permet de couper le serveur
+ */
 void Serveur::sShutdown(){
     shutdown(this->_serv_sock, SHUT_RDWR);
     for (unsigned long int i = 0; i < this->_clients.size(); i++){
@@ -86,3 +104,5 @@ void Serveur::sShutdown(){
     std::cout << "Server is now offline." << std::endl;
     exit(EXIT_SUCCESS);
 }
+
+#endif

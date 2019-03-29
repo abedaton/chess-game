@@ -1,3 +1,4 @@
+#pragma once
 #ifndef PLATEAUSCENE_HPP
 #define PLATEAUSCENE_HPP
 #include "PlateauBox.hpp"

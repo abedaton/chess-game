@@ -1,18 +1,30 @@
+#pragma once
+#ifndef MATCHMAKING_CPP
+#define MATCHHMAKING_CPP
 #include "../includes/matchMaking.hpp"
 #define TIME 10
 
+/*
+ * Constructeur matchmaking
+ */
 MatchMaking::MatchMaking(): pools(12){
     for (auto &vect : pools){
         vect.resize(3);
     }
 }
 
+/*
+ * Lance le matchmaking
+ */
 void* MatchMaking::run(void* tmp){
     struct matchMod* structMatch = static_cast<struct matchMod*>(tmp);
     structMatch->match->poolSort(structMatch->mod, structMatch->elo, structMatch->player);
     return NULL;
 }
 
+/*
+ * Fait le tri des pools de matchmaking
+ */
 void MatchMaking::poolSort(int gameMod, int elo, AbstractUser* player){
     int rank;
     if (elo < 1000) {
@@ -46,7 +58,7 @@ void MatchMaking::poolSort(int gameMod, int elo, AbstractUser* player){
                     AbstractUser* player1 = vect->at(0);
                     vect->erase(vect->begin());
                     AbstractUser* player2 = pools[gameMod][i].at(0);
-                    pools[gameMod-1][i].erase(pools[gameMod][i].begin());
+                    pools[gameMod][i].erase(pools[gameMod][i].begin());
                     startMatch(player1, player2, gameMod);
                     break;
                 }
@@ -60,10 +72,13 @@ void MatchMaking::poolSort(int gameMod, int elo, AbstractUser* player){
     }
 }
 
+/*
+ * Lance une partie entre deux joueurs d'un certain mode de jeu
+ */
 void MatchMaking::startMatch(AbstractUser* player1, AbstractUser* player2, int gameMod){
     std::cout << "Launching Game" << std::endl;
     
-    SuperGame* game = new SuperGame(gameMod, player1, true);
+    SuperGame* game = new SuperGame(gameMod, player1, true, player1->get_name(), player2->get_name());
 
     player1->startGame(game, player2, true);
     player2->startGame(game, player1, false);
@@ -71,12 +86,15 @@ void MatchMaking::startMatch(AbstractUser* player1, AbstractUser* player2, int g
 
 //On ajoute le joueur en fonction de son mode de jeu
 
+/*
+ * On associe le joueur à la pool correspondante et on le met dans le matchmaking
+ */
 void MatchMaking::waitForMatch(AbstractUser* player, int gameMod, int elo){
     struct matchMod* structMatch;
     structMatch = static_cast<struct matchMod*>(malloc(sizeof(struct matchMod)));
     structMatch->match = this;
     structMatch->player = player;
-    structMatch->mod = gameMod-1;
+    structMatch->mod = gameMod;
     structMatch->elo = elo;
 
     pthread_t thread;
@@ -94,3 +112,5 @@ void MatchMaking::waitForMatch(AbstractUser* player, int gameMod, int elo){
 //  }
 //  return false;
 //}
+
+#endif

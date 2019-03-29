@@ -10,6 +10,7 @@
 #ifndef PLATEAU_HPP
 #define PLATEAU_HPP
 
+#include "AbstractPlateau.hpp"
 #include "../GamePieces/Pieces/Pieces.cpp"
 
 bool detect_pair_in_list_of_pairs(std::vector<std::pair<int,int>>, std::pair<int,int>);
@@ -18,7 +19,7 @@ std::string adaptive_mode(BitypeVar<Chesspiece*>, std::string);
 std::vector<std::vector<BitypeVar<Chesspiece*>>>* make_board(int);
 
 
-class Plateau{
+class Plateau: public AbstractPlateau{
     private:
 		int taille;
 		std::vector<std::vector<BitypeVar<Chesspiece*>>>* board;

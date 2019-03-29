@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CHAT_HPP
 #define CHAT_HPP
 #include <QtWidgets>

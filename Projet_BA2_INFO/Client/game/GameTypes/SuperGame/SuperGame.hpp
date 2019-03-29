@@ -1,5 +1,6 @@
-#ifndef A_HPP
-#define A_HPP
+#pragma once
+#ifndef SUPERGAME_HPP
+#define SUPERGAME_HPP
 
 #include "AbstractPlayer.hpp"
 #include "../TourParTour/TourParTour.cpp"
@@ -24,8 +25,8 @@ class SuperGame{
 
 	public:
 		
-		SuperGame(int gameMod, AbstractPlayer* client, bool myTurn); // constructor
-		bool opponentMov(std::string mov);
+		SuperGame(int gameMod, AbstractPlayer* client, bool myTurn, std::string player1, std::string player2); // constructor
+		int opponentMov(std::string mov);
 		bool click(std::string square);
 		std::vector<std::string> getListMov();
 		Plateau* getBoard();

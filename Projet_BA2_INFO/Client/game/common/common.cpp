@@ -1,4 +1,6 @@
-
+#pragma once
+#ifndef COMMON_CPP
+#define COMMON_CPP
 #include "common.hpp"
 
 bool is_prime(int n ){
@@ -57,3 +59,4 @@ std::string get_first_file_of_dir(const std::string& name,std::string extention)
 	
 	return res;
 }
+#endif

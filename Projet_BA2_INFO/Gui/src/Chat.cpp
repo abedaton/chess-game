@@ -1,3 +1,5 @@
+#ifndef CHAT_CPP
+#define CHAT_CPP
 #include "Chat.hpp"
 
 Chat::Chat(QWidget *parent) : QWidget(parent) {
@@ -35,3 +37,4 @@ void Chat::on_lineEdit_returnPressed(){
         emit signalLineEdit();
     }
 }
+#endif

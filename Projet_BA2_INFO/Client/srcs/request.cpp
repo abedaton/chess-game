@@ -1,3 +1,7 @@
+#pragma once
+#ifndef REQUEST_CPP
+#define REQUEST_CPP
+
 #include "../includes/request.hpp"
 
 
@@ -315,7 +319,7 @@ void Request::findMatch(int modDeJeu){
 	waitForProcess();
     int protocol = 4;
 	sendInt(protocol);
-    sendInt(modDeJeu);
+    sendInt(modDeJeu+1);
 	endProcess();
 }
 
@@ -427,3 +431,4 @@ void Request::getUserInfo(std::string username){
     endProcess();
 }
 
+#endif

@@ -1,3 +1,6 @@
+#pragma once
+#ifndef FRIENDLIST_HPP
+#define FRIENDLIST_HPP
 #include <QtWidgets>
 
 class FriendList : public QWidget {
@@ -21,3 +24,4 @@ class FriendList : public QWidget {
     QPushButton *_pushButtonAddFriend;
     QPushButton *_pushButtonRemoveFriend;
 };
+#endif

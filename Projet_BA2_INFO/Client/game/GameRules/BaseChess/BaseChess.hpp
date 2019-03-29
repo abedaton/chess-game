@@ -86,6 +86,8 @@ class BaseChess{
         virtual std::pair<bool,std::string> execute_step(std::string);
         virtual std::pair<bool,std::string> execute_step();
         
+				std::vector<std::pair<int, int>>* check_all_mov(Chesspiece *pe);
+				std::vector<std::pair<int, int>>* loop_moves(Chesspiece *pe, std::string mode);
         
         virtual std::pair<bool,bool> execute_forced_step(std::string,Player*);
         virtual std::pair<bool,bool> execute_forced_step(std::string, bool,Player*);
@@ -105,6 +107,9 @@ class BaseChess{
         virtual std::pair<bool,bool> execute_forced_step_play(std::string,std::string,std::string);
         
         friend class BaseGameType;
+				
+				std::vector<std::string>* possible_mov(std::string position);
+				bool myTurn(std::string);
 		
         
 	protected:

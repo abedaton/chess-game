@@ -1,6 +1,10 @@
 //#include <iostream>
 //#include <utility>
 //#include <sstream>
+#pragma once
+#ifndef PLATPOSI_CPP
+#define PLATPOSI_CPP
+
 #include "PlatPosi.hpp"
 
 
@@ -143,3 +147,4 @@ void PlatPosi::invert_y_axis(){
 	this->set_lig(new_lig);
 	
 }
+#endif

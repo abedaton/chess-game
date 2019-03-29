@@ -1,4 +1,6 @@
-
+#pragma once
+#ifndef MYEXCEPTION_CPP
+#define MYEXCEPTION_CPP
 #include "MyException.hpp"
 
 MyException::MyException(MyOstream* st,std::string txt) : texte(txt), stream(st) {
@@ -12,3 +14,4 @@ MyException::MyException(const MyException& ex) : texte(ex.texte) , stream(ex.st
 MyException::~MyException() throw () {} // Updated
 
 const char* MyException::what() const throw() {return this->texte.c_str();}
+#endif

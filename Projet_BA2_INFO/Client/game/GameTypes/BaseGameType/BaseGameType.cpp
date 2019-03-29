@@ -59,10 +59,17 @@ std::pair<int, int> BaseGameType::str_mov_to_int(std::string square){
     }
 
 	return std::make_pair(int_line, int_col);
-}
-*/
+}*/
+
 
 std::vector<std::pair<int,int>> BaseGameType::return_pe_mov(std::string coords){return this->get_game()->return_pe_mov(coords);}
 
+std::vector<std::string>* BaseGameType::possible_mov(std::string box){
+	return this->game->possible_mov(box);
+}
+
+bool BaseGameType::myTurn(std::string username){
+	return this->game->myTurn(username);
+}
 
 #endif

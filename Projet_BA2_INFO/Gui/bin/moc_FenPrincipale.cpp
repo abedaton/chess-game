@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_FenPrincipale_t {
-    QByteArrayData data[34];
-    char stringdata0[341];
+    QByteArrayData data[35];
+    char stringdata0[350];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -58,13 +58,14 @@ QT_MOC_LITERAL(23, 246, 8), // "setPool4"
 QT_MOC_LITERAL(24, 255, 6), // "myShow"
 QT_MOC_LITERAL(25, 262, 9), // "gameStart"
 QT_MOC_LITERAL(26, 272, 8), // "opponent"
-QT_MOC_LITERAL(27, 281, 15), // "connectionError"
-QT_MOC_LITERAL(28, 297, 3), // "win"
-QT_MOC_LITERAL(29, 301, 4), // "lose"
-QT_MOC_LITERAL(30, 306, 11), // "recvMessage"
-QT_MOC_LITERAL(31, 318, 4), // "name"
-QT_MOC_LITERAL(32, 323, 3), // "mov"
-QT_MOC_LITERAL(33, 327, 13) // "pingForUpdate"
+QT_MOC_LITERAL(27, 281, 16), // "AbstractPlateau*"
+QT_MOC_LITERAL(28, 298, 5), // "board"
+QT_MOC_LITERAL(29, 304, 15), // "connectionError"
+QT_MOC_LITERAL(30, 320, 3), // "win"
+QT_MOC_LITERAL(31, 324, 4), // "lose"
+QT_MOC_LITERAL(32, 329, 11), // "recvMessage"
+QT_MOC_LITERAL(33, 341, 4), // "name"
+QT_MOC_LITERAL(34, 346, 3) // "mov"
 
     },
     "FenPrincipale\0checkSignIn\0\0checkRegister\0"
@@ -74,9 +75,9 @@ QT_MOC_LITERAL(33, 327, 13) // "pingForUpdate"
     "std::string\0pool\0addFriend\0removeFriend\0"
     "setFriendMenu\0setThemeMenu\0setPool0\0"
     "setPool1\0setPool2\0setPool3\0setPool4\0"
-    "myShow\0gameStart\0opponent\0connectionError\0"
-    "win\0lose\0recvMessage\0name\0mov\0"
-    "pingForUpdate"
+    "myShow\0gameStart\0opponent\0AbstractPlateau*\0"
+    "board\0connectionError\0win\0lose\0"
+    "recvMessage\0name\0mov"
 };
 #undef QT_MOC_LITERAL
 
@@ -86,7 +87,7 @@ static const uint qt_meta_data_FenPrincipale[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      27,   14, // methods
+      26,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -94,33 +95,32 @@ static const uint qt_meta_data_FenPrincipale[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  149,    2, 0x0a /* Public */,
-       3,    0,  150,    2, 0x0a /* Public */,
-       4,    0,  151,    2, 0x0a /* Public */,
-       5,    0,  152,    2, 0x0a /* Public */,
-       6,    0,  153,    2, 0x0a /* Public */,
-       7,    0,  154,    2, 0x0a /* Public */,
-       8,    0,  155,    2, 0x0a /* Public */,
-       9,    0,  156,    2, 0x0a /* Public */,
-      10,    0,  157,    2, 0x0a /* Public */,
-      11,    0,  158,    2, 0x0a /* Public */,
-      12,    1,  159,    2, 0x0a /* Public */,
-      15,    0,  162,    2, 0x0a /* Public */,
-      16,    0,  163,    2, 0x0a /* Public */,
-      17,    0,  164,    2, 0x0a /* Public */,
-      18,    0,  165,    2, 0x0a /* Public */,
-      19,    0,  166,    2, 0x0a /* Public */,
-      20,    0,  167,    2, 0x0a /* Public */,
-      21,    0,  168,    2, 0x0a /* Public */,
-      22,    0,  169,    2, 0x0a /* Public */,
-      23,    0,  170,    2, 0x0a /* Public */,
-      24,    0,  171,    2, 0x0a /* Public */,
-      25,    1,  172,    2, 0x0a /* Public */,
-      27,    0,  175,    2, 0x0a /* Public */,
-      28,    0,  176,    2, 0x0a /* Public */,
-      29,    0,  177,    2, 0x0a /* Public */,
-      30,    2,  178,    2, 0x0a /* Public */,
-      33,    0,  183,    2, 0x0a /* Public */,
+       1,    0,  144,    2, 0x0a /* Public */,
+       3,    0,  145,    2, 0x0a /* Public */,
+       4,    0,  146,    2, 0x0a /* Public */,
+       5,    0,  147,    2, 0x0a /* Public */,
+       6,    0,  148,    2, 0x0a /* Public */,
+       7,    0,  149,    2, 0x0a /* Public */,
+       8,    0,  150,    2, 0x0a /* Public */,
+       9,    0,  151,    2, 0x0a /* Public */,
+      10,    0,  152,    2, 0x0a /* Public */,
+      11,    0,  153,    2, 0x0a /* Public */,
+      12,    1,  154,    2, 0x0a /* Public */,
+      15,    0,  157,    2, 0x0a /* Public */,
+      16,    0,  158,    2, 0x0a /* Public */,
+      17,    0,  159,    2, 0x0a /* Public */,
+      18,    0,  160,    2, 0x0a /* Public */,
+      19,    0,  161,    2, 0x0a /* Public */,
+      20,    0,  162,    2, 0x0a /* Public */,
+      21,    0,  163,    2, 0x0a /* Public */,
+      22,    0,  164,    2, 0x0a /* Public */,
+      23,    0,  165,    2, 0x0a /* Public */,
+      24,    0,  166,    2, 0x0a /* Public */,
+      25,    2,  167,    2, 0x0a /* Public */,
+      29,    0,  172,    2, 0x0a /* Public */,
+      30,    0,  173,    2, 0x0a /* Public */,
+      31,    0,  174,    2, 0x0a /* Public */,
+      32,    2,  175,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -144,12 +144,11 @@ static const uint qt_meta_data_FenPrincipale[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 13,   26,
+    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 27,   26,   28,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 13,   31,   32,
-    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 13, 0x80000000 | 13,   33,   34,
 
        0        // eod
 };
@@ -181,12 +180,11 @@ void FenPrincipale::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 18: _t->setPool3(); break;
         case 19: _t->setPool4(); break;
         case 20: _t->myShow(); break;
-        case 21: _t->gameStart((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 21: _t->gameStart((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< AbstractPlateau*(*)>(_a[2]))); break;
         case 22: _t->connectionError(); break;
         case 23: _t->win(); break;
         case 24: _t->lose(); break;
         case 25: _t->recvMessage((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< std::string(*)>(_a[2]))); break;
-        case 26: _t->pingForUpdate(); break;
         default: ;
         }
     }
@@ -219,13 +217,13 @@ int FenPrincipale::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 27)
+        if (_id < 26)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 27;
+        _id -= 26;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 27)
+        if (_id < 26)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 27;
+        _id -= 26;
     }
     return _id;
 }

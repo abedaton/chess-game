@@ -1,4 +1,6 @@
 #pragma once
+#ifndef AFFICHAGEDARKCHESS_HPP
+#define AFFICHAGEDARKCHESS_HPP
 #include "../Affichage/Affichage.cpp"
 
 class AffichageDarkChess : public Affichage
@@ -23,3 +25,4 @@ class AffichageDarkChess : public Affichage
 		std::string get_affichage_line(int, int) override;
 		Player* get_locked_player() const;
 };
+#endif

@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef TERMINAL_HPP
 #define TERMINAL_HPP
 
@@ -6,7 +8,6 @@
 #include <iostream>
 #include <unistd.h>
 #include <arpa/inet.h>
-//#include <sys/socket.h>
 #include <stdio.h>
 #include <regex>
 
@@ -17,13 +18,12 @@ class Terminal: public AbstractInterface{
         Terminal(AbstractClient* client);
         ~Terminal();
         void connectionError() override;
-		void gameStart(std::string opponent) override; //+bord
-//void opponentMov(std::string mov) override;
+		void gameStart(std::string opponent, AbstractPlateau* board) override;
 		void win() override;
 		void lose() override;
 
 		void recvMessage(std::string name, std::string mov) override;
-        void pingForUpdate() override;
+        void movPossibleUpdate(std::vector<std::string> listMov) override;
 
 		void recvFriendRequestsList(std::vector<std::string> vec) override;
 		void recvFriendList(std::vector<std::pair<std::string, bool> > frendList) override;
@@ -47,6 +47,9 @@ class Terminal: public AbstractInterface{
 		void gameWindow();
         void myFlush();
 
+		void updateBoardClassic();
+		void updateBoardDark();
+		std::string affichage_plateau();
 };
 
 #endif

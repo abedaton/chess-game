@@ -1,3 +1,6 @@
+#pragma once
+#ifndef FRIENDLIST_CPP
+#define FRIENDLIST_CPP
 #include "FriendList.hpp"
 
 FriendList::FriendList(QWidget *parent) : QWidget(parent) {
@@ -34,3 +37,4 @@ QPushButton *FriendList::getPushButtonRemoveFriend() const {
 QListWidget *FriendList::getListWidgetFriendList() const {
     return _listWidgetFriendList;
 }
+#endif

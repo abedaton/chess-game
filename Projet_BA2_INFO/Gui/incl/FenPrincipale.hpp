@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef FENPRINCIPALE_HPP
 #define FENPRINCIPALE_HPP
 
@@ -50,12 +52,11 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
 
 //////////////////////////////tmp
     void myShow() override{this->show();}
-    void gameStart(std::string opponent) override{(void)opponent;}
+    void gameStart(std::string opponent, AbstractPlateau* board) override;
     void connectionError() override{}
     void win() override{}
     void lose() override{}
 	void recvMessage(std::string name, std::string mov) override{(void)name;(void)mov;}
-    void pingForUpdate() override{}
     
 
     private:

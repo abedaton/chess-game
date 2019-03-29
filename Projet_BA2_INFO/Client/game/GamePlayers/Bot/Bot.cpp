@@ -1,4 +1,6 @@
-
+#pragma once
+#ifndef BOT_CPP
+#define BOT_CPP
 #include "Bot.hpp"
 // ---------------------- HORS classe BOT ------------------------------
 
@@ -62,3 +64,4 @@ void Bot::set_moves(std::vector<std::string> vect){
 std::string Bot::get_type_prefix() const{
 	return "Bot";
 }
+#endif

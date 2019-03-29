@@ -1,3 +1,5 @@
+#ifndef CHESSITEM_CPP
+#define CHESSITEM_CPP
 #include "ChessItem.hpp"
 
 ChessItem::ChessItem(std::string pieceType,std::string pool_name,std::string suffix, int size, QGraphicsItem *parent) : QGraphicsPixmapItem(parent), _size(size), _suffix(suffix){
@@ -29,3 +31,4 @@ void ChessItem::setBox(PlateauBox *box){
     _currentBox = box;
 }
 */
+#endif

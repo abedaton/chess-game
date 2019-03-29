@@ -1,3 +1,7 @@
+#pragma once
+#ifndef MATPOSI_CPP
+#define MATPOSI_CPP
+
 //#include <iostream>
 //#include <utility>
 //#include <sstream>
@@ -180,3 +184,4 @@ bool MatPosi::isvalid_coord(std::string s) const {
 
 	return res;
 }
+#endif

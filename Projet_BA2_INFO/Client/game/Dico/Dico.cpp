@@ -1,4 +1,6 @@
-
+#pragma once
+#ifndef DICO_CPP
+#define DICO_CPP
 #include "Dico.hpp"
 
 extern MyOstream mout;
@@ -85,3 +87,4 @@ std::string Dico::search(std::string langue, std::string rch){
 	return res;
 	
 }
+#endif

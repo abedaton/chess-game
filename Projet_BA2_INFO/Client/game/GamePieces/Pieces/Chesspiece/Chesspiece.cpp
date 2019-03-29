@@ -1,4 +1,6 @@
-
+#pragma once
+#ifndef CHESSPIECE_CPP
+#define CHESSPIECE_CPP
 #include "Chesspiece.hpp"
 
 // -------------------------CHESSPIECE----------------------------------------------
@@ -132,3 +134,4 @@ std::vector<std::pair<std::pair<int,int>,AdvTuple>> Decoder::decode(){
 	
 	return *res;
 }
+#endif

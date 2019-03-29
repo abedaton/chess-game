@@ -1,7 +1,6 @@
 #pragma once
 #pragma GCC diagnostic ignored "-Wzero-as-null-pointer-constant"
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-#pragma GCC diagnostic ignored "-Wunused-function"
 #ifndef DATABASE_HPP
 #define DATABASE_HPP
 

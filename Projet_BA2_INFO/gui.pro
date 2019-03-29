@@ -3,7 +3,7 @@
 ######################################################################
 
 QT += widgets
-QMAKE_CXXFLAGS += -std=c++11 -g
+QMAKE_CXXFLAGS += -std=c++11 -g 
 
 
 TEMPLATE = app

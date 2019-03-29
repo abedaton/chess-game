@@ -1,21 +1,36 @@
+#pragma once
+#ifndef USER_CPP
+#define USER_CPP
 # include "../includes/User.hpp"
 
+/*
+ * Constructeur du user
+ */
 User::User(int client_sock, Database* db, MatchMaking* match) : _clientSock(client_sock), _db(db), _match(match), _opponent(nullptr){
 	pthread_t clientThread;
     pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
 }
 
+/*
+ * Destructeur, fait quitter le client
+ */
 User::~User(){
     std::cout << "destructor" << std::endl;
     exit();
 }
 
 
+/*
+ * Permet à un joueur d'abandonner une partie
+ */
 void User::surrend(){
     //To Do
 }
 
 
+/*
+ * Applique l'inscription d'un utilisateur
+ */
 void User::letsRegister() {
     std::string username = recvStr();
     std::string password = recvStr();
@@ -33,6 +48,9 @@ void User::letsRegister() {
     }
 }
 
+/*
+ * Vérifie si le nom d'utilisateur et le mot de passe sont correspondants
+ */
 void User::checkLogin() {
     std::string username = recvStr();
     std::string password = recvStr();
@@ -46,23 +64,35 @@ void User::checkLogin() {
     }
 }
 
+/*
+ * Envoie un message du chat à son adversaire
+ */
 void User::chat(){
     std::string msg = recvStr();
     this->_opponent->sendMsg(msg);
 }
 
+/*
+ * Met l'utilisateur dans le matchmaking
+ */
 void User::waitForMatch(){
-    int gameMod = recvInt();
+    int gameMod = recvInt()-1;
     std::cout << "gamemod = " << gameMod << std::endl;
     int elo = _db->getInt(this->_name, "elo");
     this->_match->waitForMatch(this, gameMod, elo);
 }
 
+/*
+ * Reçoit un move de l'utilisateur
+ */
 void User::recvMov(){
     std::string mov = recvStr();
     this->mov(mov);
 }
 
+/*
+ * Exécute un move et update les scores en cas de victoire ou défaite
+ */
 void User::mov(std::string mov){
     std::pair<bool, bool> pAnswer = this->_game->serverMov(mov, this->_name,this->_inverted);
     if (pAnswer.first){
@@ -79,12 +109,18 @@ void User::mov(std::string mov){
     }
 }
 
+/*
+ * Permet d'indiquer qu'un joueur a perdu
+ */
 void User::lose(){
     this->_game = nullptr;
     this->_db->updateWin(this->_name, this->_opponent->get_name(), false);
 }
 
 
+/*
+ * Fait quitter le client
+ */
 void User::exit() {
     close(this->_clientSock);
     std::cout << "exiting.." << std::endl;
@@ -97,18 +133,27 @@ void User::exit() {
     pthread_exit(0);
 }
 
-std::string User::get_name() const{
+/*
+ * Getter du nom de l'utilisateur
+ */
+std::string User::get_name(){
     return this->_name;
 }
 
 
 //Privet
 
+/*
+ * Lance handle client dans son thread
+ */
 void* User::run(void* tmp){
     static_cast<User*>(tmp)->handleClient();
     return NULL;
 }
 
+/*
+ * Méthode qui va boucler pour attendre les demandes du client
+ */
 void User::handleClient(){
     bool end = false;
     Protocol protocol;
@@ -170,15 +215,24 @@ void User::handleClient(){
     }
 }
 
+/*
+ * Lock le mutex
+ */
 void  User::waitForProcess(){
     this->_mutex.lock();
 }
 
+/*
+ * Delock le mutex
+ */
 void  User::endProcess(){
     this->_mutex.unlock();
 }
 
 
+/*
+ * Envoie un entier
+ */
 void User::sendInt(int num){
     uint16_t convertedNum = htons(static_cast<uint16_t>(num));
     if (send(this->_clientSock, &convertedNum, sizeof(uint16_t), 0) <= 0){
@@ -187,6 +241,9 @@ void User::sendInt(int num){
     }
 }
 
+/*
+ * Recoit un entier
+ */
 int User::recvInt(){
     uint16_t Answer;
     if (recv(this->_clientSock, &Answer, sizeof(uint16_t), MSG_WAITALL) <= 0){ 
@@ -196,6 +253,9 @@ int User::recvInt(){
     return ntohs(Answer);
 }
 
+/*
+ * Recoit un entier, le flag permet de savoir si on est en wait all ou pas
+ */
 int User::recvInt(int flag){
     uint16_t Answer;
     int res = recv(this->_clientSock, &Answer, sizeof(uint16_t), flag);
@@ -208,6 +268,9 @@ int User::recvInt(int flag){
     }
 }
 
+/*
+ * Permet d'envoyer un string
+ */
 void User::sendStr(std::string str){
     this->sendInt(static_cast<int>(str.size()));
     if (send(this->_clientSock, str.c_str(), str.size(), 0) <= 0){
@@ -215,6 +278,9 @@ void User::sendStr(std::string str){
     }
 }
 
+/*
+ * Permet de recevoir un string
+ */ 
 std::string User::recvStr(){
     int len_str = recvInt();
     std::vector<char> buffer(static_cast<long unsigned int>(len_str));
@@ -226,6 +292,9 @@ std::string User::recvStr(){
     return str;
 }
 
+/*
+ * Envoie un string à la socket
+ */
 void User::sendStrToSocket(int socket, std::string str){
     this->sendIntToSocket(socket, static_cast<int>(str.size()));
     if (send(socket, str.c_str(), str.size(), 0) <= 0){
@@ -233,6 +302,9 @@ void User::sendStrToSocket(int socket, std::string str){
     }
 }
 
+/*
+ * Envoie un entier à la socket
+ */
 void User::sendIntToSocket(int socket, int number){
     uint16_t convertedNum = htons(static_cast<uint16_t>(number));
     if (send(socket, &convertedNum, sizeof(uint16_t), 0) <= 0){
@@ -241,6 +313,9 @@ void User::sendIntToSocket(int socket, int number){
     }
 }
 
+/*
+ * Lance une partie
+ */
 void User::startGame(SuperGame* game, AbstractUser* oppenent, bool turn){
 	int protocol = 25;
     this->_game = game;
@@ -253,6 +328,9 @@ void User::startGame(SuperGame* game, AbstractUser* oppenent, bool turn){
     std::cout << "startGame" << std::endl;
 }
 
+/*
+ * Envoie un move
+ */
 void User::sendMov(std::string mov){
     int protocol = 26;
     this->_myTurn = true;
@@ -260,12 +338,18 @@ void User::sendMov(std::string mov){
     sendStr(mov);
 }
 
+/*
+ * Envoie un message
+ */ 
 void User::sendMsg(std::string msg){
     int protocol = 27;
     sendInt(protocol);
     sendStr(msg);
 }
 
+/*
+ * Envoie un vecteur
+ */
 void User::sendVector(std::vector<std::string> vec){
     long length = htonl( vec.size());
     send(this->_clientSock, &length, sizeof(length), 0);
@@ -279,6 +363,9 @@ void User::sendVector(std::vector<std::string> vec){
     }
 }
 
+/*
+ * Envoie un message
+ */
 void User::sendMessage(){
     int protocol = 28;
     std::string username = recvStr();
@@ -295,6 +382,9 @@ void User::sendMessage(){
 
 
 /////////////////////////////////////////////////////////////////////
+/*
+ * Ajoute un ami 
+ */
 void User::addFriend(){
     std::string user = recvStr();
     bool result = this->_db->sendFriendRequest(this->_name, user);
@@ -303,17 +393,26 @@ void User::addFriend(){
     }
 }
 
+/*
+ * Retire un ami
+ */
 void User::removeFriend(){
     std::string username = recvStr();
     this->_db->deleteFriend(this->_name, username);
 }
 
+/*
+ * Accepte un ami et l'ajoute à la liste
+ */
 void User::acceptFriend(){
     std::string user = this->recvStr();
     bool answer = (this->recvInt()-1) ? 1 : 0;
     this->_db->acceptFriend(this->_name, user, answer);
 }
 
+/*
+ * Recoit les demandes d'amis
+ */
 void User::getFriendRequests(){
     int protocol = 29;
     std::vector<std::string> friendList = this->_db->seeFriendRequests(this->_name);
@@ -321,6 +420,9 @@ void User::getFriendRequests(){
     sendVector(friendList);
 }
 
+/* 
+ * Recoit la liste d'ami
+ */
 void User::getFriendList(){
     int protocol = 30;
     std::vector<std::string> friendList = this->_db->seeFriends(this->_name);
@@ -334,6 +436,9 @@ void User::getFriendList(){
     }
 }
 
+/*
+ * Recoit les infos sur un utilisateur
+ */
 void User::GetUserInfo(){
     std::string username;
     username = recvStr();
@@ -347,3 +452,4 @@ void User::GetUserInfo(){
     sendInt(win);
     sendInt(elo);
 }
+#endif

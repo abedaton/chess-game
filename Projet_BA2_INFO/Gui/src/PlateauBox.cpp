@@ -1,3 +1,5 @@
+#ifndef PLATEAUBOX_CPP
+#define PLATEAUBOX_CPP
 #include "PlateauBox.hpp"
 
 PlateauBox::PlateauBox(int x, int y, int sideLenght = 65, QGraphicsItem *parent) : QGraphicsRectItem(parent), _sideLenght(sideLenght) {
@@ -84,3 +86,5 @@ void PlateauBox::movePiece(){
     _scene->getPriorityBox()->setPiece(nullptr);
     _scene->resetAllColors();
 }
+
+#endif

@@ -1,3 +1,7 @@
+#pragma once
+#ifndef POSI_CPP
+#define POSI_CPP
+
 #include "Posi.hpp"
 
 
@@ -48,3 +52,4 @@ bool Posi::operator==( const Posi* p ) const {
 bool Posi::operator!=( const Posi* p ) const {
 	return (*this != *p);
 }
+#endif

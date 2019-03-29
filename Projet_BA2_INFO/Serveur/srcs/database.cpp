@@ -1,3 +1,6 @@
+#pragma once
+#ifndef DATABASE_CPP
+#define DATABASE_CPP
 #include "../includes/database.hpp"
 
 Database::Database(){
@@ -385,3 +388,5 @@ int Database::callbackGetter(void* var, int argc, char** argv, char** columns){
 	*output = argv[0];
 	return 0;
 }
+
+#endif

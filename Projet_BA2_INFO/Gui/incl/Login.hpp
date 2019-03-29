@@ -1,3 +1,4 @@
+#pragma once
 #ifndef LOGIN_HPP
 #define LOGIN_HPP
 

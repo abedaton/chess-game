@@ -1,3 +1,7 @@
+
+#ifndef FENPRINCIPALE_CPP
+#define FENPRINCIPALE_CPP
+
 #include "FenPrincipale.hpp"
 
 FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
@@ -175,12 +179,14 @@ void FenPrincipale::removeFriend() {
 
 }
 
-/*
-void FenPrincipale::gameStart(std::string opponent){
+
+void FenPrincipale::gameStart(std::string opponent, AbstractPlateau* board){
+	this->_ennemyName = opponent;
+	this->_board = board;
     //_client->waitForMatch(1); TO DO
     goToClassic();
 }
-*/
+
 void FenPrincipale::showFriendList(){
     _dockFriendList->show();
 }
@@ -234,3 +240,5 @@ void FenPrincipale::setPool3(){
 void FenPrincipale::setPool4(){
     setTheme("pool4");
 }
+
+#endif

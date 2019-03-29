@@ -1,4 +1,6 @@
-
+#pragma once
+#ifndef CLASSICCHESS_CPP
+#define CLASSICCHESS_CPP
 #include "ClassicChess.hpp"
 #include <sstream>
 
@@ -304,3 +306,4 @@ std::vector<Chesspiece*>* ClassicChess::evolution_possibilities(){
 	return chess_vect;
 	
 }
+#endif

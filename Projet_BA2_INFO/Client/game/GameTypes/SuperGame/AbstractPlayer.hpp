@@ -1,3 +1,4 @@
+#pragma once
 #ifndef ABSTRACTPLAYER_HPP
 #define ABSTRACTPLAYER_HPP
 

@@ -1,4 +1,7 @@
 
+#pragma once
+#ifndef INTERPRET_CPP
+#define INTERPRET_CPP
 #include "Interpret.hpp"
 
 // ------------Interpret--------------------------------------------------------------------------------------------
@@ -52,3 +55,5 @@ std::string Interpret::get_text(std::string langue){
 	}
 	return ss.str();
 }
+
+#endif

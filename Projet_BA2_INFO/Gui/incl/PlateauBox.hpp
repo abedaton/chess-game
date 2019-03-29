@@ -1,3 +1,4 @@
+#pragma once
 #ifndef PLATEAUBOX_HPP
 #define PLATEAUBOX_HPP
 

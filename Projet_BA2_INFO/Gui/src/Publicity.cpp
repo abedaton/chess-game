@@ -1,3 +1,6 @@
+#pragma once
+#ifndef PUBLICITY_CPP
+#define PUBLICITY_CPP
 #include "Publicity.hpp"
 #include <stdio.h>
 
@@ -44,3 +47,4 @@ void Publicity::on_timer_timeout() {
     setPubToRandomImage();
 }
 
+#endif

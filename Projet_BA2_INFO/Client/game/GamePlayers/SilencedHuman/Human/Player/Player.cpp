@@ -1,4 +1,6 @@
-
+#pragma once
+#ifndef PLAYER_CPP
+#define PLAYER_CPP
 #include "Player.hpp"
 
 
@@ -81,3 +83,4 @@ std::string Player::msg_compaction(std::string msg,bool endline){
 	
 	return ss.str();
 }
+#endif

@@ -1,5 +1,6 @@
 #pragma once
-
+#ifndef AFFICHAGEDARKCHESS_CPP
+#define AFFICHAGEDARKCHESS_CPP
 #include "AffichageDarkChess.hpp"
 
 //AffichageDarkChess::AffichageDarkChess(Plateau* plat, Dico* dict, std::string pre, std::string suf, std::string lang, Player* play_low, Player* play_high,std::string symb_low, std::string symb_high, std::vector<std::vector<int>> foggy) : Affichage(plat, dict, pre, suf, lang, play_low, play_high, symb_low, symb_high), fog(foggy){} //*< Constructor
@@ -69,3 +70,5 @@ std::string AffichageDarkChess::get_affichage_line(int i, int new_i){
 Player* AffichageDarkChess::get_locked_player() const {return this->locked_player;}
 void AffichageDarkChess::set_locked_player(Player* locked_play){this->locked_player = locked_play;}
 void AffichageDarkChess::set_fog(std::vector<std::vector<int>> foggy){this->fog = foggy;}
+
+#endif

@@ -1,3 +1,4 @@
+#pragma once
 #include "GameIntelligence.hpp"
 
 BaseGameType* GameIntelligence::get_game() const{
