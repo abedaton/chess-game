@@ -33,10 +33,28 @@ PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPri
 
 void PlateauScene::setBoxes(int x, int y, int sideLenght) {
     int curr_x, curr_y = y;
+    int textX = sideLenght/2 - 13, textY = 125;
+    
     _boxes.resize(_size);
+    
     for (int i = 0; i < _size; ++i) {
         _boxes[i].resize(_size);
         curr_x = x;
+        
+        char chr = 65 + i;
+        //wsh
+        
+        std::string str(1,chr);
+        setPosText(textX,50, str);
+        
+        str = std::to_string(_size-i);
+        setPosText(-50,textY, str);
+        
+        textY += sideLenght;
+        textX += sideLenght;
+        
+
+
         for (int j = 0; j < _size; ++j) {
             PlateauBox *box = new PlateauBox(curr_x, curr_y, sideLenght);
             curr_x += sideLenght;
@@ -45,11 +63,20 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
                 box->setFirstColor(Qt::white);
             else
                 box->setFirstColor(Qt::darkGray);
+            
             box->setPosition(i, j);
             box->_scene = this;
+            
             _boxes[i][j] = box;
             _scene->addItem(box);
+            
+            // setPosText(-50,125, "wsh");
+            // setPosText(-50,125+sideLenght, "wsh");
+            // setPosText(sideLenght/2 - 13 ,50, "wsh");
+            // setPosText(sideLenght/2 - 13 + sideLenght ,50, "wsh");
+            
         }
+        
         curr_y += sideLenght;
     }
 
@@ -59,6 +86,8 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
 		setHigh("W");
 		setLow("B");
+        //addPiece("fog","", 7,1);
+
 
 	}
 	else if (this->get_game_type() == "trappist") {
@@ -66,7 +95,14 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
 		setLowTrappist("B");
 	}
 	else{throw std::invalid_argument("mode de jeu inconnu");}
+}
 
+void PlateauScene::setPosText(int x, int y, std::string pos){
+    QGraphicsTextItem * coor = new QGraphicsTextItem(QString::fromStdString(pos));
+    coor->setPos(x,y);
+    //coor->setPlainText(QString::fromStdString(pos));
+
+    _scene->addItem(coor);
 }
 
 

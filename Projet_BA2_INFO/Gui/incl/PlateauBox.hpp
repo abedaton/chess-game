@@ -36,6 +36,8 @@ class PlateauBox : public QGraphicsRectItem {
     QPen _pen;
     std::pair<int, int> _pos;
     ChessItem* _piece;
+    
+    int _plateauSize;
 };
 
 #endif // PLATEAUBOX_HPP
