@@ -181,7 +181,9 @@ void FenPrincipale::goToClassic() {
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
     //_client->waitForMatch(1);
-    
+    //int tmp = this->_chessMod + (4 * (std::stoi(gameMod)-1));
+    // while (gameMod != "1" && gameMod != "2" && gameMod != "3" && gameMod != "4"){
+    //     std::cout << "Enter 1 for Tour Par tour, 2 for Chrono, 3 for Temps Reel, 4 for return to the menu: ";
 }
 
 void FenPrincipale::goToTrappist(){
@@ -281,7 +283,7 @@ void FenPrincipale::sendPosition(std::string pos){
 }
 
 void FenPrincipale::getMenuFriendListAction(QAction *action){
-    _chat->setFriendName(_friendList->getSelectFriend());
+   //_chat->setFriendName(_friendList->getSelectFriend());
     _dockChat->show();
 }
 #endif

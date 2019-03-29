@@ -16,18 +16,19 @@ void GameWindow::init_widget() {
     _launchGame = new QPushButton("Launch", this);
     _comboBoxMode = new QComboBox(this);
     _comboBoxMode->addItem("Classic");
-    _comboBoxMode->addItem("Real time");
     _comboBoxMode->addItem("Pendulum");
+    _comboBoxMode->addItem("Real time");
+
 }
 
 void GameWindow::init_layout() {
     _gbox = new QGridLayout;
-    _gbox->addWidget(_comboBoxMode, 0, 0);
-    _gbox->addWidget(_exitButton, 1, 0);
     _gbox->addWidget(_classicButton, 0, 1);
     _gbox->addWidget(_darkButton, 0, 2);
     _gbox->addWidget(_trapistButton, 1, 1);
     _gbox->addWidget(_antiButton, 1, 2);
+    _gbox->addWidget(_comboBoxMode, 2, 1);
+    _gbox->addWidget(_exitButton, 2, 2);
     this->setLayout(_gbox);
 }
 
@@ -49,5 +50,8 @@ QPushButton *GameWindow::getAntiButton() const {
 
 QPushButton* GameWindow::getExitButton() const {
     return _exitButton;
+}
+std::string GameWindow::getCurrentCBoxText(){
+    return _comboBoxMode->currentText().toStdString();
 }
 #endif

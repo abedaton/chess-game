@@ -15,6 +15,7 @@ class GameWindow : public QWidget {
     QPushButton *getTrapistButton() const;
     QPushButton *getAntiButton() const;
     QPushButton *getExitButton() const;
+    std::string getCurrentCBoxText();
 
     private:
     void init_widget();
