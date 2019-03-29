@@ -42,6 +42,7 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
         curr_x = x;
         
         char chr = 65 + i;
+        //wsh
         
         std::string str(1,chr);
         setPosText(textX,50, str);
