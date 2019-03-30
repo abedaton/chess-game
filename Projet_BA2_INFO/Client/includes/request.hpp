@@ -72,12 +72,13 @@ class Request{
         void recvFriendRequestsList();
         void recvFriendList();
         void recvInfo();
+        void gameWithFriends(std::string username);
         std::vector<std::string> recvVector();
 
 };
 
 enum Protocol : int {
-    STARTGAME = 25, OPPONENTMOV, RECVMESSAGEINGAME, RECVMESSAGE, SEEREQUESTS, RECVFRIENDLIST, RECVINFO
+    STARTGAME = 25, OPPONENTMOV, RECVMESSAGEINGAME, RECVMESSAGE, SEEREQUESTS, RECVFRIENDLIST, RECVINFO, RECVDUEL
 };
 
 

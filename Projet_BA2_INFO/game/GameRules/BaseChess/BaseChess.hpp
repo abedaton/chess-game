@@ -82,6 +82,7 @@ class BaseChess{
         BaseChess(const BaseChess&) noexcept = default;
         BaseChess& operator= (const BaseChess&) noexcept = default;
         
+				AbstractAffichage* get_affich() const;
         // pas d'interactions avec le jeu, il gère tout --> peu de fonctions publiques
         virtual std::pair<bool,std::string> execute_step(std::string);
         virtual std::pair<bool,std::string> execute_step();
@@ -274,7 +275,7 @@ class BaseChess{
 		
 		virtual std::pair<bool,std::string> execute_step(Player*) = 0;
 		
-		AbstractAffichage* get_affich() const;
+		
 		void set_affich(AbstractAffichage*);
 		
 		bool verify_my_king();

@@ -38,11 +38,12 @@ class User: public AbstractUser{
 		MatchMaking* _match;
 		SuperGame* _game;
 		AbstractUser* _opponent;
-		bool _myTurn;
-		bool _inverted;
 
 		std::mutex _mutex;
 		std::string _name;
+		bool _inverted;
+		bool _waitForGame;
+		int _gameMod;
 		
 		void handleClient();
 		void checkLogin();
@@ -78,13 +79,14 @@ class User: public AbstractUser{
 		void getFriendRequests();
 		void getOnlineFriendList();
 		void GetUserInfo();
+		void gameWithFriends();
 		
 };
 
 enum Protocol : int {
     PASS = 0, REGISTER, LOGIN, CHAT, WAITFORMATCH, MOV, SURREND, 
     SENDMESSAGE, ADDFRIEND, REMOVEFRIEND,
-	ACCEPTFRIEND, GETFRIENDLIST, GETFRIENDREQUESTS, GETUSERINFO
+	ACCEPTFRIEND, GETFRIENDLIST, GETFRIENDREQUESTS, GETUSERINFO, DUEL, ACCEPTDUEL
 };
 
 

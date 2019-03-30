@@ -28,7 +28,7 @@ std::pair<bool,bool> TourParTour::execute_step(std::string merged_coords,std::st
 	bool valid = result.first;
 	bool end = result.second;
 	
-	if (end == false){this->change_active_player();}
+	if (end == false && valid == true){this->change_active_player();}
 	
 	return std::make_pair(valid,end);
 

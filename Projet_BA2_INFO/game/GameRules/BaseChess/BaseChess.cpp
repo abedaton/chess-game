@@ -2717,7 +2717,7 @@ std::vector<std::string> *BaseChess::possible_mov(std::string position){
 }
 
 bool BaseChess::myTurn(std::string username){
-	return (this->active_player->get_name() != username);
+	return (this->active_player->get_name() == username);
 }
 
 #endif

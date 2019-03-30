@@ -19,12 +19,15 @@ class MatchMaking{
 		MatchMaking();
 		~MatchMaking() = default;
         void waitForMatch(AbstractUser* player,int gameMod, int elo);
-        std::vector< std::vector< std::vector< AbstractUser* > > > pools;
+        bool exitQueue(AbstractUser* player, int gameMod, int elo);
     private:
         static void* run(void*);
         void poolSort(int mod, int rank, AbstractUser* player);
 
         void startMatch(AbstractUser* player1, AbstractUser* player2, int gameMod);
+        int getRank(int elo);
+
+        std::vector< std::vector< std::vector< AbstractUser* > > > pools;
     
     struct matchMod{
        MatchMaking* match;

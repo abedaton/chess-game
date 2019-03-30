@@ -9,6 +9,7 @@
 
 class AbstractInterface { 
     public:
+        virtual ~AbstractInterface() = default;
         virtual void myShow(){}//for gui interface
         virtual void gameStart(std::string opponent){this->_ennemyName = opponent;};
         virtual void connectionError() = 0;

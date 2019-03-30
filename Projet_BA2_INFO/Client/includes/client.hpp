@@ -7,6 +7,8 @@
 #include "../srcs/terminal.cpp"
 
 #include "../../game/GameTypes/SuperGame/SuperGame.cpp"
+#include <cstdlib>
+#include <stdlib.h>
 
 
 class Client: public AbstractPlayer, public AbstractClient{

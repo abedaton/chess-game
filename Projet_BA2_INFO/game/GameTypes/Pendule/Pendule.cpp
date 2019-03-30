@@ -59,7 +59,7 @@ std::pair<bool,bool> Pendule::execute_step(std::string merged_coords,std::string
 		end = true;
 	}
 	
-	if (end == false){this->change_active_player();}
+	if (end == false && valid == true){this->change_active_player();}
 	
 	return std::make_pair(valid,end);
 

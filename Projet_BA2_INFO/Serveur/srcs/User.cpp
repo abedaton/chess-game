@@ -6,7 +6,7 @@
 /*
  * Constructeur du user
  */
-User::User(int client_sock, Database* db, MatchMaking* match) : _clientSock(client_sock), _db(db), _match(match), _opponent(nullptr){
+User::User(int client_sock, Database* db, MatchMaking* match) : _clientSock(client_sock), _db(db), _match(match), _opponent(nullptr), _waitForGame(false){
 	pthread_t clientThread;
     pthread_create(&clientThread, NULL, &User::run, static_cast<void*>(this));
 }
@@ -76,8 +76,9 @@ void User::chat(){
  * Met l'utilisateur dans le matchmaking
  */
 void User::waitForMatch(){
+    this->_waitForGame = true;
     int gameMod = recvInt()-1;
-    std::cout << "gamemod = " << gameMod << std::endl;
+    this->_gameMod = gameMod;
     int elo = _db->getInt(this->_name, "elo");
     this->_match->waitForMatch(this, gameMod, elo);
 }
@@ -97,7 +98,6 @@ void User::mov(std::string mov){
     std::pair<bool, bool> pAnswer = this->_game->serverMov(mov, this->_name,this->_inverted);
     if (pAnswer.first){
       this->_opponent->sendMov(mov);
-      this->_myTurn = false;
     } else {
         this->_opponent->surrend();
         this->exit();
@@ -122,6 +122,10 @@ void User::lose(){
  * Fait quitter le client
  */
 void User::exit() {
+    if(this->_waitForGame){
+        int elo = _db->getInt(this->_name, "elo");
+        this->_match->exitQueue(this,this->_gameMod, elo);
+    }
     close(this->_clientSock);
     std::cout << "exiting.." << std::endl;
     int i = 0;   
@@ -179,6 +183,8 @@ void User::handleClient(){
                 this->recvMov();
                 break;
             case SURREND: // 6
+                //this->_opponent->win();
+                //
                 break;
             case SENDMESSAGE: // 7
                 this->sendMessage();
@@ -318,10 +324,10 @@ void User::sendIntToSocket(int socket, int number){
  */
 void User::startGame(SuperGame* game, AbstractUser* oppenent, bool turn){
 	int protocol = 25;
+    this->_waitForGame = false;
     this->_game = game;
     this->_opponent = oppenent;
-    this->_myTurn = turn;
-    this->_inverted = ! turn;
+    this->_inverted = !turn;
     sendInt(protocol);
     sendInt(static_cast<int>(turn)+1);
     sendStr(oppenent->get_name());
@@ -333,7 +339,6 @@ void User::startGame(SuperGame* game, AbstractUser* oppenent, bool turn){
  */
 void User::sendMov(std::string mov){
     int protocol = 26;
-    this->_myTurn = true;
     sendInt(protocol);
     sendStr(mov);
 }
@@ -451,5 +456,13 @@ void User::GetUserInfo(){
     sendInt(games);    
     sendInt(win);
     sendInt(elo);
+}
+
+void User::gameWithFriends(){
+    std::string username;
+    username = recvStr();
+    int protocol = 32;
+    //TODO
+    
 }
 #endif

@@ -24,7 +24,7 @@ Terminal::~Terminal(){
  * Indique une erreur de connexion avec le serveur et quitte
  */
 void Terminal::connectionError(){
-	std::cout << "Connection with server lost : " << strerror(errno) << std::endl;
+	std::cout << "\nConnection with server lost : " << strerror(errno) << std::endl;
 	this->_user->exit();
 	//exit(EXIT_FAILURE);
 }
@@ -307,7 +307,7 @@ bool Terminal::selectGameModeWindow(){
 		return false;
 	else { 
 		this->_chessMod = std::stoi(chessMod)-1;
-		int tmp = this->_chessMod + (4 * (std::stoi(gameMod)-1));
+		int tmp = this->_chessMod + (4 * (std::stoi(gameMod)-1)); //chessMod + (4 * gameMod)
 		this->_user->waitForMatch(tmp);
 		return true;
 	}

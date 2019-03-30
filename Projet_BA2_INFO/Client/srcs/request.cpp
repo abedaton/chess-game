@@ -429,4 +429,16 @@ void Request::getUserInfo(std::string username){
     endProcess();
 }
 
+/*
+ * Envoi demande partie avec ami
+ */
+void Request::gameWithFriends(std::string username){
+    waitForProcess();
+    int protocol = 14;
+    sendInt(protocol);
+    sendStr(username);
+    endProcess();
+    //TODO
+}
+
 #endif

@@ -26,14 +26,7 @@ void* MatchMaking::run(void* tmp){
  * Fait le tri des pools de matchmaking
  */
 void MatchMaking::poolSort(int gameMod, int elo, AbstractUser* player){
-    int rank;
-    if (elo < 1000) {
-        rank = 0;
-    } else if (elo < 1700) {
-        rank = 1;
-    } else {
-        rank = 2;
-    }
+    int rank = getRank(elo);
     std::cout << "gameMod: " << gameMod << ", rank: " << rank << std::endl;
     std::vector<AbstractUser*>* vect = &(pools[gameMod][rank]);
     vect->push_back(player);
@@ -77,8 +70,8 @@ void MatchMaking::poolSort(int gameMod, int elo, AbstractUser* player){
  */
 void MatchMaking::startMatch(AbstractUser* player1, AbstractUser* player2, int gameMod){
     std::cout << "Launching Game" << std::endl;
-    SilencedHuman* play_one = new SilencedHuman(player1->get_name(), player2->get_name());
-    SilencedHuman* play_two = new SilencedHuman(player2->get_name(), player1->get_name());
+    SilencedHuman* play_one = new SilencedHuman(player1->get_name(), "francais");
+    SilencedHuman* play_two = new SilencedHuman(player2->get_name(), "francais");
 
     SuperGame* game = new SuperGame(gameMod, player1, true, play_one, play_two);
 
@@ -103,16 +96,27 @@ void MatchMaking::waitForMatch(AbstractUser* player, int gameMod, int elo){
     pthread_create(&thread, NULL, &MatchMaking::run, static_cast<void*>(structMatch));
 }
 
-//bool MatchMaking::tryStopWait(AbstractUser* player){
-//  for (auto &vect1 : pools){
-//      for (auto &vect2 : vect1){
-//          if (vect2[0] == player){
-//              vect->erase(vect->begin());
-//              return true;
-//          }
-//      }
-//  }
-//  return false;
-//}
+bool MatchMaking::exitQueue(AbstractUser* player, int gameMod, int elo){
+    int rank = getRank(elo);
+    std::vector<AbstractUser*>* vect =  &(pools[gameMod][rank]);
+    if ( (!vect->empty()) && vect->at(0) == player){
+        vect->erase(vect->begin());
+        return true;
+    } else {
+        return false;
+    } 
+} 
+
+int MatchMaking::getRank(int elo){
+    int rank;
+    if (elo < 1000) {
+        rank = 0;
+    } else if (elo < 1700) {
+        rank = 1;
+    } else {
+        rank = 2;
+    }
+    return rank;
+}
 
 #endif

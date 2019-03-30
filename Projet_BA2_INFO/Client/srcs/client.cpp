@@ -17,7 +17,6 @@ Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(n
 	}
 }
 
-
 Client::~Client(){
 	;;
 }
@@ -42,10 +41,10 @@ void Client::waitForMatch(int gameMod){
  * Lance une partie
  */
 void Client::startingGame(bool playerTurn, std::string opponentName){
-	Human* play_one = new Human(this->_name, opponentName);
-	SilencedHuman* play_two = new SilencedHuman(opponentName, this->_name);
+	Human* play_one = new Human(this->_name, "francais");
+	SilencedHuman* play_two = new SilencedHuman(opponentName, "francais");
 	this->_game = new SuperGame(this->_gameMod, this, playerTurn, play_one, play_two);
-	Plateau* board = this->_game->getBoard();
+	//Plateau* board = this->_game->getBoard();
 	this->_interface->gameStart(opponentName);
 }
 
@@ -142,11 +141,12 @@ void Client::connectionError(){
  * Permet de quitter le jeu
  */
 void Client::exit(){
-	//if (_interface != nullptr) --------------------------------------------------------- // !!! enleve warning (classe abstraite)
-	//	delete this->_interface;
+	if (_interface != nullptr)
+		delete this->_interface;
 	if (_game != nullptr)
 		delete _game;
-	delete _server;
+	//delete _server;
+	std::_Exit(0);
 }
 
 void Client::movPossibleUpdate(std::vector<std::string> listMov){
