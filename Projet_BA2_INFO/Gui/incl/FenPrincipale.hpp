@@ -13,6 +13,7 @@
 #include "PlateauScene.hpp"
 #include "Register.hpp"
 #include "StatWindow.hpp"
+#include "MatchmakingDialog.hpp"
 
 #include <QtWidgets>
 #include <iostream>
@@ -38,6 +39,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void goToTrappist();
     void goToMenu();
     void goToStat();
+    void goToMatchmaking();
     void sendMessage();
     void showFriendList();
     void setTheme(std::string pool);
@@ -101,6 +103,8 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     Timer *_timer;
 
     std::string _pool;
+
+    MatchmakingDialog* _mdial;
 
 };
 

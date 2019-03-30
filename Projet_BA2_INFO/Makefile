@@ -63,7 +63,8 @@ SOURCES       = Gui/src/FenPrincipale.cpp \
 		Gui/src/FriendList.cpp \
 		Gui/src/Publicity.cpp \
 		Gui/src/StatWindow.cpp \
-		Client/main.cpp Gui/bin/moc_FenPrincipale.cpp \
+		Client/main.cpp \
+		Gui/src/MatchmakingDialog.cpp Gui/bin/moc_FenPrincipale.cpp \
 		Gui/bin/moc_GameWindow.cpp \
 		Gui/bin/moc_Login.cpp \
 		Gui/bin/moc_Register.cpp \
@@ -87,6 +88,7 @@ OBJECTS       = Gui/bin/FenPrincipale.o \
 		Gui/bin/Publicity.o \
 		Gui/bin/StatWindow.o \
 		Gui/bin/main.o \
+		Gui/bin/MatchmakingDialog.o \
 		Gui/bin/moc_FenPrincipale.o \
 		Gui/bin/moc_GameWindow.o \
 		Gui/bin/moc_Login.o \
@@ -190,7 +192,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		Client/includes/request.hpp \
 		Client/includes/terminal.hpp \
 		game/common/MyException/MyOstream/MyOstream.hpp \
-		game/common/MyException/MyException.hpp Gui/src/FenPrincipale.cpp \
+		game/common/MyException/MyException.hpp \
+		Gui/incl/MatchmakingDialog.hpp Gui/src/FenPrincipale.cpp \
 		Gui/src/GameWindow.cpp \
 		Gui/src/Login.cpp \
 		Gui/src/PlateauBox.cpp \
@@ -203,7 +206,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		Gui/src/FriendList.cpp \
 		Gui/src/Publicity.cpp \
 		Gui/src/StatWindow.cpp \
-		Client/main.cpp
+		Client/main.cpp \
+		Gui/src/MatchmakingDialog.cpp
 QMAKE_TARGET  = cli
 DESTDIR       = 
 TARGET        = cli
@@ -385,8 +389,13 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
+<<<<<<< HEAD
 	$(COPY_FILE) --parents Gui/incl/FenPrincipale.hpp Gui/incl/GameWindow.hpp Gui/incl/Login.hpp Gui/incl/PlateauBox.hpp Gui/incl/PlateauScene.hpp Gui/incl/Register.hpp Gui/incl/Menu.hpp Gui/incl/Chat.hpp Gui/incl/ChessItem.hpp Gui/incl/Timer.hpp Gui/incl/FriendList.hpp Gui/incl/Publicity.hpp Gui/incl/StatWindow.hpp Client/includes/abstractClient.hpp Client/includes/abstractInterface.hpp game/GameTypes/SuperGame/abstractPlayer.hpp Client/includes/client.hpp Client/includes/request.hpp Client/includes/terminal.hpp game/common/MyException/MyOstream/MyOstream.hpp game/common/MyException/MyException.hpp $(DISTDIR)/
 	$(COPY_FILE) --parents Gui/src/FenPrincipale.cpp Gui/src/GameWindow.cpp Gui/src/Login.cpp Gui/src/PlateauBox.cpp Gui/src/PlateauScene.cpp Gui/src/Register.cpp Gui/src/Menu.cpp Gui/src/Chat.cpp Gui/src/ChessItem.cpp Gui/src/Timer.cpp Gui/src/FriendList.cpp Gui/src/Publicity.cpp Gui/src/StatWindow.cpp Client/main.cpp $(DISTDIR)/
+=======
+	$(COPY_FILE) --parents Gui/incl/FenPrincipale.hpp Gui/incl/GameWindow.hpp Gui/incl/Login.hpp Gui/incl/PlateauBox.hpp Gui/incl/PlateauScene.hpp Gui/incl/Register.hpp Gui/incl/Menu.hpp Gui/incl/Chat.hpp Gui/incl/ChessItem.hpp Gui/incl/Timer.hpp Gui/incl/FriendList.hpp Gui/incl/Publicity.hpp Gui/incl/StatWindow.hpp Client/includes/abstractClient.hpp Client/includes/abstractInterface.hpp game/GameTypes/SuperGame/AbstractPlayer.hpp Client/includes/client.hpp Client/includes/request.hpp Client/includes/terminal.hpp game/common/MyException/MyOstream/MyOstream.hpp game/common/MyException/MyException.hpp Gui/incl/MatchmakingDialog.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents Gui/src/FenPrincipale.cpp Gui/src/GameWindow.cpp Gui/src/Login.cpp Gui/src/PlateauBox.cpp Gui/src/PlateauScene.cpp Gui/src/Register.cpp Gui/src/Menu.cpp Gui/src/Chat.cpp Gui/src/ChessItem.cpp Gui/src/Timer.cpp Gui/src/FriendList.cpp Gui/src/Publicity.cpp Gui/src/StatWindow.cpp Client/main.cpp Gui/src/MatchmakingDialog.cpp $(DISTDIR)/
+>>>>>>> aab86ee2b3456440ecb4d8ca6c4464bc108d2037
 
 
 clean: compiler_clean 
@@ -434,6 +443,7 @@ Gui/bin/moc_FenPrincipale.cpp: Gui/incl/FriendList.hpp \
 		Gui/incl/FenPrincipale.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
+		Gui/incl/MatchmakingDialog.hpp \
 		Client/includes/abstractInterface.hpp \
 		Client/includes/abstractClient.hpp \
 		Gui/incl/FenPrincipale.hpp \
@@ -513,6 +523,7 @@ Gui/bin/FenPrincipale.o: Gui/src/FenPrincipale.cpp Gui/incl/FenPrincipale.hpp \
 		Gui/incl/ChessItem.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
+		Gui/incl/MatchmakingDialog.hpp \
 		Client/includes/abstractInterface.hpp \
 		Client/includes/abstractClient.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/FenPrincipale.o Gui/src/FenPrincipale.cpp
@@ -536,6 +547,7 @@ Gui/bin/PlateauBox.o: Gui/src/PlateauBox.cpp Gui/incl/PlateauBox.hpp \
 		Gui/incl/Timer.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
+		Gui/incl/MatchmakingDialog.hpp \
 		Client/includes/abstractInterface.hpp \
 		Client/includes/abstractClient.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/PlateauBox.o Gui/src/PlateauBox.cpp
@@ -553,6 +565,7 @@ Gui/bin/PlateauScene.o: Gui/src/PlateauScene.cpp Gui/incl/PlateauScene.hpp \
 		Gui/incl/Timer.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
+		Gui/incl/MatchmakingDialog.hpp \
 		Client/includes/abstractInterface.hpp \
 		Client/includes/abstractClient.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/PlateauScene.o Gui/src/PlateauScene.cpp
@@ -599,6 +612,7 @@ Gui/bin/main.o: Client/main.cpp Client/srcs/client.cpp \
 		Gui/incl/ChessItem.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
+		Gui/incl/MatchmakingDialog.hpp \
 		Client/includes/abstractInterface.hpp \
 		Client/srcs/terminal.cpp \
 		Client/includes/terminal.hpp \
@@ -669,6 +683,9 @@ Gui/bin/main.o: Client/main.cpp Client/srcs/client.cpp \
 		game/GameTypes/TempsReel/TempsReel.cpp \
 		game/GameTypes/TempsReel/TempsReel.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/main.o Client/main.cpp
+
+Gui/bin/MatchmakingDialog.o: Gui/src/MatchmakingDialog.cpp Gui/incl/MatchmakingDialog.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/MatchmakingDialog.o Gui/src/MatchmakingDialog.cpp
 
 Gui/bin/moc_FenPrincipale.o: Gui/bin/moc_FenPrincipale.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/moc_FenPrincipale.o Gui/bin/moc_FenPrincipale.cpp

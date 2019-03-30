@@ -17,10 +17,14 @@ class Chat : public QWidget {
     explicit Chat(QWidget *parent = nullptr);
     QLineEdit *getLineEdit();
     QTextEdit *getTextEdit();
+    QString getFriendName();
+    void setFriendName(QString name);
 
     private:
     void init_widget();
     void init_layout();
+
+    QString _friendName;
     QPushButton *_pushButtonSend;
     QTextEdit *_textEdit;
     QLineEdit *_lineEdit;

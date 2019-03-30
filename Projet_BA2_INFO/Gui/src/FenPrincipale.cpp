@@ -7,7 +7,6 @@
 // TODO link list d'amis
 // TODO link chat
 // TODO link le jeu
-// TODO dark chess brouillard
 // TODO leaderboard
 // TODO timer
 // TODO fenetre d'attend matchmaking
@@ -60,7 +59,7 @@ void FenPrincipale::init_connect() {
     connect(_register->getOK(), SIGNAL(clicked()), this, SLOT(checkRegister()));
     connect(_register, SIGNAL(enterPressed()), this, SLOT(checkRegister()));
 
-    connect(_gameWindow->getClassicButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
+    connect(_gameWindow->getClassicButton(), SIGNAL(clicked()), this, SLOT(goToMatchmaking()));
     connect(_gameWindow->getDarkButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
     connect(_gameWindow->getTrapistButton(), SIGNAL(clicked()), this, SLOT(goToTrappist()));
     connect(_gameWindow->getAntiButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
@@ -76,6 +75,8 @@ void FenPrincipale::init_connect() {
     //connect(_statWindow,SIGNAL(enterPressed()), this, SLOT(fonctionjsp qui appelle StatWindow::getPlayerStats ))
     connect(_statWindow->getExitButton(), SIGNAL(clicked()), this, SLOT(goToMenu()));
     connect(_menuFriendList, SIGNAL(triggered(QAction *)), this, SLOT(getMenuFriendListAction(QAction *)));
+
+
 }
 
 void FenPrincipale::init_dock() {
@@ -188,9 +189,16 @@ int FenPrincipale::getWichMatchmaking(std::string variante){
 
 }
 
+void FenPrincipale::goToMatchmaking() {
+    _mdial = new MatchmakingDialog(this);
+    connect(_mdial->getOkButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
+    int gamemode = getWichMatchmaking("classic");
+    _client->waitForMatch(gamemode);
+}
+
 void FenPrincipale::goToClassic() {
     //std::string pool = "pool2";
- 
+    delete _mdial;
     _classicWindow = new PlateauScene("classic", _pool,this,this);
     
     _stack->addWidget(_classicWindow);
@@ -237,8 +245,9 @@ void FenPrincipale::removeFriend() {
 
 void FenPrincipale::gameStart(std::string opponent){
 	this->_ennemyName = opponent;
+    _mdial->fondOpponent(_ennemyName);
     //_client->waitForMatch(1); TO DO
-    goToClassic();
+    //goToClassic();
 }
 
 void FenPrincipale::showFriendList(){
@@ -308,7 +317,7 @@ void FenPrincipale::sendPosition(std::string pos){
 }
 
 void FenPrincipale::getMenuFriendListAction(QAction *action){
-   //_chat->setFriendName(_friendList->getSelectFriend());
+   _chat->setFriendName(_friendList->getSelectFriend());
     _dockChat->show();
 }
 

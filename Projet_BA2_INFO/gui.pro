@@ -70,7 +70,8 @@ HEADERS += Gui/incl/FenPrincipale.hpp \
            #Client/game/common/MyException/MyOstream/MyOstream.hpp \
            #Client/game/common/MyException/MyException.hpp
            game/common/MyException/MyOstream/MyOstream.hpp \
-           game/common/MyException/MyException.hpp
+           game/common/MyException/MyException.hpp \
+    Gui/incl/MatchmakingDialog.hpp
 
 
 SOURCES += Gui/src/FenPrincipale.cpp \
@@ -91,6 +92,7 @@ SOURCES += Gui/src/FenPrincipale.cpp \
            Client/main.cpp\
            Client/srcs/client.cpp \
            Client/srcs/request.cpp \
-           Client/srcs/terminal.cpp
+           Client/srcs/terminal.cpp \
+     Gui/src/MatchmakingDialog.cpp
 
            
