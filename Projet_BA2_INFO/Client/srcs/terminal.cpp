@@ -10,6 +10,8 @@
  */
 Terminal::Terminal(AbstractClient* client): _user(client), _gameStart(false), _end(false) { 
 	client->setInterface(this);
+	this->_mut = new std::mutex;
+	this->_mut->lock();
 	firstWindow();
 }
 
@@ -95,6 +97,7 @@ void Terminal::friendsWindow(){
 				break;
 			case 2:
 				this->_user->getFriendList();
+				this->_mut->lock();
 				break;
 			case 3:
 				std::cout << "Veuillez entrer le nom de l'ami à supprimer: ";
@@ -103,6 +106,7 @@ void Terminal::friendsWindow(){
 				break;
 			case 4:
 				this->_user->getFriendRequests();
+				this->_mut->lock();
 				break;
 			case 5:
 				std::cout<< "Veuillez entrer le nom de l'ami pour réponde à sa demande d'amis: ";
@@ -142,10 +146,12 @@ void Terminal::friendsWindow(){
 				std::cout << "Please enter the name of the user you want to see de stat: ";
 				std::getline(std::cin, username);
 				this->_user->getUserInfo(username);
+				this->_mut->lock();
 				break;
 		}
 	}
 }
+
 
 /*
  * Premier affichage au lancement du client
@@ -253,9 +259,11 @@ void Terminal::menuWindow(){
 	char answer;
 	bool waitForGame = false;
     while (true){
-        std::cout << "Enter 1 for exit 2 for friend list 3 to see your stat";
+        std::cout << "Enter 1 for exit 2 for friend list 3 to see your stat 4 to see if someone wants to play with you";
 		if (!waitForGame)
-			std::cout <<", 4 for game";
+			std::cout <<", 5 for game";
+		else 
+			std::cout <<", 5 exit queue";
 		std::cout << ": ";
         std::cin >> answer;
 		myFlush();
@@ -270,9 +278,37 @@ void Terminal::menuWindow(){
         	    friendsWindow();
         	} else if (answer == '3'){
         	    this->_user->getUserInfo();
-        	} else if (answer == '4' && !waitForGame){
+				this->_mut->lock();
+			}else if (answer == '4'){
+				if(this->_user->getGRequests().size() == 0){
+					std::cout << "Personne ne veut jouer avec vous." << std::endl;
+				}else{
+					std::vector<std::pair<std::string,int> > liste;
+					std::cout << "Liste du/des joueur(s) qui veut/lent jouer avec vous : " << std::endl;
+					for(int cnt = 0; cnt < liste.size(); cnt++){
+						std::cout << cnt << " " << liste[cnt].first << "en gameMod " << liste[cnt].second;
+					}
+					std::cout << "Entrez le numéro du joueur avec qui vous voulez jouer ou -1 si vous voulez quitter." << std::endl;
+					int name;
+					std::cin >> name ;
+					this->myFlush();
+					while(name >= liste.size() || name < -1){
+						std::cout << "Entrez un nommbre correct entre -1 et " << liste.size() -1 << " " << std::endl; 
+					}
+					if(name != -1){
+						
+						//this->_user->gameStart(name, gameMod);
+						//this->_user->;;
+						;;
+					}
+
+				}
+        	} else if (answer == '5' && !waitForGame){
         	    waitForGame = selectGameModeWindow();
-        	}
+        	} else if (answer == '5' && waitForGame){
+				this->_user->exitQueue();
+				waitForGame = false;
+			}
 		}
     }
 }
@@ -281,7 +317,11 @@ void Terminal::menuWindow(){
  * Affiche un message recu par le chat
  */
 void Terminal::recvMessage(std::string username, std::string msg){
-	std::cout << "\n" << username << ": " << msg << std::endl;
+	if (username == this->_ennemyName) {
+		std::cout << "\nYour opponent(" << username << "): " << msg << std::endl;
+	} else {
+		std::cout << "\n" << username << ": " << msg << std::endl;
+	}
 }
 
 /*
@@ -320,7 +360,7 @@ void Terminal::gameWindow(){
 	int answer;
 	std::string square;
     while (true){
-        std::cout << "Enter 1 for surrender, 2 for chat, 3 for click on the bord" << std::endl;
+        std::cout << "Enter 1 for surrender, 2 for chat, 3 for click on the bord: ";
         std::cin >> answer;
 		myFlush();
 		if (_end){
@@ -332,14 +372,15 @@ void Terminal::gameWindow(){
 			//this->_user->surrend(); 
             break;
         } else if (answer == 2) {
-            std::string msg;
-			std::cout << "Enter a message for your opponent: \n" << std::endl;
-			std::cin.clear();
-        	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::string msg = "coucou";
+			std::cout << "Enter a message for your opponent: " << std::endl;
+			//std::cin.clear();
+        	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::getline(std::cin, msg);
-			this->myFlush();
-			this->_user->sendMessage("SOMEONE", msg);
+			//this->myFlush();
+			this->_user->sendMessage(this->_ennemyName, msg);
         } else if (answer == 3) {
+			
 			std::cout << "Choose a square" << std::endl;
 			std::cin >> square;
 			this->myFlush();
@@ -364,13 +405,14 @@ void Terminal::gameWindow(){
 void Terminal::recvFriendRequestsList(std::vector<std::string> vec){
 	this->_friendRequest = vec;
 	if (vec.size() > 0){
-		std::cout << "\nYou have " << vec.size() << " pending requests: " << std::endl;
+		std::cout << "You have " << vec.size() << " pending requests: " << std::endl;
 		for (unsigned i = 0; i < vec.size(); i++){
 			std::cout << "\t- " << vec[i] << std::endl;
 		}
 	} else {
-		std::cout << "\nYou have no pending requests.. :(" << std::endl;
+		std::cout << "You have no pending requests.. :(" << std::endl;
 	}
+	this->_mut->unlock();
 }
 
 /*
@@ -379,13 +421,14 @@ void Terminal::recvFriendRequestsList(std::vector<std::string> vec){
 void Terminal::recvFriendList(std::vector<std::pair<std::string, bool> > frendList){
 	this->_friendList = frendList;
 	if (frendList.size() > 0){
-		std::cout << "\nYou have " << frendList.size() << " friends: " << std::endl;
+		std::cout << "You have " << frendList.size() << " friends: " << std::endl;
 		for (unsigned i = 0; i < frendList.size(); i++){
 			std::cout << "\t- " << frendList[i].first << ": " << (frendList[i].second ? "connected" : "disconnected") << std::endl;
 		}
 	} else {
-		std::cout << "\nSorry you dont have any friend.. :(" << std::endl;
+		std::cout << "Sorry you dont have any friend.. :(" << std::endl;
 	}
+	this->_mut->unlock();
 }
 
 /*
@@ -409,14 +452,14 @@ void Terminal::recvInfo(std::string username, int nbrGames, int win, int elo){
 	else
 		rank = "or";
 
-	std::cout << "\n" << username << " stat:" << std::endl;	
+	std::cout << username << " stat:" << std::endl;	
 	std::cout << "\t-nbrGames: " << nbrGames << std::endl;
 	std::cout << "\t-win: " << win << std::endl;
 	std::cout << "\t-lose: " << nbrGames-win << std::endl;
 	std::cout << "\t-Ratio: " << ratio << "\%" << std::endl;
 	std::cout << "\t-Elo(n Musk): " << elo << std::endl;
 	std::cout << "\t-rank: " << rank << std::endl;
-
+	this->_mut->unlock();
 }
 
 /*
@@ -427,100 +470,12 @@ void Terminal::myFlush(){
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-
-void Terminal::updateBoardClassic(){ 
-	//this->_ennemyName;
-	//this->_board;
-	//this->_username;
-	//this->_chessMod;
-}
-
-void Terminal::updateBoardDark(){ 
-
+void Terminal::feedback(int info, std::string message){
+	(void)info;
+	std::cout << std::endl << message << std::endl;
+	this->_mut->unlock();
 }
 
 
-/*
-std::string Affichage::affichage_plateau(){
-	// fonction assemblant toutes les parties du plateau ensemble affin de pouvoir renvoyer un plateau complet
-		
-	std::stringstream s;
-	
-	int taille_voulue_hor = this->get_taille_case_hor(); //8;
-	int taille_voulue_ver = this->get_taille_case_ver(); //2;
-		
-	std::string big_l = this->make_big_ligne();
-	std::string big_l_vide = make_big_ligne_vide();
-	std::string letter_line = crea_ligne_lettres(int(this->_plateau()->get_taille()),taille_voulue_hor);
-	
-	
-	int ver_av = (taille_voulue_ver-1)/2; // le 1 vient de la taille de la piece qui sera tjs sur 1 seul ligne!
-	int ver_ap = (taille_voulue_ver-1) - ver_av; // le 1 vient de la taille de la piece qui sera tjs sur 1 seul ligne!
-	
-	int max_decal = int(std::to_string(this->get_plateau()->get_taille()-1).size());
-	int max_reste = taille_voulue_hor-max_decal;
-	
-	s << get_decallage_de_bord_gauche(max_reste/2);
-	for(int p=0;p<(max_decal+(max_reste/2)) ;p++){s<<" ";}
-	s << letter_line << std::endl;
-	
-	s << get_decallage_de_bord_gauche(max_reste/2);
-	for(int p=0;p<(max_decal+(max_reste/2)) ;p++){s<<" ";}
-	s << big_l_vide;
-
-	for(int i=0;i<this->get_plateau()->get_taille();i++){
-		
-		int new_i = this->get_plateau()->get_taille()-1-i;
-		
-		// calcul chiffre ligne
-		std::string str_numb = std::to_string(new_i+1);
-		int numb_size = int(str_numb.size());
-		int numb_reste = taille_voulue_hor-numb_size + (max_decal-numb_size);
-        int numb_av = (numb_reste/2);
-		//
-		
-		s << get_decallage_de_bord_gauche(max_reste/2);
-		for(int p=0;p<(numb_av + numb_size -1) ;p++){s<<" ";} // -1 car -|
-		s<<big_l;
-		
-		
-		s << get_decallage_de_bord_gauche(max_reste/2);
-		for(int p=0;p<(numb_av + numb_size) ;p++){s<<" ";}
-		for(int k=0;k<ver_av;k++){s<<big_l_vide;}
-		
-		s << get_decallage_de_bord_gauche(max_reste/2);
-		s<<str_numb;
-		for(int p=0;p<numb_av;p++){s<<" ";}
-		s<<"|";
-		
-		//s << get_decallage_de_bord_gauche(numb_av);
-		s<<this->get_affichage_line(i,new_i);
-		
-        for(int p=0;p<numb_av;p++){s<<" ";}
-		s<<str_numb;
-
-		s<<std::endl;
-		s << get_decallage_de_bord_gauche(max_reste/2);
-		for(int p=0;p<(numb_av + numb_size) ;p++){s<<" ";}
-		for(int o=0;o<ver_ap;o++){s<<big_l_vide;}
-	}
-	
-	s << get_decallage_de_bord_gauche(max_reste/2);
-	for(int p=0;p<(max_decal+(max_reste/2) -1) ;p++){s<<" ";} // -1 car -|
-	s<<big_l;
-	
-	s << get_decallage_de_bord_gauche(max_reste/2);
-	for(int p=0;p<(max_decal+(max_reste/2)) ;p++){s<<" ";}
-	s << big_l_vide;
-	
-	s << get_decallage_de_bord_gauche(max_reste/2);
-	for(int p=0;p<(max_decal+(max_reste/2)) ;p++){s<<" ";}
-	s << letter_line << std::endl;
-    
-    return s.str();
-}
-
-
-*/
 
 #endif

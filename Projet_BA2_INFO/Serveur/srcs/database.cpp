@@ -199,29 +199,28 @@ void Database::updateWin(std::string username, std::string rival, bool win){
 char* Database::getValue(std::string table, std::string column){
 	char* zErrMsg = 0;
 	std::string sql = "SELECT " + column + " FROM '" + table + "';";
-	std::cout << sql << std::endl;
-	char** var;
-	int rc = sqlite3_exec(this->db, sql.c_str(), callbackGetter, var, &zErrMsg);;
+	char* var = nullptr;
+	int rc = sqlite3_exec(this->db, sql.c_str(), callbackGetter, &var, &zErrMsg);;
 	if (rc != SQLITE_OK){
 		std::cout << "Error on getValue: " << sqlite3_errmsg(this->db) << std::endl;
 		sqlite3_free(zErrMsg);
 	}
-	return *var;
+	return var;
 }
 
 
 int Database::getInt(std::string table, std::string column){
 	char* val = getValue(table, column);
-	int tmp = atoi(val);
+	if (val == nullptr){
+		val = static_cast<char*>("-2");
+	}
 	return atoi(val);
 }
 
 int Database::getUserInt(std::string column, std::string username){
 	char* val = getUserValue(column, username);
-	if (val != NULL){
-		int tmp = atoi(val);
-	} else {
-		val = (char*)("-2");
+	if (val == nullptr){
+		val = static_cast<char*>("-2");
 	}
 	return atoi(val);
 }
@@ -229,7 +228,6 @@ int Database::getUserInt(std::string column, std::string username){
 char* Database::getUserValue(std::string column, std::string username){
 	char* zErrMsg = 0;
 	std::string sql = "SELECT " + column + " FROM users WHERE username = '" + username + "';";
-	std::cout << sql << std::endl;
 	char** var;
 	*var = NULL;
 	int rc = sqlite3_exec(this->db, sql.c_str(), callbackGetter, var, &zErrMsg);;
@@ -333,7 +331,6 @@ std::vector<std::string> Database::seeFriendRequests(std::string username){
 	char* zErrMsg = 0;
 	std::vector<std::string> listRequests(0);
 	std::string sql =  "SELECT user1 FROM friendList WHERE user2 = '" + username + "' AND relation = \"waiting\";"; //user1 = '" + username + "' OR 
-	std::cout << sql << std::endl;
 	int rc = sqlite3_exec(this->db, sql.c_str(), callbackSee, &listRequests, &zErrMsg);
 	if (rc != SQLITE_OK){
 		std::cout << "Error on seeFriendsRequests: " << sqlite3_errmsg(this->db) << std::endl;

@@ -35,6 +35,10 @@ class AbstractClient{
 		virtual void opponentMov(std::string mov) = 0;
 		virtual void recvMessage(std::string name,std::string msg) = 0;
 		virtual void connectionError() = 0;
+
+		virtual void exitQueue() = 0;
+		virtual void feedback(int info, std::string message) = 0;
+		virtual std::vector<std::pair<std::string,int> > getGRequests() = 0;
 };
 
 #endif

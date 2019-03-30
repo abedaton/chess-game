@@ -17,6 +17,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		SuperGame* _game;
 		AbstractInterface* _interface;
 
+		std::vector<std::pair<std::string,int> > gameRequests;
 		int _gameMod;
 		std::string _name;
 		void lose();
@@ -49,6 +50,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		void opponentMov(std::string mov) override;
 		void recvMessage(std::string name,std::string msg) override;
 		void connectionError() override;
+		std::vector<std::pair<std::string,int > > getGRequests() override;
 		//call by game
 		void mov(std::string mov) override;
 		void movPossibleUpdate(std::vector<std::string> listMov) override;
@@ -56,6 +58,9 @@ class Client: public AbstractPlayer, public AbstractClient{
 		void recvFriendRequestsList(std::vector<std::string> vec) override;
 		void recvFriendList(std::vector<std::pair<std::string, bool> > frendList) override;
 		void recvInfo(std::string username, int nbrgames, int win, int elo) override;
+
+		void exitQueue() override;
+		void feedback(int info, std::string message) override;
 
 		int showGui(int argc, char** argv);
 };

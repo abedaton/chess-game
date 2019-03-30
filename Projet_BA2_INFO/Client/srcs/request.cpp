@@ -76,25 +76,28 @@ void Request::listener(){
 			case 0:
                 break;
             case STARTGAME: // 25
-				startingGame();
+				this->startingGame();
                 break;
             case OPPONENTMOV: // 26
-                opponentMov();
+                this->opponentMov();
                 break;
 			case RECVMESSAGEINGAME: // 27
-                recvMessageInGame(); // in game chat
+                this->recvMessageInGame(); // in game chat
                 break;
             case RECVMESSAGE: // 28
-                recvMessage(); // chat
+                this->recvMessage(); // chat
                 break;
             case SEEREQUESTS: // 29
-                recvFriendRequestsList(); // voir les amis
+                this->recvFriendRequestsList(); // voir les amis
                 break;
             case RECVFRIENDLIST: //30
-                recvFriendList();
+                this->recvFriendList();
                 break;
             case RECVINFO: //31
-                recvInfo();
+                this->recvInfo();
+                break;
+            case FEEDBACK: // 33
+                this->feedback();
                 break;
             default:
 				std::cout << "bad receive in listener: " << protocol << std::endl;
@@ -346,7 +349,6 @@ void Request::surrend(){
  * Requête d'envoi de message
  */
 void Request::sendMessage(std::string name, std::string msg){
-    std::cout << name << ", " << msg << std::endl;
     waitForProcess();
     int protocol = 7;
     sendInt(protocol);
@@ -432,13 +434,35 @@ void Request::getUserInfo(std::string username){
 /*
  * Envoi demande partie avec ami
  */
-void Request::gameWithFriends(std::string username){
+void Request::gameWithFriends(std::string username, int gameMod){
     waitForProcess();
     int protocol = 14;
     sendInt(protocol);
     sendStr(username);
+    sendInt(gameMod);
     endProcess();
-    //TODO
+}
+
+void Request::putGRequest(){
+    waitForProcess();
+    std::string username = recvStr();
+    int gameMod = recvInt();
+    this->_client->getGRequests().push_back(std::make_pair(username, gameMod));
+    endProcess();
+}
+
+void Request::exitQueue(){
+    waitForProcess();
+    int protocol = 16;
+    sendInt(protocol);
+
+    endProcess();
+}
+
+void Request::feedback(){
+    int info = recvInt();
+    std::string message = recvStr();
+    this->_client->feedback(info, message);
 }
 
 #endif

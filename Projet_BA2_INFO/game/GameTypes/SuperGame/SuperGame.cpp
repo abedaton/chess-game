@@ -4,7 +4,8 @@
 
 #include "SuperGame.hpp"
 
-SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn, Player* play_one, Player* play_two): _client(client), _inverted(!myTurn){
+SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn, Player* play_one, Player* play_two): _client(client){
+    //this->_inverted = !myTurn;
     this->_player1 = play_one->get_name();
     this->_player2 = play_two->get_name();
     this->_lastClick = " ";
@@ -72,10 +73,11 @@ bool SuperGame::click(std::string square)                                       
         this->_lastClick = square                                                                       ;}  
     else if (this->_game->myTurn(this->_player1))                                                       {
         std::cout << "mov: " << mov << std::endl                                                        ;
-        std::pair<bool, bool> res = this->_game->execute_step(mov, this->_player1, this->_inverted)     ;
+        std::pair<bool, bool> res = this->_game->execute_step(mov, this->_player1, false);// this->_inverted)     ;
         answer = res.second                                                                             ;
         if (res.first)                                                                                  {
-            this->_lastClick = " "                                                                      ;}
+            this->_lastClick = " "                                                                      ;
+            this->_client->mov(mov)                                                                    ;}
         else                                                                                            {
             std::cout << "bad mov" << std::endl                                                         ;
             this->_lastClick = square                                                                   ;}}
@@ -103,51 +105,47 @@ bool SuperGame::click(std::string square)                                       
     //return res;
 }
 
-bool SuperGame::turn(std::string mov){
-    std::pair<bool, bool> res = this->_game->execute_step(mov, this->_player1, this->_inverted);
-    if (res.first) {
-	    this->_client->mov(mov);
-	} else {
-		this->_bufferMov.push_back(mov);
-	}
-	return res.second;
-}
+//bool SuperGame::turn(std::string mov){
+//    std::pair<bool, bool> res = this->_game->execute_step(mov, this->_player1, this->_inverted);
+//    if (res.first) {
+//	    this->_client->mov(mov);
+//	} else {
+//		this->_bufferMov.push_back(mov);
+//	}
+//	return res.second;
+//}
 
 int SuperGame::opponentMov(std::string mov){
-    std::cout << "opponentMov" << std::endl;
+    std::cout << "opponentMov: " << mov << ", " << this->_player2 << ", " << this->_inverted << std::endl;
     int result = 0;
-    std::pair<bool, bool> res = this->_game->execute_step(mov, this->_player2,! this->_inverted);
+    std::pair<bool, bool> res = this->_game->execute_step(mov, this->_player2, true);// this->_inverted);
+    std::cout << "answer from game: " << res.first << std::endl;
     this->_ListMov.clear();
-    this->_client->movPossibleUpdate(this->_ListMov);
+    //this->_client->movPossibleUpdate(this->_ListMov);
 	if (res.second)
 		result = -1;
 	else if (! this->_bufferMov.empty()){
 		mov = this->_bufferMov.front();
 		this->_bufferMov.erase(_bufferMov.begin());
-        res = this->_game->execute_step(mov, this->_player1,! this->_inverted);
-		if (! res.first) {
+        res = this->_game->execute_step(mov, this->_player1, false);// this->_inverted);
+		if (res.first) {
+            this->_client->mov(mov);
+            if(res.second) {
+                //this->_client->movPossibleUpdate(this->_ListMov);
+                result = 1;
+            }
+        } else{ 
             this->_bufferMov.clear();
-        } else if(res.second) {
-            this->_client->movPossibleUpdate(this->_ListMov);
-            result = 1;
         }
 	}
+    this->_client->movPossibleUpdate(this->_ListMov);
     //this->_game->get_game()->get_affich()->affichage_plateau();
 	return result;
 }
 
 std::pair<bool, bool> SuperGame::serverMov(std::string mov, std::string username, bool inverted){
-    std::cout << "serverMov" << std::endl;
-    return this->_game->execute_step(mov, username, inverted);
+    std::pair<bool, bool> res =  this->_game->execute_step(mov, username, inverted);
+    return res;
 }
-
-//Plateau* SuperGame::getBoard(){
-//    return this->_game->get_game()->get_plateau();
-//}
-//
-//std::vector<std::string> SuperGame::getListMov(){
-//
-//    return this->_ListMov;
-//}
 
 #endif

@@ -43,6 +43,7 @@ class Request{
         void getOnlineFriendList();
         void getMyInfo();
         void getUserInfo(std::string username);
+        void exitQueue();
 
     private:
 		std::mutex _mutex;
@@ -72,13 +73,16 @@ class Request{
         void recvFriendRequestsList();
         void recvFriendList();
         void recvInfo();
-        void gameWithFriends(std::string username);
+        void gameWithFriends(std::string username, int gameMod);
+        void putGRequest();
         std::vector<std::string> recvVector();
+
+        void feedback();
 
 };
 
 enum Protocol : int {
-    STARTGAME = 25, OPPONENTMOV, RECVMESSAGEINGAME, RECVMESSAGE, SEEREQUESTS, RECVFRIENDLIST, RECVINFO, RECVDUEL
+    STARTGAME = 25, OPPONENTMOV, RECVMESSAGEINGAME, RECVMESSAGE, SEEREQUESTS, RECVFRIENDLIST, RECVINFO, RECVDUEL, FEEDBACK
 };
 
 

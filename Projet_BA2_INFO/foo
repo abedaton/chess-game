@@ -1,0 +1,50 @@
+In file included from Client/srcs/../includes/../../Gui/incl/FenPrincipale.hpp:20:0,
+                 from Client/srcs/../includes/client.hpp:6,
+                 from Client/srcs/client.cpp:5,
+                 from Client/main.cpp:1:
+Client/srcs/../includes/../../Gui/incl/../../Client/includes/abstractInterface.hpp: In member function ‘virtual void AbstractInterface::movPossibleUpdate(std::vector<std::__cxx11::basic_string<char> >)’:
+Client/srcs/../includes/../../Gui/incl/../../Client/includes/abstractInterface.hpp:19:65: warning: unused parameter ‘listMov’ [-Wunused-parameter]
+         virtual void movPossibleUpdate(std::vector<std::string> listMov){}
+                                                                 ^~~~~~~
+Client/srcs/../includes/../../Gui/incl/../../Client/includes/abstractInterface.hpp: In member function ‘virtual void AbstractInterface::feedback(int, std::__cxx11::string)’:
+Client/srcs/../includes/../../Gui/incl/../../Client/includes/abstractInterface.hpp:30:35: warning: unused parameter ‘info’ [-Wunused-parameter]
+         virtual void feedback(int info, std::string message){}
+                                   ^~~~
+Client/srcs/../includes/../../Gui/incl/../../Client/includes/abstractInterface.hpp:30:53: warning: unused parameter ‘message’ [-Wunused-parameter]
+         virtual void feedback(int info, std::string message){}
+                                                     ^~~~~~~
+In file included from Client/srcs/../includes/client.hpp:7:0,
+                 from Client/srcs/client.cpp:5,
+                 from Client/main.cpp:1:
+Client/srcs/../includes/../srcs/terminal.cpp: In member function ‘virtual void Terminal::movPossibleUpdate(std::vector<std::__cxx11::basic_string<char> >)’:
+Client/srcs/../includes/../srcs/terminal.cpp:43:59: warning: unused parameter ‘listMov’ [-Wunused-parameter]
+ void Terminal::movPossibleUpdate(std::vector<std::string> listMov){
+                                                           ^~~~~~~
+In file included from Client/srcs/../includes/client.hpp:7:0,
+                 from Client/srcs/client.cpp:5,
+                 from Client/main.cpp:1:
+Client/srcs/../includes/../srcs/terminal.cpp: In member function ‘void Terminal::menuWindow()’:
+Client/srcs/../includes/../srcs/terminal.cpp:288:27: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+      for(int cnt = 0; cnt < liste.size(); cnt++){
+                       ~~~~^~~~~~~~~~~~~~
+Client/srcs/../includes/../srcs/terminal.cpp:295:17: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+      while(name >= liste.size() || name < -1){
+            ~~~~~^~~~~~~~~~~~~~~
+In file included from Client/main.cpp:1:0:
+Client/srcs/client.cpp: In member function ‘virtual void Client::movPossibleUpdate(std::vector<std::__cxx11::basic_string<char> >)’:
+Client/srcs/client.cpp:157:57: warning: unused parameter ‘listMov’ [-Wunused-parameter]
+ void Client::movPossibleUpdate(std::vector<std::string> listMov){
+                                                         ^~~~~~~
+In file included from srcs/../includes/../srcs/../includes/User.hpp:16:0,
+                 from srcs/../includes/../srcs/User.cpp:4,
+                 from srcs/../includes/Serveur.hpp:6,
+                 from srcs/Serveur.cpp:4,
+                 from main.cpp:1:
+srcs/../includes/../srcs/../includes/../srcs/database.cpp: In member function ‘int Database::getInt(std::__cxx11::string, std::__cxx11::string)’:
+srcs/../includes/../srcs/../includes/../srcs/database.cpp:215:32: warning: ISO C++ forbids converting a string constant to ‘char*’ [-Wwrite-strings]
+   val = static_cast<char*>("-2");
+                                ^
+srcs/../includes/../srcs/../includes/../srcs/database.cpp: In member function ‘int Database::getUserInt(std::__cxx11::string, std::__cxx11::string)’:
+srcs/../includes/../srcs/../includes/../srcs/database.cpp:223:32: warning: ISO C++ forbids converting a string constant to ‘char*’ [-Wwrite-strings]
+   val = static_cast<char*>("-2");
+                                ^

@@ -93,6 +93,7 @@ void MatchMaking::waitForMatch(AbstractUser* player, int gameMod, int elo){
     structMatch->elo = elo;
 
     pthread_t thread;
+    
     pthread_create(&thread, NULL, &MatchMaking::run, static_cast<void*>(structMatch));
 }
 

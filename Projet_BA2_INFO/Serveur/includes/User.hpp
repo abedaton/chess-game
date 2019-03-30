@@ -80,13 +80,16 @@ class User: public AbstractUser{
 		void getOnlineFriendList();
 		void GetUserInfo();
 		void gameWithFriends();
+		void exitQueue();
+		void feedback(int info, std::string message);
 		
 };
 
 enum Protocol : int {
     PASS = 0, REGISTER, LOGIN, CHAT, WAITFORMATCH, MOV, SURREND, 
     SENDMESSAGE, ADDFRIEND, REMOVEFRIEND,
-	ACCEPTFRIEND, GETFRIENDLIST, GETFRIENDREQUESTS, GETUSERINFO, DUEL, ACCEPTDUEL
+	ACCEPTFRIEND, GETFRIENDLIST, GETFRIENDREQUESTS, GETUSERINFO, DUEL, ACCEPTDUEL,
+	LEAVEQUEUE
 };
 
 

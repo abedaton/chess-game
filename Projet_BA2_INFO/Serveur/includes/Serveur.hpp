@@ -7,11 +7,10 @@
 
 #include <iostream>
 #include <string>
-#include <atomic>
+//#include <atomic>
 
 class Serveur {
     public:
-        Serveur();
         Serveur(short unsigned int port);
     private:
         void sShutdown();

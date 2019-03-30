@@ -196,18 +196,25 @@ void FenPrincipale::goToClassic() {
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
     int gamemode = getWichMatchmaking("classic");
-    //_client->waitForMatch(gamemode);
-    //int tmp = this->_chessMod + (4 * (std::stoi(gameMod)-1));
+    std::cout << "GAMEMODE : " << gamemode << std::endl;
+    _client->waitForMatch(gamemode);
+    // int tmp = this->_chessMod + (4 * (std::stoi(gameMod)-1));
     // while (gameMod != "1" && gameMod != "2" && gameMod != "3" && gameMod != "4"){
-    //     std::cout << "Enter 1 for Tour Par tour, 2 for Chrono, 3 for Temps Reel, 4 for return to the menu: ";
+        //  std::cout << "Enter 1 for Tour Par tour, 2 for Chrono, 3 for Temps Reel, 4 for return to the menu: ";
 }
 
 void FenPrincipale::goToTrappist(){
-    _classicWindow = new PlateauScene("trappist", _pool, this,this);
+    _classicWindow = new PlateauScene("trappist", _pool, this, this);
+    
+    
+    
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
 
     int gamemode = getWichMatchmaking("trappist");
+    std::cout << "GAMEMODE : " << gamemode << std::endl;
+
+    _client->waitForMatch(gamemode);
 }
 void FenPrincipale::goToMenu() {
     setFriendMenu();

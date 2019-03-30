@@ -21,6 +21,10 @@ Client::~Client(){
 	;;
 }
 
+std::vector<std::pair<std::string,int > >  Client::getGRequests(){
+	return gameRequests;
+}
+
 /*
  * Setter de l'interface
  */
@@ -42,7 +46,7 @@ void Client::waitForMatch(int gameMod){
  */
 void Client::startingGame(bool playerTurn, std::string opponentName){
 	Human* play_one = new Human(this->_name, "francais");
-	SilencedHuman* play_two = new SilencedHuman(opponentName, "francais");
+	Human* play_two = new Human(opponentName, "francais");
 	this->_game = new SuperGame(this->_gameMod, this, playerTurn, play_one, play_two);
 	//Plateau* board = this->_game->getBoard();
 	this->_interface->gameStart(opponentName);
@@ -59,6 +63,7 @@ void Client::click(std::string square){
  * Effectue un mouvement 
  */
 void Client::mov(std::string mov){
+	std::cout << "mov for opponent: " << mov << std::endl;
 	this->_server->mov(mov);
 }
 
@@ -157,8 +162,9 @@ void Client::movPossibleUpdate(std::vector<std::string> listMov){
  * Envoie un message au serveur
  */
 void Client::sendMessage(std::string name,std::string msg){
-	if( (name != "") || (msg != "") )
+	if ((name != "") || (msg != "")){
 		this->_server->sendMessage(name, msg);
+	}
 }
 
 /*
@@ -238,6 +244,14 @@ void Client::recvFriendList(std::vector<std::pair<std::string, bool> > frendList
  */
 void Client::recvInfo(std::string username, int nbrgames, int win, int elo){
 	this->_interface->recvInfo(username, nbrgames, win, elo);
+}
+
+void Client::exitQueue(){
+	this->_server->exitQueue();
+}
+
+void Client::feedback(int info, std::string message){
+	this->_interface->feedback(info, message);
 }
 
 /*

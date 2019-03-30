@@ -10,6 +10,7 @@
 #include <arpa/inet.h>
 #include <stdio.h>
 #include <regex>
+#include <mutex>
 
 #include "abstractInterface.hpp"
 
@@ -29,13 +30,14 @@ class Terminal: public AbstractInterface{
 		void recvFriendList(std::vector<std::pair<std::string, bool> > frendList) override;
 		void recvInfo(std::string username, int nbrGames, int win, int elo) override;
 
+		void feedback(int info, std::string message) override;
 
     private:
         AbstractClient* _user;
 
 		bool _gameStart;
 		bool _end;
-        //bord
+        std::mutex* _mut;
 
         void firstWindow();
 		bool registerWindow();
@@ -47,8 +49,6 @@ class Terminal: public AbstractInterface{
 		void gameWindow();
         void myFlush();
 
-		void updateBoardClassic();
-		void updateBoardDark();
 		std::string affichage_plateau();
 };
 

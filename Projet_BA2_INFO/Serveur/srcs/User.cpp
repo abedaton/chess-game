@@ -95,9 +95,11 @@ void User::recvMov(){
  * Exécute un move et update les scores en cas de victoire ou défaite
  */
 void User::mov(std::string mov){
+    std::cout << "serverMov: " << mov << std::endl;
     std::pair<bool, bool> pAnswer = this->_game->serverMov(mov, this->_name,this->_inverted);
+    std::cout << "answer from game: " << pAnswer.first << std::endl;
     if (pAnswer.first){
-      this->_opponent->sendMov(mov);
+        this->_opponent->sendMov(mov);
     } else {
         this->_opponent->surrend();
         this->exit();
@@ -208,6 +210,10 @@ void User::handleClient(){
                 this->GetUserInfo();
                 break;
             
+            case LEAVEQUEUE: // 16
+                this->exitQueue();
+                break;
+
             default:
                 this->exit();
                 end = true;
@@ -380,9 +386,11 @@ void User::sendMessage(){
         sendIntToSocket(friendSocket, protocol);
         sendStrToSocket(friendSocket, this->_name);
         sendStrToSocket(friendSocket, msg);
-    } else {
-        // Todo send Feedback User no exists
-    }
+    } else if (friendSocket == -2){
+        this->feedback(2, "This user doesn't exists !");
+     } else {
+        this->feedback(2, "This user is offline !");
+     }
 } 
 
 
@@ -394,7 +402,7 @@ void User::addFriend(){
     std::string user = recvStr();
     bool result = this->_db->sendFriendRequest(this->_name, user);
     if (!result){
-        // TODO send feedback user no exists
+        this->feedback(1, "Cet utilisateur n'existe pas");
     }
 }
 
@@ -449,20 +457,44 @@ void User::GetUserInfo(){
     username = recvStr();
     int protocol = 31;
     int games = this->_db->getInt(username, "nbrGames");
-    int win = this->_db->getInt(username, "win");
-    int elo = this->_db->getInt(username, "elo");
-    sendInt(protocol);
-    sendStr(username);
-    sendInt(games);    
-    sendInt(win);
-    sendInt(elo);
+    if (games != -2){
+        int win = this->_db->getInt(username, "win");
+        int elo = this->_db->getInt(username, "elo");
+        sendInt(protocol);
+        sendStr(username);
+        sendInt(games);
+        sendInt(win);
+        sendInt(elo);
+    } else {
+        this->feedback(3, "No user named " + username +"\n");
+    }
 }
 
 void User::gameWithFriends(){
     std::string username;
     username = recvStr();
+    int gameMod = recvInt();
     int protocol = 32;
-    //TODO
+    int friendSocket = this->_db->getUserInt("socket", username);
+    if (friendSocket >= 0){
+        sendIntToSocket(friendSocket, protocol);
+        sendStrToSocket(friendSocket, username);
+        sendIntToSocket(friendSocket, gameMod);
+    }
+    //this->getGRequests();//.pushback(username);
     
 }
+
+void User::exitQueue(){
+    int elo = this->_db->getInt(this->_name, "elo");
+    this->_match->exitQueue(this, this->_gameMod, elo);
+}
+
+void User::feedback(int info, std::string message){
+    int protocol = 33;
+    sendInt(protocol);
+    sendInt(info);
+    sendStr(message);
+}
+
 #endif

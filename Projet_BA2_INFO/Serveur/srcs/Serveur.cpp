@@ -3,8 +3,6 @@
 #define SERVER_CPP
 #include "../includes/Serveur.hpp"
 
-Serveur::Serveur(){}
-
 /*
  * Constructeur
  */
