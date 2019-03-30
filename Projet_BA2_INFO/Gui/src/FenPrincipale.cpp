@@ -16,9 +16,11 @@ FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
     init_window();
     init_stack();
     init_dock();
+    init_menu();
     init_connect();
 
     setTheme("pool0");
+
 
     setCentralWidget(_stack);
     goToLogIn();
@@ -69,11 +71,11 @@ void FenPrincipale::init_connect() {
     connect(_menu->getStat(), SIGNAL(clicked()), this, SLOT(goToStat()));
     connect(_friendList->getPushButtonAddFriend(), SIGNAL(clicked()), this, SLOT(addFriend()));
     connect(_friendList->getPushButtonRemoveFriend(), SIGNAL(clicked()), this, SLOT(removeFriend()));
-    connect(_friendList->getListWidgetFriendList(), SIGNAL(itemClicked(QListWidgetItem *)),this, SLOT(showFriend(QListWidgetItem *)));
+    connect(_friendList->getListWidgetFriendList(), SIGNAL(itemClicked(QListWidgetItem *)),this, SLOT(getFriendListItem(QListWidgetItem *)));
 
     //connect(_statWindow,SIGNAL(enterPressed()), this, SLOT(fonctionjsp qui appelle StatWindow::getPlayerStats ))
     connect(_statWindow->getExitButton(), SIGNAL(clicked()), this, SLOT(goToMenu()));
-
+    connect(_menuFriendList, SIGNAL(triggered(QAction *)), this, SLOT(getMenuFriendListAction(QAction *)));
 }
 
 void FenPrincipale::init_dock() {
@@ -105,6 +107,11 @@ void FenPrincipale::init_dock() {
     _dockTimer->hide();
     _dockFriendList->hide();
     _dockPublicity->hide();
+}
+
+void FenPrincipale::init_menu(){
+    _menuFriendList = new QMenu();
+    _menuFriendList->addAction("Chat");
 }
 
 void FenPrincipale::MenuBar() {
@@ -174,7 +181,9 @@ void FenPrincipale::goToClassic() {
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
     //_client->waitForMatch(1);
-    
+    //int tmp = this->_chessMod + (4 * (std::stoi(gameMod)-1));
+    // while (gameMod != "1" && gameMod != "2" && gameMod != "3" && gameMod != "4"){
+    //     std::cout << "Enter 1 for Tour Par tour, 2 for Chrono, 3 for Temps Reel, 4 for return to the menu: ";
 }
 
 void FenPrincipale::goToTrappist(){
@@ -261,20 +270,20 @@ void FenPrincipale::setPool4(){
     setTheme("pool4");
 }
 
-void FenPrincipale::showFriend(QListWidgetItem *item){
+void FenPrincipale::getFriendListItem(QListWidgetItem *item){
     QCursor cursor;
     QPoint point = this->mapFromGlobal(cursor.pos());
-    QMenu menu;
-    menu.addAction("Chat");
-    menu.addAction("profile");
-    menu.addAction("Chat");
-    menu.addAction("Chat");
-    menu.addAction("Chat");
-    menu.exec(point);
+    _friendList->setSelectFriend(item->text());
+    _menuFriendList->exec(point);
 }
 void FenPrincipale::sendPosition(std::string pos){
     std::cout << "coucou bande de nouille " << pos << std::endl;
     //quand on lance le jeu
     //_client->click(pos);
+}
+
+void FenPrincipale::getMenuFriendListAction(QAction *action){
+   //_chat->setFriendName(_friendList->getSelectFriend());
+    _dockChat->show();
 }
 #endif

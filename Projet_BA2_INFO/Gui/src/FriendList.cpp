@@ -13,6 +13,7 @@ void FriendList::init_widget() {
     _listWidgetFriendList->addItem("achraf");
     _pushButtonAddFriend = new QPushButton("Add friend", this);
     _pushButtonRemoveFriend = new QPushButton("Remove friend", this);
+    _selectFriend;
 }
 
 void FriendList::init_layout() {
@@ -36,5 +37,13 @@ QPushButton *FriendList::getPushButtonRemoveFriend() const {
 
 QListWidget *FriendList::getListWidgetFriendList() const {
     return _listWidgetFriendList;
+}
+
+QString FriendList::getSelectFriend() const{
+    return _selectFriend;
+}
+
+void FriendList::setSelectFriend(QString name){
+    _selectFriend = name;
 }
 #endif

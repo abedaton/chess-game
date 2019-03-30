@@ -43,7 +43,8 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void setTheme(std::string pool);
     void addFriend();
     void removeFriend();
-    void showFriend(QListWidgetItem *item);
+    void getFriendListItem(QListWidgetItem *item);
+    void getMenuFriendListAction(QAction *action);
 
 
     void setFriendMenu();
@@ -71,9 +72,12 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void init_connect();
     void init_stack();
     void init_dock();
+    void init_menu();
+
     QMenu *_menuReglages;
     QMenu *_menuAmis;
-    QMenu* _menuThemes;
+    QMenu *_menuThemes;
+    QMenu *_menuFriendList;
 
     QStatusBar *_statusBar;
     QStackedWidget *_stack;

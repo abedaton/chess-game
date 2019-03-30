@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_FenPrincipale_t {
-    QByteArrayData data[39];
-    char stringdata0[386];
+    QByteArrayData data[42];
+    char stringdata0[433];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -49,27 +49,30 @@ QT_MOC_LITERAL(14, 152, 11), // "std::string"
 QT_MOC_LITERAL(15, 164, 4), // "pool"
 QT_MOC_LITERAL(16, 169, 9), // "addFriend"
 QT_MOC_LITERAL(17, 179, 12), // "removeFriend"
-QT_MOC_LITERAL(18, 192, 10), // "showFriend"
-QT_MOC_LITERAL(19, 203, 16), // "QListWidgetItem*"
-QT_MOC_LITERAL(20, 220, 4), // "item"
-QT_MOC_LITERAL(21, 225, 13), // "setFriendMenu"
-QT_MOC_LITERAL(22, 239, 12), // "setThemeMenu"
-QT_MOC_LITERAL(23, 252, 8), // "setPool0"
-QT_MOC_LITERAL(24, 261, 8), // "setPool1"
-QT_MOC_LITERAL(25, 270, 8), // "setPool2"
-QT_MOC_LITERAL(26, 279, 8), // "setPool3"
-QT_MOC_LITERAL(27, 288, 8), // "setPool4"
-QT_MOC_LITERAL(28, 297, 12), // "sendPosition"
-QT_MOC_LITERAL(29, 310, 3), // "pos"
-QT_MOC_LITERAL(30, 314, 6), // "myShow"
-QT_MOC_LITERAL(31, 321, 9), // "gameStart"
-QT_MOC_LITERAL(32, 331, 8), // "opponent"
-QT_MOC_LITERAL(33, 340, 15), // "connectionError"
-QT_MOC_LITERAL(34, 356, 3), // "win"
-QT_MOC_LITERAL(35, 360, 4), // "lose"
-QT_MOC_LITERAL(36, 365, 11), // "recvMessage"
-QT_MOC_LITERAL(37, 377, 4), // "name"
-QT_MOC_LITERAL(38, 382, 3) // "mov"
+QT_MOC_LITERAL(18, 192, 17), // "getFriendListItem"
+QT_MOC_LITERAL(19, 210, 16), // "QListWidgetItem*"
+QT_MOC_LITERAL(20, 227, 4), // "item"
+QT_MOC_LITERAL(21, 232, 23), // "getMenuFriendListAction"
+QT_MOC_LITERAL(22, 256, 8), // "QAction*"
+QT_MOC_LITERAL(23, 265, 6), // "action"
+QT_MOC_LITERAL(24, 272, 13), // "setFriendMenu"
+QT_MOC_LITERAL(25, 286, 12), // "setThemeMenu"
+QT_MOC_LITERAL(26, 299, 8), // "setPool0"
+QT_MOC_LITERAL(27, 308, 8), // "setPool1"
+QT_MOC_LITERAL(28, 317, 8), // "setPool2"
+QT_MOC_LITERAL(29, 326, 8), // "setPool3"
+QT_MOC_LITERAL(30, 335, 8), // "setPool4"
+QT_MOC_LITERAL(31, 344, 12), // "sendPosition"
+QT_MOC_LITERAL(32, 357, 3), // "pos"
+QT_MOC_LITERAL(33, 361, 6), // "myShow"
+QT_MOC_LITERAL(34, 368, 9), // "gameStart"
+QT_MOC_LITERAL(35, 378, 8), // "opponent"
+QT_MOC_LITERAL(36, 387, 15), // "connectionError"
+QT_MOC_LITERAL(37, 403, 3), // "win"
+QT_MOC_LITERAL(38, 407, 4), // "lose"
+QT_MOC_LITERAL(39, 412, 11), // "recvMessage"
+QT_MOC_LITERAL(40, 424, 4), // "name"
+QT_MOC_LITERAL(41, 429, 3) // "mov"
 
     },
     "FenPrincipale\0checkSignIn\0\0checkRegister\0"
@@ -77,11 +80,12 @@ QT_MOC_LITERAL(38, 382, 3) // "mov"
     "goToClassic\0goToTrappist\0goToMenu\0"
     "goToStat\0sendMessage\0showFriendList\0"
     "setTheme\0std::string\0pool\0addFriend\0"
-    "removeFriend\0showFriend\0QListWidgetItem*\0"
-    "item\0setFriendMenu\0setThemeMenu\0"
-    "setPool0\0setPool1\0setPool2\0setPool3\0"
-    "setPool4\0sendPosition\0pos\0myShow\0"
-    "gameStart\0opponent\0connectionError\0"
+    "removeFriend\0getFriendListItem\0"
+    "QListWidgetItem*\0item\0getMenuFriendListAction\0"
+    "QAction*\0action\0setFriendMenu\0"
+    "setThemeMenu\0setPool0\0setPool1\0setPool2\0"
+    "setPool3\0setPool4\0sendPosition\0pos\0"
+    "myShow\0gameStart\0opponent\0connectionError\0"
     "win\0lose\0recvMessage\0name\0mov"
 };
 #undef QT_MOC_LITERAL
@@ -92,7 +96,7 @@ static const uint qt_meta_data_FenPrincipale[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      29,   14, // methods
+      30,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -100,35 +104,36 @@ static const uint qt_meta_data_FenPrincipale[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  159,    2, 0x0a /* Public */,
-       3,    0,  160,    2, 0x0a /* Public */,
-       4,    0,  161,    2, 0x0a /* Public */,
-       5,    0,  162,    2, 0x0a /* Public */,
-       6,    0,  163,    2, 0x0a /* Public */,
-       7,    0,  164,    2, 0x0a /* Public */,
-       8,    0,  165,    2, 0x0a /* Public */,
-       9,    0,  166,    2, 0x0a /* Public */,
-      10,    0,  167,    2, 0x0a /* Public */,
-      11,    0,  168,    2, 0x0a /* Public */,
-      12,    0,  169,    2, 0x0a /* Public */,
-      13,    1,  170,    2, 0x0a /* Public */,
-      16,    0,  173,    2, 0x0a /* Public */,
-      17,    0,  174,    2, 0x0a /* Public */,
-      18,    1,  175,    2, 0x0a /* Public */,
-      21,    0,  178,    2, 0x0a /* Public */,
-      22,    0,  179,    2, 0x0a /* Public */,
-      23,    0,  180,    2, 0x0a /* Public */,
-      24,    0,  181,    2, 0x0a /* Public */,
-      25,    0,  182,    2, 0x0a /* Public */,
-      26,    0,  183,    2, 0x0a /* Public */,
-      27,    0,  184,    2, 0x0a /* Public */,
-      28,    1,  185,    2, 0x0a /* Public */,
-      30,    0,  188,    2, 0x0a /* Public */,
-      31,    1,  189,    2, 0x0a /* Public */,
-      33,    0,  192,    2, 0x0a /* Public */,
-      34,    0,  193,    2, 0x0a /* Public */,
-      35,    0,  194,    2, 0x0a /* Public */,
-      36,    2,  195,    2, 0x0a /* Public */,
+       1,    0,  164,    2, 0x0a /* Public */,
+       3,    0,  165,    2, 0x0a /* Public */,
+       4,    0,  166,    2, 0x0a /* Public */,
+       5,    0,  167,    2, 0x0a /* Public */,
+       6,    0,  168,    2, 0x0a /* Public */,
+       7,    0,  169,    2, 0x0a /* Public */,
+       8,    0,  170,    2, 0x0a /* Public */,
+       9,    0,  171,    2, 0x0a /* Public */,
+      10,    0,  172,    2, 0x0a /* Public */,
+      11,    0,  173,    2, 0x0a /* Public */,
+      12,    0,  174,    2, 0x0a /* Public */,
+      13,    1,  175,    2, 0x0a /* Public */,
+      16,    0,  178,    2, 0x0a /* Public */,
+      17,    0,  179,    2, 0x0a /* Public */,
+      18,    1,  180,    2, 0x0a /* Public */,
+      21,    1,  183,    2, 0x0a /* Public */,
+      24,    0,  186,    2, 0x0a /* Public */,
+      25,    0,  187,    2, 0x0a /* Public */,
+      26,    0,  188,    2, 0x0a /* Public */,
+      27,    0,  189,    2, 0x0a /* Public */,
+      28,    0,  190,    2, 0x0a /* Public */,
+      29,    0,  191,    2, 0x0a /* Public */,
+      30,    0,  192,    2, 0x0a /* Public */,
+      31,    1,  193,    2, 0x0a /* Public */,
+      33,    0,  196,    2, 0x0a /* Public */,
+      34,    1,  197,    2, 0x0a /* Public */,
+      36,    0,  200,    2, 0x0a /* Public */,
+      37,    0,  201,    2, 0x0a /* Public */,
+      38,    0,  202,    2, 0x0a /* Public */,
+      39,    2,  203,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -146,20 +151,21 @@ static const uint qt_meta_data_FenPrincipale[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 19,   20,
+    QMetaType::Void, 0x80000000 | 22,   23,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 14,   29,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 14,   32,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 14,   35,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 14, 0x80000000 | 14,   37,   38,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 14, 0x80000000 | 14,   40,   41,
 
        0        // eod
 };
@@ -184,22 +190,34 @@ void FenPrincipale::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 11: _t->setTheme((*reinterpret_cast< std::string(*)>(_a[1]))); break;
         case 12: _t->addFriend(); break;
         case 13: _t->removeFriend(); break;
-        case 14: _t->showFriend((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 15: _t->setFriendMenu(); break;
-        case 16: _t->setThemeMenu(); break;
-        case 17: _t->setPool0(); break;
-        case 18: _t->setPool1(); break;
-        case 19: _t->setPool2(); break;
-        case 20: _t->setPool3(); break;
-        case 21: _t->setPool4(); break;
-        case 22: _t->sendPosition((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 23: _t->myShow(); break;
-        case 24: _t->gameStart((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 25: _t->connectionError(); break;
-        case 26: _t->win(); break;
-        case 27: _t->lose(); break;
-        case 28: _t->recvMessage((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< std::string(*)>(_a[2]))); break;
+        case 14: _t->getFriendListItem((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 15: _t->getMenuFriendListAction((*reinterpret_cast< QAction*(*)>(_a[1]))); break;
+        case 16: _t->setFriendMenu(); break;
+        case 17: _t->setThemeMenu(); break;
+        case 18: _t->setPool0(); break;
+        case 19: _t->setPool1(); break;
+        case 20: _t->setPool2(); break;
+        case 21: _t->setPool3(); break;
+        case 22: _t->setPool4(); break;
+        case 23: _t->sendPosition((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 24: _t->myShow(); break;
+        case 25: _t->gameStart((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 26: _t->connectionError(); break;
+        case 27: _t->win(); break;
+        case 28: _t->lose(); break;
+        case 29: _t->recvMessage((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< std::string(*)>(_a[2]))); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 15:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QAction* >(); break;
+            }
+            break;
         }
     }
 }
@@ -231,13 +249,13 @@ int FenPrincipale::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 29)
+        if (_id < 30)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 29;
+        _id -= 30;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 29)
-            *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 29;
+        if (_id < 30)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 30;
     }
     return _id;
 }

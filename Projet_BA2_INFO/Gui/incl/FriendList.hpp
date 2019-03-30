@@ -12,11 +12,13 @@ class FriendList : public QWidget {
     QListWidget *getListWidgetFriendList() const;
     QPushButton *getPushButtonAddFriend() const;
     QPushButton *getPushButtonRemoveFriend() const;
-
+    QString getSelectFriend() const;
+    void setSelectFriend(QString name);
     private:
     void init_widget();
     void init_layout();
 
+    QString _selectFriend;
     QVBoxLayout *_vBoxLayoutFriendList;
     QHBoxLayout *_hBoxLayoutPushButton;
 

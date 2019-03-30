@@ -17,6 +17,7 @@ class PlateauScene : public QGraphicsView {
     explicit PlateauScene(std::string game_type , std::string pool_name = "pool1", FenPrincipale* mainWindow = nullptr ,QWidget *parent = nullptr );
     
     void setBoxes(int x, int y, int sideLenght);
+    void setPosText(int x, int y, std::string pos);
     //void setTrappistBoxes(int x, int y, int sideLenght);
 
     void showMoves(int *moves = nullptr, int* cap = nullptr);
@@ -24,9 +25,10 @@ class PlateauScene : public QGraphicsView {
     PlateauBox* getPriorityBox() const;
     void setPriorityBox(PlateauBox* box);
     void resetAllColors();
-
+    //wsh
     void addPiece(std::string pieceType,std::string suffix, int x, int y);
-
+    void addFog(int x, int y);
+    void removeFog(int x, int y);
     //void setBlack();
     //void setWhite();
     
