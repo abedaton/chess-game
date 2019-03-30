@@ -389,13 +389,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-<<<<<<< HEAD
-	$(COPY_FILE) --parents Gui/incl/FenPrincipale.hpp Gui/incl/GameWindow.hpp Gui/incl/Login.hpp Gui/incl/PlateauBox.hpp Gui/incl/PlateauScene.hpp Gui/incl/Register.hpp Gui/incl/Menu.hpp Gui/incl/Chat.hpp Gui/incl/ChessItem.hpp Gui/incl/Timer.hpp Gui/incl/FriendList.hpp Gui/incl/Publicity.hpp Gui/incl/StatWindow.hpp Client/includes/abstractClient.hpp Client/includes/abstractInterface.hpp game/GameTypes/SuperGame/abstractPlayer.hpp Client/includes/client.hpp Client/includes/request.hpp Client/includes/terminal.hpp game/common/MyException/MyOstream/MyOstream.hpp game/common/MyException/MyException.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents Gui/src/FenPrincipale.cpp Gui/src/GameWindow.cpp Gui/src/Login.cpp Gui/src/PlateauBox.cpp Gui/src/PlateauScene.cpp Gui/src/Register.cpp Gui/src/Menu.cpp Gui/src/Chat.cpp Gui/src/ChessItem.cpp Gui/src/Timer.cpp Gui/src/FriendList.cpp Gui/src/Publicity.cpp Gui/src/StatWindow.cpp Client/main.cpp $(DISTDIR)/
-=======
 	$(COPY_FILE) --parents Gui/incl/FenPrincipale.hpp Gui/incl/GameWindow.hpp Gui/incl/Login.hpp Gui/incl/PlateauBox.hpp Gui/incl/PlateauScene.hpp Gui/incl/Register.hpp Gui/incl/Menu.hpp Gui/incl/Chat.hpp Gui/incl/ChessItem.hpp Gui/incl/Timer.hpp Gui/incl/FriendList.hpp Gui/incl/Publicity.hpp Gui/incl/StatWindow.hpp Client/includes/abstractClient.hpp Client/includes/abstractInterface.hpp game/GameTypes/SuperGame/AbstractPlayer.hpp Client/includes/client.hpp Client/includes/request.hpp Client/includes/terminal.hpp game/common/MyException/MyOstream/MyOstream.hpp game/common/MyException/MyException.hpp Gui/incl/MatchmakingDialog.hpp $(DISTDIR)/
 	$(COPY_FILE) --parents Gui/src/FenPrincipale.cpp Gui/src/GameWindow.cpp Gui/src/Login.cpp Gui/src/PlateauBox.cpp Gui/src/PlateauScene.cpp Gui/src/Register.cpp Gui/src/Menu.cpp Gui/src/Chat.cpp Gui/src/ChessItem.cpp Gui/src/Timer.cpp Gui/src/FriendList.cpp Gui/src/Publicity.cpp Gui/src/StatWindow.cpp Client/main.cpp Gui/src/MatchmakingDialog.cpp $(DISTDIR)/
->>>>>>> aab86ee2b3456440ecb4d8ca6c4464bc108d2037
 
 
 clean: compiler_clean 
