@@ -301,7 +301,7 @@ void FenPrincipale::sendPosition(std::string pos){
 }
 
 void FenPrincipale::getMenuFriendListAction(QAction *action){
-   //_chat->setFriendName(_friendList->getSelectFriend());
+   _chat->setFriendName(_friendList->getSelectFriend());
     _dockChat->show();
 }
 

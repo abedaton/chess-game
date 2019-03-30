@@ -12,6 +12,7 @@ void Chat::init_widget() {
     _textEdit = new QTextEdit(this);
     _textEdit->setReadOnly(true);
     _lineEdit = new QLineEdit(this);
+    _friendName;
 }
 
 void Chat::init_layout() {
@@ -36,5 +37,17 @@ void Chat::on_lineEdit_returnPressed(){
         _lineEdit->setFocus();
         emit signalLineEdit();
     }
+}
+
+QString Chat::getFriendName(){
+    return _friendName;
+}
+
+void Chat::setFriendName(QString name){
+    _textEdit->clear();
+    _friendName = name;
+    _textEdit->insertPlainText("you are chatting with ");
+    _textEdit->insertPlainText(_friendName);
+    _textEdit->insertPlainText("\n");
 }
 #endif
