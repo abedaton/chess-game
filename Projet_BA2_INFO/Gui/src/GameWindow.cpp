@@ -51,7 +51,14 @@ QPushButton *GameWindow::getAntiButton() const {
 QPushButton* GameWindow::getExitButton() const {
     return _exitButton;
 }
-std::string GameWindow::getCurrentCBoxText(){
-    return _comboBoxMode->currentText().toStdString();
+int GameWindow::getCurrentGameMode(){
+    //std::cout << _comboBoxMode->currentText().toStdString() << std::endl;
+    std::string gameMode = _comboBoxMode->currentText().toStdString();
+    if(gameMode == "Classic")
+        return 0;
+    else if(gameMode == "Pendulum")
+        return 1;
+    else
+        return 2;
 }
 #endif

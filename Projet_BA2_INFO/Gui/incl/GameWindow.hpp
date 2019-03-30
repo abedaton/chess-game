@@ -3,6 +3,7 @@
 #define GAMEWINDOW_HPP
 
 #include <QtWidgets>
+#include <iostream>
 
 class GameWindow : public QWidget {
     Q_OBJECT
@@ -15,7 +16,7 @@ class GameWindow : public QWidget {
     QPushButton *getTrapistButton() const;
     QPushButton *getAntiButton() const;
     QPushButton *getExitButton() const;
-    std::string getCurrentCBoxText();
+    int getCurrentGameMode();
 
     private:
     void init_widget();

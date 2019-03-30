@@ -173,6 +173,21 @@ void FenPrincipale::goToStat(){
     _stack->setCurrentWidget(_statWindow);
 }
 
+int FenPrincipale::getWichMatchmaking(std::string variante){
+    int tmp;
+    if(variante == "classic")
+        tmp = 0;
+    else if(variante == "dark")
+        tmp = 1;
+    else if(variante == "trapist")
+        tmp = 2;
+    else
+        tmp = 3;
+    
+    return tmp + (4 * _gameWindow->getCurrentGameMode());
+
+}
+
 void FenPrincipale::goToClassic() {
     //std::string pool = "pool2";
  
@@ -180,7 +195,8 @@ void FenPrincipale::goToClassic() {
     
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
-    //_client->waitForMatch(1);
+    int gamemode = getWichMatchmaking("classic");
+    //_client->waitForMatch(gamemode);
     //int tmp = this->_chessMod + (4 * (std::stoi(gameMod)-1));
     // while (gameMod != "1" && gameMod != "2" && gameMod != "3" && gameMod != "4"){
     //     std::cout << "Enter 1 for Tour Par tour, 2 for Chrono, 3 for Temps Reel, 4 for return to the menu: ";
@@ -190,6 +206,8 @@ void FenPrincipale::goToTrappist(){
     _classicWindow = new PlateauScene("trappist", _pool, this,this);
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
+
+    int gamemode = getWichMatchmaking("trappist");
 }
 void FenPrincipale::goToMenu() {
     setFriendMenu();
@@ -286,4 +304,5 @@ void FenPrincipale::getMenuFriendListAction(QAction *action){
    //_chat->setFriendName(_friendList->getSelectFriend());
     _dockChat->show();
 }
+
 #endif

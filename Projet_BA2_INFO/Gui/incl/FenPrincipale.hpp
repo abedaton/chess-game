@@ -46,6 +46,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void getFriendListItem(QListWidgetItem *item);
     void getMenuFriendListAction(QAction *action);
 
+    int getWichMatchmaking(std::string variante);
 
     void setFriendMenu();
     void setThemeMenu();
@@ -57,6 +58,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void setPool4();
 
     void sendPosition(std::string pos);
+
 
 //////////////////////////////tmp
     void myShow() override{this->show();}
