@@ -9,6 +9,7 @@
  */
 Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(nullptr), _interface(nullptr){
 	this->_server = new Request(this, ip);
+	this->_affichageGui = !terminalMod;
 	if (terminalMod){
 		AbstractInterface* useless = new Terminal(this);
 		(void)useless;
@@ -45,10 +46,16 @@ void Client::waitForMatch(int gameMod){
  * Lance une partie
  */
 void Client::startingGame(bool playerTurn, std::string opponentName){
-	Human* play_one = new Human(this->_name, "francais");
-	Human* play_two = new Human(opponentName, "francais");
+	Human* play_one;
+	Human* play_two;
+	if(this->_affichageGui){
+		play_one = new SilencedHuman(this->_name, "francais");
+		play_two = new SilencedHuman(opponentName, "francais");
+	} else {
+		play_one = new Human(this->_name, "francais");
+		play_two = new Human(opponentName, "francais");
+	}
 	this->_game = new SuperGame(this->_gameMod, this, playerTurn, play_one, play_two);
-	//Plateau* board = this->_game->getBoard();
 	this->_interface->gameStart(opponentName);
 }
 
@@ -57,6 +64,10 @@ void Client::startingGame(bool playerTurn, std::string opponentName){
  */
 void Client::click(std::string square){
 	this->_game->click(square);
+}
+
+void Client::surrend(){
+	this->_server->surrend();
 }
 
 /*
@@ -83,7 +94,7 @@ void Client::opponentMov(std::string mov){
  * Indique que le client a gagné 
  */
 void Client::win(){
-	_interface->win();
+	_interface->end(1);
 	delete this->_game;
 	this->_game = nullptr;
 }
@@ -92,7 +103,16 @@ void Client::win(){
  * Indique que le client a perdu
  */
 void Client::lose(){
-	_interface->lose();
+	_interface->end(2);
+	delete this->_game;
+	this->_game = nullptr;
+}
+
+/*
+ * Indique que l'adversaire a abandonné
+ */
+void Client::opponentSurrend(){
+	this->_interface->end(3);
 	delete this->_game;
 	this->_game = nullptr;
 }

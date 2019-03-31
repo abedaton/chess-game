@@ -26,7 +26,7 @@ Terminal::~Terminal(){
  * Indique une erreur de connexion avec le serveur et quitte
  */
 void Terminal::connectionError(){
-	std::cout << "\nConnection with server lost : " << strerror(errno) << std::endl;
+	std::cout << "\n\nConnection with server lost : " << strerror(errno) << std::endl;
 	this->_user->exit();
 	//exit(EXIT_FAILURE);
 }
@@ -41,7 +41,7 @@ void Terminal::gameStart(std::string opponent){
 }
 
 void Terminal::movPossibleUpdate(std::vector<std::pair<int,int> >* listMov){
-	std::cout << "mouvement possible: ";
+	std::cout << "\nmouvement possible: ";
     for(std::pair<int, int> elem : *listMov){
 		char ch = 'A' + elem.first;
    		std::string res =  ch + std::to_string(elem.second+1);
@@ -52,18 +52,20 @@ void Terminal::movPossibleUpdate(std::vector<std::pair<int,int> >* listMov){
 }
 
 /*
- * Affiche que le joueur a gagné sa partie et termine la partie
+ * Affiche que la fin d'une partie
  */
-void Terminal::win(){
-	std::cout << "you won" << std::endl;
-	this->_end = true;
-}
-
-/*
- * Affiche que le joueur a perdu sa partie et termine la partie
- */ 
-void Terminal::lose(){
-	std::cout << "you lost" << std::endl;
+void Terminal::end(int res){
+	switch(res){
+		case 1:
+			std::cout << "\nyou won" << std::endl;
+			break;
+		case 2:
+			std::cout << "\nyou lost" << std::endl;
+			break;
+		case 3:
+			std::cout << "\nYour opponent leave the game" << std::endl;
+			break;
+	}
 	this->_end = true;
 }
 
@@ -96,7 +98,7 @@ void Terminal::friendsWindow(){
 		}
 		switch(res){
 			case 1:
-				std::cout<< "Veuillez entrer le nom de l'ami à ajouter: ";
+				std::cout<< "\nVeuillez entrer le nom de l'ami à ajouter: ";
 				std::cin >> username;
 				
 				this->_user->addFriend(username);
@@ -106,7 +108,7 @@ void Terminal::friendsWindow(){
 				this->_mut->lock();
 				break;
 			case 3:
-				std::cout << "Veuillez entrer le nom de l'ami à supprimer: ";
+				std::cout << "\nVeuillez entrer le nom de l'ami à supprimer: ";
 				std::cin >> username;
 				this->_user->removeFriend(username);
 				break;
@@ -115,15 +117,15 @@ void Terminal::friendsWindow(){
 				this->_mut->lock();
 				break;
 			case 5:
-				std::cout<< "Veuillez entrer le nom de l'ami pour réponde à sa demande d'amis: ";
+				std::cout<< "\nVeuillez entrer le nom de l'ami pour réponde à sa demande d'amis: ";
 				std::cin >> username;
 				this->myFlush();
 				if(std::find(this->_friendRequest.begin(), this->_friendRequest.end(), username) == this->_friendRequest.end()){
-					std::cout << "Cette personne ne vous à pas demandé en ami" << std::endl;
+					std::cout << "\nCette personne ne vous à pas demandé en ami" << std::endl;
 					break;
 				}
 					
-				std::cout << "Acceptez vous ça demande d'amis(yes, no): ";
+				std::cout << "\nAcceptez vous ça demande d'amis(yes, no): ";
 				std::cin >> tmpanswer;
 				this->myFlush();
 				if ((tmpanswer == "yes") || (tmpanswer == "Yes") || (tmpanswer == "nope'nt") || (tmpanswer == "y") || (tmpanswer == "Y")){
@@ -131,7 +133,7 @@ void Terminal::friendsWindow(){
 				} else if((tmpanswer == "no") || (tmpanswer == "No") || (tmpanswer == "yes'nt") || (tmpanswer == "n") || (tmpanswer == "N")){
 					answer = false;
 				} else {
-					std::cout << "Invalid input" << std::endl;
+					std::cout << "\nInvalid input" << std::endl;
 					break;
 				}
 				this->_user->acceptFriend(username, answer);
@@ -141,15 +143,15 @@ void Terminal::friendsWindow(){
 				// 2. laiser l'utilisateur choisir l'ami puis l'inviter à la partie
 				break;
 			case 7:
-				std::cout << "Please enter the name of the user you want to send a message: ";
+				std::cout << "\nPlease enter the name of the user you want to send a message: ";
 				std::getline(std::cin, username);
-				std::cout << "Please enter your message: ";
+				std::cout << "\nPlease enter your message: ";
 				std::getline(std::cin, message);
 				this->_user->sendMessage(username, message);
-				std::cout << "Message Sent!" << std::endl; // Todo check if user exists
+				std::cout << "\nMessage Sent!" << std::endl; // Todo check if user exists
 				break;
 			case 8:
-				std::cout << "Please enter the name of the user you want to see de stat: ";
+				std::cout << "\nPlease enter the name of the user you want to see de stat: ";
 				std::getline(std::cin, username);
 				this->_user->getUserInfo(username);
 				this->_mut->lock();
@@ -169,7 +171,7 @@ void Terminal::firstWindow(){
 	while(! log && !exit){
 		answer = ' ';
 		while ( answer != '1' && answer != '2' && answer != '3' ) {
-			std::cout << "Write 1 for login, 2 for register or 3 for exit:" << std::endl;
+			std::cout << std::endl << "Write 1 for login, 2 for register or 3 for exit: ";
 			std::cin >> answer;
 			this->myFlush();
 		}
@@ -196,26 +198,26 @@ bool Terminal::registerWindow(){
     std::string password2;
     std::string email;
 	while(true){
-        std::cout << "Write your new username: ";
+        std::cout << std::endl << "Write your new username: ";
         std::cin >> username;
         myFlush();
         std::cout << "Write your email: ";
         std::cin >> email;
         myFlush();
-        password = getpass("New password (will not be shown): ");
+        password = getpass("Password (will not be shown): ");
         password2 = getpass("New password (again): ");
        
 		if (this->_user->letsRegister(username, password, password2, email)){
-			std::cout << "You are now logged in !" << std::endl;
+			std::cout << std::endl << "You are now logged in !" << std::endl;
 			this->_username = username;
 			return true;
 		} else {
 			char answer;
-			std::cout << "Write 1 for continue or 2 to go back: ";
+			std::cout << std::endl << "Write 1 for continue or 2 to go back: ";
 			std::cin >> answer;
 			this->myFlush();
 			while (answer != '1' && answer != '2'){
-				std::cout << "Please write 1 for continue or 2 to go back: ";
+				std::cout << std::endl << "Please write 1 for continue or 2 to go back: ";
 				std::cin >> answer;
 				this->myFlush();
 			}
@@ -232,7 +234,7 @@ bool Terminal::logInWindow(){
 	std::string username;
     std::string password;
     while(true){
-        std::cout << "Write your username :";
+        std::cout << std::endl << "Write your username :";
         std::cin >> username;
         this->myFlush();
         password = getpass("Password (password will not be shown) :");
@@ -243,12 +245,12 @@ bool Terminal::logInWindow(){
 		}
 		else{
 			char answer;
-			std::cout << "Invalid username or password." << std::endl;
+			std::cout << std::endl << "Invalid username or password." << std::endl;
 			std::cout << "Write 1 for continue or 2 to go back: ";
 			std::cin >> answer;
 			myFlush();
 			while (answer != '1' && answer != '2'){
-				std::cout << "Please write 1 for continue or 2 to go back: ";
+				std::cout << "\nPlease write 1 for continue or 2 to go back: ";
 				std::cin >> answer;
 				myFlush();
 			}
@@ -262,44 +264,52 @@ bool Terminal::logInWindow(){
  * Affiche le menu principal
  */
 void Terminal::menuWindow(){
-	char answer;
+	unsigned int answer;
 	bool waitForGame = false;
     while (true){
-        std::cout << "Enter 1 for exit 2 for friend list 3 to see your stat 4 to see if someone wants to play with you";
-		if (!waitForGame)
-			std::cout <<", 5 for game";
-		else 
-			std::cout <<", 5 exit queue";
-		std::cout << ": ";
-        std::cin >> answer;
-		myFlush();
+		std::cout << std::endl << "Que désirez vous faire?: " << std::endl;
+		std::cout << "\t1) Exit " << std::endl;
+		std::cout << "\t2) Manage sfriend" << std::endl;
+		std::cout << "\t3) See your stat" << std::endl;
+		std::cout << "\t4) See if someone wants to play with you" << std::endl;
+		if (!waitForGame) {
+			std::cout <<"\t5) Start a game" << std::endl;
+		} else {
+			std::cout <<"\t5) Exit queue" << std::endl;
+		}
+
+		while(answer == 0 || answer > 5){	
+			std::cout << "Enter a number(1-5): ";
+			std::cin >> answer;
+			this->myFlush();
+		}
 		if (this->_gameStart){
 			_gameStart = false;
 			gameWindow();
 			waitForGame = false;
 		} else{
-        	if (answer == '1'){
+        	if (answer == 1){
         	    break;
-        	} else if (answer == '2'){
+        	} else if (answer == 2){
         	    friendsWindow();
-        	} else if (answer == '3'){
+        	} else if (answer == 3){
         	    this->_user->getUserInfo();
 				this->_mut->lock();
-			}else if (answer == '4'){
+			}else if (answer == 4){
 				if(this->_user->getGRequests().size() == 0){
-					std::cout << "Personne ne veut jouer avec vous." << std::endl;
+					std::cout << std::endl << "Personne ne veut jouer avec vous." << std::endl;
 				}else{
 					std::vector<std::pair<std::string,int> > liste;
-					std::cout << "Liste du/des joueur(s) qui veut/lent jouer avec vous : " << std::endl;
+					std::cout << std::endl << "Liste du/des joueur(s) qui veut/lent jouer avec vous : " << std::endl;
 					for(unsigned int cnt = 0; cnt < liste.size(); cnt++){
 						std::cout << cnt << " " << liste[cnt].first << "en gameMod " << liste[cnt].second;
 					}
-					std::cout << "Entrez le numéro du joueur avec qui vous voulez jouer ou -1 si vous voulez quitter." << std::endl;
+					std::cout << std::endl << "Entrez le numéro du joueur avec qui vous voulez jouer ou -1 si vous voulez quitter." << std::endl;
 					int name;
 					std::cin >> name ;
 					this->myFlush();
 					while(name >= (int)liste.size() || name < -1){
-						std::cout << "Entrez un nommbre correct entre -1 et " << liste.size() -1 << " " << std::endl; 
+						std::cout << std::endl << "Entrez un nommbre correct entre -1 et " << liste.size() -1 << " " << std::endl; 
 					}
 					if(name != -1){
 						
@@ -309,9 +319,9 @@ void Terminal::menuWindow(){
 					}
 
 				}
-        	} else if (answer == '5' && !waitForGame){
+        	} else if (answer == 5 && !waitForGame){
         	    waitForGame = selectGameModeWindow();
-        	} else if (answer == '5' && waitForGame){
+        	} else if (answer == 5 && waitForGame){
 				this->_user->exitQueue();
 				waitForGame = false;
 			}
@@ -375,7 +385,7 @@ void Terminal::gameWindow(){
 			break;
 		}
 		if (answer == 1){
-			//this->_user->surrend(); 
+			this->_user->surrend(); 
             break;
         } else if (answer == 2) {
             std::string msg = "coucou";
@@ -434,7 +444,7 @@ void Terminal::recvFriendList(std::vector<std::pair<std::string, bool> > frendLi
 			std::cout << "\t- " << frendList[i].first << ": " << (frendList[i].second ? "connected" : "disconnected") << std::endl;
 		}
 	} else {
-		std::cout << "Sorry you dont have any friend.. :(" << std::endl;
+		std::cout << "\nSorry you dont have any friend.. :(" << std::endl;
 	}
 	this->_mut->unlock();
 }

@@ -11,21 +11,15 @@ class AbstractInterface {
     public:
         virtual ~AbstractInterface() = default;
         virtual void myShow(){}//for gui interface
-        virtual void gameStart(std::string opponent) = 0;//{}
+        virtual void gameStart(std::string opponent) = 0;
         virtual void connectionError() = 0;
-        virtual void win() = 0;
-        virtual void lose() = 0;
+        virtual void end(int){}
 		virtual void recvMessage(std::string name, std::string mov) = 0; 
-        virtual void movPossibleUpdate(std::vector<std::pair<int,int> >* listMov){}
+        virtual void movPossibleUpdate(std::vector<std::pair<int,int> >* listMov){};
 
-        virtual void recvFriendRequestsList(std::vector<std::string> vec){this->_friendRequest = vec;}
-        virtual void recvFriendList(std::vector<std::pair<std::string, bool> > frendList){this->_friendList = frendList;}
-        virtual void recvInfo(std::string username, int nbrGames, int win, int elo){
-			(void)username;
-			(void)nbrGames;
-			(void)win;
-			(void)elo;
-		}
+        virtual void recvFriendRequestsList(std::vector<std::string> vec){}
+        virtual void recvFriendList(std::vector<std::pair<std::string, bool> > friendList){}
+        virtual void recvInfo(std::string username, int nbrGames, int win, int elo){}
 
         virtual void feedback(int info, std::string message){}
 

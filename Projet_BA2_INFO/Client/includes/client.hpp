@@ -16,6 +16,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		Request* _server;
 		SuperGame* _game;
 		AbstractInterface* _interface;
+		bool _affichageGui;
 
 		std::vector<std::pair<std::string,int> > gameRequests;
 		int _gameMod;
@@ -44,6 +45,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		void getUserInfo() override;
 		
 		void click(std::string square) override;
+		void surrend() override;
 		void exit() override;
 		//call by server
 		void startingGame(bool playerTurn, std::string opponentName) override;
@@ -61,6 +63,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 
 		void exitQueue() override;
 		void feedback(int info, std::string message) override;
+		void opponentSurrend() override;
 
 		int showGui(int argc, char** argv);
 };

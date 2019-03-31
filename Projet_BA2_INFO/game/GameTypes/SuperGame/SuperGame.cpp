@@ -81,6 +81,7 @@ bool SuperGame::click(std::string square){
             this->_client->mov(mov);
             answer = res.second;
         } else {
+            std::cout << "bufferMov: " << mov << std::endl; //TO Do (delete)
             this->_bufferMov.push_back(mov);
         }
     } else {
