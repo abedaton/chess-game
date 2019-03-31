@@ -85,7 +85,7 @@ bool SuperGame::click(std::string square){
         }
     } else {
         this->_lastClick = square;
-        possibleMov = this->_game->return_pe_mov(square); //+ this->_player1
+        possibleMov = this->_game->return_pe_mov(square, this->_player1);
         this->_ListMov.clear();
         for(std::pair<int,int> elem : possibleMov){
             this->_ListMov.push_back(pairToString(elem));

@@ -21,14 +21,6 @@ User::~User(){
 
 
 /*
- * Permet à un joueur d'abandonner une partie
- */
-void User::surrend(){
-    //To Do
-}
-
-
-/*
  * Applique l'inscription d'un utilisateur
  */
 void User::letsRegister() {
@@ -101,7 +93,7 @@ void User::mov(std::string mov){
     if (pAnswer.first){
         this->_opponent->sendMov(mov);
     } else {
-        this->_opponent->surrend();
+        this->_opponent->opponentSurrend();
         this->exit();
     } if (pAnswer.second){ //end
         this->_game = nullptr;
@@ -119,6 +111,13 @@ void User::lose(){
     this->_db->updateWin(this->_name, this->_opponent->get_name(), false);
 }
 
+/*
+ * Permet d'indiquer que l'adversaire a quitté la partie
+ */
+void User::opponentSurrend(){
+    this->_db->updateWin(this->_name, this->_opponent->get_name(), true);
+    //to do
+}
 
 /*
  * Fait quitter le client
@@ -185,8 +184,8 @@ void User::handleClient(){
                 this->recvMov();
                 break;
             case SURREND: // 6
-                //this->_opponent->win();
-                //
+                this->_opponent->opponentSurrend();
+                lose();
                 break;
             case SENDMESSAGE: // 7
                 this->sendMessage();

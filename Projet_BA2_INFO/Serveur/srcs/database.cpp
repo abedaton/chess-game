@@ -210,17 +210,17 @@ char* Database::getValue(std::string table, std::string column){
 
 
 int Database::getInt(std::string table, std::string column){
-	char* val = getValue(table, column);
+	const char* val = getValue(table, column);
 	if (val == nullptr){
-		val = static_cast<char*>("-2");
+		val = "-2";
 	}
 	return atoi(val);
 }
 
 int Database::getUserInt(std::string column, std::string username){
-	char* val = getUserValue(column, username);
+	const char* val = getUserValue(column, username);
 	if (val == nullptr){
-		val = static_cast<char*>("-2");
+		val = "-2";
 	}
 	return atoi(val);
 }

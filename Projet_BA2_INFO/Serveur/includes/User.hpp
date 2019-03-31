@@ -26,9 +26,9 @@ class User: public AbstractUser{
 		void startGame(SuperGame*, AbstractUser*, bool) override;
 		void mov(std::string mov) override;
 		void sendMov(std::string mov) override;
-		void surrend() override;
 		void sendMsg(std::string msg) override;
 		void lose() override;
+		void opponentSurrend() override;
 		void exit();
 		std::string get_name() override;
 		

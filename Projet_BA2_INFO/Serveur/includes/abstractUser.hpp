@@ -13,9 +13,9 @@ class AbstractUser: public AbstractPlayer{
         virtual void startGame(SuperGame*, AbstractUser*, bool) = 0;
         virtual void sendMov(std::string) = 0;
         virtual std::string get_name() = 0; 
-        virtual void surrend() = 0;
         virtual void sendMsg(std::string) = 0;
         virtual void lose() = 0;
+        virtual void opponentSurrend() = 0;
 };
 
 #endif
