@@ -2686,36 +2686,34 @@ BitypeVar<Chesspiece*> BaseChess::return_bit_pe_from_str(std::string coords){
 	return bit_pe;
 }
 
-std::vector<std::pair<int,int>> BaseChess::return_pe_mov(std::string coords){
+std::vector<std::pair<int,int>> BaseChess::return_pe_mov(std::string coords,std::string wanted_owner){
 	
 	BitypeVar<Chesspiece*> bit_pe = this->return_bit_pe_from_str(coords);
 	
-	std::vector<std::pair<int,int>>* mov_vect;
+	std::vector<std::pair<int,int>>* mov_vect = new std::vector<std::pair<int,int>>();
 	
 	if (bit_pe.get_state() == true){
 	
 		Chesspiece* pe = bit_pe.get_var();
 		
-		mov_vect = this->return_possible_mouvement(pe,"depl");
-		std::vector<std::pair<int,int>>* capt_vect = this->return_possible_mouvement(pe,"capt");
+		if ((wanted_owner == "") or ((wanted_owner != "") and (pe->get_owner()->get_name() == wanted_owner))){
 		
-		mov_vect->insert( mov_vect->end(), capt_vect->begin(), capt_vect->end() );
+			mov_vect = this->return_possible_mouvement(pe,"depl");
+			std::vector<std::pair<int,int>>* capt_vect = this->return_possible_mouvement(pe,"capt");
+			
+			mov_vect->insert( mov_vect->end(), capt_vect->begin(), capt_vect->end() );
+		}
+		//else{/* default */}
 	}
-	else{
-		mov_vect = new std::vector<std::pair<int,int>>();
-	}
+	//else{/* default */}
 	
 	return *mov_vect;
 }
 
-std::vector<std::pair<int,int>> BaseChess::return_pe_mov(std::string coords,std::string player_name){
+std::vector<std::pair<int,int>> BaseChess::return_pe_mov(std::string coords){
 	
-	std::vector<std::pair<int,int>> mov_vect;
+	return this->return_pe_mov(coords,"");
 	
-	if (this->active_player->get_name() == player_name){mov_vect = this->return_pe_mov(coords);}
-	else{mov_vect = *(new std::vector<std::pair<int,int>>());}
-	
-	return mov_vect;
 }
 
 std::vector<std::string> *BaseChess::possible_mov(std::string position){
