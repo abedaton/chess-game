@@ -838,7 +838,7 @@ std::pair<bool,BitypeVar<Chesspiece*>> BaseChess::normal_output_check(std::strin
 	
 	
 	bool has_to_defend_king = this->verify_my_king();
-	std::cout<<"has_to_defend_king? "<<has_to_defend_king<<std::endl;
+	//std::cout<<"has_to_defend_king? "<<has_to_defend_king<<std::endl;
 				
 	if (valid){
 		bool again = false;
@@ -2422,7 +2422,7 @@ std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bo
 std::pair<bool,bool> BaseChess::execute_forced_step(std::string merged_coords,bool invert_y,std::string player_name,Player* play){
 	
 	(void)player_name;
-	if (this->get_active_player()->get_name() != player_name){throw MyException(&mout,"execution impossible, ce n'est pas le tour de ce joueur");}
+	//if (this->get_active_player()->get_name() != player_name){throw MyException(&mout,"execution impossible, ce n'est pas le tour de ce joueur");}
 	
 	return this->execute_forced_step(merged_coords,invert_y,play);
 	
@@ -2623,7 +2623,7 @@ bool BaseChess::consequences_legal_out_move(bool has_to_defend_king,MatPosi* mpo
 	BitypeVar<MatPosi*>* bit_rep = this->is_endangered(mpos_roi,this->get_non_active_player(),"capt"); //bool again = this->verify_my_king();
 	bool again = bit_rep->get_state();
 	
-	std::cout<<"king still in danger? "<<again<<std::endl;
+	//std::cout<<"king still in danger? "<<again<<std::endl;
 	
 	if (has_to_defend_king){
 		if (again){error_msg = this->get_dico()->search(this->get_active_player()->get_langue(),"laisse_roi_danger");}
@@ -2668,7 +2668,7 @@ std::vector<std::pair<int,int>>* BaseChess::return_possible_mouvement(Chesspiece
 	return stock;
 }
 
-Chesspiece* BaseChess::return_pe_from_str(std::string coords){
+BitypeVar<Chesspiece*> BaseChess::return_bit_pe_from_str(std::string coords){
 	
 	BitypeVar<int>* bit_taille = new BitypeVar<int>(true,this->get_plateau()->get_taille());
 	//BitypeVar<int>* bit_empty = new BitypeVar<int>(false,0);
@@ -2678,24 +2678,44 @@ Chesspiece* BaseChess::return_pe_from_str(std::string coords){
 
 	BitypeVar<Chesspiece*> bit_pe = this->get_plateau()->get_piece(paire);
 	
-	Chesspiece* pe;
+	//Chesspiece* pe;
 	
-	if (bit_pe.get_state() == false){throw MyException(&mout,"demande piece case vide!");}
-	else{pe = bit_pe.get_var();}
+	//if (bit_pe.get_state() == false){throw MyException(&mout,"demande piece case vide!");}
+	//else{pe = bit_pe.get_var();}
 	
-	return pe;
+	return bit_pe;
 }
 
 std::vector<std::pair<int,int>> BaseChess::return_pe_mov(std::string coords){
 	
-	Chesspiece* pe = this->return_pe_from_str(coords);
+	BitypeVar<Chesspiece*> bit_pe = this->return_bit_pe_from_str(coords);
 	
-	std::vector<std::pair<int,int>>* mov_vect = this->return_possible_mouvement(pe,"depl");
-	std::vector<std::pair<int,int>>* capt_vect = this->return_possible_mouvement(pe,"capt");
+	std::vector<std::pair<int,int>>* mov_vect;
 	
-	mov_vect->insert( mov_vect->end(), capt_vect->begin(), capt_vect->end() );
+	if (bit_pe.get_state() == true){
+	
+		Chesspiece* pe = bit_pe.get_var();
+		
+		mov_vect = this->return_possible_mouvement(pe,"depl");
+		std::vector<std::pair<int,int>>* capt_vect = this->return_possible_mouvement(pe,"capt");
+		
+		mov_vect->insert( mov_vect->end(), capt_vect->begin(), capt_vect->end() );
+	}
+	else{
+		mov_vect = new std::vector<std::pair<int,int>>();
+	}
 	
 	return *mov_vect;
+}
+
+std::vector<std::pair<int,int>> BaseChess::return_pe_mov(std::string coords,std::string player_name){
+	
+	std::vector<std::pair<int,int>> mov_vect;
+	
+	if (this->active_player->get_name() == player_name){mov_vect = this->return_pe_mov(coords);}
+	else{mov_vect = *(new std::vector<std::pair<int,int>>());}
+	
+	return mov_vect;
 }
 
 std::vector<std::string> *BaseChess::possible_mov(std::string position){

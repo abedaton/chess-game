@@ -14,6 +14,9 @@ DarkChess::DarkChess(Player* p_low, Player* p_high,Player* deb_player,Player* lo
 	if((locked_play != nullptr) and (locked_play != p_low) and (locked_play != p_high)){throw MyException(&mout,"joueur etant verouille inconnnu!");}
 	
 	this->initialisation();
+	
+	if (this->get_real_locked_player() != nullptr){this->affichage();}
+	else{this->affichage(this->get_active_player());}
 } //*< Constructor
 
 Player* DarkChess::get_real_locked_player() const {
@@ -191,13 +194,6 @@ std::pair<bool, std::string> DarkChess::execute_step(Player* play){
 
     std::pair<bool, bool> bool_info;
 
-    
-    if (this->get_action_cnt() == 0){
-		if (this->get_real_locked_player() != nullptr){this->affichage();}
-		else{this->affichage(this->get_active_player());}
-		
-	}
-
     coords = this->ask_for_input();
     in_couple = coords->get_first();
     in = in_couple.first;
@@ -231,13 +227,7 @@ std::pair<bool, std::string> DarkChess::execute_step(Player* play){
 std::pair<bool, bool> DarkChess::execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit,Player* play){
 	
 	this->set_active_player(play);
-	
-	if (this->get_action_cnt() == 0){
-		if (this->get_real_locked_player() != nullptr){this->affichage();}
-		else{this->affichage(this->get_active_player());}
 		
-	}
-	
     bool ok = false;
 	bool end = false;
 	

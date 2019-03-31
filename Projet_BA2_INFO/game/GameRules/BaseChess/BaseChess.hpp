@@ -283,8 +283,9 @@ class BaseChess{
 		
 		
 		std::vector<std::pair<int,int>>* return_possible_mouvement(Chesspiece*,std::string);
-		Chesspiece* return_pe_from_str(std::string);
+		BitypeVar<Chesspiece*> return_bit_pe_from_str(std::string);
 		std::vector<std::pair<int,int>> return_pe_mov(std::string);
+		std::vector<std::pair<int,int>> return_pe_mov(std::string,std::string);
 		
 };
 #endif
