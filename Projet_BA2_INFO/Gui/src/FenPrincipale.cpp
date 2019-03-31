@@ -327,7 +327,8 @@ void FenPrincipale::getFriendListItem(QListWidgetItem *item){
 void FenPrincipale::sendPosition(std::string pos){
     std::cout << "coucou bande de nouille " << pos << std::endl;
     //quand on lance le jeu
-    //_client->click(pos);
+    _client->click(pos);
+    std::cout << "COUCOU BANDE DE NOUILLE" << std::endl;
 }
 
 void FenPrincipale::getMenuFriendListAction(QAction *action){
