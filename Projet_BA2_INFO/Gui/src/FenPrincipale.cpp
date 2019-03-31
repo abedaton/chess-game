@@ -12,8 +12,11 @@
 // TODO fenetre d'attend matchmaking
 
 FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
+    _client->setInterface(this);
+    std::cout << _client <<  std::endl;
+
     
-    _thread = new QThread(this);
+    _thread = new QThread;
     //moveToThread(_thread);
 
     
@@ -327,8 +330,9 @@ void FenPrincipale::getFriendListItem(QListWidgetItem *item){
 void FenPrincipale::sendPosition(std::string pos){
     std::cout << "coucou bande de nouille " << pos << std::endl;
     //quand on lance le jeu
+    std::cout << "COUCOU " <<  std::endl;
+
     _client->click(pos);
-    std::cout << "COUCOU BANDE DE NOUILLE" << std::endl;
 }
 
 void FenPrincipale::getMenuFriendListAction(QAction *action){
