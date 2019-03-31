@@ -81,14 +81,14 @@ void FenPrincipale::init_connect() {
 
 void FenPrincipale::init_dock() {
     _chat = new Chat(this);
-    // _dockChat = new QDockWidget(this);
-    // _dockChat->setWidget(_chat);
-    // addDockWidget(Qt::RightDockWidgetArea, _dockChat);
+    _dockChat = new QDockWidget(this);
+    _dockChat->setWidget(_chat);
+    addDockWidget(Qt::RightDockWidgetArea, _dockChat);
 
-    // _timer = new Timer(this);
-    // _dockTimer = new QDockWidget(this);
-    // _dockTimer->setWidget(_timer);
-    // addDockWidget(Qt::LeftDockWidgetArea, _dockTimer);
+    _timer = new Timer(this);
+    _dockTimer = new QDockWidget(this);
+    _dockTimer->setWidget(_timer);
+    addDockWidget(Qt::LeftDockWidgetArea, _dockTimer);
     
     _friendList = new FriendList(this);
     _dockFriendList = new QDockWidget(this);
@@ -97,17 +97,17 @@ void FenPrincipale::init_dock() {
     _dockFriendList->setFloating(true);
     _dockFriendList->setAllowedAreas(Qt::NoDockWidgetArea);
     
-    //_publicity = new Publicity(this);
-    // _dockPublicity = new QDockWidget(this);
-    // //_dockPublicity->setWidget(_publicity);
-    // addDockWidget(Qt::BottomDockWidgetArea, _dockPublicity);
-    // _dockPublicity->setFloating(true);
-    // _dockPublicity->setAllowedAreas(Qt::NoDockWidgetArea);
+    _publicity = new Publicity(this);
+    _dockPublicity = new QDockWidget(this);
+    _dockPublicity->setWidget(_publicity);
+    addDockWidget(Qt::BottomDockWidgetArea, _dockPublicity);
+    _dockPublicity->setFloating(true);
+    _dockPublicity->setAllowedAreas(Qt::NoDockWidgetArea);
 
-    // _dockChat->hide();
-    // _dockTimer->hide();
+    _dockChat->hide();
+    _dockTimer->hide();
     _dockFriendList->hide();
-    //_dockPublicity->hide();
+    _dockPublicity->hide();
 }
 
 void FenPrincipale::init_menu(){

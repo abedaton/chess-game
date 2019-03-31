@@ -4,12 +4,12 @@
 #define FENPRINCIPALE_HPP
 
 #include "FriendList.hpp"
-//#include "Publicity.hpp"
+#include "Publicity.hpp"
 #include "Chat.hpp"
 #include "GameWindow.hpp"
 #include "Login.hpp"
 #include "Menu.hpp"
-//#include "Timer.hpp"
+#include "Timer.hpp"
 #include "PlateauScene.hpp"
 #include "Register.hpp"
 #include "StatWindow.hpp"
@@ -92,7 +92,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     AbstractClient* _client;
 
     FriendList *_friendList;
-    //Publicity *_publicity; 
+    Publicity *_publicity; 
     Login *_login;
     Register *_register;
     Menu *_menu;
@@ -100,7 +100,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     PlateauScene *_classicWindow;
     StatWindow* _statWindow;
     Chat *_chat;
-    //Timer *_timer;
+    Timer *_timer;
 
     std::string _pool;
 
