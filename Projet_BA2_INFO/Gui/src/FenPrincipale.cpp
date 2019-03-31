@@ -13,7 +13,11 @@
 
 FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
     _client->setInterface(this);
-    std::cout << _client <<  std::endl;
+   if(_client != nullptr){
+        std::cout << _client << std::endl;
+    } else {
+        std::cout << "CLIENT IS NULLPTR" << std::endl;
+    }
 
     
     _thread = new QThread;
@@ -98,7 +102,7 @@ void FenPrincipale::init_dock() {
     _dockChat->setWidget(_chat);
     addDockWidget(Qt::RightDockWidgetArea, _dockChat);
 
-    _timer = n std::cout << _client <<  std::endl;ew Timer(this);
+    _timer = new Timer(this);
     _dockTimer = new QDockWidget(this);
     _dockTimer->setWidget(_timer);
     addDockWidget(Qt::LeftDockWidgetArea, _dockTimer);
@@ -211,7 +215,7 @@ void FenPrincipale::goToMatchmaking() {
 
 void FenPrincipale::goToClassic() {
     //std::string pool = "pool2" 
-    _classicWindow = new PlateauScene("classic", _pool);
+    _classicWindow = new PlateauScene("classic", _pool,this, this);
     //QMetaObject::invokeMethod(this, "init", Qt::QueuedConnection);
     
     _stack->addWidget(_classicWindow);
@@ -225,7 +229,7 @@ void FenPrincipale::goToClassic() {
 }
 
 void FenPrincipale::goToTrappist(){
-    _classicWindow = new PlateauScene("trappist", _pool, this, this);
+    _classicWindow = new PlateauScene("trappist", _pool,this);
     
     
     
@@ -261,10 +265,10 @@ void FenPrincipale::gameStart(std::string opponent){
     _mdial->fondOpponent(_ennemyName);
     //_client->waitForMatch(1); TO DO
     //delete _mdial;
-    _classicWindow->moveToThread(_thread);
+    this->moveToThread(_thread);
     connect(_thread, SIGNAL(started()), this, SLOT(goToClassic()));
     _thread->start();
-    std::cout << _client << std::endl;
+    std::cout << "APPRES LE START" << _client << std::endl;
    
     //goToStat();
 }
@@ -329,16 +333,24 @@ void FenPrincipale::getFriendListItem(QListWidgetItem *item){
     _friendList->setSelectFriend(item->text());
     _menuFriendList->exec(point);
 }
+AbstractClient* FenPrincipale::getTest(){
+    return this->_client;
+}
 void FenPrincipale::sendPosition(std::string pos){
     std::cout << "coucou bande de nouille " << pos << std::endl;
     //quand on lance le jeu
-    std::cout << "COUCOU " <<  std::endl;
-
-    _client->click(pos);
+    std::cout << "COUCOU " <<  std::endl; //////////////////////////////////
+    // A6
+    // if(this->getTest()){
+    //     std::cout << "WSH" << std::endl;
+    // } else {
+    //     std::cout << "CLIENT IS NULLPTR" << std::endl;
+    // }
+        _client->click(pos);
 }
 
 void FenPrincipale::getMenuFriendListAction(QAction *action){
-   _chat->setFriendName(_friendList->getSelectFriend());
+    _chat->setFriendName(_friendList->getSelectFriend());
     // _dockChat->show();
 }
 

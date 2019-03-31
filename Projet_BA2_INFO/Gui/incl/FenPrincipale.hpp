@@ -49,6 +49,8 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void getFriendListItem(QListWidgetItem *item);
     void getMenuFriendListAction(QAction *action);
 
+    AbstractClient* getTest();
+
     int getWichMatchmaking(std::string variante);
 
     void setFriendMenu();
