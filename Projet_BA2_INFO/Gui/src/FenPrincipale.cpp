@@ -54,7 +54,7 @@ void FenPrincipale::init_stack() {
     _gameWindow = new GameWindow(this);
     _menu = new Menu(this);
     _stack = new QStackedWidget;
-    _statWindow = new StatWindow;
+    _statWindow = new StatWindow(_client);
     _stack->addWidget(_login);
     _stack->addWidget(_register);
     _stack->addWidget(_menu);
@@ -239,6 +239,9 @@ void FenPrincipale::goToClassic() {
 
 void FenPrincipale::goToTrappist(){
     _classicWindow = new PlateauScene("trappist", _pool,this);
+    
+    
+    
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
 

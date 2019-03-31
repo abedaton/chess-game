@@ -10,11 +10,15 @@
 #include <QKeyEvent>
 #include <iostream>
 #include <QPushButton>
+#include "../../Client/includes/abstractClient.hpp"
+
+
+
 class StatWindow : public QWidget
 {
     Q_OBJECT
 public:
-    explicit StatWindow();
+    explicit StatWindow(AbstractClient* client);
     QPushButton* getExitButton();
 private:
     void init_window();
@@ -33,6 +37,8 @@ public slots:
 
 protected:
     void keyPressEvent(QKeyEvent *event);
+private:
+    AbstractClient* _client;
 };
 
 #endif // STATWINDOW_HPP
