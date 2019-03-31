@@ -13,12 +13,6 @@
 
 FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
     _client->setInterface(this);
-   if(_client != nullptr){
-        std::cout << _client << std::endl;
-    } else {
-        std::cout << "CLIENT IS NULLPTR" << std::endl;
-    }
-
     
     _thread = new QThread;
     //moveToThread(_thread);
@@ -42,7 +36,7 @@ void FenPrincipale::init_window() {
     setWindowTitle("On Veut Pas D'Échec");
     setWindowIcon(QIcon("./Gui/img/logo_complTimer_v1.png"));
     // setStyleSheet("background-image:url(img/retro_space.png)");
-    resize(QDesktopWidget().availableGeometry(this).size() * 0.3);
+    resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
     _statusBar = new QStatusBar(this);
     setStatusBar(_statusBar);
     MenuBar();
@@ -268,9 +262,12 @@ void FenPrincipale::gameStart(std::string opponent){
     this->moveToThread(_thread);
     connect(_thread, SIGNAL(started()), this, SLOT(goToClassic()));
     _thread->start();
-    std::cout << "APPRES LE START" << _client << std::endl;
    
     //goToStat();
+}
+
+void FenPrincipale::movPossibleUpdate(std::vector<std::pair<int,int> >* listMov){
+    _classicWindow->showMoves(*listMov);
 }
 
 void FenPrincipale::showFriendList(){
@@ -337,9 +334,7 @@ AbstractClient* FenPrincipale::getTest(){
     return this->_client;
 }
 void FenPrincipale::sendPosition(std::string pos){
-    std::cout << "coucou bande de nouille " << pos << std::endl;
     //quand on lance le jeu
-    std::cout << "COUCOU " <<  std::endl; //////////////////////////////////
     // A6
     // if(this->getTest()){
     //     std::cout << "WSH" << std::endl;

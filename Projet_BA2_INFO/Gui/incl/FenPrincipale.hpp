@@ -64,6 +64,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
 
     void sendPosition(std::string pos);
 
+    void movPossibleUpdate(std::vector<std::pair<int,int> >* listMov) override;
 
 //////////////////////////////tmp
     void myShow() override{this->show();}
