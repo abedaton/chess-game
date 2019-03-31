@@ -13,6 +13,8 @@ ClassicChess::ClassicChess(Player* p_low, Player* p_high,Player* deb_player, Dic
 	if((deb_player != p_low) and (deb_player != p_high)){throw MyException(&mout,"joueur devant commencé inconnnu!");}
 	
 	this->initialisation();
+	
+	this->affichage();
 } //*< Constructor
 
 
@@ -167,7 +169,6 @@ std::pair<bool,std::string> ClassicChess::execute_step(Player* play){
 	BitypeVar<Chesspiece*> adv_pe_out;
 	
 	std::pair<bool,bool> bool_info;
-	if (this->get_action_cnt() == 0){this->affichage();}
 
 	coords = this->ask_for_input();
 	in_couple = coords->get_first();
@@ -203,8 +204,6 @@ std::pair<bool,std::string> ClassicChess::execute_step(Player* play){
 std::pair<bool,bool> ClassicChess::execute_forced_step(BitypeVar<Trinome<std::string,std::string,bool>*>* res_bit,Player* play){
 	
 	this->set_active_player(play);
-	
-	if (this->get_action_cnt() == 0){this->affichage();}
 	
 	bool ok = false;
 	bool end = false;
