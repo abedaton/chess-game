@@ -79,6 +79,8 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void init_dock();
     void init_menu();
 
+    QThread* _thread;
+
     QMenu *_menuReglages;
     QMenu *_menuAmis;
     QMenu *_menuThemes;
@@ -106,6 +108,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     std::string _pool;
 
     MatchmakingDialog* _mdial;
+
 
 };
 

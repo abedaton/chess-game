@@ -1,20 +1,20 @@
 #include "./Gui/incl/StatWindow.hpp"
 
-StatWindow::StatWindow(QWidget *parent) : QWidget(parent){
+StatWindow::StatWindow() {
     init_window();
     init_layout();
 }
 
 void StatWindow::init_window(){
-    _search = new QLineEdit(this);
+    _search = new QLineEdit;
     _search->setPlaceholderText(QString("Search player..."));
 
-    _textEdit = new QTextEdit(this);
+    _textEdit = new QTextEdit;
     _textEdit->setReadOnly(true);
 
-    _exitButton = new QPushButton("Exit", this);
+    _exitButton = new QPushButton("Exit");
 
-    _gbox = new QGridLayout(this);
+    _gbox = new QGridLayout;
 
 }
 

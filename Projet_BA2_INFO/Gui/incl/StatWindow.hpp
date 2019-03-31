@@ -14,7 +14,7 @@ class StatWindow : public QWidget
 {
     Q_OBJECT
 public:
-    explicit StatWindow(QWidget *parent = nullptr);
+    explicit StatWindow();
     QPushButton* getExitButton();
 private:
     void init_window();

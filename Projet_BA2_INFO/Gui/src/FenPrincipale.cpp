@@ -12,11 +12,17 @@
 // TODO fenetre d'attend matchmaking
 
 FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
+    
+    _thread = new QThread(this);
+    //moveToThread(_thread);
+
+    
     init_window();
     init_stack();
     init_dock();
     init_menu();
     init_connect();
+
 
     setTheme("pool0");
 
@@ -36,12 +42,16 @@ void FenPrincipale::init_window() {
 }
 
 void FenPrincipale::init_stack() {
+
+    
+
+
     _register = new Register(this);
     _login = new Login(this);
     _gameWindow = new GameWindow(this);
     _menu = new Menu(this);
-    _stack = new QStackedWidget(this);
-    _statWindow = new StatWindow(this);
+    _stack = new QStackedWidget;
+    _statWindow = new StatWindow;
     _stack->addWidget(_login);
     _stack->addWidget(_register);
     _stack->addWidget(_menu);
@@ -198,11 +208,11 @@ void FenPrincipale::goToMatchmaking() {
 
 void FenPrincipale::goToClassic() {
     //std::string pool = "pool2" 
-    _classicWindow = new PlateauScene("classic", _pool,this,this);
+    _classicWindow = new PlateauScene("classic", _pool);
     //QMetaObject::invokeMethod(this, "init", Qt::QueuedConnection);
     
-    //_stack->addWidget(_classicWindow);
-    //_stack->setCurrentWidget(_classicWindow);
+    _stack->addWidget(_classicWindow);
+    _stack->setCurrentWidget(_classicWindow);
     //int gamemode = getWichMatchmaking("classic");
     //std::cout << "GAMEMODE : " << gamemode << std::endl;
     //_client->waitForMatch(gamemode);
@@ -248,8 +258,10 @@ void FenPrincipale::gameStart(std::string opponent){
     _mdial->fondOpponent(_ennemyName);
     //_client->waitForMatch(1); TO DO
     //delete _mdial;
-    
-    goToClassic();
+    _statWindow->moveToThread(_thread);
+    connect(_thread, SIGNAL(started()), this, SLOT(goToClassic()));
+    _thread->start();
+    //goToStat();
 }
 
 void FenPrincipale::showFriendList(){

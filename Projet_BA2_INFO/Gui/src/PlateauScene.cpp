@@ -17,7 +17,7 @@ PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPri
     std::cout << "B" << std::endl;
     _scene = new QGraphicsScene(QRectF(0, 0, 700, 700));   ////////////////////////probleme principal pour QTimer
     //_boxes = new PlateauBox[_size][_size];
-    //_scene->setSceneRect(0, 0, 700, 700);
+    _scene->setSceneRect(0, 0, 700, 700);
     QCoreApplication::processEvents();
     std::cout << "C" << std::endl;
     setScene(_scene);
@@ -91,8 +91,8 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
     //setBlack();
     //setWhite();s
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
-		//setHigh("W");  //////////////////////////////////////////////////////////probleme
-		//setLow("B");  ///////////////////////////////////////////////////////////probleme
+		setHigh("W");  //////////////////////////////////////////////////////////probleme
+		setLow("B");  ///////////////////////////////////////////////////////////probleme
         //addPiece("fog","", 7,1);
         //addFog(7,1);
         //removeFog(7,1);
