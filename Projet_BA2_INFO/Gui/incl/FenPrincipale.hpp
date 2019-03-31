@@ -42,12 +42,16 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void goToStat();
     void goToMatchmaking();
     void sendMessage();
+    void showChat();
     void showFriendList();
     void setTheme(std::string pool);
     void addFriend();
     void removeFriend();
     void getFriendListItem(QListWidgetItem *item);
+    void getFriendRequestListItem(QListWidgetItem *item);
     void getMenuFriendListAction(QAction *action);
+    void acceptFriend();
+    void refuseFriend();
 
     AbstractClient* getTest();
 
@@ -67,11 +71,13 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void movPossibleUpdate(std::vector<std::pair<int,int> >* listMov) override;
 
 //////////////////////////////tmp
+    public:
     void myShow() override{this->show();}
     void gameStart(std::string opponent) override;
     void connectionError() override{}
 	void recvMessage(std::string name, std::string mov) override{(void)name;(void)mov;}
-    
+    void recvFriendList(std::vector<std::pair<std::string, bool> > friendList) override;
+    void recvFriendRequestsList(std::vector<std::string> friendRequestslist) override;
 
     private:
     void init_window();
@@ -86,6 +92,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     QMenu *_menuAmis;
     QMenu *_menuThemes;
     QMenu *_menuFriendList;
+    QMenu *_menuFriendRequestList;
 
     QStatusBar *_statusBar;
     QStackedWidget *_stack;

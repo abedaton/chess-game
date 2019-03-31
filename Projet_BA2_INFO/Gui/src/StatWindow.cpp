@@ -1,6 +1,6 @@
 #include "./Gui/incl/StatWindow.hpp"
 
-StatWindow::StatWindow() {
+StatWindow::StatWindow(AbstractClient* client): _client(client){
     init_window();
     init_layout();
 }
@@ -42,6 +42,10 @@ void StatWindow::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Return) {
         std::cout << _search->text().toStdString() << std::endl;
         emit enterPressed();
+        
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! A COMPLETER
+        _client->getUserInfo(_search->text().toStdString()); //todo trouver un moyen pour avoir la reponse de ce getuserinfo pour l'afficher
+       
     }
 }
 
