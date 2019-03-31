@@ -74,6 +74,7 @@ void Request::listener(){
         protocol = recvInt(MSG_DONTWAIT);
         switch (protocol){
 			case 0:
+                endProcess();
                 break;
             case STARTGAME: // 25
 				this->startingGame();
@@ -100,14 +101,15 @@ void Request::listener(){
                 this->feedback();
                 break;
             case OPPONENTSURREND: //34
+                endProcess();
                 this->_client->opponentSurrend();
                 break;
             default:
 				std::cout << "bad receive in listener: " << protocol << std::endl;
+		        endProcess();
                 this->error();
                 break;
         }
-		endProcess();
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
 }
@@ -118,7 +120,7 @@ void Request::listener(){
 void Request::startingGame(){
 	int turn = recvInt();
 	std::string ennemy_name = recvStr();
-
+    endProcess();
 	this->_client->startingGame(static_cast<bool>(turn-1), ennemy_name);
 }
 
@@ -127,6 +129,7 @@ void Request::startingGame(){
  */
 void Request::opponentMov(){
 	std::string mov = recvStr();
+    endProcess();
 	this->_client->opponentMov(mov);
 }
 
@@ -135,6 +138,7 @@ void Request::opponentMov(){
  */ 
 void Request::recvMessageInGame(){
 	std::string msg = recvStr();
+    endProcess();
 	this->_client->recvMessage("opponent", msg);
 }
 
@@ -168,6 +172,7 @@ std::vector<std::string> Request::recvVector(){
  */
 void Request::recvFriendRequestsList(){
     std::vector<std::string> vecRequests = this->recvVector();
+    endProcess();
     this->_client->recvFriendRequestsList(vecRequests);
 }
 
@@ -181,6 +186,7 @@ void Request::recvFriendList(){
         frendList[i].first = recvStr();
         frendList[i].second = static_cast<bool>( recvInt()-1 );
     }
+    endProcess();
     this->_client->recvFriendList(frendList);
 }
 
@@ -189,6 +195,7 @@ void Request::recvInfo(){
     int nbrgames = recvInt();
     int win = recvInt();
     int elo = recvInt();
+    endProcess();
     this->_client->recvInfo(username, nbrgames, win, elo);
 }
 
@@ -366,6 +373,7 @@ void Request::sendMessage(std::string name, std::string msg){
 void Request::recvMessage(){
     std::string name = recvStr();
     std::string msg = recvStr();
+    endProcess();
     this->_client->recvMessage(name, msg);
 }
 
@@ -465,6 +473,7 @@ void Request::exitQueue(){
 void Request::feedback(){
     int info = recvInt();
     std::string message = recvStr();
+    endProcess();
     this->_client->feedback(info, message);
 }
 

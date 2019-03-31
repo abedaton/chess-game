@@ -58,7 +58,7 @@ void FenPrincipale::init_stack() {
     _gameWindow = new GameWindow(this);
     _menu = new Menu(this);
     _stack = new QStackedWidget;
-    _statWindow = new StatWindow;
+    _statWindow = new StatWindow(_client);
     _stack->addWidget(_login);
     _stack->addWidget(_register);
     _stack->addWidget(_menu);
