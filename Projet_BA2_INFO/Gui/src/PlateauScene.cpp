@@ -31,59 +31,46 @@ PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPri
     //showMoves(moves);
 }
 
-void PlateauScene::setBoxes(int x, int y, int sideLenght) {
-    int curr_x, curr_y = y;
-    int textX = sideLenght/2 - 13, textY = 125;
-    
-    _boxes.resize(_size);
-    
-    for (int i = 0; i < _size; ++i) {
-        _boxes[i].resize(_size);
-        curr_x = x;
-        
-        char chr = 65 + i;
-        //wsh
+void PlateauScene::make_box_line(int begin_x,int y_pos, int sideLenght,int i){
+	
+	int curr_x = begin_x;
+	for (int j = 0; j < this->_size; ++j) {
+		PlateauBox *box = new PlateauBox(curr_x, y_pos, sideLenght);
+		curr_x += sideLenght;
 
+		if ((i + j) % 2 == 0)
+			box->setFirstColor(Qt::white);
+		else
+			box->setFirstColor(Qt::darkGray);
+		
+		box->setPosition(i, j);
+		box->_scene = this;
+		
+		_boxes[i][j] = box;
+		_scene->addItem(box);
+		
+		// setPosText(-50,125, "wsh");
+		// setPosText(-50,125+sideLenght, "wsh");
+		// setPosText(sideLenght/2 - 13 ,50, "wsh");
+		// setPosText(sideLenght/2 - 13 + sideLenght ,50, "wsh");
+		
+	}
+}
+
+void PlateauScene::make_char_lines(int curr_x,int y_pos,int sideLenght){
+	
+	for (int i = 0; i < this->_size; ++i) {
+		char chr = 65 + i;//wsh
         std::string str(1,chr);
-        setPosText(textX,50, str);
+        setPosText(curr_x,y_pos, str);
         
-        str = std::to_string(_size-i);
-        setPosText(-50,textY, str);
-        
-        textY += sideLenght;
-        textX += sideLenght;
-        
+        curr_x += sideLenght;
+	}
+}
 
-
-        for (int j = 0; j < _size; ++j) {
-            PlateauBox *box = new PlateauBox(curr_x, curr_y, sideLenght);
-            curr_x += sideLenght;
-
-            if ((i + j) % 2 == 0)
-                box->setFirstColor(Qt::white);
-            else
-                box->setFirstColor(Qt::darkGray);
-            
-            box->setPosition(i, j);
-            box->_scene = this;
-            
-            _boxes[i][j] = box;
-            _scene->addItem(box);
-            
-            
-            
-            // setPosText(-50,125, "wsh");
-            // setPosText(-50,125+sideLenght, "wsh");
-            // setPosText(sideLenght/2 - 13 ,50, "wsh");
-            // setPosText(sideLenght/2 - 13 + sideLenght ,50, "wsh");
-            
-        }
-        
-        curr_y += sideLenght;
-    }
-
-    
-    //setBlack();
+void PlateauScene::setPieces(){
+	
+	//setBlack();
     //setWhite();
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
 		setHigh("W");
@@ -91,14 +78,47 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
         //addPiece("fog","", 7,1);
         //addFog(7,1);
         //removeFog(7,1);
-
-
 	}
 	else if (this->get_game_type() == "trappist") {
 		setHighTrappist("W");
 		setLowTrappist("B");
 	}
 	else{throw std::invalid_argument("mode de jeu inconnu");}
+
+}
+
+void PlateauScene::setBoxes(int x, int y, int sideLenght) {
+    int curr_x = x, curr_y = y;
+
+    int char_height = 10;
+    int char_widht = 10;
+    
+    int char_hor_spacing = (sideLenght/2 - char_widht/2);
+    int char_ver_spacing = (sideLenght/2 - char_height/2);
+    
+    int plat_size = sideLenght*this->_size;
+    
+    _boxes.resize(_size);
+    
+    this->make_char_lines((curr_x+char_hor_spacing),y - sideLenght,sideLenght); // !!! bizzarie y-char_ver_spacing ne suffit pas (y bizarre) // - char_ver_spacing
+    
+    std::string str;
+    for (int i = 0; i < this->_size; ++i) {
+        _boxes[i].resize(this->_size);
+
+        str = std::to_string(this->_size-i);
+        setPosText(curr_x-sideLenght, curr_y+char_ver_spacing, str); //curr_x-char_hor_spacing ne suffit pas ???
+        
+		this->make_box_line(curr_x,curr_y,sideLenght,i);
+		
+		setPosText(curr_x + plat_size + char_hor_spacing,curr_y+char_ver_spacing, str);
+		
+        curr_y += sideLenght;
+    }
+	
+	this->make_char_lines((curr_x+char_hor_spacing),(y + plat_size + char_ver_spacing),sideLenght);
+    
+    this->setPieces();
 }
 
 void PlateauScene::setPosText(int x, int y, std::string pos){
