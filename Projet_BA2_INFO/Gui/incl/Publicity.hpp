@@ -7,14 +7,13 @@ class Publicity : public QWidget {
     Q_OBJECT
 
     private slots:
-    void on_timer_timeout();
+    void setPubToRandomImage();
     
     public:
     Publicity(QWidget *parent = nullptr);
 
     private:
     void init();
-    void setPubToRandomImage();
 
 
     QVBoxLayout *_vBoxLayout;

@@ -29,7 +29,7 @@ void FenPrincipale::init_window() {
     setWindowTitle("On Veut Pas D'Échec");
     setWindowIcon(QIcon("./Gui/img/logo_complTimer_v1.png"));
     // setStyleSheet("background-image:url(img/retro_space.png)");
-    resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
+    resize(QDesktopWidget().availableGeometry(this).size() * 0.3);
     _statusBar = new QStatusBar(this);
     setStatusBar(_statusBar);
     MenuBar();
@@ -197,11 +197,12 @@ void FenPrincipale::goToMatchmaking() {
 }
 
 void FenPrincipale::goToClassic() {
-    //std::string pool = "pool2";
+    //std::string pool = "pool2" 
     _classicWindow = new PlateauScene("classic", _pool,this,this);
+    //QMetaObject::invokeMethod(this, "init", Qt::QueuedConnection);
     
-    _stack->addWidget(_classicWindow);
-    _stack->setCurrentWidget(_classicWindow);
+    //_stack->addWidget(_classicWindow);
+    //_stack->setCurrentWidget(_classicWindow);
     //int gamemode = getWichMatchmaking("classic");
     //std::cout << "GAMEMODE : " << gamemode << std::endl;
     //_client->waitForMatch(gamemode);
@@ -221,7 +222,7 @@ void FenPrincipale::goToTrappist(){
     int gamemode = getWichMatchmaking("trappist");
     std::cout << "GAMEMODE : " << gamemode << std::endl;
 
-    _client->waitForMatch(gamemode);
+    //_client->waitForMatch(gamemode);
 }
 void FenPrincipale::goToMenu() {
     setFriendMenu();
@@ -247,6 +248,7 @@ void FenPrincipale::gameStart(std::string opponent){
     _mdial->fondOpponent(_ennemyName);
     //_client->waitForMatch(1); TO DO
     //delete _mdial;
+    
     goToClassic();
 }
 

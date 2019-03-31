@@ -13,6 +13,7 @@ class PlateauBox;
 class FenPrincipale;
 
 class PlateauScene : public QGraphicsView {
+    Q_OBJECT
     public:
     explicit PlateauScene(std::string game_type , std::string pool_name = "pool1", FenPrincipale* mainWindow = nullptr ,QWidget *parent = nullptr );
     
@@ -49,7 +50,7 @@ class PlateauScene : public QGraphicsView {
     std::string _game_type;
     std::string _pool;
 
-    QGraphicsScene *_scene;
+    QGraphicsScene* _scene;
     std::vector<std::vector<PlateauBox*>> _boxes;
     //PlateauBox *_boxes[8][8];
     //PlateauBox *_Tboxes[24][24];

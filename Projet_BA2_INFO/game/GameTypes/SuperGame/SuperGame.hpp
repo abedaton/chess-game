@@ -20,9 +20,7 @@ class SuperGame{
 		std::string _player1;
 		std::string _player2;
 
-		//bool turn(std::string first);
-
-		//std::vector<std::string> split(std::string strToSplit);
+		std::string pairToString(std::pair<int, int> p);
 		
 
 	public:
@@ -31,7 +29,6 @@ class SuperGame{
 		bool click(std::string square);
 		int opponentMov(std::string mov);
 		std::pair<bool,bool> serverMov(std::string, std::string, bool);
-		//std::vector<std::string> getListMov();
 		//Plateau* getBoard();
 };
 

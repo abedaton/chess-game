@@ -41,8 +41,14 @@ void Terminal::gameStart(std::string opponent){
 }
 
 void Terminal::movPossibleUpdate(std::vector<std::pair<int,int> >* listMov){
-	std::cout << "updateBord" << std::endl;
-    //To Do
+	std::cout << "mouvement possible: ";
+    for(std::pair<int, int> elem : *listMov){
+		char ch = 'A' + elem.first;
+   		std::string res =  ch + std::to_string(elem.second+1);
+		std::cout << res << " ";
+	}
+	std::cout << std::endl;
+	this->_mut->unlock();
 }
 
 /*
@@ -285,14 +291,14 @@ void Terminal::menuWindow(){
 				}else{
 					std::vector<std::pair<std::string,int> > liste;
 					std::cout << "Liste du/des joueur(s) qui veut/lent jouer avec vous : " << std::endl;
-					for(int cnt = 0; cnt < liste.size(); cnt++){
+					for(unsigned int cnt = 0; cnt < liste.size(); cnt++){
 						std::cout << cnt << " " << liste[cnt].first << "en gameMod " << liste[cnt].second;
 					}
 					std::cout << "Entrez le numéro du joueur avec qui vous voulez jouer ou -1 si vous voulez quitter." << std::endl;
 					int name;
 					std::cin >> name ;
 					this->myFlush();
-					while(name >= liste.size() || name < -1){
+					while(name >= (int)liste.size() || name < -1){
 						std::cout << "Entrez un nommbre correct entre -1 et " << liste.size() -1 << " " << std::endl; 
 					}
 					if(name != -1){
@@ -390,10 +396,12 @@ void Terminal::gameWindow(){
 			} else {
 				regClick.assign("^[a-xA-X][1-24]$");
 			}
-			if (std::regex_match(square.begin(), square.end(), regClick))
+			if (std::regex_match(square.begin(), square.end(), regClick)) {
 				_user->click(square);
-			else
+				this->_mut->lock();
+			} else {
 				std::cout << "Wrong input, it needs to be a square (ex: A4)" << std::endl;
+			}
 			
         }
     }

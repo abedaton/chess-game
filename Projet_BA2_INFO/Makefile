@@ -67,6 +67,7 @@ SOURCES       = Gui/src/FenPrincipale.cpp \
 		Gui/src/MatchmakingDialog.cpp Gui/bin/moc_FenPrincipale.cpp \
 		Gui/bin/moc_GameWindow.cpp \
 		Gui/bin/moc_Login.cpp \
+		Gui/bin/moc_PlateauScene.cpp \
 		Gui/bin/moc_Register.cpp \
 		Gui/bin/moc_Menu.cpp \
 		Gui/bin/moc_Chat.cpp \
@@ -93,6 +94,7 @@ OBJECTS       = Gui/bin/FenPrincipale.o \
 		Gui/bin/moc_FenPrincipale.o \
 		Gui/bin/moc_GameWindow.o \
 		Gui/bin/moc_Login.o \
+		Gui/bin/moc_PlateauScene.o \
 		Gui/bin/moc_Register.o \
 		Gui/bin/moc_Menu.o \
 		Gui/bin/moc_Chat.o \
@@ -424,9 +426,9 @@ compiler_moc_predefs_clean:
 Gui/bin/moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -std=c++11 -g -O2 -Wall -W -dM -E -o Gui/bin/moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: Gui/bin/moc_FenPrincipale.cpp Gui/bin/moc_GameWindow.cpp Gui/bin/moc_Login.cpp Gui/bin/moc_Register.cpp Gui/bin/moc_Menu.cpp Gui/bin/moc_Chat.cpp Gui/bin/moc_Timer.cpp Gui/bin/moc_FriendList.cpp Gui/bin/moc_Publicity.cpp Gui/bin/moc_StatWindow.cpp Gui/bin/moc_MatchmakingDialog.cpp
+compiler_moc_header_make_all: Gui/bin/moc_FenPrincipale.cpp Gui/bin/moc_GameWindow.cpp Gui/bin/moc_Login.cpp Gui/bin/moc_PlateauScene.cpp Gui/bin/moc_Register.cpp Gui/bin/moc_Menu.cpp Gui/bin/moc_Chat.cpp Gui/bin/moc_Timer.cpp Gui/bin/moc_FriendList.cpp Gui/bin/moc_Publicity.cpp Gui/bin/moc_StatWindow.cpp Gui/bin/moc_MatchmakingDialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) Gui/bin/moc_FenPrincipale.cpp Gui/bin/moc_GameWindow.cpp Gui/bin/moc_Login.cpp Gui/bin/moc_Register.cpp Gui/bin/moc_Menu.cpp Gui/bin/moc_Chat.cpp Gui/bin/moc_Timer.cpp Gui/bin/moc_FriendList.cpp Gui/bin/moc_Publicity.cpp Gui/bin/moc_StatWindow.cpp Gui/bin/moc_MatchmakingDialog.cpp
+	-$(DEL_FILE) Gui/bin/moc_FenPrincipale.cpp Gui/bin/moc_GameWindow.cpp Gui/bin/moc_Login.cpp Gui/bin/moc_PlateauScene.cpp Gui/bin/moc_Register.cpp Gui/bin/moc_Menu.cpp Gui/bin/moc_Chat.cpp Gui/bin/moc_Timer.cpp Gui/bin/moc_FriendList.cpp Gui/bin/moc_Publicity.cpp Gui/bin/moc_StatWindow.cpp Gui/bin/moc_MatchmakingDialog.cpp
 Gui/bin/moc_FenPrincipale.cpp: Gui/incl/FriendList.hpp \
 		Gui/incl/Publicity.hpp \
 		Gui/incl/Chat.hpp \
@@ -457,6 +459,27 @@ Gui/bin/moc_Login.cpp: Gui/incl/Login.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Login.hpp -o Gui/bin/moc_Login.cpp
+
+Gui/bin/moc_PlateauScene.cpp: Gui/incl/PlateauBox.hpp \
+		Gui/incl/ChessItem.hpp \
+		Gui/incl/PlateauScene.hpp \
+		Gui/incl/FenPrincipale.hpp \
+		Gui/incl/FriendList.hpp \
+		Gui/incl/Publicity.hpp \
+		Gui/incl/Chat.hpp \
+		Gui/incl/GameWindow.hpp \
+		Gui/incl/Login.hpp \
+		Gui/incl/Menu.hpp \
+		Gui/incl/Timer.hpp \
+		Gui/incl/Register.hpp \
+		Gui/incl/StatWindow.hpp \
+		Gui/incl/MatchmakingDialog.hpp \
+		Client/includes/abstractInterface.hpp \
+		Client/includes/abstractClient.hpp \
+		Gui/incl/PlateauScene.hpp \
+		Gui/bin/moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Année/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/PlateauScene.hpp -o Gui/bin/moc_PlateauScene.cpp
 
 Gui/bin/moc_Register.cpp: Gui/incl/Register.hpp \
 		Gui/bin/moc_predefs.h \
@@ -697,6 +720,9 @@ Gui/bin/moc_GameWindow.o: Gui/bin/moc_GameWindow.cpp
 
 Gui/bin/moc_Login.o: Gui/bin/moc_Login.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/moc_Login.o Gui/bin/moc_Login.cpp
+
+Gui/bin/moc_PlateauScene.o: Gui/bin/moc_PlateauScene.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/moc_PlateauScene.o Gui/bin/moc_PlateauScene.cpp
 
 Gui/bin/moc_Register.o: Gui/bin/moc_Register.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/moc_Register.o Gui/bin/moc_Register.cpp

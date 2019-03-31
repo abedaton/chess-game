@@ -20,7 +20,7 @@ void Publicity::init()
     setLayout(_vBoxLayout);
 	setPubToRandomImage();
 	
-	connect(_timer, SIGNAL(timeout()), this, SLOT(on_timer_timeout()));
+	connect(_timer, SIGNAL(timeout()), this, SLOT(setPubToRandomImage()));
 	//_timer->start(2*60*1000); 
 	_timer->start(30*1000); 
 }
@@ -43,8 +43,5 @@ void Publicity::setPubToRandomImage()
 	}
 }
 
-void Publicity::on_timer_timeout() {
-    setPubToRandomImage();
-}
 
 #endif

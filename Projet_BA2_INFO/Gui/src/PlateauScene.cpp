@@ -3,7 +3,7 @@
 #include "PlateauScene.hpp"
 
 PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPrincipale *mainWindow, QWidget *parent) : QGraphicsView(parent), _size(0), _game_type(game_type) , _pool(pool_name), _mainWindow(mainWindow){
-    
+    std::cout << "A" << std::endl;
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
 		this->set_size(8);
         if(_game_type == "dark"){
@@ -14,17 +14,19 @@ PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPri
 		this->set_size(24);
 	}
 	else{throw std::invalid_argument("mode de jeu inconnu");}
-    
-    _scene = new QGraphicsScene;
-    _ggbox = new QGraphicsGridLayout;
+    std::cout << "B" << std::endl;
+    _scene = new QGraphicsScene(QRectF(0, 0, 700, 700));   ////////////////////////probleme principal pour QTimer
     //_boxes = new PlateauBox[_size][_size];
-    _scene->setSceneRect(0, 0, 700, 700);
-
+    //_scene->setSceneRect(0, 0, 700, 700);
+    QCoreApplication::processEvents();
+    std::cout << "C" << std::endl;
     setScene(_scene);
+    std::cout << "D" << std::endl;
 
     
     setBoxes(0, 100, 520/_size);
     //setTrappistBoxes(0, 100, 17);
+    //QCoreApplication::processEvents();
     
     //int moves[] = {1, 2, 3, 4}; ------------------------------------------------- !!! enleve le warning
 
@@ -32,13 +34,14 @@ PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPri
 }
 
 void PlateauScene::setBoxes(int x, int y, int sideLenght) {
+    std::cout << "BOXES CREATED" << std::endl;
     int curr_x, curr_y = y;
     int textX = sideLenght/2 - 13, textY = 125;
     
     _boxes.resize(_size);
     
     for (int i = 0; i < _size; ++i) {
-        _boxes[i].resize(_size);
+        _boxes[i].resize(_size); 
         curr_x = x;
         
         char chr = 65 + i;
@@ -52,11 +55,12 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
         
         textY += sideLenght;
         textX += sideLenght;
-        
+
 
 
         for (int j = 0; j < _size; ++j) {
             PlateauBox *box = new PlateauBox(curr_x, curr_y, sideLenght);
+            std::cout << "box created" << std::endl;
             curr_x += sideLenght;
 
             if ((i + j) % 2 == 0)
@@ -66,9 +70,11 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
             
             box->setPosition(i, j);
             box->_scene = this;
+            std::cout << "box scene = this ???????" << std::endl;
             
             _boxes[i][j] = box;
             _scene->addItem(box);
+            std::cout << "scene add item" << std::endl;
             
             
             
@@ -78,16 +84,15 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
             // setPosText(sideLenght/2 - 13 + sideLenght ,50, "wsh");
             
         }
-        
         curr_y += sideLenght;
     }
-
+    std::cout << "out of FOR" << std::endl;
     
     //setBlack();
-    //setWhite();
+    //setWhite();s
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
-		setHigh("W");
-		setLow("B");
+		//setHigh("W");  //////////////////////////////////////////////////////////probleme
+		//setLow("B");  ///////////////////////////////////////////////////////////probleme
         //addPiece("fog","", 7,1);
         //addFog(7,1);
         //removeFog(7,1);
@@ -102,11 +107,12 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
 }
 
 void PlateauScene::setPosText(int x, int y, std::string pos){
+    std::cout << "TEXT SEETING" << std::endl;
     QGraphicsTextItem * coor = new QGraphicsTextItem(QString::fromStdString(pos));
     coor->setPos(x,y);
     //coor->setPlainText(QString::fromStdString(pos));
 
-    _scene->addItem(coor);
+    _scene->addItem(coor); ///////////////////////////////////////////////////////////////////probleme
 }
 
 

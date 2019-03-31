@@ -16,6 +16,7 @@
 #include "MatchmakingDialog.hpp"
 
 #include <QtWidgets>
+#include <QThread>
 #include <iostream>
 
 #include "../../Client/includes/abstractInterface.hpp"
