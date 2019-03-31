@@ -1,4 +1,3 @@
-#pragma once
 #ifndef PUBLICITY_CPP
 #define PUBLICITY_CPP
 #include "Publicity.hpp"

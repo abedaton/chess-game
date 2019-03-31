@@ -63,7 +63,7 @@ void Terminal::end(int res){
 			std::cout << "\nyou lost" << std::endl;
 			break;
 		case 3:
-			std::cout << "\nYour opponent leave the game" << std::endl;
+			std::cout << "\nYour opponent left the game\nPress a random key to go back to the menu" << std::endl;
 			break;
 	}
 	this->_end = true;
@@ -80,15 +80,15 @@ void Terminal::friendsWindow(){
 	bool answer;
 	while(res != 9){
 		std::cout << "\nQue désirez vous faire?: " << std::endl;
-		std::cout << "1) Ajouter un ami " << std::endl;
-		std::cout << "2) Lister tous les amis " << std::endl;
-		std::cout << "3) Supprimer un ami " << std::endl;
-		std::cout << "4) Consulter mes demandes d'amis" << std::endl;
-		std::cout << "5) Accepter une demandes d'amis" << std::endl;
-		std::cout << "6) Proposer à un ami de faire une partie " << std::endl;
-		std::cout << "7) Chat avec des amis " << std::endl;
-		std::cout << "8) Voir les stats d'un joueur " << std::endl;
-		std::cout << "9) Retourner au menu principal " << std::endl;
+		std::cout << "\t1) Ajouter un ami " << std::endl;
+		std::cout << "\t2) Lister tous les amis " << std::endl;
+		std::cout << "\t3) Supprimer un ami " << std::endl;
+		std::cout << "\t4) Consulter mes demandes d'amis" << std::endl;
+		std::cout << "\t5) Accepter une demandes d'amis" << std::endl;
+		std::cout << "\t6) Proposer à un ami de faire une partie " << std::endl;
+		std::cout << "\t7) Chat avec des amis " << std::endl;
+		std::cout << "\t8) Voir les stats d'un joueur " << std::endl;
+		std::cout << "\t9) Retourner au menu principal " << std::endl;
 
 		res = 0;
 		while(res == 0 || res > 9){	
@@ -250,7 +250,7 @@ bool Terminal::logInWindow(){
 			std::cin >> answer;
 			myFlush();
 			while (answer != '1' && answer != '2'){
-				std::cout << "\nPlease write 1 for continue or 2 to go back: ";
+				std::cout << std::endl << "Please write 1 for continue or 2 to go back: ";
 				std::cin >> answer;
 				myFlush();
 			}
@@ -267,9 +267,10 @@ void Terminal::menuWindow(){
 	unsigned int answer;
 	bool waitForGame = false;
     while (true){
+		answer = 0;
 		std::cout << std::endl << "Que désirez vous faire?: " << std::endl;
-		std::cout << "\t1) Exit " << std::endl;
-		std::cout << "\t2) Manage sfriend" << std::endl;
+		std::cout << "\t1) Exit" << std::endl;
+		std::cout << "\t2) Manage friend" << std::endl;
 		std::cout << "\t3) See your stat" << std::endl;
 		std::cout << "\t4) See if someone wants to play with you" << std::endl;
 		if (!waitForGame) {
@@ -278,7 +279,7 @@ void Terminal::menuWindow(){
 			std::cout <<"\t5) Exit queue" << std::endl;
 		}
 
-		while(answer == 0 || answer > 5){	
+		while((answer == 0 || answer > 5) && (!_gameStart)){	
 			std::cout << "Enter a number(1-5): ";
 			std::cin >> answer;
 			this->myFlush();
@@ -334,9 +335,9 @@ void Terminal::menuWindow(){
  */
 void Terminal::recvMessage(std::string username, std::string msg){
 	if (username == this->_ennemyName) {
-		std::cout << "\nYour opponent(" << username << "): " << msg << std::endl;
+		std::cout << std::endl << "Your opponent(" << username << "): " << msg << std::endl;
 	} else {
-		std::cout << "\n" << username << ": " << msg << std::endl;
+		std::cout << std::endl << username << ": " << msg << std::endl;
 	}
 }
 
@@ -346,9 +347,9 @@ void Terminal::recvMessage(std::string username, std::string msg){
 bool Terminal::selectGameModeWindow(){
 	std::string chessMod = " ";
 	std::string gameMod = " ";
-
+	std::cout << std::endl;
     while (chessMod != "1" && chessMod != "2" && chessMod != "3" && chessMod != "4" && chessMod != "5"){
-        std::cout << "Please, enter 1 for classic, 2 for Dark, 3 for Trappist, 4 for Anti or 5 for return to the menu: ";
+        std::cout << "Enter 1 for classic, 2 for Dark, 3 for Trappist, 4 for Anti or 5 for return to the menu: ";
         std::cin >> chessMod;
 		myFlush();
     }
@@ -376,11 +377,10 @@ void Terminal::gameWindow(){
 	int answer;
 	std::string square;
     while (true){
-        std::cout << "Enter 1 for surrender, 2 for chat, 3 for click on the bord: ";
+        std::cout << std::endl <<  "Enter 1 for surrender, 2 for chat, 3 for click on the bord: ";
         std::cin >> answer;
 		myFlush();
-		if (_end){
-			std::cout << "lose" << std::endl;
+		if (this->_end){
 			this->_end = false;
 			break;
 		}
@@ -393,11 +393,11 @@ void Terminal::gameWindow(){
 			//std::cin.clear();
         	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::getline(std::cin, msg);
-			//this->myFlush();
+			this->myFlush();
 			this->_user->sendMessage(this->_ennemyName, msg);
         } else if (answer == 3) {
 			
-			std::cout << "Choose a square" << std::endl;
+			std::cout << "Choose a square: ";
 			std::cin >> square;
 			this->myFlush();
 			std::regex regClick;
@@ -423,7 +423,7 @@ void Terminal::gameWindow(){
 void Terminal::recvFriendRequestsList(std::vector<std::string> vec){
 	this->_friendRequest = vec;
 	if (vec.size() > 0){
-		std::cout << "You have " << vec.size() << " pending requests: " << std::endl;
+		std::cout << std::endl << "You have " << vec.size() << " pending requests: " << std::endl;
 		for (unsigned i = 0; i < vec.size(); i++){
 			std::cout << "\t- " << vec[i] << std::endl;
 		}
@@ -439,12 +439,12 @@ void Terminal::recvFriendRequestsList(std::vector<std::string> vec){
 void Terminal::recvFriendList(std::vector<std::pair<std::string, bool> > frendList){
 	this->_friendList = frendList;
 	if (frendList.size() > 0){
-		std::cout << "You have " << frendList.size() << " friends: " << std::endl;
+		std::cout << std::endl << "You have " << frendList.size() << " friends: " << std::endl;
 		for (unsigned i = 0; i < frendList.size(); i++){
 			std::cout << "\t- " << frendList[i].first << ": " << (frendList[i].second ? "connected" : "disconnected") << std::endl;
 		}
 	} else {
-		std::cout << "\nSorry you dont have any friend.. :(" << std::endl;
+		std::cout << std::endl << "Sorry you dont have any friend.. :(" << std::endl;
 	}
 	this->_mut->unlock();
 }
@@ -470,7 +470,7 @@ void Terminal::recvInfo(std::string username, int nbrGames, int win, int elo){
 	else
 		rank = "or";
 
-	std::cout << username << " stat:" << std::endl;	
+	std::cout << std::endl << username << " stat:" << std::endl;	
 	std::cout << "\t-nbrGames: " << nbrGames << std::endl;
 	std::cout << "\t-win: " << win << std::endl;
 	std::cout << "\t-lose: " << nbrGames-win << std::endl;

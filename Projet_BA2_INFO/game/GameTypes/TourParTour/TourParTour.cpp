@@ -21,8 +21,6 @@ std::pair<bool,std::string> TourParTour::execute_step(){
 
 std::pair<bool,bool> TourParTour::execute_step(std::string merged_coords,std::string player_name, bool invert){
 
-	std::cout<<"INVERSION? "<<invert<<std::endl;
-
 	if (! this->myTurn(player_name))
 		return std::pair<bool,bool>(false, false);
 

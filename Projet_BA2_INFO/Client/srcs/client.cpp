@@ -48,7 +48,7 @@ void Client::waitForMatch(int gameMod){
 void Client::startingGame(bool playerTurn, std::string opponentName){
 	Human* play_one;
 	Human* play_two;
-	if(this->_affichageGui){
+	if(this->_affichageGui) {
 		play_one = new SilencedHuman(this->_name, "francais");
 		play_two = new SilencedHuman(opponentName, "francais");
 	} else {
