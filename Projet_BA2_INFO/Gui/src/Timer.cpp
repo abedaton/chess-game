@@ -1,6 +1,6 @@
 #ifndef TIMER_CPP
 #define TIMER_CPP
-
+/*
 #include "Timer.hpp"
 
 Timer::Timer(QWidget *parent) : QWidget(parent) {
@@ -17,12 +17,12 @@ void Timer::init_widget() {
     _labelTimerUp = new QLabel(this);
     _labelTimerUp->setStyleSheet("font: 75 18pt Noto Sans Mono CJK JP Bold;");
     _pushButtonSwitch = new QPushButton("Switch", this);
-    _timer = new QTimer(this);
-    _timeUp = new QTime(0, 5, 0);
-    _timeDown = new QTime(0, 5, 0);
-    QString timeText = _timeUp->toString("mm : ss");
-    _labelTimerUp->setText(timeText);
-    _labelTimerDown->setText(timeText);
+    // _timer = new QTimer(this);
+    // _timeUp = new QTime(0, 5, 0);
+    // _timeDown = new QTime(0, 5, 0);
+    //QString timeText = _timeUp->toString("mm : ss");
+   // _labelTimerUp->setText(timeText);
+    //_labelTimerDown->setText(timeText);
 
 
 }
@@ -36,8 +36,8 @@ void Timer::init_layout() {
 }
 
 void Timer::init_connect() {
-    connect(_timer, SIGNAL(timeout()), this, SLOT(on_timer_timeout()));
-    connect(_pushButtonSwitch, SIGNAL(clicked()), this, SLOT(on_pushButtonSwitch_clicked()));
+    //connect(_timer, SIGNAL(timeout()), this, SLOT(on_timer_timeout()));
+    //connect(_pushButtonSwitch, SIGNAL(clicked()), this, SLOT(on_pushButtonSwitch_clicked()));
 }
 
 void Timer::on_timer_timeout() {
@@ -61,4 +61,5 @@ void Timer::on_pushButtonSwitch_clicked() {
         _isTimeUp = true;
     }
 }
+*/
 #endif

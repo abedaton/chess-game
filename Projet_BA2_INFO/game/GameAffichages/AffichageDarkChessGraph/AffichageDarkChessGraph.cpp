@@ -3,5 +3,7 @@
 #define AFFICHAGEDARKCHESSGRAPH_CPP
 #include "AffichageDarkChessGraph.hpp"
 
-AffichageDarkChessGraph::AffichageDarkChessGraph() : AffichageDarkChessGraph() {} //*< Constructor
+
+AffichageDarkChessGraph::AffichageDarkChessGraph(){} //*< Constructor
+
 #endif

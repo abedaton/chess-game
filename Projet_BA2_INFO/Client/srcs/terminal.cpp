@@ -40,7 +40,7 @@ void Terminal::gameStart(std::string opponent){
     std::cout << "\nGame is starting. Please press a random key to continue" << std::endl;
 }
 
-void Terminal::movPossibleUpdate(std::vector<std::string> listMov){
+void Terminal::movPossibleUpdate(std::vector<std::pair<int,int> >* listMov){
 	std::cout << "updateBord" << std::endl;
     //To Do
 }

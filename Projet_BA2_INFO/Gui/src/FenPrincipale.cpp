@@ -27,7 +27,7 @@ FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
 
 void FenPrincipale::init_window() {
     setWindowTitle("On Veut Pas D'Échec");
-    setWindowIcon(QIcon("./Gui/img/logo_compl_v1.png"));
+    setWindowIcon(QIcon("./Gui/img/logo_complTimer_v1.png"));
     // setStyleSheet("background-image:url(img/retro_space.png)");
     resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
     _statusBar = new QStatusBar(this);
@@ -81,14 +81,14 @@ void FenPrincipale::init_connect() {
 
 void FenPrincipale::init_dock() {
     _chat = new Chat(this);
-    _dockChat = new QDockWidget(this);
-    _dockChat->setWidget(_chat);
-    addDockWidget(Qt::RightDockWidgetArea, _dockChat);
+    // _dockChat = new QDockWidget(this);
+    // _dockChat->setWidget(_chat);
+    // addDockWidget(Qt::RightDockWidgetArea, _dockChat);
 
-    _timer = new Timer(this);
-    _dockTimer = new QDockWidget(this);
-    _dockTimer->setWidget(_timer);
-    addDockWidget(Qt::LeftDockWidgetArea, _dockTimer);
+    // _timer = new Timer(this);
+    // _dockTimer = new QDockWidget(this);
+    // _dockTimer->setWidget(_timer);
+    // addDockWidget(Qt::LeftDockWidgetArea, _dockTimer);
     
     _friendList = new FriendList(this);
     _dockFriendList = new QDockWidget(this);
@@ -97,17 +97,17 @@ void FenPrincipale::init_dock() {
     _dockFriendList->setFloating(true);
     _dockFriendList->setAllowedAreas(Qt::NoDockWidgetArea);
     
-    _publicity = new Publicity(this);
-    _dockPublicity = new QDockWidget(this);
-    _dockPublicity->setWidget(_publicity);
-    addDockWidget(Qt::BottomDockWidgetArea, _dockPublicity);
-    _dockPublicity->setFloating(true);
-    _dockPublicity->setAllowedAreas(Qt::NoDockWidgetArea);
+    //_publicity = new Publicity(this);
+    // _dockPublicity = new QDockWidget(this);
+    // //_dockPublicity->setWidget(_publicity);
+    // addDockWidget(Qt::BottomDockWidgetArea, _dockPublicity);
+    // _dockPublicity->setFloating(true);
+    // _dockPublicity->setAllowedAreas(Qt::NoDockWidgetArea);
 
-    _dockChat->hide();
-    _dockTimer->hide();
+    // _dockChat->hide();
+    // _dockTimer->hide();
     _dockFriendList->hide();
-    _dockPublicity->hide();
+    //_dockPublicity->hide();
 }
 
 void FenPrincipale::init_menu(){
@@ -191,21 +191,20 @@ int FenPrincipale::getWichMatchmaking(std::string variante){
 
 void FenPrincipale::goToMatchmaking() {
     _mdial = new MatchmakingDialog(this);
-    connect(_mdial->getOkButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
+    //connect(_mdial->getOkButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
     int gamemode = getWichMatchmaking("classic");
     _client->waitForMatch(gamemode);
 }
 
 void FenPrincipale::goToClassic() {
     //std::string pool = "pool2";
-    delete _mdial;
     _classicWindow = new PlateauScene("classic", _pool,this,this);
     
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
-    int gamemode = getWichMatchmaking("classic");
-    std::cout << "GAMEMODE : " << gamemode << std::endl;
-    _client->waitForMatch(gamemode);
+    //int gamemode = getWichMatchmaking("classic");
+    //std::cout << "GAMEMODE : " << gamemode << std::endl;
+    //_client->waitForMatch(gamemode);
     // int tmp = this->_chessMod + (4 * (std::stoi(gameMod)-1));
     // while (gameMod != "1" && gameMod != "2" && gameMod != "3" && gameMod != "4"){
         //  std::cout << "Enter 1 for Tour Par tour, 2 for Chrono, 3 for Temps Reel, 4 for return to the menu: ";
@@ -247,7 +246,8 @@ void FenPrincipale::gameStart(std::string opponent){
 	this->_ennemyName = opponent;
     _mdial->fondOpponent(_ennemyName);
     //_client->waitForMatch(1); TO DO
-    //goToClassic();
+    //delete _mdial;
+    goToClassic();
 }
 
 void FenPrincipale::showFriendList(){
@@ -318,7 +318,7 @@ void FenPrincipale::sendPosition(std::string pos){
 
 void FenPrincipale::getMenuFriendListAction(QAction *action){
    _chat->setFriendName(_friendList->getSelectFriend());
-    _dockChat->show();
+    // _dockChat->show();
 }
 
 #endif

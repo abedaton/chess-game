@@ -24,7 +24,7 @@ class Terminal: public AbstractInterface{
 		void lose() override;
 
 		void recvMessage(std::string name, std::string mov) override;
-        void movPossibleUpdate(std::vector<std::string> listMov) override;
+        void movPossibleUpdate(std::vector<std::pair<int,int> >* listMov) override;
 
 		void recvFriendRequestsList(std::vector<std::string> vec) override;
 		void recvFriendList(std::vector<std::pair<std::string, bool> > frendList) override;

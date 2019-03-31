@@ -22,7 +22,7 @@ void MatchmakingDialog::init_window(){
     _label->setText("Wating an oppenent");
 
     _okButton = new QPushButton("Ok", this);
-    //_okButton->setVisible(false);
+    _okButton->setVisible(false);
     _cancelButton = new QPushButton("Cancel", this);
     _cancelButton->setVisible(false);
 

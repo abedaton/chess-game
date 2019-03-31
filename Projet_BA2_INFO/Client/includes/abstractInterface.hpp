@@ -16,7 +16,7 @@ class AbstractInterface {
         virtual void win() = 0;
         virtual void lose() = 0;
 		virtual void recvMessage(std::string name, std::string mov) = 0; 
-        virtual void movPossibleUpdate(std::vector<std::string> listMov){}
+        virtual void movPossibleUpdate(std::vector<std::pair<int,int> >* listMov){}
 
         virtual void recvFriendRequestsList(std::vector<std::string> vec){this->_friendRequest = vec;}
         virtual void recvFriendList(std::vector<std::pair<std::string, bool> > frendList){this->_friendList = frendList;}

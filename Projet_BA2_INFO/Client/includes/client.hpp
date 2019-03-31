@@ -53,7 +53,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		std::vector<std::pair<std::string,int > > getGRequests() override;
 		//call by game
 		void mov(std::string mov) override;
-		void movPossibleUpdate(std::vector<std::string> listMov) override;
+		void movPossibleUpdate(std::vector<std::pair<int,int> >* listMov) override;
 
 		void recvFriendRequestsList(std::vector<std::string> vec) override;
 		void recvFriendList(std::vector<std::pair<std::string, bool> > frendList) override;

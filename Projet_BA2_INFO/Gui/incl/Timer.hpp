@@ -21,9 +21,9 @@ class Timer : public QWidget {
     QLabel *_labelTimerDown;
     QTime *_timeDown;
     QLabel *_labelTimerUp;
-    QTime *_timeUp;
+    // QTime *_timeUp;
     QPushButton *_pushButtonSwitch;
-    QTimer *_timer;
+    // QTimer *_timer;
     QVBoxLayout *_vBoxLayoutTimer;
 };
 #endif // Timer_HPP

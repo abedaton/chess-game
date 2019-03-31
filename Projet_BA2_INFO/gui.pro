@@ -55,9 +55,9 @@ HEADERS += Gui/incl/FenPrincipale.hpp \
            Gui/incl/Menu.hpp\
            Gui/incl/Chat.hpp \
            Gui/incl/ChessItem.hpp\
-           Gui/incl/Timer.hpp\
+           #Gui/incl/Timer.hpp\
            Gui/incl/FriendList.hpp\
-           Gui/incl/Publicity.hpp\
+           #Gui/incl/Publicity.hpp\
            Gui/incl/StatWindow.hpp \
            ###
            Client/includes/abstractClient.hpp\
@@ -84,9 +84,9 @@ SOURCES += Gui/src/FenPrincipale.cpp \
            Gui/src/Menu.cpp \
            Gui/src/Chat.cpp \
            Gui/src/ChessItem.cpp \
-           Gui/src/Timer.cpp \
+           #Gui/src/Timer.cpp \
            Gui/src/FriendList.cpp\
-           Gui/src/Publicity.cpp\
+           #Gui/src/Publicity.cpp\
            Gui/src/StatWindow.cpp \
            ###
            Client/main.cpp\

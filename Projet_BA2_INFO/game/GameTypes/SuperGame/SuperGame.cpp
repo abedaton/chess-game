@@ -67,24 +67,27 @@ SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn, Player* p
  * Test de python++
  */
 bool SuperGame::click(std::string square)                                                               {
+    std::vector<std::pair<int,int> > possibleMov                                                        ;
     std::string mov = this->_lastClick + ";" + square                                                   ;
     bool answer = false                                                                                 ;
     if (this->_lastClick == " ")                                                                        {
         this->_lastClick = square                                                                       ;}  
     else if (this->_game->myTurn(this->_player1))                                                       {
         std::cout << "mov: " << mov << std::endl                                                        ;
-        std::pair<bool, bool> res = this->_game->execute_step(mov, this->_player1, false);// this->_inverted)     ;
+        std::pair<bool, bool> res = this->_game->execute_step(mov, this->_player1, false)               ;// this->_inverted)
         answer = res.second                                                                             ;
         if (res.first)                                                                                  {
             this->_lastClick = " "                                                                      ;
-            this->_client->mov(mov)                                                                    ;}
+            this->_client->mov(mov)                                                                     ;}
         else                                                                                            {
             std::cout << "bad mov" << std::endl                                                         ;
+            possibleMov = this->_game->return_pe_mov(this->_lastClick)                                  ;
             this->_lastClick = square                                                                   ;}}
     else                                                                                                {
         std::cout << "Coup enregistré: " << mov << std::endl                                            ;
         this->_bufferMov.push_back(mov)                                                                 ;
         this->_lastClick = " "                                                                          ;}
+    this->_client->movPossibleUpdate(&possibleMov)                                                      ;
     return answer                                                                                       ;
 
 
@@ -138,8 +141,8 @@ int SuperGame::opponentMov(std::string mov){
             this->_bufferMov.clear();
         }
 	}
-    this->_client->movPossibleUpdate(this->_ListMov);
-    //this->_game->get_game()->get_affich()->affichage_plateau();
+    std::vector<std::pair<int,int> > possibleMov;
+    this->_client->movPossibleUpdate(&possibleMov);
 	return result;
 }
 

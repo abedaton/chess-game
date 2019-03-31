@@ -154,8 +154,8 @@ void Client::exit(){
 	std::_Exit(0);
 }
 
-void Client::movPossibleUpdate(std::vector<std::string> listMov){
-	//this->_interface->;
+void Client::movPossibleUpdate(std::vector<std::pair<int,int> >* listMov){
+	this->_interface->movPossibleUpdate(listMov);
 }
 
 /*

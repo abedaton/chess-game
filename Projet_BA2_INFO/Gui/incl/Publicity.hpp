@@ -20,6 +20,5 @@ class Publicity : public QWidget {
     QVBoxLayout *_vBoxLayout;
     QLabel* _pub_label;
     QTimer *_timer;
-    
 };
 #endif // PUBLICITY_HPP

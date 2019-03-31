@@ -8,7 +8,7 @@
 
 
 class MatchmakingDialog : public QDialog {
-
+Q_OBJECT
 public:
     MatchmakingDialog(QWidget* parent = nullptr);
     void fondOpponent(std::string opponent);
