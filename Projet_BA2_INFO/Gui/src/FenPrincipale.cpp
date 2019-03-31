@@ -98,7 +98,7 @@ void FenPrincipale::init_dock() {
     _dockChat->setWidget(_chat);
     addDockWidget(Qt::RightDockWidgetArea, _dockChat);
 
-    _timer = new Timer(this);
+    _timer = n std::cout << _client <<  std::endl;ew Timer(this);
     _dockTimer = new QDockWidget(this);
     _dockTimer->setWidget(_timer);
     addDockWidget(Qt::LeftDockWidgetArea, _dockTimer);
@@ -261,9 +261,11 @@ void FenPrincipale::gameStart(std::string opponent){
     _mdial->fondOpponent(_ennemyName);
     //_client->waitForMatch(1); TO DO
     //delete _mdial;
-    _statWindow->moveToThread(_thread);
+    _classicWindow->moveToThread(_thread);
     connect(_thread, SIGNAL(started()), this, SLOT(goToClassic()));
     _thread->start();
+    std::cout << _client << std::endl;
+   
     //goToStat();
 }
 
