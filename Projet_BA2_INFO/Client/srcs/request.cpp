@@ -96,8 +96,11 @@ void Request::listener(){
             case RECVINFO: //31
                 this->recvInfo();
                 break;
-            case FEEDBACK: // 33
+            case FEEDBACK: //33
                 this->feedback();
+                break;
+            case OPPONENTSURREND: //34
+                this->_client->opponentSurrend();
                 break;
             default:
 				std::cout << "bad receive in listener: " << protocol << std::endl;

@@ -116,7 +116,7 @@ void User::lose(){
  */
 void User::opponentSurrend(){
     this->_db->updateWin(this->_name, this->_opponent->get_name(), true);
-    //to do
+    sendInt(34);
 }
 
 /*

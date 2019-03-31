@@ -67,8 +67,6 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void myShow() override{this->show();}
     void gameStart(std::string opponent) override;
     void connectionError() override{}
-    void win() override{}
-    void lose() override{}
 	void recvMessage(std::string name, std::string mov) override{(void)name;(void)mov;}
     
 

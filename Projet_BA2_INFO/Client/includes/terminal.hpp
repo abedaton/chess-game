@@ -20,8 +20,7 @@ class Terminal: public AbstractInterface{
         ~Terminal();
         void connectionError() override;
 		void gameStart(std::string opponent) override;
-		void win() override;
-		void lose() override;
+		void end(int) override;
 
 		void recvMessage(std::string name, std::string mov) override;
         void movPossibleUpdate(std::vector<std::pair<int,int> >* listMov) override;

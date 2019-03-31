@@ -318,7 +318,7 @@ void Database::deleteFriend(std::string friend1, std::string friend2){
 std::vector<std::string> Database::seeFriends(std::string username){
 	char* zErrMsg = 0;
 	std::vector<std::string> friendList;
-	std::string sql =  "SELECT user1, user2 FROM friendList WHERE (user1 = '" + username + "') OR (user2 = '" + username + "') AND relation = 'ami';";
+	std::string sql =  "SELECT user1, user2 FROM friendList WHERE ((user1 = '" + username + "') OR (user2 = '" + username + "')) AND relation = 'ami';";
 	int rc = sqlite3_exec(this->db, sql.c_str(), callbackSee, &friendList, &zErrMsg);
 	if (rc != SQLITE_OK){
 		std::cout << "Error on seeFriends: " << sqlite3_errmsg(this->db) << std::endl;

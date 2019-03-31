@@ -29,6 +29,7 @@ class AbstractClient{
 		virtual void recvInfo(std::string username, int nbrgames, int win, int elo) = 0;
 
 		virtual void click(std::string square) = 0;
+		virtual void surrend() = 0;
 		virtual void exit() = 0;
 		//call by server
 		virtual void startingGame(bool playerTurn, std::string opponentName) = 0;
@@ -38,6 +39,7 @@ class AbstractClient{
 
 		virtual void exitQueue() = 0;
 		virtual void feedback(int info, std::string message) = 0;
+		virtual void opponentSurrend() = 0;
 		virtual std::vector<std::pair<std::string,int> > getGRequests() = 0;
 };
 
