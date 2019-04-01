@@ -208,7 +208,13 @@ void User::handleClient(){
             case GETUSERINFO: // 13
                 this->GetUserInfo();
                 break;
-            
+            case DUEL: // 14
+                //this->
+                break;
+            case ACCEPTDUEL: // 15
+                //this->
+                break;
+
             case LEAVEQUEUE: // 16
                 this->exitQueue();
                 break;
@@ -504,6 +510,24 @@ void User::feedback(int info, std::string message){
     sendInt(protocol);
     sendInt(info);
     sendStr(message);
+}
+
+void User::challegeForGame(){
+    std::string username = recvStr();
+    int gameMod = recvInt();
+    int friendSocket = this->_db->getUserInt("socket", username);
+    if (friendSocket >= 0){
+        this->_match->waitForFriendMatch(this);
+        sendIntToSocket(friendSocket, 35);
+        sendStrToSocket(friendSocket, username);
+        sendIntToSocket(friendSocket, gameMod);
+    }
+}
+
+void User::acceptChallege(){
+    std::string username = recvStr();
+    int gameMod = recvInt();
+    this->_match->startFrendlyGame(this, username, gameMod);
 }
 
 #endif

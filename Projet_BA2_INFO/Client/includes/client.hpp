@@ -46,6 +46,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 
 		std::vector<std::pair<std::string,int > > getGRequests() override;
 		void acceptFriendlyGame(std::string username, bool res) override;
+		void sendRequestFriendlyGame(std::string username, int gameMod) override;
 		
 		void click(std::string square) override;
 		void surrend() override;

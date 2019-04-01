@@ -1,4 +1,3 @@
-#pragma once
 #ifndef TERMINAL_CPP 
 #define TERMINAL_CPP 
 
@@ -127,7 +126,7 @@ void Terminal::friendsWindow(){
 					break;
 				}
 					
-				std::cout << "\nAcceptez vous ça demande d'amis(yes, no): ";
+				std::cout << "\nAcceptez vous sa demande d'amis(yes, no): ";
 				std::cin >> tmpanswer;
 				this->myFlush();
 				if ((tmpanswer == "yes") || (tmpanswer == "Yes") || (tmpanswer == "nope'nt") || (tmpanswer == "y") || (tmpanswer == "Y")){
@@ -145,7 +144,8 @@ void Terminal::friendsWindow(){
 				this->_user->acceptFriend(username, answer);
 				break;
 			case 6:
-				
+				//TO DO menu choisir une personne et un gameMod
+				//this->_user->sendRequestFriendlyGame(username, gameMod);
 				break;
 			case 7:
 				std::cout << "\nPlease enter the name of the user you want to send a message: ";
@@ -434,7 +434,7 @@ void Terminal::recvFriendRequestsList(std::vector<std::string> vec){
 			std::cout << "\t- " << vec[i] << std::endl;
 		}
 	} else {
-		std::cout << "You have no pending requests.. :(" << std::endl;
+		std::cout << std::endl << "You have no pending requests.. :(" << std::endl;
 	}
 	this->_mut->unlock();
 }
