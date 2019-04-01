@@ -52,13 +52,11 @@ void Serveur::mainLoop(){
             std::cout << "Nouvelle connexion et le socket est : " << tmpClient << std::endl;
             if (tmpClient != -1){
                 if (static_cast<size_t>(tmpClient) > this->_clients.size()){
-                    this->_clients.resize(static_cast<size_t>(tmpClient));
-                    this->_clients[tmpClient] = std::make_pair(-1, nullptr);
+                    this->_clients.resize(static_cast<size_t>(tmpClient));          ///////// 
+                    this->_clients[tmpClient] = std::make_pair(-1, nullptr);        ////////
                 }
                 this->_clients.at(static_cast<unsigned long int>(tmpClient-1)).first = tmpClient;
-                std::cout << "HELLLOOOO1" << std::endl;
                 User* tmpUser = new User(tmpClient, this->_db, this->_match); // <------ new important pour polymorphisme! - Quentin !!!
-                std::cout << "HELLLLOOO2" << std::endl;
                 this->_clients.at(static_cast<unsigned long int>(tmpClient-1)).second = tmpUser;
             }
         }
