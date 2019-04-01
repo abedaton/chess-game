@@ -1,4 +1,3 @@
-
 #ifndef FENPRINCIPALE_CPP
 #define FENPRINCIPALE_CPP
 
@@ -442,5 +441,11 @@ void FenPrincipale::recvFriendList(std::vector<std::pair<std::string,bool> > fri
 void FenPrincipale::recvFriendRequestsList(std::vector<std::string> friendRequestsList){
     _friendList->setFriendRequestsList(friendRequestsList);
 }
+
+void FenPrincipale::recvInfo(std::string username, int nbrgames, int win, int elo)
+{
+    std::cout << "recFInfo was called " << std::endl;
+}
+
 
 #endif
