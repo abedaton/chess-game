@@ -82,6 +82,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void recvFriendList(std::vector<std::pair<std::string, bool> > friendList) override;
     void recvInfo(std::string username, int nbrgames, int win, int elo) override;
     void recvFriendRequestsList(std::vector<std::string> friendRequestslist) override;
+    void feedback(int info, std::string message) override;
     void sendPosition(std::string pos);
     void updateMov(std::string str) override;
 
