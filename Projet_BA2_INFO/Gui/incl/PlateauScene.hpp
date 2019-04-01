@@ -51,7 +51,7 @@ class PlateauScene : public QGraphicsView {
     void sendPosition(std::string pos);
 
     void updateMov(std::vector<std::pair<int,int> > pos);
-
+    QPushButton *getPushButtonSurrender() const;
     public slots:
     void setBoxesThread();
 
@@ -61,6 +61,7 @@ class PlateauScene : public QGraphicsView {
     FenPrincipale* _mainWindow;
     std::string _game_type;
     std::string _pool;
+    QPushButton *_pushButtonSurrender;
 
     QGraphicsScene* _scene;
     std::vector<std::vector<PlateauBox*>> _boxes;

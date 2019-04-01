@@ -53,6 +53,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void getMenuFriendListAction(QAction *action);
     void acceptFriend();
     void refuseFriend();
+    void surrender();
 
     void cancelMatchmaking();
 
@@ -86,6 +87,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void feedback(int info, std::string message) override;
     void sendPosition(std::string pos);
     void updateMov(std::string str) override;
+    void end(int end) override;
 
     private:
     void init_window();

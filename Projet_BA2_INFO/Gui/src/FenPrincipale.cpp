@@ -113,7 +113,7 @@ void FenPrincipale::init_dock() {
     _dockPublicity->setFloating(true);
     _dockPublicity->setAllowedAreas(Qt::NoDockWidgetArea);
     // _dockPublicity->setSizePolicy(QSizePolicy::Fixed);
-    _dockPublicity->setFeatures(QDockWidget::NoDockWidgetFeatures);
+    // _dockPublicity->setFeatures(QDockWidget::NoDockWidgetFeatures);
 
     _dockChat->hide();
     //_dockTimer->hide();
@@ -258,7 +258,7 @@ void FenPrincipale::goToClassic() {
     _classicWindow = new PlateauScene("classic", _pool, this);
     //_classicWindow->moveToThread(_thread);
     //QMetaObject::invokeMethod(this, "init", Qt::QueuedConnection);
-    
+    connect(_classicWindow->getPushButtonSurrender(), SIGNAL(clicked()), this, SLOT(surrender()));
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
 
@@ -472,5 +472,16 @@ void FenPrincipale::recvMessage(std::string name, std::string message){
     _chat->setFriendName(QString::fromStdString(name));
     _chat->getTextEdit()->insertPlainText(QString::fromStdString(name+" -> "+message+"\n"));
     _dockChat->show();
+}
+
+void FenPrincipale::surrender(){
+    _client->surrend();
+    goToMenu();
+}
+
+void FenPrincipale::end(int end){
+    if (end){
+        goToMenu();
+    }
 }
 #endif
