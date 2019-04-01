@@ -20,6 +20,7 @@ class StatWindow : public QWidget
 public:
     explicit StatWindow(AbstractClient* client);
     QPushButton* getExitButton();
+    void setUserInfo(std::string name, int nbrGame, int statWin, int statElo);
 private:
     void init_window();
     void init_layout();
@@ -39,6 +40,10 @@ protected:
     void keyPressEvent(QKeyEvent *event);
 private:
     AbstractClient* _client;
+    std::string _clientStateName = "None";
+    int _statNbrGames = 0;
+    int _statWin = 0;
+    int _statElo = 0;
 };
 
 #endif // STATWINDOW_HPP
