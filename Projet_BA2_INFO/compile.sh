@@ -4,15 +4,24 @@
 
 if [[ -n "$1" ]]
 then
-    if [[ $1 = "cli" ]] || [[ $1 = "client" ]] || [[ $2 = "cli" ]] || [[ $2 = "client" ]]
+    if [[ $1 != "--hard" ]]
     then
+        if [[ $1 = "cli" ]] || [[ $1 = "client" ]] || [[ $2 = "cli" ]] || [[ $2 = "client" ]]
+        then
+            qmake
+            make
+        fi
+        if [[ $1 = "serv" ]] || [[ $1 = "server" ]] || [[ $2 = "serv" ]] || [[ $2 = "server" ]]
+        then
+            cd Serveur/
+            make -B all 
+            cd ..
+        fi
+    else
         qmake
-        make
-    fi
-    if [[ $1 = "serv" ]] || [[ $1 = "server" ]] || [[ $2 = "serv" ]] || [[ $2 = "server" ]]
-    then
+        make -B all
         cd Serveur/
-        make -B all 
+        make -B all
         cd ..
     fi
 else

@@ -139,9 +139,9 @@ void FenPrincipale::init_menu(){
 }
 
 void FenPrincipale::MenuBar() {
-    _menuReglages = menuBar()->addMenu("&Réglages");
-    QAction *actionLangues = new QAction("&Langues", this);
-    _menuReglages->addAction(actionLangues);
+    //_menuReglages = menuBar()->addMenu("&Réglages");
+    //QAction *actionLangues = new QAction("&Langues", this);
+    //_menuReglages->addAction(actionLangues);
     
 }
 
