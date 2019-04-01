@@ -104,6 +104,9 @@ void Request::listener(){
                 endProcess();
                 this->_client->opponentSurrend();
                 break;
+            case RECVFRIENDGAME: //35
+                this->putGRequest();
+                break;
             default:
 				std::cout << "bad receive in listener: " << protocol << std::endl;
 		        endProcess();
@@ -455,11 +458,10 @@ void Request::gameWithFriends(std::string username, int gameMod){
 }
 
 void Request::putGRequest(){
-    waitForProcess();
     std::string username = recvStr();
     int gameMod = recvInt();
-    this->_client->addGRequest(username, gameMod);
     endProcess();
+    this->_client->addGRequest(username, gameMod);
 }
 
 void Request::exitQueue(){

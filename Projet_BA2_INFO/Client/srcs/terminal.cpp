@@ -1,4 +1,3 @@
-#pragma once
 #ifndef TERMINAL_CPP 
 #define TERMINAL_CPP 
 
@@ -77,6 +76,7 @@ void Terminal::friendsWindow(){
 	std::string username;
 	std::string message;
 	std::string tmpanswer;
+	int nbr;
 	bool answer;
 	while(res != 9){
 		std::cout << "\nQue désirez vous faire?: " << std::endl;
@@ -84,7 +84,7 @@ void Terminal::friendsWindow(){
 		std::cout << "\t2) Lister tous les amis " << std::endl;
 		std::cout << "\t3) Supprimer un ami " << std::endl;
 		std::cout << "\t4) Consulter mes demandes d'amis" << std::endl;
-		std::cout << "\t5) Accepter une demandes d'amis" << std::endl;
+		std::cout << "\t5) Accepter une demande d'amis" << std::endl;
 		std::cout << "\t6) Proposer à un ami de faire une partie " << std::endl;
 		std::cout << "\t7) Chat avec des amis " << std::endl;
 		std::cout << "\t8) Voir les stats d'un joueur " << std::endl;
@@ -119,15 +119,15 @@ void Terminal::friendsWindow(){
 				this->_mut->lock();
 				break;
 			case 5:
-				std::cout<< "\nVeuillez entrer le nom de l'ami pour réponde à sa demande d'amis: ";
+				std::cout<< "\nVeuillez entrer le nom de l'ami pour répondre à sa demande d'amis: ";
 				std::cin >> username;
 				this->myFlush();
 				if(std::find(this->_friendRequest.begin(), this->_friendRequest.end(), username) == this->_friendRequest.end()){
-					std::cout << "\nCette personne ne vous à pas demandé en ami" << std::endl;
+					std::cout << "\nCette personne ne vous a pas demandé en ami" << std::endl;
 					break;
 				}
 					
-				std::cout << "\nAcceptez vous ça demande d'amis(yes, no): ";
+				std::cout << "\nAcceptez vous sa demande d'amis? (yes, no): ";
 				std::cin >> tmpanswer;
 				this->myFlush();
 				if ((tmpanswer == "yes") || (tmpanswer == "Yes") || (tmpanswer == "nope'nt") || (tmpanswer == "y") || (tmpanswer == "Y")){
@@ -145,7 +145,13 @@ void Terminal::friendsWindow(){
 				this->_user->acceptFriend(username, answer);
 				break;
 			case 6:
-				
+				std::cout << std::endl << "Veuillez entrer le nom de la personne: "; //TMP
+				std::cin >> username;
+				this->myFlush();
+				std::cout << std::endl <<  "Veuillez entrer le game mod: ";
+				std::cin >> nbr;
+				this->myFlush();
+				this->_user->sendRequestFriendlyGame(username, nbr); //work in progresse
 				break;
 			case 7:
 				std::cout << "\nPlease enter the name of the user you want to send a message: ";
@@ -434,7 +440,7 @@ void Terminal::recvFriendRequestsList(std::vector<std::string> vec){
 			std::cout << "\t- " << vec[i] << std::endl;
 		}
 	} else {
-		std::cout << "You have no pending requests.. :(" << std::endl;
+		std::cout << std::endl << "You have no pending requests.. :(" << std::endl;
 	}
 	this->_mut->unlock();
 }

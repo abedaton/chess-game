@@ -189,6 +189,8 @@ void Client::sendMessage(std::string name,std::string msg){
 void Client::addFriend(std::string name){
 	if (this->_name != name){
 		this->_server->addFriend(name);
+	} else {
+		this->_interface->feedback(6, "Vous ne pouvez pas vous envoyer une invitation a vous meme");
 	}
 }
 
@@ -296,6 +298,10 @@ void Client::acceptFriendlyGame(std::string username, bool res){
 	}
 }
 
+
+void Client::sendRequestFriendlyGame(std::string username, int gameMod){
+	this->_server->gameWithFriends(username, gameMod);
+}
 
 /*
  * Affiche l'interface graphique

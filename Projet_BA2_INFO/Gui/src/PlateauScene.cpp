@@ -48,39 +48,48 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
         char chr = 65 + i;
         //wsh
 
+void PlateauScene::make_box_line(int begin_x,int y_pos, int sideLenght,int i){
+	
+	int curr_x = begin_x;
+	for (int j = 0; j < this->_size; ++j) {
+		PlateauBox *box = new PlateauBox(curr_x, y_pos, sideLenght);
+		curr_x += sideLenght;
+
+		if ((i + j) % 2 == 0)
+			box->setFirstColor(Qt::white);
+		else
+			box->setFirstColor(Qt::darkGray);
+		
+		box->setPosition(i, j);
+		box->_scene = this;
+		
+		_boxes[i][j] = box;
+		_scene->addItem(box);
+		
+		// setPosText(-50,125, "wsh");
+		// setPosText(-50,125+sideLenght, "wsh");
+		// setPosText(sideLenght/2 - 13 ,50, "wsh");
+		// setPosText(sideLenght/2 - 13 + sideLenght ,50, "wsh");
+		
+	}
+}
+
+void PlateauScene::make_char_lines(int curr_x,int y_pos,int sideLenght){
+
+    for (int i = 0; i < this->_size; ++i) {
+        char chr = 65 + i;//wsh
         std::string str(1,chr);
-        setPosText(textX,50, str);
-        
-        str = std::to_string(_size-i);
-        setPosText(-50,textY, str);
-        
-        textY += sideLenght;
-        textX += sideLenght;
+        setPosText(curr_x,y_pos, str);
 
-
-
-        for (int j = 0; j < _size; ++j) {
-            PlateauBox *box = new PlateauBox(curr_x, curr_y, sideLenght);
-            curr_x += sideLenght;
-
-            if ((i + j) % 2 == 0)
-                box->setFirstColor(Qt::white);
-            else
-                box->setFirstColor(Qt::darkGray);
-            
-            box->setPosition(i, j);
-            box->_scene = this;
-            
-            _boxes[i][j] = box;
-            _scene->addItem(box);
-            
-            
-        }
-        curr_y += sideLenght;
+        curr_x += sideLenght;
     }
-    
-    //setBlack();
-    //setWhite();s
+}
+
+
+void PlateauScene::setPieces(){
+	
+	//setBlack();
+    //setWhite();
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
 		setHigh("W");  //////////////////////////////////////////////////////////probleme
 		setLow("B");  ///////////////////////////////////////////////////////////probleme

@@ -82,6 +82,8 @@ class User: public AbstractUser{
 		void gameWithFriends();
 		void exitQueue();
 		void feedback(int info, std::string message);
+		void challegeForGame();
+		void acceptChallege();
 		
 };
 
