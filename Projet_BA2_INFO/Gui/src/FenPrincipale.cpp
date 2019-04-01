@@ -447,15 +447,19 @@ void FenPrincipale::recvFriendRequestsList(std::vector<std::string> friendReques
     _friendList->setFriendRequestsList(friendRequestsList);
 }
 
-void FenPrincipale::recvInfo(std::string username, int nbrgames, int win, int elo)
+void FenPrincipale::recvInfo(std::string username, int nbgrames, int win, int elo)
 {
-    std::cout << "recFInfo was called " << std::endl;
+    //std::cout << "recvInfo params user:" << username << "  " << nbgrames << "  " << win << std::endl;
+    _statWindow->setUserInfo(username, nbgrames, win, elo);
+
 }
 
 void FenPrincipale::feedback(int info, std::string message)
 {
-    std::cout << "FenPrincipale::feedback: " << info << "  "<< message << std::endl;
-    //if(message == "")
+    if(message.find("No user named") != std::string::npos) //si le message est "No user named"
+    {
+        _statWindow->setUserInfo("None", 0, 0, 0);
+    }
 }
 
 void FenPrincipale::recvMessage(std::string name, std::string message){
