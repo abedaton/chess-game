@@ -33,39 +33,40 @@ void PlateauBox::setPosition(int x, int y) {
 
 void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent* event) {
 	
-	(void)event;
+	//(void)event;
 	
     // std::cout << _pos.first() << "," << _pos.second() << std::endl;
     //setColor(Qt::red);
     //std::cout << _color.rgb() << std::endl;
-    if(_piece != nullptr && (_brush != Qt::red && _brush != Qt::green)){
-        std::cout << "wsh ya une piece" << std::endl;
-        std::cout << "PRINT PATH " << _piece->get_common_path() << std::endl;
-        _scene->resetAllColors();
+    // if(_piece != nullptr && (_brush != Qt::red && _brush != Qt::green)){
+    //     std::cout << "wsh ya une piece" << std::endl;
+    //     std::cout << "PRINT PATH " << _piece->get_common_path() << std::endl;
+    //     _scene->resetAllColors();
 
-        //_scene->showMoves(moves,cap);
-        //_scene->setPriorityBox(this);
-    }
+    //     //_scene->showMoves(moves,cap);
+    //     //_scene->setPriorityBox(this);
+    // }
 
-    else if(_brush.color() == Qt::red && _piece == nullptr){
+    // else if(_brush.color() == Qt::red && _piece == nullptr){
 
-        //movePiece(_scene->getPriorityBox());
-        //std::cout << "FINAL : " << _piece << std::endl;
+    //     //movePiece(_scene->getPriorityBox());
+    //     //std::cout << "FINAL : " << _piece << std::endl;
 
-    }
-    else if(_brush.color() == Qt::green && _piece != nullptr){
-        //delete _piece;
-        //movePiece(_scene->getPriorityBox());
+    // }
+    // else if(_brush.color() == Qt::green && _piece != nullptr){
+    //     delete _piece;
+    //     //movePiece(_scene->getPriorityBox());
      
 
-    }
+    // }
 
-    else{
-        _scene->resetAllColors();
-        std::cout << "oupsi pas de piece" << std::endl;
-    }
+    // else{
+    //     _scene->resetAllColors();
+    //     std::cout << "oupsi pas de piece" << std::endl;
+    // }
 
     
+    _scene->resetAllColors();
 
     std::string numer = std::to_string(_plateauSize - std::get<0>(_pos));
     char letter = 65 + std::get<1>(_pos);
@@ -98,11 +99,21 @@ ChessItem* PlateauBox::getPiece() const{
     return _piece;
 }
 
+std::pair<int,int> PlateauBox::getPosition(){
+    return _pos;
+}
+
 void PlateauBox::movePiece(PlateauBox* box){
+    //scene->update();
+
     setPiece(box->getPiece());
     box->setPiece(nullptr);
     _scene->resetAllColors();
+
+    //box->getPiece()->setPixmapAgain();
+
 }
+
 /*
 AbstractClient* PlateauBox::getClient() const{
     return _scene->getClient();

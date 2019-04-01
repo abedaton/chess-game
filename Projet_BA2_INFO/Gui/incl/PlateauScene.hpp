@@ -28,6 +28,8 @@ class PlateauScene : public QGraphicsView {
     void setPriorityBox(PlateauBox* box);
     void resetAllColors();
     //wsh
+    void movPiece(PlateauBox* box1, PlateauBox* box2);
+
     void addPiece(std::string pieceType,std::string suffix, int x, int y);
     void addFog(int x, int y);
     void removeFog(int x, int y);
