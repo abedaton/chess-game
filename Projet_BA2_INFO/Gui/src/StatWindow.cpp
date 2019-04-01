@@ -5,6 +5,14 @@ StatWindow::StatWindow(AbstractClient* client): _client(client){
     init_layout();
 }
 
+void StatWindow::setUserInfo(std::string name, int nbrGame, int statWin, int statElo)
+{
+    _clientStateName =  name;
+    _statNbrGames = nbrGame;
+    _statWin = statWin;
+    _statElo = statElo;
+}
+
 void StatWindow::init_window(){
     _search = new QLineEdit;
     _search->setPlaceholderText(QString("Search player..."));
@@ -28,14 +36,17 @@ void StatWindow::init_layout(){
 }
 
 void StatWindow::showPlayerStats(){
-    if (_search->text().isEmpty()){
+    /*if (_search->text().isEmpty()){
         //Check dans la data base les stats du joueur connecté
         //getUserInfo();
     } else {
         //_lineEdit->text() et on cherche dans la database
         //getUserInfo(_lineEdit->text().toStdString())
         //et après on show les 6 stats avec les 3 recu
-    }
+    }*/
+
+    _textEdit->setText("Name: " + _search->text());
+    _textEdit->append("Wins: "); //+_statNbrGames
 }
 
 void StatWindow::keyPressEvent(QKeyEvent *event) {
@@ -43,12 +54,16 @@ void StatWindow::keyPressEvent(QKeyEvent *event) {
         std::cout << _search->text().toStdString() << std::endl;
         emit enterPressed();
         
-          QString tmp = "Name: " + _search->text();
-        _textEdit->setText(tmp);
-        _textEdit->append("Wins: ");
+        //_textEdit->
+        //std::string tmp - ""
+        
+      
+       
+        
         _client->getUserInfo(_search->text().toStdString()); 
-       
-       
+        showPlayerStats();
+        //todo timeout
+        //while() on att 0.5  sec ici pour la reponse
     }
 }
 
