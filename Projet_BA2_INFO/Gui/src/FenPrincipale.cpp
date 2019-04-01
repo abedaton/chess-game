@@ -459,7 +459,7 @@ void FenPrincipale::feedback(int info, std::string message)
 }
 
 void FenPrincipale::recvMessage(std::string name, std::string message){
-    this->moveToThread(_thread);
+    //this->moveToThread(_thread);
     std::cout << message << std::endl;
     _chat->setFriendName(QString::fromStdString(name));
     _chat->getTextEdit()->insertPlainText(QString::fromStdString(message+"\n"));
