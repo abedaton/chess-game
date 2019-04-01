@@ -40,6 +40,7 @@ void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     //std::cout << _color.rgb() << std::endl;
     if(_piece != nullptr && (_brush != Qt::red && _brush != Qt::green)){
         std::cout << "wsh ya une piece" << std::endl;
+        _scene->resetAllColors();
 
 
         //_scene->showMoves(moves,cap);
@@ -60,6 +61,7 @@ void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     }
 
     else{
+        _scene->resetAllColors();
         std::cout << "oupsi pas de piece" << std::endl;
     }
 
