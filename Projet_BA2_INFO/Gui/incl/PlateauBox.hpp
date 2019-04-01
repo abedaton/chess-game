@@ -26,7 +26,7 @@ class PlateauBox : public QGraphicsRectItem {
     void setFog(ChessItem* fog);
     void removeFog();
 
-    //AbstractClient* getClient() const;
+    std::pair<int,int> getPosition();
 
     void sendPosition(std::string pos);
 

@@ -44,10 +44,6 @@ QString Chat::getFriendName(){
 }
 
 void Chat::setFriendName(QString name){
-    //_textEdit->clear();
     _friendName = name;
-    _textEdit->insertPlainText("you are chatting with ");
-    _textEdit->insertPlainText(_friendName);
-    _textEdit->insertPlainText("\n");
 }
 #endif
