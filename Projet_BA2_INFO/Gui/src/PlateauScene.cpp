@@ -120,8 +120,8 @@ void PlateauScene::updateMov(std::vector<std::pair<int,int> > pos){
     PlateauBox* box2 =  _boxes[_size - 1 - pos[1].second][pos[1].first];
     std::cout << "SALUT NIKITA" << std::endl;
     //if(box1->getPiece() != nullptr){
-        box2->movePiece(box1);
-        std::cout << "SALUT MATIAS" << std::endl;
+    box2->movePiece(box1);
+    std::cout << "SALUT MATIAS" << std::endl;
     
 }
 
