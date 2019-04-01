@@ -112,8 +112,8 @@ void FenPrincipale::init_dock() {
     addDockWidget(Qt::LeftDockWidgetArea, _dockPublicity);
     _dockPublicity->setFloating(true);
     _dockPublicity->setAllowedAreas(Qt::NoDockWidgetArea);
-    // _dockPublicity->setSizePolicy(QSizePolicy::Fixed);
-    _dockPublicity->setFeatures(QDockWidget::NoDockWidgetFeatures);
+    //_dockPublicity->setSizePolicy(QSizePolicy::Fixed);
+    //_dockPublicity->setFeatures(QDockWidget::NoDockWidgetFeatures);
 
     _dockChat->hide();
     //_dockTimer->hide();
