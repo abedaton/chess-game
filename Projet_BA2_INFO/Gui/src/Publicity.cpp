@@ -21,7 +21,7 @@ void Publicity::init()
 	
 	connect(_timer, SIGNAL(timeout()), this, SLOT(setPubToRandomImage()));
 	//_timer->start(2*60*1000); 
-	_timer->start(30*1000); 
+	_timer->start(10*1000); 
 }
 
 void Publicity::setPubToRandomImage()
@@ -37,7 +37,7 @@ void Publicity::setPubToRandomImage()
 	  
 	    if (!pub_image.isNull()) 
 	    {
-	    	_pub_label->setPixmap(pub_image.scaled(600, 222));
+	    	_pub_label->setPixmap(pub_image);
 	    }
 	}
 }

@@ -109,9 +109,11 @@ void FenPrincipale::init_dock() {
     _publicity = new Publicity(this);
     _dockPublicity = new QDockWidget(this);
     _dockPublicity->setWidget(_publicity);
-    addDockWidget(Qt::BottomDockWidgetArea, _dockPublicity);
+    addDockWidget(Qt::LeftDockWidgetArea, _dockPublicity);
     _dockPublicity->setFloating(true);
     _dockPublicity->setAllowedAreas(Qt::NoDockWidgetArea);
+    // _dockPublicity->setSizePolicy(QSizePolicy::Fixed);
+    _dockPublicity->setFeatures(QDockWidget::NoDockWidgetFeatures);
 
     _dockChat->hide();
     //_dockTimer->hide();
@@ -349,6 +351,7 @@ void FenPrincipale::movPossibleUpdate(std::vector<std::pair<int,int> >* listMov)
 }
 
 void FenPrincipale::showFriendList(){
+    _dockPublicity->show();
     _client->getFriendList();
     _client->getFriendRequests();
     _dockFriendList->show();
