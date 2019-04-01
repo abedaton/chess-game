@@ -35,18 +35,6 @@ PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPri
 void PlateauScene::setBoxesThread(){
     setBoxes(0, 100, 520/_size);
 }
-void PlateauScene::setBoxes(int x, int y, int sideLenght) {
-    int curr_x, curr_y = y;
-    int textX = sideLenght/2 - 13, textY = 125;
-    
-    _boxes.resize(_size);
-    
-    for (int i = 0; i < _size; ++i) {
-        _boxes[i].resize(_size); 
-        curr_x = x;
-        
-        char chr = 65 + i;
-        //wsh
 
 void PlateauScene::make_box_line(int begin_x,int y_pos, int sideLenght,int i){
 	
@@ -96,14 +84,47 @@ void PlateauScene::setPieces(){
         //addPiece("fog","", 7,1);
         //addFog(7,1);
         //removeFog(7,1);
-
-
 	}
 	else if (this->get_game_type() == "trappist") {
 		setHighTrappist("W");
 		setLowTrappist("B");
 	}
 	else{throw std::invalid_argument("mode de jeu inconnu");}
+
+}
+
+void PlateauScene::setBoxes(int x, int y, int sideLenght) {
+    int curr_x = x, curr_y = y;
+
+    int char_height = 10;
+    int char_widht = 10;
+    
+    int char_hor_spacing = (sideLenght/2 - char_widht/2);
+    int char_ver_spacing = (sideLenght/2 - char_height/2);
+    
+    int plat_size = sideLenght*this->_size;
+    
+    _boxes.resize(_size);
+    
+    this->make_char_lines((curr_x+char_hor_spacing),y - sideLenght,sideLenght); // !!! bizzarie y-char_ver_spacing ne suffit pas (y bizarre) // - char_ver_spacing
+    
+    std::string str;
+    for (int i = 0; i < this->_size; ++i) {
+        _boxes[i].resize(this->_size);
+
+        str = std::to_string(this->_size-i);
+        setPosText(curr_x-sideLenght, curr_y+char_ver_spacing, str); //curr_x-char_hor_spacing ne suffit pas ???
+        
+		this->make_box_line(curr_x,curr_y,sideLenght,i);
+		
+		setPosText(curr_x + plat_size + char_hor_spacing,curr_y+char_ver_spacing, str);
+		
+        curr_y += sideLenght;
+    }
+	
+	this->make_char_lines((curr_x+char_hor_spacing),(y + plat_size + char_ver_spacing),sideLenght);
+    
+    this->setPieces();
 }
 
 void PlateauScene::setPosText(int x, int y, std::string pos){
