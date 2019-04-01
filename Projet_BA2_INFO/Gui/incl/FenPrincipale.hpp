@@ -116,6 +116,8 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
 
     MatchmakingDialog* _mdial;
 
+    
+
 
 };
 

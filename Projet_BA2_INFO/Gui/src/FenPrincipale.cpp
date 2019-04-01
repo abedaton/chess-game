@@ -3,6 +3,8 @@
 #define FENPRINCIPALE_CPP
 
 #include "FenPrincipale.hpp"
+#include <thread>
+#include <chrono>
 
 // TODO link list d'amis
 // TODO link chat
@@ -63,6 +65,7 @@ void FenPrincipale::init_stack() {
 }
 
 void FenPrincipale::init_connect() {
+    qRegisterMetaType< QVector<int> >("QVector<int>");
     connect(_login->getSI(), SIGNAL(clicked()), this, SLOT(checkSignIn()));
     connect(_login, SIGNAL(enterPressed()), this, SLOT(checkSignIn()));
     connect(_login->getRegister(), SIGNAL(clicked()), this, SLOT(goToRegister()));
@@ -307,6 +310,7 @@ void FenPrincipale::gameStart(std::string opponent){
 }
 
 void FenPrincipale::showFriendList(){
+    QApplication::processEvents();
     _client->getFriendList();
     _client->getFriendRequests();
     _dockFriendList->show();
