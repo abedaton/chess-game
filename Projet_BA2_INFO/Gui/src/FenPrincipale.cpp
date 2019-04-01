@@ -35,7 +35,7 @@ FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
 
 void FenPrincipale::init_window() {
     setWindowTitle("On Veut Pas D'Échec");
-    setWindowIcon(QIcon("./Gui/img/logo_complTimer_v1.png"));
+    setWindowIcon(QIcon("./Gui/img/logo_compl_v1.png"));
     // setStyleSheet("background-image:url(img/retro_space.png)");
     resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
     _statusBar = new QStatusBar(this);
@@ -459,10 +459,10 @@ void FenPrincipale::feedback(int info, std::string message)
 }
 
 void FenPrincipale::recvMessage(std::string name, std::string message){
-    //this->moveToThread(_thread);
-    //std::cout << message << std::endl;
+    this->moveToThread(_thread);
+    std::cout << message << std::endl;
     _chat->setFriendName(QString::fromStdString(name));
     _chat->getTextEdit()->insertPlainText(QString::fromStdString(message+"\n"));
-    //_dockChat->show();
+    _dockChat->show();
 }
 #endif

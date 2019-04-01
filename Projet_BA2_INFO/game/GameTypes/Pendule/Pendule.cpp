@@ -7,6 +7,7 @@
 
 //--------------------Pendule----------------------------------------------------------------------------------------------------
 
+
 Pendule::Pendule(BaseChess* jeu) : BaseGameType(jeu), _timer(new Pendulum(10)) {_timer->run();} //*< Constructor
 
 std::pair<bool,std::string> Pendule::execute_step(){
