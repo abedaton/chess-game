@@ -21,8 +21,7 @@ class GameWindow : public QWidget {
     private:
     void init_widget();
     void init_layout();
-
-    QPushButton *_launchGame;
+    
     QComboBox *_comboBoxMode;
     QPushButton *_classicButton;
     QPushButton *_darkButton;

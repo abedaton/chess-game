@@ -13,7 +13,6 @@ void GameWindow::init_widget() {
     _trapistButton = new QPushButton("Trapist Chess", this);
     _antiButton = new QPushButton("Anti Chess", this);
     _exitButton = new QPushButton("Exit", this);
-    _launchGame = new QPushButton("Launch", this);
     _comboBoxMode = new QComboBox(this);
     _comboBoxMode->addItem("Classic");
     _comboBoxMode->addItem("Pendulum");
