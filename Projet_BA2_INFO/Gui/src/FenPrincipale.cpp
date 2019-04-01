@@ -87,7 +87,6 @@ void FenPrincipale::init_connect() {
     connect(_statWindow->getExitButton(), SIGNAL(clicked()), this, SLOT(goToMenu()));
     connect(_menuFriendList, SIGNAL(triggered(QAction *)), this, SLOT(getMenuFriendListAction(QAction *)));
     connect(_friendList->getTabWidget(), SIGNAL(currentChanged(int)), this, SLOT(showFriendList()));
-
 }
 
 void FenPrincipale::init_dock() {
@@ -293,7 +292,7 @@ void FenPrincipale::sendMessage() {
         std::cout<<"message user : "<< _chat->getFriendName().toStdString()<< std::endl;
         std::cout<<"message : "<< _chat->getLineEdit()->text().toStdString() << std::endl;
         _client->sendMessage(_chat->getFriendName().toStdString(), _chat->getLineEdit()->text().toStdString());
-        _chat->getTextEdit()->insertPlainText(_chat->getLineEdit()->text()+"\n");
+        _chat->getTextEdit()->insertPlainText("you -> "+_chat->getLineEdit()->text()+"\n");
         _chat->getLineEdit()->clear();
         _chat->getLineEdit()->setFocus();
     }
@@ -357,6 +356,9 @@ void FenPrincipale::showFriendList(){
 
 void FenPrincipale::showChat(){
     _chat->setFriendName(_friendList->getSelectFriend());
+    _chat->getTextEdit()->insertPlainText("you are chatting with "+_chat->getFriendName()+"\n");
+    // _chat->getTextEdit()->insertPlainText(_friendName);
+    // _chat->getTextEdit()->insertPlainText("\n");
     _dockChat->show();
 }
 
@@ -465,7 +467,7 @@ void FenPrincipale::feedback(int info, std::string message)
 void FenPrincipale::recvMessage(std::string name, std::string message){
     std::cout << message << std::endl;
     _chat->setFriendName(QString::fromStdString(name));
-    _chat->getTextEdit()->insertPlainText(QString::fromStdString(message+"\n"));
+    _chat->getTextEdit()->insertPlainText(QString::fromStdString(name+" -> "+message+"\n"));
     _dockChat->show();
 }
 #endif
