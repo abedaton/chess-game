@@ -18,6 +18,7 @@ then
             cd ..
         fi
     else
+        rm Gui/bin/*.o
         qmake
         make -B all
         cd Serveur/

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_FenPrincipale_t {
-    QByteArrayData data[44];
-    char stringdata0[550];
+    QByteArrayData data[45];
+    char stringdata0[556];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,48 +41,49 @@ QT_MOC_LITERAL(6, 64, 8), // "goToGame"
 QT_MOC_LITERAL(7, 73, 11), // "goToClassic"
 QT_MOC_LITERAL(8, 85, 12), // "goToTrappist"
 QT_MOC_LITERAL(9, 98, 8), // "goToMenu"
-QT_MOC_LITERAL(10, 107, 8), // "goToStat"
-QT_MOC_LITERAL(11, 116, 15), // "goToMatchmaking"
-QT_MOC_LITERAL(12, 132, 11), // "sendMessage"
-QT_MOC_LITERAL(13, 144, 8), // "showChat"
-QT_MOC_LITERAL(14, 153, 14), // "showFriendList"
-QT_MOC_LITERAL(15, 168, 8), // "setTheme"
-QT_MOC_LITERAL(16, 177, 11), // "std::string"
-QT_MOC_LITERAL(17, 189, 4), // "pool"
-QT_MOC_LITERAL(18, 194, 9), // "addFriend"
-QT_MOC_LITERAL(19, 204, 12), // "removeFriend"
-QT_MOC_LITERAL(20, 217, 17), // "getFriendListItem"
-QT_MOC_LITERAL(21, 235, 16), // "QListWidgetItem*"
-QT_MOC_LITERAL(22, 252, 4), // "item"
-QT_MOC_LITERAL(23, 257, 24), // "getFriendRequestListItem"
-QT_MOC_LITERAL(24, 282, 23), // "getMenuFriendListAction"
-QT_MOC_LITERAL(25, 306, 8), // "QAction*"
-QT_MOC_LITERAL(26, 315, 6), // "action"
-QT_MOC_LITERAL(27, 322, 12), // "acceptFriend"
-QT_MOC_LITERAL(28, 335, 12), // "refuseFriend"
-QT_MOC_LITERAL(29, 348, 17), // "cancelMatchmaking"
-QT_MOC_LITERAL(30, 366, 7), // "getTest"
-QT_MOC_LITERAL(31, 374, 15), // "AbstractClient*"
-QT_MOC_LITERAL(32, 390, 18), // "getWichMatchmaking"
-QT_MOC_LITERAL(33, 409, 8), // "variante"
-QT_MOC_LITERAL(34, 418, 13), // "setFriendMenu"
-QT_MOC_LITERAL(35, 432, 12), // "setThemeMenu"
-QT_MOC_LITERAL(36, 445, 8), // "setPool0"
-QT_MOC_LITERAL(37, 454, 8), // "setPool1"
-QT_MOC_LITERAL(38, 463, 8), // "setPool2"
-QT_MOC_LITERAL(39, 472, 8), // "setPool3"
-QT_MOC_LITERAL(40, 481, 8), // "setPool4"
-QT_MOC_LITERAL(41, 490, 17), // "movPossibleUpdate"
-QT_MOC_LITERAL(42, 508, 33), // "std::vector<std::pair<int,int..."
-QT_MOC_LITERAL(43, 542, 7) // "listMov"
+QT_MOC_LITERAL(10, 107, 11), // "std::string"
+QT_MOC_LITERAL(11, 119, 5), // "first"
+QT_MOC_LITERAL(12, 125, 8), // "goToStat"
+QT_MOC_LITERAL(13, 134, 15), // "goToMatchmaking"
+QT_MOC_LITERAL(14, 150, 11), // "sendMessage"
+QT_MOC_LITERAL(15, 162, 8), // "showChat"
+QT_MOC_LITERAL(16, 171, 14), // "showFriendList"
+QT_MOC_LITERAL(17, 186, 8), // "setTheme"
+QT_MOC_LITERAL(18, 195, 4), // "pool"
+QT_MOC_LITERAL(19, 200, 9), // "addFriend"
+QT_MOC_LITERAL(20, 210, 12), // "removeFriend"
+QT_MOC_LITERAL(21, 223, 17), // "getFriendListItem"
+QT_MOC_LITERAL(22, 241, 16), // "QListWidgetItem*"
+QT_MOC_LITERAL(23, 258, 4), // "item"
+QT_MOC_LITERAL(24, 263, 24), // "getFriendRequestListItem"
+QT_MOC_LITERAL(25, 288, 23), // "getMenuFriendListAction"
+QT_MOC_LITERAL(26, 312, 8), // "QAction*"
+QT_MOC_LITERAL(27, 321, 6), // "action"
+QT_MOC_LITERAL(28, 328, 12), // "acceptFriend"
+QT_MOC_LITERAL(29, 341, 12), // "refuseFriend"
+QT_MOC_LITERAL(30, 354, 17), // "cancelMatchmaking"
+QT_MOC_LITERAL(31, 372, 7), // "getTest"
+QT_MOC_LITERAL(32, 380, 15), // "AbstractClient*"
+QT_MOC_LITERAL(33, 396, 18), // "getWichMatchmaking"
+QT_MOC_LITERAL(34, 415, 8), // "variante"
+QT_MOC_LITERAL(35, 424, 13), // "setFriendMenu"
+QT_MOC_LITERAL(36, 438, 12), // "setThemeMenu"
+QT_MOC_LITERAL(37, 451, 8), // "setPool0"
+QT_MOC_LITERAL(38, 460, 8), // "setPool1"
+QT_MOC_LITERAL(39, 469, 8), // "setPool2"
+QT_MOC_LITERAL(40, 478, 8), // "setPool3"
+QT_MOC_LITERAL(41, 487, 8), // "setPool4"
+QT_MOC_LITERAL(42, 496, 17), // "movPossibleUpdate"
+QT_MOC_LITERAL(43, 514, 33), // "std::vector<std::pair<int,int..."
+QT_MOC_LITERAL(44, 548, 7) // "listMov"
 
     },
     "FenPrincipale\0checkSignIn\0\0checkRegister\0"
     "goToRegister\0goToLogIn\0goToGame\0"
     "goToClassic\0goToTrappist\0goToMenu\0"
-    "goToStat\0goToMatchmaking\0sendMessage\0"
-    "showChat\0showFriendList\0setTheme\0"
-    "std::string\0pool\0addFriend\0removeFriend\0"
+    "std::string\0first\0goToStat\0goToMatchmaking\0"
+    "sendMessage\0showChat\0showFriendList\0"
+    "setTheme\0pool\0addFriend\0removeFriend\0"
     "getFriendListItem\0QListWidgetItem*\0"
     "item\0getFriendRequestListItem\0"
     "getMenuFriendListAction\0QAction*\0"
@@ -102,7 +103,7 @@ static const uint qt_meta_data_FenPrincipale[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      32,   14, // methods
+      33,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -110,38 +111,39 @@ static const uint qt_meta_data_FenPrincipale[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  174,    2, 0x0a /* Public */,
-       3,    0,  175,    2, 0x0a /* Public */,
-       4,    0,  176,    2, 0x0a /* Public */,
-       5,    0,  177,    2, 0x0a /* Public */,
-       6,    0,  178,    2, 0x0a /* Public */,
-       7,    0,  179,    2, 0x0a /* Public */,
-       8,    0,  180,    2, 0x0a /* Public */,
-       9,    0,  181,    2, 0x0a /* Public */,
-      10,    0,  182,    2, 0x0a /* Public */,
-      11,    0,  183,    2, 0x0a /* Public */,
-      12,    0,  184,    2, 0x0a /* Public */,
-      13,    0,  185,    2, 0x0a /* Public */,
-      14,    0,  186,    2, 0x0a /* Public */,
-      15,    1,  187,    2, 0x0a /* Public */,
-      18,    0,  190,    2, 0x0a /* Public */,
-      19,    0,  191,    2, 0x0a /* Public */,
-      20,    1,  192,    2, 0x0a /* Public */,
-      23,    1,  195,    2, 0x0a /* Public */,
-      24,    1,  198,    2, 0x0a /* Public */,
-      27,    0,  201,    2, 0x0a /* Public */,
-      28,    0,  202,    2, 0x0a /* Public */,
-      29,    0,  203,    2, 0x0a /* Public */,
-      30,    0,  204,    2, 0x0a /* Public */,
-      32,    1,  205,    2, 0x0a /* Public */,
-      34,    0,  208,    2, 0x0a /* Public */,
-      35,    0,  209,    2, 0x0a /* Public */,
-      36,    0,  210,    2, 0x0a /* Public */,
-      37,    0,  211,    2, 0x0a /* Public */,
-      38,    0,  212,    2, 0x0a /* Public */,
-      39,    0,  213,    2, 0x0a /* Public */,
-      40,    0,  214,    2, 0x0a /* Public */,
-      41,    1,  215,    2, 0x0a /* Public */,
+       1,    0,  179,    2, 0x0a /* Public */,
+       3,    0,  180,    2, 0x0a /* Public */,
+       4,    0,  181,    2, 0x0a /* Public */,
+       5,    0,  182,    2, 0x0a /* Public */,
+       6,    0,  183,    2, 0x0a /* Public */,
+       7,    0,  184,    2, 0x0a /* Public */,
+       8,    0,  185,    2, 0x0a /* Public */,
+       9,    1,  186,    2, 0x0a /* Public */,
+       9,    0,  189,    2, 0x2a /* Public | MethodCloned */,
+      12,    0,  190,    2, 0x0a /* Public */,
+      13,    0,  191,    2, 0x0a /* Public */,
+      14,    0,  192,    2, 0x0a /* Public */,
+      15,    0,  193,    2, 0x0a /* Public */,
+      16,    0,  194,    2, 0x0a /* Public */,
+      17,    1,  195,    2, 0x0a /* Public */,
+      19,    0,  198,    2, 0x0a /* Public */,
+      20,    0,  199,    2, 0x0a /* Public */,
+      21,    1,  200,    2, 0x0a /* Public */,
+      24,    1,  203,    2, 0x0a /* Public */,
+      25,    1,  206,    2, 0x0a /* Public */,
+      28,    0,  209,    2, 0x0a /* Public */,
+      29,    0,  210,    2, 0x0a /* Public */,
+      30,    0,  211,    2, 0x0a /* Public */,
+      31,    0,  212,    2, 0x0a /* Public */,
+      33,    1,  213,    2, 0x0a /* Public */,
+      35,    0,  216,    2, 0x0a /* Public */,
+      36,    0,  217,    2, 0x0a /* Public */,
+      37,    0,  218,    2, 0x0a /* Public */,
+      38,    0,  219,    2, 0x0a /* Public */,
+      39,    0,  220,    2, 0x0a /* Public */,
+      40,    0,  221,    2, 0x0a /* Public */,
+      41,    0,  222,    2, 0x0a /* Public */,
+      42,    1,  223,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -151,31 +153,32 @@ static const uint qt_meta_data_FenPrincipale[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 10,   11,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 16,   17,
+    QMetaType::Void, 0x80000000 | 10,   18,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 21,   22,
-    QMetaType::Void, 0x80000000 | 21,   22,
-    QMetaType::Void, 0x80000000 | 25,   26,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    0x80000000 | 31,
-    QMetaType::Int, 0x80000000 | 16,   33,
+    QMetaType::Void, 0x80000000 | 22,   23,
+    QMetaType::Void, 0x80000000 | 22,   23,
+    QMetaType::Void, 0x80000000 | 26,   27,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    0x80000000 | 32,
+    QMetaType::Int, 0x80000000 | 10,   34,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 42,   43,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 43,   44,
 
        0        // eod
 };
@@ -193,39 +196,40 @@ void FenPrincipale::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 4: _t->goToGame(); break;
         case 5: _t->goToClassic(); break;
         case 6: _t->goToTrappist(); break;
-        case 7: _t->goToMenu(); break;
-        case 8: _t->goToStat(); break;
-        case 9: _t->goToMatchmaking(); break;
-        case 10: _t->sendMessage(); break;
-        case 11: _t->showChat(); break;
-        case 12: _t->showFriendList(); break;
-        case 13: _t->setTheme((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 14: _t->addFriend(); break;
-        case 15: _t->removeFriend(); break;
-        case 16: _t->getFriendListItem((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 17: _t->getFriendRequestListItem((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 18: _t->getMenuFriendListAction((*reinterpret_cast< QAction*(*)>(_a[1]))); break;
-        case 19: _t->acceptFriend(); break;
-        case 20: _t->refuseFriend(); break;
-        case 21: _t->cancelMatchmaking(); break;
-        case 22: { AbstractClient* _r = _t->getTest();
+        case 7: _t->goToMenu((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 8: _t->goToMenu(); break;
+        case 9: _t->goToStat(); break;
+        case 10: _t->goToMatchmaking(); break;
+        case 11: _t->sendMessage(); break;
+        case 12: _t->showChat(); break;
+        case 13: _t->showFriendList(); break;
+        case 14: _t->setTheme((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 15: _t->addFriend(); break;
+        case 16: _t->removeFriend(); break;
+        case 17: _t->getFriendListItem((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 18: _t->getFriendRequestListItem((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 19: _t->getMenuFriendListAction((*reinterpret_cast< QAction*(*)>(_a[1]))); break;
+        case 20: _t->acceptFriend(); break;
+        case 21: _t->refuseFriend(); break;
+        case 22: _t->cancelMatchmaking(); break;
+        case 23: { AbstractClient* _r = _t->getTest();
             if (_a[0]) *reinterpret_cast< AbstractClient**>(_a[0]) = std::move(_r); }  break;
-        case 23: { int _r = _t->getWichMatchmaking((*reinterpret_cast< std::string(*)>(_a[1])));
+        case 24: { int _r = _t->getWichMatchmaking((*reinterpret_cast< std::string(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
-        case 24: _t->setFriendMenu(); break;
-        case 25: _t->setThemeMenu(); break;
-        case 26: _t->setPool0(); break;
-        case 27: _t->setPool1(); break;
-        case 28: _t->setPool2(); break;
-        case 29: _t->setPool3(); break;
-        case 30: _t->setPool4(); break;
-        case 31: _t->movPossibleUpdate((*reinterpret_cast< std::vector<std::pair<int,int> >*(*)>(_a[1]))); break;
+        case 25: _t->setFriendMenu(); break;
+        case 26: _t->setThemeMenu(); break;
+        case 27: _t->setPool0(); break;
+        case 28: _t->setPool1(); break;
+        case 29: _t->setPool2(); break;
+        case 30: _t->setPool3(); break;
+        case 31: _t->setPool4(); break;
+        case 32: _t->movPossibleUpdate((*reinterpret_cast< std::vector<std::pair<int,int> >*(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 18:
+        case 19:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
@@ -263,13 +267,13 @@ int FenPrincipale::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 32)
+        if (_id < 33)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 32;
+        _id -= 33;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 32)
+        if (_id < 33)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 32;
+        _id -= 33;
     }
     return _id;
 }

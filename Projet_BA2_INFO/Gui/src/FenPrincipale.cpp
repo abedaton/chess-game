@@ -156,7 +156,7 @@ void FenPrincipale::checkSignIn() {
      */
 
     if (_client->login(nom,mdp)) {
-        goToMenu();
+        goToMenu("true");
         //_statusBar->showMessage("Welcome " + nom + " !", 5000);
 
     } else {
@@ -181,7 +181,7 @@ void FenPrincipale::checkRegister() {
     } else {
         
         if(_client->letsRegister(text[0], text[2], text[3], text[1])){ //email = text[1]
-            goToMenu();
+            goToMenu("true");
             _statusBar->showMessage("Welcome new user !", 5000);
         }
     }
@@ -283,9 +283,11 @@ void FenPrincipale::goToTrappist(){
 
     //_client->waitForMatch(gamemode);
 }
-void FenPrincipale::goToMenu() {
-    setFriendMenu();
-    setThemeMenu();
+void FenPrincipale::goToMenu(std::string first) {
+    if(first == "true"){
+        setFriendMenu();
+        setThemeMenu();
+    }
     _stack->setCurrentWidget(_menu);
 }
 

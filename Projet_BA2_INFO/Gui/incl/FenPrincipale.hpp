@@ -39,7 +39,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void goToGame();
     void goToClassic();
     void goToTrappist();
-    void goToMenu();
+    void goToMenu(std::string first = "false");
     void goToStat();
     void goToMatchmaking();
     void sendMessage();
