@@ -35,7 +35,7 @@ FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
 
 void FenPrincipale::init_window() {
     setWindowTitle("On Veut Pas D'Échec");
-    setWindowIcon(QIcon("./Gui/img/logo_complTimer_v1.png"));
+    setWindowIcon(QIcon("./Gui/img/logo_compl_v1.png"));
     // setStyleSheet("background-image:url(img/retro_space.png)");
     resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
     _statusBar = new QStatusBar(this);
@@ -451,20 +451,26 @@ void FenPrincipale::recvFriendRequestsList(std::vector<std::string> friendReques
     _friendList->setFriendRequestsList(friendRequestsList);
 }
 
-void FenPrincipale::recvInfo(std::string username, int nbrgames, int win, int elo)
+void FenPrincipale::recvInfo(std::string username, int nbgrames, int win, int elo)
 {
-    std::cout << "recFInfo was called " << std::endl;
+    //std::cout << "recvInfo params user:" << username << "  " << nbgrames << "  " << win << std::endl;
+    _statWindow->setUserInfo(username, nbgrames, win, elo);
+
 }
 
 void FenPrincipale::feedback(int info, std::string message)
 {
-    std::cout << "FenPrincipale::feedback: " << info << "  "<< message << std::endl;
-    //if(message == "")
+    if(message.find("No user named") != std::string::npos) //si le message est "No user named"
+    {
+        _statWindow->setUserInfo("None", 0, 0, 0);
+    }
 }
 
 void FenPrincipale::recvMessage(std::string name, std::string message){
+    //this->moveToThread(_thread);
+    std::cout << message << std::endl;
     _chat->setFriendName(QString::fromStdString(name));
     _chat->getTextEdit()->insertPlainText(QString::fromStdString(message+"\n"));
-    showChat();
+    _dockChat->show();
 }
 #endif

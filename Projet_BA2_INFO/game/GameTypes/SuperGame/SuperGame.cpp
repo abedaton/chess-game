@@ -125,7 +125,6 @@
 //}
 
 SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn, Player* play_one, Player* play_two): _client(client){
-    //this->_inverted = !myTurn;
     this->_player1 = play_one->get_name();
     this->_player2 = play_two->get_name();
     this->_lastClick = " ";
@@ -249,7 +248,7 @@ int SuperGame::opponentMov(std::string mov){
 }
 
 std::pair<bool, bool> SuperGame::serverMov(std::string mov, std::string username, bool inverted){
-    std::pair<bool, bool> res =  this->_game->execute_step(mov, username, inverted);
+    std::pair<bool, bool> res =  this->_game->execute_step(mov, username, false);
     return res;
 }
 

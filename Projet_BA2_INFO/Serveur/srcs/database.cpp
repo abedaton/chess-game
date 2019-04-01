@@ -219,9 +219,10 @@ int Database::getInt(std::string table, std::string column){
 
 int Database::getUserInt(std::string column, std::string username){
 	const char* val = getUserValue(column, username);
-	if (val == nullptr){
-		val = "-2";
-	}
+	//if (val == nullptr){
+	//if (strlen())
+	//	val = "-2";
+	//}
 	return atoi(val);
 }
 
@@ -229,7 +230,8 @@ char* Database::getUserValue(std::string column, std::string username){
 	char* zErrMsg = 0;
 	std::string sql = "SELECT " + column + " FROM users WHERE username = '" + username + "';";
 	char** var;
-	*var = NULL;
+	//*var = nullptr;
+	*var = "-2";
 	int rc = sqlite3_exec(this->db, sql.c_str(), callbackGetter, var, &zErrMsg);;
 	if (rc != SQLITE_OK){
 		std::cout << "Error on getValue: " << sqlite3_errmsg(this->db) << std::endl;

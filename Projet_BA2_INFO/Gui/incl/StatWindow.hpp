@@ -44,6 +44,7 @@ private:
     int _statNbrGames = 0;
     int _statWin = 0;
     int _statElo = 0;
+    bool _infoReceived = false;
 };
 
 #endif // STATWINDOW_HPP
