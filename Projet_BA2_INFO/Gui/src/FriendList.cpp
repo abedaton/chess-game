@@ -58,7 +58,6 @@ void FriendList::setSelectFriend(QString name){
 void FriendList::setFriendList(std::vector<std::pair<std::string,bool> > friendList){
     _listWidgetFriendList->clear();
     for (int i = 0; i<friendList.size(); i++){
-        std::cout<<"friend : "<< friendList[i].first<<std::endl;
         _listWidgetFriendList->addItem(QString::fromStdString(friendList[i].first));
         if (friendList[i].second){
             _listWidgetFriendList->item(i)->setBackgroundColor(Qt::green);
@@ -72,7 +71,6 @@ void FriendList::setFriendList(std::vector<std::pair<std::string,bool> > friendL
 void FriendList::setFriendRequestsList(std::vector<std::string> friendRequestsList){
     _listWidgetFriendRequestList->clear();
     for (int i = 0; i<friendRequestsList.size(); i++){
-        std::cout<<"friend request : "<< friendRequestsList[i]<<std::endl;
         _listWidgetFriendRequestList->addItem(QString::fromStdString(friendRequestsList[i]));
         _listWidgetFriendRequestList->item(i)->setBackgroundColor(Qt::gray);
     }
