@@ -56,7 +56,9 @@ void Serveur::mainLoop(){
                     this->_clients[tmpClient] = std::make_pair(-1, nullptr);
                 }
                 this->_clients.at(static_cast<unsigned long int>(tmpClient-1)).first = tmpClient;
+                std::cout << "HELLLOOOO1" << std::endl;
                 User* tmpUser = new User(tmpClient, this->_db, this->_match); // <------ new important pour polymorphisme! - Quentin !!!
+                std::cout << "HELLLLOOO2" << std::endl;
                 this->_clients.at(static_cast<unsigned long int>(tmpClient-1)).second = tmpUser;
             }
         }

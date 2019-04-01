@@ -59,7 +59,9 @@ void Client::startingGame(bool playerTurn, std::string opponentName){
  * Applique le clic sur une case de l'interface
  */
 void Client::click(std::string square){
-	this->_game->click(square);
+	if (this->_game->click(square)){
+		win();
+	}
 }
 
 void Client::surrend(){

@@ -60,7 +60,7 @@ void Terminal::end(int res){
 			std::cout << "\nyou won" << std::endl;
 			break;
 		case 2:
-			std::cout << "\nyou lost" << std::endl;
+			std::cout << "\nyou lost\nPress a random key to go back to the menu" << std::endl;
 			break;
 		case 3:
 			std::cout << "\nYour opponent left the game\nPress a random key to go back to the menu" << std::endl;
