@@ -43,8 +43,11 @@ void StatWindow::keyPressEvent(QKeyEvent *event) {
         std::cout << _search->text().toStdString() << std::endl;
         emit enterPressed();
         
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! A COMPLETER
-        _client->getUserInfo(_search->text().toStdString()); //todo trouver un moyen pour avoir la reponse de ce getuserinfo pour l'afficher
+          QString tmp = "Name: " + _search->text();
+        _textEdit->setText(tmp);
+        _textEdit->append("Wins: ");
+        _client->getUserInfo(_search->text().toStdString()); 
+       
        
     }
 }
