@@ -23,6 +23,8 @@ class AbstractClient{
 		virtual void getFriendRequests() = 0;
 		virtual void getUserInfo(std::string username) = 0;
 		virtual void getUserInfo() = 0;
+		virtual std::vector<std::pair<std::string,int> > getGRequests() = 0;
+		virtual void acceptFriendlyGame(std::string username, bool res) = 0;
 
 		virtual void recvFriendRequestsList(std::vector<std::string>) = 0;
 		virtual void recvFriendList(std::vector<std::pair<std::string, bool> >) = 0;
@@ -40,7 +42,7 @@ class AbstractClient{
 		virtual void exitQueue() = 0;
 		virtual void feedback(int info, std::string message) = 0;
 		virtual void opponentSurrend() = 0;
-		virtual std::vector<std::pair<std::string,int> > getGRequests() = 0;
+		virtual void addGRequest(std::string username, int gameMod) = 0;
 };
 
 #endif

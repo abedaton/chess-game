@@ -44,6 +44,7 @@ class Request{
         void getMyInfo();
         void getUserInfo(std::string username);
         void exitQueue();
+        void gameWithFriends(std::string username, int gameMod);
 
     private:
 		std::mutex _mutex;
@@ -73,7 +74,6 @@ class Request{
         void recvFriendRequestsList();
         void recvFriendList();
         void recvInfo();
-        void gameWithFriends(std::string username, int gameMod);
         void putGRequest();
         std::vector<std::string> recvVector();
 

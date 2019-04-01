@@ -102,6 +102,7 @@ void Terminal::friendsWindow(){
 				std::cin >> username;
 				
 				this->_user->addFriend(username);
+				this->_mut->lock();
 				break;
 			case 2:
 				this->_user->getFriendList();
@@ -111,6 +112,7 @@ void Terminal::friendsWindow(){
 				std::cout << "\nVeuillez entrer le nom de l'ami à supprimer: ";
 				std::cin >> username;
 				this->_user->removeFriend(username);
+				this->_mut->lock();
 				break;
 			case 4:
 				this->_user->getFriendRequests();
@@ -130,8 +132,12 @@ void Terminal::friendsWindow(){
 				this->myFlush();
 				if ((tmpanswer == "yes") || (tmpanswer == "Yes") || (tmpanswer == "nope'nt") || (tmpanswer == "y") || (tmpanswer == "Y")){
 					answer = true;
+					std::cout << std::endl << "Vous avez accepté " << username << " comme ami !" << std::endl;
+					this->_friendRequest.erase(std::remove(this->_friendRequest.begin(), this->_friendRequest.end(), username), this->_friendRequest.end());
 				} else if((tmpanswer == "no") || (tmpanswer == "No") || (tmpanswer == "yes'nt") || (tmpanswer == "n") || (tmpanswer == "N")){
 					answer = false;
+					std::cout << std::endl << "Vous avez refusé " << username << " !" << std::endl;
+					this->_friendRequest.erase(std::remove(this->_friendRequest.begin(), this->_friendRequest.end(), username), this->_friendRequest.end());
 				} else {
 					std::cout << "\nInvalid input" << std::endl;
 					break;
@@ -139,8 +145,7 @@ void Terminal::friendsWindow(){
 				this->_user->acceptFriend(username, answer);
 				break;
 			case 6:
-				// 1. call listonlinefriends pour montrer tous les amis disponibles
-				// 2. laiser l'utilisateur choisir l'ami puis l'inviter à la partie
+				
 				break;
 			case 7:
 				std::cout << "\nPlease enter the name of the user you want to send a message: ";
@@ -148,7 +153,7 @@ void Terminal::friendsWindow(){
 				std::cout << "\nPlease enter your message: ";
 				std::getline(std::cin, message);
 				this->_user->sendMessage(username, message);
-				std::cout << "\nMessage Sent!" << std::endl; // Todo check if user exists
+				this->_mut->lock();
 				break;
 			case 8:
 				std::cout << "\nPlease enter the name of the user you want to see de stat: ";
@@ -324,6 +329,7 @@ void Terminal::menuWindow(){
         	    waitForGame = selectGameModeWindow();
         	} else if (answer == 5 && waitForGame){
 				this->_user->exitQueue();
+				std::cout << "You left the queue !" << std::endl;
 				waitForGame = false;
 			}
 		}

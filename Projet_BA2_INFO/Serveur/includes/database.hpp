@@ -43,13 +43,13 @@ class Database{
         void createInfoTable(std::string username);
         void deleteUser(std::string username);
 
-        bool sendFriendRequest(std::string friend1, std::string friend2);
+        int sendFriendRequest(std::string friend1, std::string friend2);
         
         std::vector<std::string> seeFriendRequests(std::string username);
         std::vector<std::string> seeFriends(std::string username);
 
         void acceptFriend(std::string friend1, std::string friend2, bool accept);
-        void deleteFriend(std::string friend1, std::string friend2);
+        bool deleteFriend(std::string friend1, std::string friend2);
     private:
         void createTable();
         void updateAllSockets();
@@ -61,7 +61,7 @@ class Database{
         static int callbackGetter(void* var, int argc, char** argv, char** column);
         static int callbackSee(void* friendList, int argc, char** argv, char** column);
         char* getValue(std::string table, std::string column);
-        char* getUserValue(std::string column, std::string username);
+        const char* getUserValue(std::string column, std::string username);
         std::vector<std::string> getFrendList(std::string table);
 
     

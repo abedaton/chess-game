@@ -20,6 +20,7 @@ bool Chrono::isPlayerPlaying(){
 	return _isPlayerPlaying;
 }
 
+
 void Chrono::pushChrono(){
 	_isPlayerPlaying = true;
 }
@@ -34,7 +35,7 @@ void Chrono::setTimeLeft(int newValue){
 }
 
 
-Pendulum::Pendulum(int timeAllowed): _chrono0Thread(pthread_t()){
+Pendulum::Pendulum(int timeAllowed, int player): _chrono0Thread(pthread_t()), _player(player){
 	reset(timeAllowed);
 }
 
@@ -52,27 +53,24 @@ void Pendulum::run(){
 
 void* Pendulum::checkIfTimeRanOut(void *thisptr){
 	Pendulum *thisp = static_cast<Pendulum*>(thisptr);
-	std::cout << "héla qui va la inspecteur gadget" << std::endl;
-	std::cout << thisp<< std::endl;
 	while(thisp->_gameState == PLAYING){  
-		for(int i = 0; i < 2; i++){
-			while(thisp->_chronos[i].getTimeLeft() > 0 && thisp->_chronos[i].isPlayerPlaying() && thisp->_gameState == PLAYING){
+			while(thisp->_chronos[thisp->_player].getTimeLeft() > 0 && thisp->_chronos[thisp->_player].isPlayerPlaying() && thisp->_gameState == PLAYING){
 				int start = static_cast<int>(time(NULL));
 				std::this_thread::sleep_for(std::chrono::milliseconds(100));
 				int timeElapsed = static_cast<int>(time(NULL))-start;
-				thisp->_chronos[i].setTimeLeft(thisp->_chronos[i].getTimeLeft()-timeElapsed);
-				std::cout << i << " " << thisp->_chronos[i].getTimeLeft() << std::endl;
+				thisp->_chronos[thisp->_player].setTimeLeft(thisp->_chronos[thisp->_player].getTimeLeft()-timeElapsed);
+				std::cout << "salut :" << thisp->_chronos[thisp->_player].getTimeLeft() << std::endl;
 			}
 
-			if(thisp->_chronos[i].getTimeLeft() <= 0){
-				if  (i==0){
+			if(thisp->_chronos[thisp->_player].getTimeLeft() <= 0){
+				if  (thisp->_player==0){
 					thisp->_gameState = PLAYER1OUTOFTIME;
 				}
-				else if(i == 1){
+				else if(thisp->_player == 1){
 					thisp->_gameState = PLAYER2OUTOFTIME;
 				}
 			}
-		}
+		
 	}
 	
 	std::cout << "Ran out of time or game was ended" << std::endl;

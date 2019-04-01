@@ -59,6 +59,7 @@ void FenPrincipale::init_stack() {
 
 void FenPrincipale::init_connect() {
     qRegisterMetaType< QVector<int> >("QVector<int>");
+    qRegisterMetaType< QItemSelection >("QItemSelection");
     connect(_login->getSI(), SIGNAL(clicked()), this, SLOT(checkSignIn()));
     connect(_login, SIGNAL(enterPressed()), this, SLOT(checkSignIn()));
     connect(_login->getRegister(), SIGNAL(clicked()), this, SLOT(goToRegister()));
@@ -86,7 +87,6 @@ void FenPrincipale::init_connect() {
     connect(_statWindow->getExitButton(), SIGNAL(clicked()), this, SLOT(goToMenu()));
     connect(_menuFriendList, SIGNAL(triggered(QAction *)), this, SLOT(getMenuFriendListAction(QAction *)));
     connect(_friendList->getTabWidget(), SIGNAL(currentChanged(int)), this, SLOT(showFriendList()));
-
 }
 
 void FenPrincipale::init_dock() {
@@ -289,8 +289,10 @@ void FenPrincipale::goToMenu() {
 
 void FenPrincipale::sendMessage() {
     if (!_chat->getLineEdit()->text().isEmpty()){
+        std::cout<<"message user : "<< _chat->getFriendName().toStdString()<< std::endl;
+        std::cout<<"message : "<< _chat->getLineEdit()->text().toStdString() << std::endl;
         _client->sendMessage(_chat->getFriendName().toStdString(), _chat->getLineEdit()->text().toStdString());
-        _chat->getTextEdit()->insertPlainText(_chat->getLineEdit()->text()+"\n");
+        _chat->getTextEdit()->insertPlainText("you -> "+_chat->getLineEdit()->text()+"\n");
         _chat->getLineEdit()->clear();
         _chat->getLineEdit()->setFocus();
     }
@@ -347,17 +349,16 @@ void FenPrincipale::movPossibleUpdate(std::vector<std::pair<int,int> >* listMov)
 }
 
 void FenPrincipale::showFriendList(){
-    std::cout<<"show Friend List"<<std::endl;
     _client->getFriendList();
-    std::cout<<"getFriendList"<<std::endl;
     _client->getFriendRequests();
-    std::cout<<"getFriendRequest"<<std::endl;
     _dockFriendList->show();
-    std::cout<<"show"<<std::endl;
 }
 
 void FenPrincipale::showChat(){
     _chat->setFriendName(_friendList->getSelectFriend());
+    _chat->getTextEdit()->insertPlainText("you are chatting with "+_chat->getFriendName()+"\n");
+    // _chat->getTextEdit()->insertPlainText(_friendName);
+    // _chat->getTextEdit()->insertPlainText("\n");
     _dockChat->show();
 }
 
@@ -412,10 +413,12 @@ void FenPrincipale::setPool4(){
 }
 
 void FenPrincipale::getFriendListItem(QListWidgetItem *item){
+    _friendList->setSelectFriend(item->text());
     _menuFriendList->popup(QCursor::pos());
 }
 
 void FenPrincipale::getFriendRequestListItem(QListWidgetItem *item){
+    _friendList->setSelectFriend(item->text());
     _menuFriendRequestList->popup(QCursor::pos());
 }
 
@@ -435,7 +438,6 @@ void FenPrincipale::sendPosition(std::string pos){
 
 void FenPrincipale::getMenuFriendListAction(QAction *action){
     Q_UNUSED(action);
-
     _dockChat->show();
 }
 
@@ -463,10 +465,9 @@ void FenPrincipale::feedback(int info, std::string message)
 }
 
 void FenPrincipale::recvMessage(std::string name, std::string message){
-    //this->moveToThread(_thread);
     std::cout << message << std::endl;
     _chat->setFriendName(QString::fromStdString(name));
-    _chat->getTextEdit()->insertPlainText(QString::fromStdString(message+"\n"));
+    _chat->getTextEdit()->insertPlainText(QString::fromStdString(name+" -> "+message+"\n"));
     _dockChat->show();
 }
 #endif
