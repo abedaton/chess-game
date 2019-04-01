@@ -59,6 +59,7 @@ void FenPrincipale::init_stack() {
 
 void FenPrincipale::init_connect() {
     qRegisterMetaType< QVector<int> >("QVector<int>");
+    qRegisterMetaType< QItemSelection >("QItemSelection");
     connect(_login->getSI(), SIGNAL(clicked()), this, SLOT(checkSignIn()));
     connect(_login, SIGNAL(enterPressed()), this, SLOT(checkSignIn()));
     connect(_login->getRegister(), SIGNAL(clicked()), this, SLOT(goToRegister()));
@@ -78,7 +79,6 @@ void FenPrincipale::init_connect() {
     connect(_menu->getExit(), SIGNAL(clicked()), qApp, SLOT(quit()));
     connect(_menu->getStat(), SIGNAL(clicked()), this, SLOT(goToStat()));
     connect(_friendList->getPushButtonAddFriend(), SIGNAL(clicked()), this, SLOT(addFriend()));
-    connect(_friendList->getPushButtonRemoveFriend(), SIGNAL(clicked()), this, SLOT(removeFriend()));
     connect(_friendList->getListWidgetFriendList(), SIGNAL(itemClicked(QListWidgetItem *)),this, SLOT(getFriendListItem(QListWidgetItem *)));
     connect(_friendList->getListWidgetFriendRequestList(), SIGNAL(itemClicked(QListWidgetItem *)),this, SLOT(getFriendRequestListItem(QListWidgetItem *)));
     connect(_chat->getLineEdit(), SIGNAL(returnPressed()), this, SLOT(sendMessage()));
@@ -86,7 +86,7 @@ void FenPrincipale::init_connect() {
     //connect(_statWindow,SIGNAL(enterPressed()), this, SLOT(fonctionjsp qui appelle StatWindow::getPlayerStats ))
     connect(_statWindow->getExitButton(), SIGNAL(clicked()), this, SLOT(goToMenu()));
     connect(_menuFriendList, SIGNAL(triggered(QAction *)), this, SLOT(getMenuFriendListAction(QAction *)));
-
+    connect(_friendList->getTabWidget(), SIGNAL(currentChanged(int)), this, SLOT(showFriendList()));
 
 }
 
@@ -231,6 +231,7 @@ void FenPrincipale::updateMov(std::string text){
     res.push_back(std::make_pair<int,int>(static_cast<int>(coord2[0])-65, std::stoi(tmp2)-1));
 
     //TO DO
+    
     _classicWindow->updateMov(res);
 
 }
@@ -253,11 +254,14 @@ void FenPrincipale::goToMatchmaking() {
 
 void FenPrincipale::goToClassic() {
     //std::string pool = "pool2" 
-    _classicWindow = new PlateauScene("classic", _pool,this, this);
+    _classicWindow = new PlateauScene("classic", _pool, this);
+    //_classicWindow->moveToThread(_thread);
     //QMetaObject::invokeMethod(this, "init", Qt::QueuedConnection);
     
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
+
+    //_classicWindow->setBoxesThread();
     //int gamemode = getWichMatchmaking("classic");
     //std::cout << "GAMEMODE : " << gamemode << std::endl;
     //_client->waitForMatch(gamemode);
@@ -286,6 +290,8 @@ void FenPrincipale::goToMenu() {
 
 void FenPrincipale::sendMessage() {
     if (!_chat->getLineEdit()->text().isEmpty()){
+        std::cout<<"message user : "<< _chat->getFriendName().toStdString()<< std::endl;
+        std::cout<<"message : "<< _chat->getLineEdit()->text().toStdString() << std::endl;
         _client->sendMessage(_chat->getFriendName().toStdString(), _chat->getLineEdit()->text().toStdString());
         _chat->getTextEdit()->insertPlainText(_chat->getLineEdit()->text()+"\n");
         _chat->getLineEdit()->clear();
@@ -332,7 +338,7 @@ void FenPrincipale::gameStart(std::string opponent){
     _mdial->fondOpponent(_ennemyName);
     //_client->waitForMatch(1); TO DO
     //delete _mdial;
-    this->moveToThread(_thread);
+    //this->moveToThread(_thread);
     connect(_thread, SIGNAL(started()), this, SLOT(goToClassic()));
     _thread->start();
    
@@ -344,7 +350,6 @@ void FenPrincipale::movPossibleUpdate(std::vector<std::pair<int,int> >* listMov)
 }
 
 void FenPrincipale::showFriendList(){
-    QApplication::processEvents();
     _client->getFriendList();
     _client->getFriendRequests();
     _dockFriendList->show();
@@ -406,17 +411,13 @@ void FenPrincipale::setPool4(){
 }
 
 void FenPrincipale::getFriendListItem(QListWidgetItem *item){
-    QCursor cursor;
-    QPoint point = this->mapFromGlobal(cursor.pos());
     _friendList->setSelectFriend(item->text());
-    _menuFriendList->exec(point);
+    _menuFriendList->popup(QCursor::pos());
 }
 
 void FenPrincipale::getFriendRequestListItem(QListWidgetItem *item){
-    QCursor cursor;
-    QPoint point = this->mapFromGlobal(cursor.pos());
     _friendList->setSelectFriend(item->text());
-    _menuFriendRequestList->exec(point);
+    _menuFriendRequestList->popup(QCursor::pos());
 }
 
 AbstractClient* FenPrincipale::getTest(){
@@ -435,7 +436,6 @@ void FenPrincipale::sendPosition(std::string pos){
 
 void FenPrincipale::getMenuFriendListAction(QAction *action){
     Q_UNUSED(action);
-
     _dockChat->show();
 }
 
@@ -447,19 +447,22 @@ void FenPrincipale::recvFriendRequestsList(std::vector<std::string> friendReques
     _friendList->setFriendRequestsList(friendRequestsList);
 }
 
-void FenPrincipale::recvInfo(std::string username, int nbrgames, int win, int elo)
+void FenPrincipale::recvInfo(std::string username, int nbgrames, int win, int elo)
 {
-    std::cout << "recFInfo was called " << std::endl;
+    //std::cout << "recvInfo params user:" << username << "  " << nbgrames << "  " << win << std::endl;
+    _statWindow->setUserInfo(username, nbgrames, win, elo);
+
 }
 
 void FenPrincipale::feedback(int info, std::string message)
 {
-    std::cout << "FenPrincipale::feedback: " << info << "  "<< message << std::endl;
-    //if(message == "")
+    if(message.find("No user named") != std::string::npos) //si le message est "No user named"
+    {
+        _statWindow->setUserInfo("None", 0, 0, 0);
+    }
 }
 
 void FenPrincipale::recvMessage(std::string name, std::string message){
-    //this->moveToThread(_thread);
     std::cout << message << std::endl;
     _chat->setFriendName(QString::fromStdString(name));
     _chat->getTextEdit()->insertPlainText(QString::fromStdString(message+"\n"));

@@ -40,8 +40,8 @@ void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     //std::cout << _color.rgb() << std::endl;
     if(_piece != nullptr && (_brush != Qt::red && _brush != Qt::green)){
         std::cout << "wsh ya une piece" << std::endl;
+        std::cout << "PRINT PATH " << _piece->get_common_path() << std::endl;
         _scene->resetAllColors();
-
 
         //_scene->showMoves(moves,cap);
         //_scene->setPriorityBox(this);

@@ -13,12 +13,12 @@ class FriendList : public QWidget {
     QListWidget *getListWidgetFriendList() const;
     QListWidget *getListWidgetFriendRequestList() const;
     QPushButton *getPushButtonAddFriend() const;
-    QPushButton *getPushButtonRemoveFriend() const;
     QString getSelectFriend() const;
     void setSelectFriend(QString name);
     void setFriendList(std::vector<std::pair<std::string,bool> > friendList);
     void setFriendRequestsList(std::vector<std::string> friendRequestsList);
-    QLineEdit *getLineEditFriend();
+    QLineEdit *getLineEditFriend() const;
+    QTabWidget *getTabWidget() const;
 
     private:
     void init_widget();
@@ -33,6 +33,5 @@ class FriendList : public QWidget {
     QListWidget *_listWidgetFriendList;
     QListWidget *_listWidgetFriendRequestList;
     QPushButton *_pushButtonAddFriend;
-    QPushButton *_pushButtonRemoveFriend;
 };
 #endif
