@@ -184,7 +184,7 @@ void Database::updateWin(std::string username, std::string rival, bool win){
 	int newElo = std::round(elo1 + K * (W - winProb));
 	std::cout << "newELo for " << username << " = " << newElo << std::endl << std::endl;
 	char* zErrMsg = 0;
-	std::string sql = "UPDATE '" + username + "'SET nbrGames = 'nbrGames+1', elo = '" + std::to_string(newElo) + "'";
+	std::string sql = "UPDATE '" + username + "'SET nbrGames = nbrGames+1, elo = '" + std::to_string(newElo) + "'";
 	if (win)
 		sql += ", win = win+1";
 	sql += ";";

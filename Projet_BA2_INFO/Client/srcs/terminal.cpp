@@ -404,7 +404,7 @@ void Terminal::gameWindow(){
 			if (this->_chessMod != 2){ 
 				regClick.assign("^[a-hA-H][1-8]$");
 			} else {
-				regClick.assign("^[a-xA-X][1-24]$");
+				regClick.assign("^[a-xA-X]([0-9]|1[0-9]|2[0-4])$");
 			}
 			if (std::regex_match(square.begin(), square.end(), regClick)) {
 				_user->click(square);
