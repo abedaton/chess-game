@@ -81,7 +81,7 @@ void FenPrincipale::init_connect() {
     connect(_friendList->getPushButtonRemoveFriend(), SIGNAL(clicked()), this, SLOT(removeFriend()));
     connect(_friendList->getListWidgetFriendList(), SIGNAL(itemClicked(QListWidgetItem *)),this, SLOT(getFriendListItem(QListWidgetItem *)));
     connect(_friendList->getListWidgetFriendRequestList(), SIGNAL(itemClicked(QListWidgetItem *)),this, SLOT(getFriendRequestListItem(QListWidgetItem *)));
-
+    connect(_chat->getLineEdit(), SIGNAL(returnPressed()), this, SLOT(sendMessage()));
 
     //connect(_statWindow,SIGNAL(enterPressed()), this, SLOT(fonctionjsp qui appelle StatWindow::getPlayerStats ))
     connect(_statWindow->getExitButton(), SIGNAL(clicked()), this, SLOT(goToMenu()));
@@ -285,7 +285,12 @@ void FenPrincipale::goToMenu() {
 }
 
 void FenPrincipale::sendMessage() {
-    _chat->getTextEdit()->insertPlainText(_chat->getLineEdit()->text());
+    if (!_chat->getLineEdit()->text().isEmpty()){
+        _client->sendMessage(_chat->getFriendName().toStdString(), _chat->getLineEdit()->text().toStdString());
+        _chat->getTextEdit()->insertPlainText(_chat->getLineEdit()->text()+"\n");
+        _chat->getLineEdit()->clear();
+        _chat->getLineEdit()->setFocus();
+    }
 }
 
 void FenPrincipale::addFriend() {
@@ -346,6 +351,7 @@ void FenPrincipale::showFriendList(){
 }
 
 void FenPrincipale::showChat(){
+    _chat->setFriendName(_friendList->getSelectFriend());
     _dockChat->show();
 }
 
@@ -430,8 +436,7 @@ void FenPrincipale::sendPosition(std::string pos){
 void FenPrincipale::getMenuFriendListAction(QAction *action){
     Q_UNUSED(action);
 
-   _chat->setFriendName(_friendList->getSelectFriend());
-    // _dockChat->show();
+    _dockChat->show();
 }
 
 void FenPrincipale::recvFriendList(std::vector<std::pair<std::string,bool> > friendList){
@@ -450,8 +455,12 @@ void FenPrincipale::recvInfo(std::string username, int nbrgames, int win, int el
 void FenPrincipale::feedback(int info, std::string message)
 {
     std::cout << "FenPrincipale::feedback: " << info << "  "<< message << std::endl;
-
     //if(message == "")
 }
 
+void FenPrincipale::recvMessage(std::string name, std::string message){
+    _chat->setFriendName(QString::fromStdString(name));
+    _chat->getTextEdit()->insertPlainText(QString::fromStdString(message+"\n"));
+    showChat();
+}
 #endif
