@@ -18,6 +18,7 @@
 #include <QtWidgets>
 #include <QThread>
 #include <iostream>
+#include <regex>
 
 #include "../../Client/includes/abstractInterface.hpp"
 #include "../../Client/includes/abstractClient.hpp"

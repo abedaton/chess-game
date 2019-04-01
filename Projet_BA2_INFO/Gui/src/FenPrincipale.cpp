@@ -166,14 +166,20 @@ void FenPrincipale::checkSignIn() {
 }
 
 void FenPrincipale::checkRegister() {
+    std::string* text = _register->getLinesEditText();
+    std::regex regEmail("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])");
     if (_register->isTextEmpty()) {
         QMessageBox::critical(this, "Incorrect Register", "Missing elements");
         _statusBar->showMessage("Missing elements");
     } else if (!_register->isSamePassword()) {
         QMessageBox::critical(this, "Incorrect Register", "Passwords do not match");
         _statusBar->showMessage("Passwords do not match");
+    } else if (! std::regex_match(text[1].begin(), text[1].end(), regEmail)){
+        QMessageBox::critical(this, "Incorrect Register", "Incorrect E-Mail");
+        _statusBar->showMessage("E-Mail not valid");
+        
     } else {
-        std::string* text = _register->getLinesEditText();
+        
         if(_client->letsRegister(text[0], text[2], text[3], text[1])){ //email = text[1]
             goToMenu();
             _statusBar->showMessage("Welcome new user !", 5000);
