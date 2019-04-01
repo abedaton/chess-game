@@ -96,10 +96,10 @@ void FenPrincipale::init_dock() {
     _dockChat = new QDockWidget(this);
     _dockChat->setWidget(_chat);
     addDockWidget(Qt::RightDockWidgetArea, _dockChat);
-    _timer = new Timer(this);
-    _dockTimer = new QDockWidget(this);
-    _dockTimer->setWidget(_timer);
-    addDockWidget(Qt::LeftDockWidgetArea, _dockTimer);
+    // _timer = new Timer(this);
+    // _dockTimer = new QDockWidget(this);
+    // _dockTimer->setWidget(_timer);
+    // addDockWidget(Qt::LeftDockWidgetArea, _dockTimer);
     
     _friendList = new FriendList(this);
     _dockFriendList = new QDockWidget(this);
@@ -116,7 +116,7 @@ void FenPrincipale::init_dock() {
     _dockPublicity->setAllowedAreas(Qt::NoDockWidgetArea);
 
     _dockChat->hide();
-    _dockTimer->hide();
+    //_dockTimer->hide();
     _dockFriendList->hide();
     _dockPublicity->hide();
 }
@@ -232,7 +232,7 @@ void FenPrincipale::updateMov(std::string text){
     res.push_back(std::make_pair<int,int>(static_cast<int>(coord2[0])-65, std::stoi(tmp2)-1));
 
     //TO DO
-    // _classicWindow->updateMov(res);
+    _classicWindow->updateMov(res);
 
 }
 

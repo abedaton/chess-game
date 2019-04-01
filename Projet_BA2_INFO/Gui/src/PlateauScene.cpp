@@ -105,20 +105,20 @@ void PlateauScene::showMoves(std::vector<std::pair<int,int> > deplacement){
     int x, y;
     const int size = deplacement.size();
     for(int i = 0; i < size ; ++i){
-        x = std::get<1>(deplacement[i]);
+        x = _size - 1 - std::get<1>(deplacement[i]);
         y = std::get<0>(deplacement[i]);
         
         if(_boxes[x][y]->getPiece() == nullptr)
-            _boxes[x+2][y]->setColor(Qt::red);
+            _boxes[x][y]->setColor(Qt::red);
         else 
-            _boxes[x+2][y]->setColor(Qt::green);
+            _boxes[x][y]->setColor(Qt::green);
     }
 }
 
 void PlateauScene::updateMov(std::vector<std::pair<int,int> > pos){
     PlateauBox* box1 =  _boxes[pos[0].first][pos[0].second];
     PlateauBox* box2 =  _boxes[pos[1].first][pos[1].second];
-    std::cout << "coucou" << std::endl;
+    std::cout << "SALUT NIKITA" << std::endl;
     box2->movePiece(box1);
 }
 

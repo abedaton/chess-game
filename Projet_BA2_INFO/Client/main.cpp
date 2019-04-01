@@ -12,7 +12,7 @@ int main(int argc,char** argv){
         if (! strcmp(argv[i], "-t")) {
             terminalMod = true;
         } else if (! strcmp(argv[i], "-i")){
-            if (i+1 < argc){
+            if (i+1 >= argc){
                 goodParam = false;
             } else {
                 i++;

@@ -50,13 +50,13 @@ void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent* event) {
 
     else if(_brush.color() == Qt::red && _piece == nullptr){
 
-        movePiece(_scene->getPriorityBox());
+        //movePiece(_scene->getPriorityBox());
         //std::cout << "FINAL : " << _piece << std::endl;
 
     }
     else if(_brush.color() == Qt::green && _piece != nullptr){
         delete _piece;
-        movePiece(_scene->getPriorityBox());
+        //movePiece(_scene->getPriorityBox());
      
 
     }
