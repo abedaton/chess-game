@@ -140,10 +140,10 @@ void PlateauScene::showMoves(std::vector<std::pair<int,int> > deplacement){
         x = std::get<1>(deplacement[i]);
         y = std::get<0>(deplacement[i]);
         
-        if(_boxes[x-2][y]->getPiece() == nullptr)
-            _boxes[x-2][y]->setColor(Qt::green);
+        if(_boxes[x][y]->getPiece() == nullptr)
+            _boxes[x+2][y]->setColor(Qt::red);
         else 
-            _boxes[x-2][y]->setColor(Qt::red);
+            _boxes[x+2][y]->setColor(Qt::green);
     }
 }
 
@@ -157,6 +157,12 @@ void PlateauScene::showMoves(int *moves, int *cap) {
         _boxes[x][y]->setColor(Qt::red);
     }
     
+    for (unsigned i = 0; i < sizeof(cap)/sizeof(cap[0]); ++i) {
+        x = cap[i]/_size;
+        y = cap[i]%_size;
+
+        _boxes[x][y]->setColor(Qt::green);
+    }
     for (unsigned i = 0; i < sizeof(cap)/sizeof(cap[0]); ++i) {
         x = cap[i]/_size;
         y = cap[i]%_size;

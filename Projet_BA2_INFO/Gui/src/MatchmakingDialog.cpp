@@ -24,7 +24,7 @@ void MatchmakingDialog::init_window(){
     _okButton = new QPushButton("Ok", this);
     _okButton->setVisible(false);
     _cancelButton = new QPushButton("Cancel", this);
-    _cancelButton->setVisible(false);
+    //_cancelButton->setVisible(false);
 
 
 
@@ -45,7 +45,7 @@ void MatchmakingDialog::fondOpponent(std::string opponent){
     _label->setText(QString::fromStdString(str));
 
     _okButton->setVisible(true);
-    _cancelButton->setVisible(true);
+    _cancelButton->setVisible(false);
 }
 
 QPushButton* MatchmakingDialog::getOkButton(){
@@ -54,4 +54,7 @@ QPushButton* MatchmakingDialog::getOkButton(){
 
 QPushButton* MatchmakingDialog::getCancelButton(){
     return _cancelButton;
+}
+void MatchmakingDialog::deleteDialog(){
+    delete this; // :( zizi 
 }

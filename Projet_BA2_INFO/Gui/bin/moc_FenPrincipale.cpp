@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_FenPrincipale_t {
-    QByteArrayData data[42];
-    char stringdata0[489];
+    QByteArrayData data[44];
+    char stringdata0[550];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -60,19 +60,21 @@ QT_MOC_LITERAL(25, 306, 8), // "QAction*"
 QT_MOC_LITERAL(26, 315, 6), // "action"
 QT_MOC_LITERAL(27, 322, 12), // "acceptFriend"
 QT_MOC_LITERAL(28, 335, 12), // "refuseFriend"
-QT_MOC_LITERAL(29, 348, 7), // "getTest"
-QT_MOC_LITERAL(30, 356, 15), // "AbstractClient*"
-QT_MOC_LITERAL(31, 372, 18), // "getWichMatchmaking"
-QT_MOC_LITERAL(32, 391, 8), // "variante"
-QT_MOC_LITERAL(33, 400, 13), // "setFriendMenu"
-QT_MOC_LITERAL(34, 414, 12), // "setThemeMenu"
-QT_MOC_LITERAL(35, 427, 8), // "setPool0"
-QT_MOC_LITERAL(36, 436, 8), // "setPool1"
-QT_MOC_LITERAL(37, 445, 8), // "setPool2"
-QT_MOC_LITERAL(38, 454, 8), // "setPool3"
-QT_MOC_LITERAL(39, 463, 8), // "setPool4"
-QT_MOC_LITERAL(40, 472, 12), // "sendPosition"
-QT_MOC_LITERAL(41, 485, 3) // "pos"
+QT_MOC_LITERAL(29, 348, 17), // "cancelMatchmaking"
+QT_MOC_LITERAL(30, 366, 7), // "getTest"
+QT_MOC_LITERAL(31, 374, 15), // "AbstractClient*"
+QT_MOC_LITERAL(32, 390, 18), // "getWichMatchmaking"
+QT_MOC_LITERAL(33, 409, 8), // "variante"
+QT_MOC_LITERAL(34, 418, 13), // "setFriendMenu"
+QT_MOC_LITERAL(35, 432, 12), // "setThemeMenu"
+QT_MOC_LITERAL(36, 445, 8), // "setPool0"
+QT_MOC_LITERAL(37, 454, 8), // "setPool1"
+QT_MOC_LITERAL(38, 463, 8), // "setPool2"
+QT_MOC_LITERAL(39, 472, 8), // "setPool3"
+QT_MOC_LITERAL(40, 481, 8), // "setPool4"
+QT_MOC_LITERAL(41, 490, 17), // "movPossibleUpdate"
+QT_MOC_LITERAL(42, 508, 33), // "std::vector<std::pair<int,int..."
+QT_MOC_LITERAL(43, 542, 7) // "listMov"
 
     },
     "FenPrincipale\0checkSignIn\0\0checkRegister\0"
@@ -85,10 +87,12 @@ QT_MOC_LITERAL(41, 485, 3) // "pos"
     "item\0getFriendRequestListItem\0"
     "getMenuFriendListAction\0QAction*\0"
     "action\0acceptFriend\0refuseFriend\0"
-    "getTest\0AbstractClient*\0getWichMatchmaking\0"
-    "variante\0setFriendMenu\0setThemeMenu\0"
-    "setPool0\0setPool1\0setPool2\0setPool3\0"
-    "setPool4\0sendPosition\0pos"
+    "cancelMatchmaking\0getTest\0AbstractClient*\0"
+    "getWichMatchmaking\0variante\0setFriendMenu\0"
+    "setThemeMenu\0setPool0\0setPool1\0setPool2\0"
+    "setPool3\0setPool4\0movPossibleUpdate\0"
+    "std::vector<std::pair<int,int> >*\0"
+    "listMov"
 };
 #undef QT_MOC_LITERAL
 
@@ -98,7 +102,7 @@ static const uint qt_meta_data_FenPrincipale[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      31,   14, // methods
+      32,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -106,37 +110,38 @@ static const uint qt_meta_data_FenPrincipale[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  169,    2, 0x0a /* Public */,
-       3,    0,  170,    2, 0x0a /* Public */,
-       4,    0,  171,    2, 0x0a /* Public */,
-       5,    0,  172,    2, 0x0a /* Public */,
-       6,    0,  173,    2, 0x0a /* Public */,
-       7,    0,  174,    2, 0x0a /* Public */,
-       8,    0,  175,    2, 0x0a /* Public */,
-       9,    0,  176,    2, 0x0a /* Public */,
-      10,    0,  177,    2, 0x0a /* Public */,
-      11,    0,  178,    2, 0x0a /* Public */,
-      12,    0,  179,    2, 0x0a /* Public */,
-      13,    0,  180,    2, 0x0a /* Public */,
-      14,    0,  181,    2, 0x0a /* Public */,
-      15,    1,  182,    2, 0x0a /* Public */,
-      18,    0,  185,    2, 0x0a /* Public */,
-      19,    0,  186,    2, 0x0a /* Public */,
-      20,    1,  187,    2, 0x0a /* Public */,
-      23,    1,  190,    2, 0x0a /* Public */,
-      24,    1,  193,    2, 0x0a /* Public */,
-      27,    0,  196,    2, 0x0a /* Public */,
-      28,    0,  197,    2, 0x0a /* Public */,
-      29,    0,  198,    2, 0x0a /* Public */,
-      31,    1,  199,    2, 0x0a /* Public */,
-      33,    0,  202,    2, 0x0a /* Public */,
-      34,    0,  203,    2, 0x0a /* Public */,
-      35,    0,  204,    2, 0x0a /* Public */,
-      36,    0,  205,    2, 0x0a /* Public */,
-      37,    0,  206,    2, 0x0a /* Public */,
-      38,    0,  207,    2, 0x0a /* Public */,
-      39,    0,  208,    2, 0x0a /* Public */,
-      40,    1,  209,    2, 0x0a /* Public */,
+       1,    0,  174,    2, 0x0a /* Public */,
+       3,    0,  175,    2, 0x0a /* Public */,
+       4,    0,  176,    2, 0x0a /* Public */,
+       5,    0,  177,    2, 0x0a /* Public */,
+       6,    0,  178,    2, 0x0a /* Public */,
+       7,    0,  179,    2, 0x0a /* Public */,
+       8,    0,  180,    2, 0x0a /* Public */,
+       9,    0,  181,    2, 0x0a /* Public */,
+      10,    0,  182,    2, 0x0a /* Public */,
+      11,    0,  183,    2, 0x0a /* Public */,
+      12,    0,  184,    2, 0x0a /* Public */,
+      13,    0,  185,    2, 0x0a /* Public */,
+      14,    0,  186,    2, 0x0a /* Public */,
+      15,    1,  187,    2, 0x0a /* Public */,
+      18,    0,  190,    2, 0x0a /* Public */,
+      19,    0,  191,    2, 0x0a /* Public */,
+      20,    1,  192,    2, 0x0a /* Public */,
+      23,    1,  195,    2, 0x0a /* Public */,
+      24,    1,  198,    2, 0x0a /* Public */,
+      27,    0,  201,    2, 0x0a /* Public */,
+      28,    0,  202,    2, 0x0a /* Public */,
+      29,    0,  203,    2, 0x0a /* Public */,
+      30,    0,  204,    2, 0x0a /* Public */,
+      32,    1,  205,    2, 0x0a /* Public */,
+      34,    0,  208,    2, 0x0a /* Public */,
+      35,    0,  209,    2, 0x0a /* Public */,
+      36,    0,  210,    2, 0x0a /* Public */,
+      37,    0,  211,    2, 0x0a /* Public */,
+      38,    0,  212,    2, 0x0a /* Public */,
+      39,    0,  213,    2, 0x0a /* Public */,
+      40,    0,  214,    2, 0x0a /* Public */,
+      41,    1,  215,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -160,8 +165,9 @@ static const uint qt_meta_data_FenPrincipale[] = {
     QMetaType::Void, 0x80000000 | 25,   26,
     QMetaType::Void,
     QMetaType::Void,
-    0x80000000 | 30,
-    QMetaType::Int, 0x80000000 | 16,   32,
+    QMetaType::Void,
+    0x80000000 | 31,
+    QMetaType::Int, 0x80000000 | 16,   33,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -169,7 +175,7 @@ static const uint qt_meta_data_FenPrincipale[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 16,   41,
+    QMetaType::Void, 0x80000000 | 42,   43,
 
        0        // eod
 };
@@ -201,18 +207,19 @@ void FenPrincipale::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 18: _t->getMenuFriendListAction((*reinterpret_cast< QAction*(*)>(_a[1]))); break;
         case 19: _t->acceptFriend(); break;
         case 20: _t->refuseFriend(); break;
-        case 21: { AbstractClient* _r = _t->getTest();
+        case 21: _t->cancelMatchmaking(); break;
+        case 22: { AbstractClient* _r = _t->getTest();
             if (_a[0]) *reinterpret_cast< AbstractClient**>(_a[0]) = std::move(_r); }  break;
-        case 22: { int _r = _t->getWichMatchmaking((*reinterpret_cast< std::string(*)>(_a[1])));
+        case 23: { int _r = _t->getWichMatchmaking((*reinterpret_cast< std::string(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
-        case 23: _t->setFriendMenu(); break;
-        case 24: _t->setThemeMenu(); break;
-        case 25: _t->setPool0(); break;
-        case 26: _t->setPool1(); break;
-        case 27: _t->setPool2(); break;
-        case 28: _t->setPool3(); break;
-        case 29: _t->setPool4(); break;
-        case 30: _t->sendPosition((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 24: _t->setFriendMenu(); break;
+        case 25: _t->setThemeMenu(); break;
+        case 26: _t->setPool0(); break;
+        case 27: _t->setPool1(); break;
+        case 28: _t->setPool2(); break;
+        case 29: _t->setPool3(); break;
+        case 30: _t->setPool4(); break;
+        case 31: _t->movPossibleUpdate((*reinterpret_cast< std::vector<std::pair<int,int> >*(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -256,13 +263,13 @@ int FenPrincipale::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 31)
+        if (_id < 32)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 31;
+        _id -= 32;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 31)
+        if (_id < 32)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 31;
+        _id -= 32;
     }
     return _id;
 }

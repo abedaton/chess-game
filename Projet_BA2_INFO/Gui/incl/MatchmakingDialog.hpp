@@ -14,6 +14,9 @@ public:
     void fondOpponent(std::string opponent);
     QPushButton* getOkButton();
     QPushButton* getCancelButton();
+
+public slots:
+    void deleteDialog();
 private:
     void init_window();
     void init_layout();

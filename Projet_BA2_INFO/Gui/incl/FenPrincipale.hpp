@@ -53,6 +53,8 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void acceptFriend();
     void refuseFriend();
 
+    void cancelMatchmaking();
+
     AbstractClient* getTest();
 
     int getWichMatchmaking(std::string variante);
@@ -68,6 +70,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
 
     
 
+    void movPossibleUpdate(std::vector<std::pair<int,int> >* listMov) override;
 
 //////////////////////////////tmp
     public:
@@ -78,6 +81,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void recvFriendList(std::vector<std::pair<std::string, bool> > friendList) override;
     void recvFriendRequestsList(std::vector<std::string> friendRequestslist) override;
     void sendPosition(std::string pos);
+    void updateMov(std::string str) override;
 
     private:
     void init_window();

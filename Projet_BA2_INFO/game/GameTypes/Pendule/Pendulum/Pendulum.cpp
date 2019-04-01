@@ -50,16 +50,9 @@ void Pendulum::run(){
 
 
 
-/*
-//mais apres comment prevenir l'autre thread share variable ?
-
-todo pour illias/celui qui va implémenter ca avec le jeu d'échec,
-vous devez modifier gamestate avec setGameState en lui mettant
-GAMEENDED à la fin de la partie si les joueurs ont perdues d'une 
-autre manière que par temps la Pendulum. 
-*/
 void* Pendulum::checkIfTimeRanOut(void *thisptr){
 	Pendulum *thisp = static_cast<Pendulum*>(thisptr);
+	std::cout << "héla qui va la inspecteur gadget" << std::endl;
 	std::cout << thisp<< std::endl;
 	while(thisp->_gameState == PLAYING){  
 		for(int i = 0; i < 2; i++){
@@ -68,7 +61,7 @@ void* Pendulum::checkIfTimeRanOut(void *thisptr){
 				std::this_thread::sleep_for(std::chrono::milliseconds(100));
 				int timeElapsed = static_cast<int>(time(NULL))-start;
 				thisp->_chronos[i].setTimeLeft(thisp->_chronos[i].getTimeLeft()-timeElapsed);
-				//std::cout << i << " " << thisp->_chronos[i].getTimeLeft() << std::endl;
+				std::cout << i << " " << thisp->_chronos[i].getTimeLeft() << std::endl;
 			}
 
 			if(thisp->_chronos[i].getTimeLeft() <= 0){

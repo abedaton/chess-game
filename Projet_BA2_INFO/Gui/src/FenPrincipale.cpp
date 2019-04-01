@@ -15,12 +15,6 @@
 
 FenPrincipale::FenPrincipale(AbstractClient* client) : _client(client) {
     _client->setInterface(this);
-   if(_client != nullptr){
-        std::cout << _client << std::endl;
-    } else {
-        std::cout << "CLIENT IS NULLPTR" << std::endl;
-    }
-
     
     _thread = new QThread;
     //moveToThread(_thread);
@@ -44,7 +38,7 @@ void FenPrincipale::init_window() {
     setWindowTitle("On Veut Pas D'Échec");
     setWindowIcon(QIcon("./Gui/img/logo_complTimer_v1.png"));
     // setStyleSheet("background-image:url(img/retro_space.png)");
-    resize(QDesktopWidget().availableGeometry(this).size() * 0.3);
+    resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
     _statusBar = new QStatusBar(this);
     setStatusBar(_statusBar);
     MenuBar();
@@ -180,7 +174,7 @@ void FenPrincipale::checkRegister() {
         _statusBar->showMessage("Passwords do not match");
     } else {
         std::string* text = _register->getLinesEditText();
-        if(_client->letsRegister(text[0], text[2], text[3], text[1])){
+        if(_client->letsRegister(text[0], text[2], text[3], text[1])){ //email = text[1]
             goToMenu();
             _statusBar->showMessage("Welcome new user !", 5000);
         }
@@ -214,12 +208,39 @@ int FenPrincipale::getWichMatchmaking(std::string variante){
     else
         tmp = 3;
     
+
     return tmp + (4 * _gameWindow->getCurrentGameMode());
 
+}
+void FenPrincipale::updateMov(std::string text){
+    
+    std::vector<std::pair<int,int> > res;
+
+    int mid = text.find(";");
+    std::string coord1 = text.substr(0, mid);
+    std::string coord2 = text.substr(mid+1, text.size());
+    
+    std::string tmp(coord1.begin()+1, coord1.end());
+    res.push_back(std::make_pair<int,int>(static_cast<int>(coord1[0])-65, std::stoi(tmp)-1));
+    std::string tmp2(coord2.begin()+1, coord2.end());
+    res.push_back(std::make_pair<int,int>(static_cast<int>(coord2[0])-65, std::stoi(tmp2)-1));
+
+    //TO DO
+    //
+
+}
+
+void FenPrincipale::cancelMatchmaking(){
+    _client->exitQueue();
+    
 }
 
 void FenPrincipale::goToMatchmaking() {
     _mdial = new MatchmakingDialog(this);
+    connect(_mdial->getOkButton(),SIGNAL(clicked()), _mdial, SLOT(deleteDialog()));
+    connect(_mdial->getCancelButton(),SIGNAL(clicked()), this, SLOT(cancelMatchmaking()));
+    connect(_mdial->getCancelButton(),SIGNAL(clicked()), _mdial, SLOT(deleteDialog()));
+    
     //connect(_mdial->getOkButton(), SIGNAL(clicked()), this, SLOT(goToClassic()));
     int gamemode = getWichMatchmaking("classic");
     _client->waitForMatch(gamemode);
@@ -304,9 +325,12 @@ void FenPrincipale::gameStart(std::string opponent){
     this->moveToThread(_thread);
     connect(_thread, SIGNAL(started()), this, SLOT(goToClassic()));
     _thread->start();
-    std::cout << "APPRES LE START" << _client << std::endl;
    
     //goToStat();
+}
+
+void FenPrincipale::movPossibleUpdate(std::vector<std::pair<int,int> >* listMov){
+    _classicWindow->showMoves(*listMov);
 }
 
 void FenPrincipale::showFriendList(){
@@ -388,9 +412,7 @@ AbstractClient* FenPrincipale::getTest(){
     return this->_client;
 }
 void FenPrincipale::sendPosition(std::string pos){
-    std::cout << "coucou bande de nouille " << pos << std::endl;
     //quand on lance le jeu
-    std::cout << "COUCOU " <<  std::endl; //////////////////////////////////
     // A6
     // if(this->getTest()){
     //     std::cout << "WSH" << std::endl;
