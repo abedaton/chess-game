@@ -50,13 +50,14 @@ void PlateauBox::mousePressEvent(QGraphicsSceneMouseEvent* event) {
 
     else if(_brush.color() == Qt::red && _piece == nullptr){
 
-        movePiece();
+        movePiece(_scene->getPriorityBox());
         //std::cout << "FINAL : " << _piece << std::endl;
 
     }
     else if(_brush.color() == Qt::green && _piece != nullptr){
         delete _piece;
-        movePiece();
+        movePiece(_scene->getPriorityBox());
+     
 
     }
 
@@ -97,9 +98,9 @@ ChessItem* PlateauBox::getPiece() const{
     return _piece;
 }
 
-void PlateauBox::movePiece(){
-    setPiece(_scene->getPriorityBox()->getPiece());
-    _scene->getPriorityBox()->setPiece(nullptr);
+void PlateauBox::movePiece(PlateauBox* box){
+    setPiece(box->getPiece());
+    box->setPiece(nullptr);
     _scene->resetAllColors();
 }
 /*

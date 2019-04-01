@@ -69,12 +69,6 @@ void PlateauScene::setBoxes(int x, int y, int sideLenght) {
             _scene->addItem(box);
             
             
-            
-            // setPosText(-50,125, "wsh");
-            // setPosText(-50,125+sideLenght, "wsh");
-            // setPosText(sideLenght/2 - 13 ,50, "wsh");
-            // setPosText(sideLenght/2 - 13 + sideLenght ,50, "wsh");
-            
         }
         curr_y += sideLenght;
     }
@@ -106,32 +100,6 @@ void PlateauScene::setPosText(int x, int y, std::string pos){
 }
 
 
-// void PlateauScene::setTrappistBoxes(int x, int y, int sideLenght) {
-//     int curr_x, curr_y = y;
-
-//     for (int i = 0; i < _size; ++i) {
-//         curr_x = x;
-//         for (int j = 0; j < _size; ++j) {
-//             PlateauBox *box = new PlateauBox(curr_x, curr_y, sideLenght);
-//             curr_x += sideLenght;
-
-//             if ((i + j) % 2 == 0)
-//                 box->setFirstColor(Qt::white);
-//             else
-//                 box->setFirstColor(Qt::darkGray);
-//             box->setPosition(i, j);
-//             box->_scene = this;
-//             _Tboxes[i][j] = box;
-//             _scene->addItem(box);
-//         }
-//         curr_y += sideLenght;
-//     }
-
-    
-//     //setBlack();
-//     //setWhite();
-
-// }
 
 void PlateauScene::showMoves(std::vector<std::pair<int,int> > deplacement){
     int x, y;
@@ -145,6 +113,13 @@ void PlateauScene::showMoves(std::vector<std::pair<int,int> > deplacement){
         else 
             _boxes[x+2][y]->setColor(Qt::green);
     }
+}
+
+void PlateauScene::updateMov(std::vector<std::pair<int,int> > pos){
+    PlateauBox* box1 =  _boxes[pos[0].first][pos[0].second];
+    PlateauBox* box2 =  _boxes[pos[1].first][pos[1].second];
+    std::cout << "coucou" << std::endl;
+    box2->movePiece(box1);
 }
 
 void PlateauScene::showMoves(int *moves, int *cap) {

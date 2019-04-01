@@ -21,7 +21,7 @@ class PlateauBox : public QGraphicsRectItem {
     void setPiece(ChessItem* piece);
     ChessItem* getPiece() const;
     void resetColor();
-    void movePiece();
+    void movePiece(PlateauBox* box);
 
     void setFog(ChessItem* fog);
     void removeFog();

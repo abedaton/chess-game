@@ -43,6 +43,8 @@ class PlateauScene : public QGraphicsView {
     //AbstractClient* getClient() const;
     void sendPosition(std::string pos);
 
+    void updateMov(std::vector<std::pair<int,int> > pos);
+
     private:
     int _size;
     PlateauBox* _priorityBox;

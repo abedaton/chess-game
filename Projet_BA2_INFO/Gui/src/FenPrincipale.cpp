@@ -226,7 +226,7 @@ void FenPrincipale::updateMov(std::string text){
     res.push_back(std::make_pair<int,int>(static_cast<int>(coord2[0])-65, std::stoi(tmp2)-1));
 
     //TO DO
-    //
+    // _classicWindow->updateMov(res);
 
 }
 
