@@ -15,7 +15,7 @@ class AbstractInterface {
         virtual void gameStart(std::string opponent) = 0;
         virtual void connectionError() = 0;
         virtual void end(int){}
-		virtual void recvMessage(std::string name, std::string mov) = 0; 
+		virtual void recvMessage(std::string name, std::string message) = 0; 
         virtual void movPossibleUpdate(std::vector<std::pair<int,int> >* listMov){};
 
         virtual void recvFriendRequestsList(std::vector<std::string> vec){}

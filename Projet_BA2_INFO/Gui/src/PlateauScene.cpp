@@ -116,10 +116,13 @@ void PlateauScene::showMoves(std::vector<std::pair<int,int> > deplacement){
 }
 
 void PlateauScene::updateMov(std::vector<std::pair<int,int> > pos){
-    PlateauBox* box1 =  _boxes[pos[0].first][pos[0].second];
-    PlateauBox* box2 =  _boxes[pos[1].first][pos[1].second];
+    PlateauBox* box1 =  _boxes[_size - 1 - pos[0].second][pos[0].first];
+    PlateauBox* box2 =  _boxes[_size - 1 - pos[1].second][pos[1].first];
     std::cout << "SALUT NIKITA" << std::endl;
-    box2->movePiece(box1);
+    //if(box1->getPiece() != nullptr){
+        box2->movePiece(box1);
+        std::cout << "SALUT MATIAS" << std::endl;
+    
 }
 
 void PlateauScene::showMoves(int *moves, int *cap) {
