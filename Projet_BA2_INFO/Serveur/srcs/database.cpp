@@ -226,18 +226,18 @@ int Database::getUserInt(std::string column, std::string username){
 	return atoi(val);
 }
 
-char* Database::getUserValue(std::string column, std::string username){
+const char* Database::getUserValue(std::string column, std::string username){
 	char* zErrMsg = 0;
 	std::string sql = "SELECT " + column + " FROM users WHERE username = '" + username + "';";
-	char** var;
+	const char* var;
 	//*var = nullptr;
-	*var = "-2";
-	int rc = sqlite3_exec(this->db, sql.c_str(), callbackGetter, var, &zErrMsg);;
+	var = "-2";
+	int rc = sqlite3_exec(this->db, sql.c_str(), callbackGetter, &var, &zErrMsg);;
 	if (rc != SQLITE_OK){
 		std::cout << "Error on getValue: " << sqlite3_errmsg(this->db) << std::endl;
 		sqlite3_free(zErrMsg);
 	}
-	return *var;
+	return var;
 }
 
 void Database::deleteUser(std::string username){
@@ -273,22 +273,32 @@ Database::~Database(){
 	std::cout << "All sockets set to -1" << std::endl;
 }
 
-bool Database::sendFriendRequest(std::string friend1, std::string friend2){
+int Database::sendFriendRequest(std::string friend1, std::string friend2){
 	char* zErrMsg = 0;
 	std::string sql = "SELECT * FROM users WHERE username = '" + friend2 + "';";
 	bool exists = selectData(sql);
-	sql = "SELECT * FROM friendList WHERE (user1 = '" + friend1 + "' AND user2 = '" + friend2 + "') OR (user1 = '" + friend2 + "' AND user2 = '" + friend1 + "');";
-	bool friended = selectData(sql);
-	if (exists && (!friended) ){
-		sql = "INSERT INTO friendList(user1, user2, relation) VALUES ('" + friend1 + "', '" + friend2 + "', 'waiting');";
-		int rc = sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg);
-		if (rc != SQLITE_OK){
-			std::cout << "Error on sendFriendRequest: " << sqlite3_errmsg(this->db) << std::endl;
-			sqlite3_free(zErrMsg);
+	if (exists){
+		sql = "SELECT * FROM friendList WHERE ((user1 = '" + friend1 + "' AND user2 = '" + friend2 + "') OR (user1 = '" + friend2 + "' AND user2 = '" + friend1 + "')) AND relation = 'ami';";
+		bool friended = selectData(sql);
+		if (!friended){
+			sql = "SELECT * FROM friendList WHERE ((user1 = '" + friend1 + "' AND user2 = '" + friend2 + "') OR (user1 = '" + friend2 + "' AND user2 = '" + friend1 + "')) AND relation = 'waiting';";
+			bool alreadyWaiting = selectData(sql);
+			if (!alreadyWaiting){
+				sql = "INSERT INTO friendList(user1, user2, relation) VALUES ('" + friend1 + "', '" + friend2 + "', 'waiting');";
+				int rc = sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg);
+				if (rc != SQLITE_OK){
+					std::cout << "Error on sendFriendRequest: " << sqlite3_errmsg(this->db) << std::endl;
+					sqlite3_free(zErrMsg);
+				}
+				return 0; // demande envoyée
+			} else {
+				return 3; // invitation deja envoyé
+			}
+		} else {
+			return 2; // existe mais deja amis
 		}
-		return true;
-	} else {
-		return false;
+	} else{
+		return 1; // user n'existe pas
 	}
 }
 
@@ -307,13 +317,20 @@ void Database::acceptFriend(std::string friend1, std::string friend2, bool accep
 	}
 }
 
-void Database::deleteFriend(std::string friend1, std::string friend2){
+bool Database::deleteFriend(std::string friend1, std::string friend2){
 	char* zErrMsg = 0;
-	std::string sql = "DELETE FROM friendList WHERE (user1 = '" + friend1 + "' AND user2 = '" + friend2 + "') OR (user1 = '" + friend2 + "' AND user2 = '" + friend1 + "') AND relation = 'ami';";
-	int rc = sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg);
-	if (rc != SQLITE_OK){
-		std::cout << "Error on deleteFriend: " << sqlite3_errmsg(this->db) << std::endl;
-		sqlite3_free(zErrMsg);
+	std::string sql = "SELECT * FROM friendList WHERE (user1 = '" + friend1 + "' AND user2 = '" + friend2 + "') OR (user1 = '" + friend2 + "' AND user2 = '" + friend1 + "');";
+	bool friended = selectData(sql);
+	if (friended){
+		sql = "DELETE FROM friendList WHERE (user1 = '" + friend1 + "' AND user2 = '" + friend2 + "') OR (user1 = '" + friend2 + "' AND user2 = '" + friend1 + "') AND relation = 'ami';";
+		int rc = sqlite3_exec(this->db, sql.c_str(), callback, 0, &zErrMsg);
+		if (rc != SQLITE_OK){
+			std::cout << "Error on deleteFriend: " << sqlite3_errmsg(this->db) << std::endl;
+			sqlite3_free(zErrMsg);
+		}
+		return true;
+	} else {
+		return false;
 	}
 }
 

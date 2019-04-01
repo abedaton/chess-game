@@ -458,7 +458,7 @@ void Request::putGRequest(){
     waitForProcess();
     std::string username = recvStr();
     int gameMod = recvInt();
-    this->_client->getGRequests().push_back(std::make_pair(username, gameMod));
+    this->_client->addGRequest(username, gameMod);
     endProcess();
 }
 

@@ -18,7 +18,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		AbstractInterface* _interface;
 		bool _affichageGui;
 
-		std::vector<std::pair<std::string,int> > gameRequests;
+		std::vector<std::pair<std::string,int> > _gameRequests;
 		int _gameMod;
 		std::string _name;
 		void lose();
@@ -43,6 +43,9 @@ class Client: public AbstractPlayer, public AbstractClient{
 		void getFriendRequests() override;
 		void getUserInfo(std::string) override;
 		void getUserInfo() override;
+
+		std::vector<std::pair<std::string,int > > getGRequests() override;
+		void acceptFriendlyGame(std::string username, bool res) override;
 		
 		void click(std::string square) override;
 		void surrend() override;
@@ -52,7 +55,8 @@ class Client: public AbstractPlayer, public AbstractClient{
 		void opponentMov(std::string mov) override;
 		void recvMessage(std::string name,std::string msg) override;
 		void connectionError() override;
-		std::vector<std::pair<std::string,int > > getGRequests() override;
+		void addGRequest(std::string username, int gameMod) override;
+
 		//call by game
 		void mov(std::string mov) override;
 		void movPossibleUpdate(std::vector<std::pair<int,int> >* listMov) override;

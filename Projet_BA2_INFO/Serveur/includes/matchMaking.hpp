@@ -8,10 +8,10 @@
 #include <time.h>
 #include <chrono>
 #include <cmath>
+#include <map>
 
 #include "abstractGame.hpp"
 #include "abstractUser.hpp"
-//#include "../../game/GameTypes/SuperGame/SuperGame.cpp"
 
 
 class MatchMaking{
@@ -20,6 +20,8 @@ class MatchMaking{
 		~MatchMaking() = default;
         void waitForMatch(AbstractUser* player,int gameMod, int elo);
         bool exitQueue(AbstractUser* player, int gameMod, int elo);
+        void waitForFriendMatch(AbstractUser* player);
+        void startFrendlyGame(AbstractUser* player,std::string Friend, int gameMod);
     private:
         static void* run(void*);
         void poolSort(int mod, int rank, AbstractUser* player);
@@ -28,6 +30,7 @@ class MatchMaking{
         int getRank(int elo);
 
         std::vector< std::vector< std::vector< AbstractUser* > > > pools;
+        std::map<std::string,AbstractUser*> poolsFriend;
     
     struct matchMod{
        MatchMaking* match;

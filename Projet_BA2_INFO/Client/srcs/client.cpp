@@ -18,10 +18,6 @@ Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(n
 	}
 }
 
-std::vector<std::pair<std::string,int > >  Client::getGRequests(){
-	return gameRequests;
-}
-
 /*
  * Setter de l'interface
  */
@@ -273,6 +269,33 @@ void Client::exitQueue(){
 void Client::feedback(int info, std::string message){
 	this->_interface->feedback(info, message);
 }
+
+std::vector<std::pair<std::string,int > >  Client::getGRequests(){
+	return this->_gameRequests;
+}
+
+void Client::addGRequest(std::string username, int gameMod){
+	this->_gameRequests.push_back(std::pair<std::string, int>(username, gameMod));
+}
+
+void Client::acceptFriendlyGame(std::string username, bool res){
+	int gameMod;
+	unsigned int pos = 0;
+	for(std::pair<std::string, int> elem : _gameRequests){
+		if(elem.first == username){
+			gameMod = elem.second;
+			break;
+		}
+		pos++;
+	}
+	if(pos != _gameRequests.size()){
+		_gameRequests.erase(_gameRequests.begin()+pos);
+		if (res){
+			this->_server->gameWithFriends(username, gameMod);
+		}
+	}
+}
+
 
 /*
  * Affiche l'interface graphique

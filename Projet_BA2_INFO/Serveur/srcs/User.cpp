@@ -385,6 +385,7 @@ void User::sendMessage(){
         sendIntToSocket(friendSocket, protocol);
         sendStrToSocket(friendSocket, this->_name);
         sendStrToSocket(friendSocket, msg);
+        this->feedback(2, "Message sent !");
     } else if (friendSocket == -2){
         this->feedback(2, "This user doesn't exists !");
      } else {
@@ -399,9 +400,17 @@ void User::sendMessage(){
  */
 void User::addFriend(){
     std::string user = recvStr();
-    bool result = this->_db->sendFriendRequest(this->_name, user);
-    if (!result){
-        this->feedback(1, "Cet utilisateur n'existe pas");
+    int result = this->_db->sendFriendRequest(this->_name, user);
+    if (result == 0){
+        this->feedback(1, "Invitation envoyé !");
+    } else if (result == 1){
+        this->feedback(1, "Cet utilisateur n'existe pas !");
+    } else if (result == 2){
+        this->feedback(1, "Vous etes deja amis !");
+    } else if (result == 3){
+        this->feedback(1, "Vous avez deja envoyé une invitation a cette personne !");
+    } else {
+        this->feedback(1, "Error: should never happen !"); // va surement arriver a la presentation avec notre chance
     }
 }
 
@@ -410,7 +419,8 @@ void User::addFriend(){
  */
 void User::removeFriend(){
     std::string username = recvStr();
-    this->_db->deleteFriend(this->_name, username);
+    bool wasOK = this->_db->deleteFriend(this->_name, username);
+    this->feedback(5, wasOK ? "Friend deleted !" : "You are not friend with this person !");
 }
 
 /*
@@ -465,7 +475,7 @@ void User::GetUserInfo(){
         sendInt(win);
         sendInt(elo);
     } else {
-        this->feedback(3, "No user named " + username +"\n");
+        this->feedback(3, "No user named " + username);
     }
 }
 

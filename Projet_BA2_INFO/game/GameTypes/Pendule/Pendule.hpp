@@ -8,7 +8,7 @@
 
 class Pendule: public BaseGameType {	
 	public:
-        Pendule(BaseChess*); //*< Constructor
+        Pendule(BaseChess*, bool player); //*< Constructor
         Pendule() noexcept = default; //*< Constructor
         ~Pendule() noexcept = default; //Destructor
         Pendule(const Pendule&) noexcept = default;
@@ -20,6 +20,7 @@ class Pendule: public BaseGameType {
         using BaseGameType::execute_step;
         private: 
         Pendulum* _timer; 
+        int _player;
 
 };
 #endif

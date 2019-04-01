@@ -51,9 +51,9 @@ void Serveur::mainLoop(){
         if ((tmpClient = accept(this->_serv_sock, reinterpret_cast<struct sockaddr*>(&this->_address), reinterpret_cast<socklen_t*>(&this->_addrlen))) >= 0){
             std::cout << "Nouvelle connexion et le socket est : " << tmpClient << std::endl;
             if (tmpClient != -1){
-                if (static_cast<size_t>(tmpClient) > this->_clients.size()){
-                    this->_clients.resize(static_cast<size_t>(tmpClient));          ///////// 
-                    this->_clients[tmpClient] = std::make_pair(-1, nullptr);        ////////
+                if (static_cast<std::size_t>(tmpClient) > this->_clients.size()){
+                    this->_clients.resize(static_cast<std::size_t>(tmpClient));          ///////// 
+                    this->_clients[tmpClient] = std::make_pair(-1, static_cast<User*>(nullptr));        ////////
                 }
                 this->_clients.at(static_cast<unsigned long int>(tmpClient-1)).first = tmpClient;
                 User* tmpUser = new User(tmpClient, this->_db, this->_match); // <------ new important pour polymorphisme! - Quentin !!!

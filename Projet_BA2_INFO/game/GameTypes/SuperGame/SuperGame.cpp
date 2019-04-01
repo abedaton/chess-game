@@ -177,7 +177,7 @@ SuperGame::SuperGame(int gameMod, AbstractPlayer* client, bool myTurn, Player* p
             this->_game = new TourParTour(game);
             break;
         case 1:
-            this->_game = new Pendule(game);
+            this->_game = new Pendule(game, !myTurn);
             break;
         case 2:
             this->_game = new TempsReel(game);

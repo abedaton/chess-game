@@ -120,4 +120,14 @@ int MatchMaking::getRank(int elo){
     return rank;
 }
 
+void MatchMaking::waitForFriendMatch(AbstractUser* player){
+    this->poolsFriend[player->get_name()] = player;
+}
+
+void MatchMaking::startFrendlyGame(AbstractUser* player,std::string Friend, int gameMod){
+    AbstractUser* userFriend = this->poolsFriend[Friend];
+    this->poolsFriend.erase(this->poolsFriend.find(Friend));   
+    startMatch(userFriend, player, gameMod);
+}
+
 #endif
