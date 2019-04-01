@@ -27,7 +27,7 @@ class Client: public AbstractPlayer, public AbstractClient{
 		//Client(const char* ip, bool interface);
 		Client(const char* ip, bool interface, int argc, char** argv);
 
-		~Client();
+		~Client() = default;
 		
 		//call by interface
 		void setInterface(AbstractInterface* interface) override;

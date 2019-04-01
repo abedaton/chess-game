@@ -18,10 +18,6 @@ Client::Client(const char* ip, bool terminalMod, int argc, char** argv): _game(n
 	}
 }
 
-Client::~Client(){
-	;;
-}
-
 std::vector<std::pair<std::string,int > >  Client::getGRequests(){
 	return gameRequests;
 }
@@ -75,6 +71,7 @@ void Client::surrend(){
  */
 void Client::mov(std::string mov){
 	std::cout << "mov for opponent: " << mov << std::endl;
+	this->_interface->updateMov(mov);
 	this->_server->mov(mov);
 }
 
@@ -83,6 +80,7 @@ void Client::mov(std::string mov){
  */
 void Client::opponentMov(std::string mov){
 	int res = _game->opponentMov(mov);
+	this->_interface->updateMov(mov);
 	if (res == -1){
 		this->lose();
 	} else if (res == 1){

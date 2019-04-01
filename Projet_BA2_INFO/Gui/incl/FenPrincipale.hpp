@@ -66,7 +66,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
     void setPool3();
     void setPool4();
 
-    void sendPosition(std::string pos);
+    
 
 
 //////////////////////////////tmp
@@ -77,6 +77,7 @@ class FenPrincipale : public QMainWindow, public AbstractInterface{
 	void recvMessage(std::string name, std::string mov) override{(void)name;(void)mov;}
     void recvFriendList(std::vector<std::pair<std::string, bool> > friendList) override;
     void recvFriendRequestsList(std::vector<std::string> friendRequestslist) override;
+    void sendPosition(std::string pos);
 
     private:
     void init_window();

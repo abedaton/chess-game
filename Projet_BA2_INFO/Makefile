@@ -442,9 +442,9 @@ Gui/bin/moc_FenPrincipale.cpp: Gui/incl/FriendList.hpp \
 		Gui/incl/FenPrincipale.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
+		Client/includes/abstractClient.hpp \
 		Gui/incl/MatchmakingDialog.hpp \
 		Client/includes/abstractInterface.hpp \
-		Client/includes/abstractClient.hpp \
 		Gui/incl/FenPrincipale.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -473,9 +473,9 @@ Gui/bin/moc_PlateauScene.cpp: Gui/incl/PlateauBox.hpp \
 		Gui/incl/Timer.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
+		Client/includes/abstractClient.hpp \
 		Gui/incl/MatchmakingDialog.hpp \
 		Client/includes/abstractInterface.hpp \
-		Client/includes/abstractClient.hpp \
 		Gui/incl/PlateauScene.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -511,7 +511,8 @@ Gui/bin/moc_Publicity.cpp: Gui/incl/Publicity.hpp \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/Publicity.hpp -o Gui/bin/moc_Publicity.cpp
 
-Gui/bin/moc_StatWindow.cpp: Gui/incl/StatWindow.hpp \
+Gui/bin/moc_StatWindow.cpp: Client/includes/abstractClient.hpp \
+		Gui/incl/StatWindow.hpp \
 		Gui/bin/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include Gui/bin/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Gui/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Gui/incl -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Gui/img -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Gui/bin -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Gui/advertisements -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Gui -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Client -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Client/includes -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/Client/src -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/game/common/MyException -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/game/common/MyException/MyOstream -I/mnt/c/Users/Chrono/Desktop/ULB/Projets/Annee/groupe9/Projet_BA2_INFO/game/GameType/SuperGame -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Gui/incl/StatWindow.hpp -o Gui/bin/moc_StatWindow.cpp
@@ -548,9 +549,9 @@ Gui/bin/FenPrincipale.o: Gui/src/FenPrincipale.cpp Gui/incl/FenPrincipale.hpp \
 		Gui/incl/ChessItem.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
+		Client/includes/abstractClient.hpp \
 		Gui/incl/MatchmakingDialog.hpp \
-		Client/includes/abstractInterface.hpp \
-		Client/includes/abstractClient.hpp
+		Client/includes/abstractInterface.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/FenPrincipale.o Gui/src/FenPrincipale.cpp
 
 Gui/bin/GameWindow.o: Gui/src/GameWindow.cpp Gui/incl/GameWindow.hpp
@@ -572,9 +573,9 @@ Gui/bin/PlateauBox.o: Gui/src/PlateauBox.cpp Gui/incl/PlateauBox.hpp \
 		Gui/incl/Timer.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
+		Client/includes/abstractClient.hpp \
 		Gui/incl/MatchmakingDialog.hpp \
-		Client/includes/abstractInterface.hpp \
-		Client/includes/abstractClient.hpp
+		Client/includes/abstractInterface.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/PlateauBox.o Gui/src/PlateauBox.cpp
 
 Gui/bin/PlateauScene.o: Gui/src/PlateauScene.cpp Gui/incl/PlateauScene.hpp \
@@ -590,9 +591,9 @@ Gui/bin/PlateauScene.o: Gui/src/PlateauScene.cpp Gui/incl/PlateauScene.hpp \
 		Gui/incl/Timer.hpp \
 		Gui/incl/Register.hpp \
 		Gui/incl/StatWindow.hpp \
+		Client/includes/abstractClient.hpp \
 		Gui/incl/MatchmakingDialog.hpp \
-		Client/includes/abstractInterface.hpp \
-		Client/includes/abstractClient.hpp
+		Client/includes/abstractInterface.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/PlateauScene.o Gui/src/PlateauScene.cpp
 
 Gui/bin/Register.o: Gui/src/Register.cpp Gui/incl/Register.hpp
@@ -616,7 +617,8 @@ Gui/bin/FriendList.o: Gui/src/FriendList.cpp Gui/incl/FriendList.hpp
 Gui/bin/Publicity.o: Gui/src/Publicity.cpp Gui/incl/Publicity.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/Publicity.o Gui/src/Publicity.cpp
 
-Gui/bin/StatWindow.o: Gui/src/StatWindow.cpp Gui/incl/StatWindow.hpp
+Gui/bin/StatWindow.o: Gui/src/StatWindow.cpp Gui/incl/StatWindow.hpp \
+		Client/includes/abstractClient.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Gui/bin/StatWindow.o Gui/src/StatWindow.cpp
 
 Gui/bin/main.o: Client/main.cpp Client/srcs/client.cpp \

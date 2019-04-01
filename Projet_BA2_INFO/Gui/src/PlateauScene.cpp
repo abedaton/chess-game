@@ -137,13 +137,13 @@ void PlateauScene::showMoves(std::vector<std::pair<int,int> > deplacement){
     int x, y;
     const int size = deplacement.size();
     for(int i = 0; i < size ; ++i){
-        x = std::get<0>(deplacement[i]);
-        y = std::get<1>(deplacement[i]);
+        x = std::get<1>(deplacement[i]);
+        y = std::get<0>(deplacement[i]);
         
-        if(_boxes[x][y]->getPiece() == nullptr)
-            _boxes[x][y]->setColor(Qt::green);
+        if(_boxes[x-2][y]->getPiece() == nullptr)
+            _boxes[x-2][y]->setColor(Qt::green);
         else 
-            _boxes[x][y]->setColor(Qt::red);
+            _boxes[x-2][y]->setColor(Qt::red);
     }
 }
 

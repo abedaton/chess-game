@@ -11,6 +11,7 @@ class AbstractInterface {
     public:
         virtual ~AbstractInterface() = default;
         virtual void myShow(){}//for gui interface
+        virtual void updateMov(std::string str){(void)str;}//for gui interface
         virtual void gameStart(std::string opponent) = 0;
         virtual void connectionError() = 0;
         virtual void end(int){}
