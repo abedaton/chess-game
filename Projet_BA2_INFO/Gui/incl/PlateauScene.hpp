@@ -7,6 +7,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QList>
+#include <QThread>
 #include <iostream>
 
 class PlateauBox;
@@ -45,6 +46,9 @@ class PlateauScene : public QGraphicsView {
 
     void updateMov(std::vector<std::pair<int,int> > pos);
 
+    public slots:
+    void setBoxesThread();
+
     private:
     int _size;
     PlateauBox* _priorityBox;
@@ -60,6 +64,8 @@ class PlateauScene : public QGraphicsView {
     std::string get_pool() const;
     std::string get_game_type() const;
     void set_size(int taille);
+
+    QThread* _thread;
 };
 
 #endif // PLATEAUSCENE_HPP

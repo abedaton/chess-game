@@ -231,6 +231,7 @@ void FenPrincipale::updateMov(std::string text){
     res.push_back(std::make_pair<int,int>(static_cast<int>(coord2[0])-65, std::stoi(tmp2)-1));
 
     //TO DO
+    
     _classicWindow->updateMov(res);
 
 }
@@ -253,11 +254,14 @@ void FenPrincipale::goToMatchmaking() {
 
 void FenPrincipale::goToClassic() {
     //std::string pool = "pool2" 
-    _classicWindow = new PlateauScene("classic", _pool,this, this);
+    _classicWindow = new PlateauScene("classic", _pool, this);
+    //_classicWindow->moveToThread(_thread);
     //QMetaObject::invokeMethod(this, "init", Qt::QueuedConnection);
     
     _stack->addWidget(_classicWindow);
     _stack->setCurrentWidget(_classicWindow);
+
+    //_classicWindow->setBoxesThread();
     //int gamemode = getWichMatchmaking("classic");
     //std::cout << "GAMEMODE : " << gamemode << std::endl;
     //_client->waitForMatch(gamemode);
@@ -332,7 +336,7 @@ void FenPrincipale::gameStart(std::string opponent){
     _mdial->fondOpponent(_ennemyName);
     //_client->waitForMatch(1); TO DO
     //delete _mdial;
-    this->moveToThread(_thread);
+    //this->moveToThread(_thread);
     connect(_thread, SIGNAL(started()), this, SLOT(goToClassic()));
     _thread->start();
    

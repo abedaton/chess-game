@@ -3,6 +3,7 @@
 #include "PlateauScene.hpp"
 
 PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPrincipale *mainWindow, QWidget *parent) : QGraphicsView(parent), _size(0), _game_type(game_type) , _pool(pool_name), _mainWindow(mainWindow){
+    _thread = new QThread;
     if (this->get_game_type() == "classic" or this->get_game_type() == "anti" or this->get_game_type() == "dark"){
 		this->set_size(8);
         if(_game_type == "dark"){
@@ -18,7 +19,10 @@ PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPri
     _scene->setSceneRect(0, 0, 700, 700);
     QCoreApplication::processEvents();
     setScene(_scene);
-
+    
+    //this->moveToThread(_thread);
+    //connect(_thread, SIGNAL(started()), this, SLOT(setBoxes(0, 100, 520/_size)));
+    //_thread->start():
     
     setBoxes(0, 100, 520/_size);
     //setTrappistBoxes(0, 100, 17);
@@ -28,7 +32,9 @@ PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPri
 
     //showMoves(moves);
 }
-
+void PlateauScene::setBoxesThread(){
+    setBoxes(0, 100, 520/_size);
+}
 void PlateauScene::setBoxes(int x, int y, int sideLenght) {
     int curr_x, curr_y = y;
     int textX = sideLenght/2 - 13, textY = 125;
@@ -116,13 +122,22 @@ void PlateauScene::showMoves(std::vector<std::pair<int,int> > deplacement){
 }
 
 void PlateauScene::updateMov(std::vector<std::pair<int,int> > pos){
+    
+    std::cout << "box1 " << pos[0].first << ";" << pos[0].second << std::endl;
+    std::cout << "box2 " << pos[1].first << ";" << pos[1].second << std::endl;
+
+
     PlateauBox* box1 =  _boxes[_size - 1 - pos[0].second][pos[0].first];
     PlateauBox* box2 =  _boxes[_size - 1 - pos[1].second][pos[1].first];
     std::cout << "SALUT NIKITA" << std::endl;
     //if(box1->getPiece() != nullptr){
-    box2->movePiece(box1);
-    std::cout << "SALUT MATIAS" << std::endl;
     
+    box2->movePiece(box1);
+    _scene->update();
+    
+    
+    std::cout << "SALUT MATIAS " << box2->getPiece() <<  std::endl;
+    //
 }
 
 void PlateauScene::showMoves(int *moves, int *cap) {
