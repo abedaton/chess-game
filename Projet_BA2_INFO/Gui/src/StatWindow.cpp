@@ -1,17 +1,15 @@
 #include "./Gui/incl/StatWindow.hpp"
+#include <iostream>
+#include <string>
+#include <chrono>
+#include <thread>
 
 StatWindow::StatWindow(AbstractClient* client): _client(client){
     init_window();
     init_layout();
 }
 
-void StatWindow::setUserInfo(std::string name, int nbrGame, int statWin, int statElo)
-{
-    _clientStateName =  name;
-    _statNbrGames = nbrGame;
-    _statWin = statWin;
-    _statElo = statElo;
-}
+
 
 void StatWindow::init_window(){
     _search = new QLineEdit;
@@ -35,6 +33,16 @@ void StatWindow::init_layout(){
 
 }
 
+void StatWindow::setUserInfo(std::string name, int nbrGame, int statWin, int statElo)
+{
+    _clientStateName =  name;
+    _statNbrGames = nbrGame;
+    _statWin = statWin;
+    _statElo = statElo;
+    _infoReceived = true;
+}
+
+//Affiche les stats dans le textedit
 void StatWindow::showPlayerStats(){
     /*if (_search->text().isEmpty()){
         //Check dans la data base les stats du joueur connecté
@@ -45,25 +53,42 @@ void StatWindow::showPlayerStats(){
         //et après on show les 6 stats avec les 3 recu
     }*/
 
-    _textEdit->setText("Name: " + _search->text());
-    _textEdit->append("Wins: "); //+_statNbrGames
+    std::string tmp = "Parties Jouées: " + std::to_string(_statNbrGames);
+    _textEdit->setText("Nom: " + _search->text());
+
+    _textEdit->append(QString::fromStdString(tmp)); 
+    tmp = "Parties gagnées: "+ std::to_string(_statWin);
+    
+    _textEdit->append(QString::fromStdString(tmp));
+    tmp = "Elo: "+ std::to_string(_statElo);
+    _textEdit->append(QString::fromStdString(tmp));
 }
+
 
 void StatWindow::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Return) {
-        std::cout << _search->text().toStdString() << std::endl;
         emit enterPressed();
         
-        //_textEdit->
-        //std::string tmp - ""
-        
-      
-       
-        
+        _infoReceived = false;
         _client->getUserInfo(_search->text().toStdString()); 
-        showPlayerStats();
-        //todo timeout
-        //while() on att 0.5  sec ici pour la reponse
+        int timeoutCounter = 0;
+        while(_infoReceived == false || timeoutCounter < 20)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            timeoutCounter++;
+        }
+           
+        //le serveur ne répond pas
+        if(_infoReceived == false)
+        {
+            std::cout << "info wasn't receivede" << std::endl;
+            _statNbrGames = 0;
+            _statWin=0;
+            _statElo = 0;
+        }
+
+
+        showPlayerStats();    
     }
 }
 
