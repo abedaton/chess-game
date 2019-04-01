@@ -12,8 +12,7 @@ void FriendList::init_widget() {
     _listWidgetFriendList = new QListWidget(this);
     _listWidgetFriendRequestList = new QListWidget(this);
     _pushButtonAddFriend = new QPushButton("Add friend", this);
-    _pushButtonRemoveFriend = new QPushButton("Remove friend", this);
-    _selectFriend;
+    _selectFriend = "init";
     _tabWidget = new QTabWidget(this);
     QWidget *tFriendList = new QWidget(this);
     QVBoxLayout *layoutTabFriendList = new QVBoxLayout(tFriendList);
@@ -28,21 +27,16 @@ void FriendList::init_widget() {
 void FriendList::init_layout() {
     _hBoxLayoutPushButton = new QHBoxLayout();
     _hBoxLayoutPushButton->addWidget(_pushButtonAddFriend);
-    _hBoxLayoutPushButton->addWidget(_pushButtonRemoveFriend);
+    _hBoxLayoutPushButton->addWidget(_lineEditFriend);
 
     _vBoxLayoutFriendList = new QVBoxLayout();
-    _vBoxLayoutFriendList->addWidget(_lineEditFriend);
-    _vBoxLayoutFriendList->addWidget(_tabWidget);
     _vBoxLayoutFriendList->addLayout(_hBoxLayoutPushButton);
+    _vBoxLayoutFriendList->addWidget(_tabWidget);
     setLayout(_vBoxLayoutFriendList);
 }
 
 QPushButton *FriendList::getPushButtonAddFriend() const {
     return _pushButtonAddFriend;
-}
-
-QPushButton *FriendList::getPushButtonRemoveFriend() const {
-    return _pushButtonRemoveFriend;
 }
 
 QListWidget *FriendList::getListWidgetFriendList() const {
@@ -53,7 +47,7 @@ QString FriendList::getSelectFriend() const{
     return _selectFriend;
 }
 
-QLineEdit *FriendList::getLineEditFriend(){
+QLineEdit *FriendList::getLineEditFriend() const {
     return _lineEditFriend;
 }
 
@@ -86,5 +80,9 @@ void FriendList::setFriendRequestsList(std::vector<std::string> friendRequestsLi
 
 QListWidget *FriendList::getListWidgetFriendRequestList() const{
     return _listWidgetFriendRequestList;
+}
+
+QTabWidget *FriendList::getTabWidget() const{
+    return _tabWidget;
 }
 #endif

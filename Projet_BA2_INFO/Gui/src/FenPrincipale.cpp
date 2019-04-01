@@ -78,7 +78,6 @@ void FenPrincipale::init_connect() {
     connect(_menu->getExit(), SIGNAL(clicked()), qApp, SLOT(quit()));
     connect(_menu->getStat(), SIGNAL(clicked()), this, SLOT(goToStat()));
     connect(_friendList->getPushButtonAddFriend(), SIGNAL(clicked()), this, SLOT(addFriend()));
-    connect(_friendList->getPushButtonRemoveFriend(), SIGNAL(clicked()), this, SLOT(removeFriend()));
     connect(_friendList->getListWidgetFriendList(), SIGNAL(itemClicked(QListWidgetItem *)),this, SLOT(getFriendListItem(QListWidgetItem *)));
     connect(_friendList->getListWidgetFriendRequestList(), SIGNAL(itemClicked(QListWidgetItem *)),this, SLOT(getFriendRequestListItem(QListWidgetItem *)));
     connect(_chat->getLineEdit(), SIGNAL(returnPressed()), this, SLOT(sendMessage()));
@@ -86,7 +85,7 @@ void FenPrincipale::init_connect() {
     //connect(_statWindow,SIGNAL(enterPressed()), this, SLOT(fonctionjsp qui appelle StatWindow::getPlayerStats ))
     connect(_statWindow->getExitButton(), SIGNAL(clicked()), this, SLOT(goToMenu()));
     connect(_menuFriendList, SIGNAL(triggered(QAction *)), this, SLOT(getMenuFriendListAction(QAction *)));
-
+    connect(_friendList->getTabWidget(), SIGNAL(currentChanged(int)), this, SLOT(showFriendList()));
 
 }
 
@@ -348,10 +347,13 @@ void FenPrincipale::movPossibleUpdate(std::vector<std::pair<int,int> >* listMov)
 }
 
 void FenPrincipale::showFriendList(){
-    QApplication::processEvents();
+    std::cout<<"show Friend List"<<std::endl;
     _client->getFriendList();
+    std::cout<<"getFriendList"<<std::endl;
     _client->getFriendRequests();
+    std::cout<<"getFriendRequest"<<std::endl;
     _dockFriendList->show();
+    std::cout<<"show"<<std::endl;
 }
 
 void FenPrincipale::showChat(){
@@ -410,17 +412,11 @@ void FenPrincipale::setPool4(){
 }
 
 void FenPrincipale::getFriendListItem(QListWidgetItem *item){
-    QCursor cursor;
-    QPoint point = this->mapFromGlobal(cursor.pos());
-    _friendList->setSelectFriend(item->text());
-    _menuFriendList->exec(point);
+    _menuFriendList->popup(QCursor::pos());
 }
 
 void FenPrincipale::getFriendRequestListItem(QListWidgetItem *item){
-    QCursor cursor;
-    QPoint point = this->mapFromGlobal(cursor.pos());
-    _friendList->setSelectFriend(item->text());
-    _menuFriendRequestList->exec(point);
+    _menuFriendRequestList->popup(QCursor::pos());
 }
 
 AbstractClient* FenPrincipale::getTest(){
