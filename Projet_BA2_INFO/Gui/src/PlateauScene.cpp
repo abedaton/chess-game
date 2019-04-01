@@ -131,9 +131,11 @@ void PlateauScene::updateMov(std::vector<std::pair<int,int> > pos){
     PlateauBox* box2 =  _boxes[_size - 1 - pos[1].second][pos[1].first];
     std::cout << "SALUT NIKITA" << std::endl;
     //if(box1->getPiece() != nullptr){
+    //update();
     
-    box2->movePiece(box1);
-    _scene->update();
+    movPiece(box1,box2);
+    
+    //update();
     
     
     std::cout << "SALUT MATIAS " << box2->getPiece() <<  std::endl;
@@ -177,10 +179,24 @@ void PlateauScene::resetAllColors(){
     for(int i = 0 ;i<_size;++i){
         for(int j = 0 ;j<_size;++j){
             _boxes[i][j]->resetColor();
+            //if(_boxes[i][j]->getPiece() != nullptr)
+               //_boxes[i][j]->getPiece()->show(); 
+
         }
     }
 }
 
+void PlateauScene::movPiece(PlateauBox* box1, PlateauBox* box2){
+    std::string pieceType = box1->getPiece()->getPieceType();
+    std::string suffix = box1->getPiece()->getColor();
+    std::pair<int,int> pos = box2->getPosition();
+    
+    ChessItem* pion = new ChessItem(pieceType,this->get_pool(),suffix, 520/_size); // de base "pool1" // plustard nouveau parametre color!
+    _boxes[pos.first][pos.second]->setPiece(pion);
+    _scene->addItem(pion);
+
+    delete box1->getPiece();
+}
 
 void PlateauScene::addPiece(std::string pieceType,std::string suffix,int x, int y){
     ChessItem* pion = new ChessItem(pieceType,this->get_pool(),suffix, 520/_size); // de base "pool1" // plustard nouveau parametre color!

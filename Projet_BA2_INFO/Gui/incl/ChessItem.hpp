@@ -16,8 +16,15 @@ public:
 
     void setPicture(std::string pieceType,std::string pool);
     std::string get_common_path();
+
+    void setPixmapAgain();
+    std::string getPieceType();
+
+    std::string getColor();
 private:
     //PlateauBox* _currentBox;
+    QPixmap _pic;
+    std::string _pieceType;
     int _size;
     std::string _suffix;
 
