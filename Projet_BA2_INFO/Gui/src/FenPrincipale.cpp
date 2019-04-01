@@ -447,5 +447,11 @@ void FenPrincipale::recvInfo(std::string username, int nbrgames, int win, int el
     std::cout << "recFInfo was called " << std::endl;
 }
 
+void FenPrincipale::feedback(int info, std::string message)
+{
+    std::cout << "FenPrincipale::feedback: " << info << "  "<< message << std::endl;
+    std::cout << 
+    //if(message == "")
+}
 
 #endif
