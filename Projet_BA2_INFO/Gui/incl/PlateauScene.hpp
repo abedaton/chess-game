@@ -18,7 +18,11 @@ class PlateauScene : public QGraphicsView {
     public:
     explicit PlateauScene(std::string game_type , std::string pool_name = "pool1", FenPrincipale* mainWindow = nullptr ,QWidget *parent = nullptr );
     
+    void make_box_line(int begin_x,int y_pos,int sideLenght,int i);
+    void make_char_lines(int curr_x,int y_pos,int sideLenght);
+    void setPieces();
     void setBoxes(int x, int y, int sideLenght);
+    
     void setPosText(int x, int y, std::string pos);
     //void setTrappistBoxes(int x, int y, int sideLenght);
 
