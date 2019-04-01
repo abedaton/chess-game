@@ -35,18 +35,6 @@ PlateauScene::PlateauScene(std::string game_type , std::string pool_name, FenPri
 void PlateauScene::setBoxesThread(){
     setBoxes(0, 100, 520/_size);
 }
-void PlateauScene::setBoxes(int x, int y, int sideLenght) {
-    int curr_x, curr_y = y;
-    int textX = sideLenght/2 - 13, textY = 125;
-    
-    _boxes.resize(_size);
-    
-    for (int i = 0; i < _size; ++i) {
-        _boxes[i].resize(_size); 
-        curr_x = x;
-        
-        char chr = 65 + i;
-        //wsh
 
 void PlateauScene::make_box_line(int begin_x,int y_pos, int sideLenght,int i){
 	
