@@ -23,7 +23,7 @@ void ChessItem::setPicture(std::string pieceType,std::string pool) {
 	QPixmap _pic(qstr);
     
     _pic = _pic.scaled(_size,_size);
-    setPixmap(_pic);
+    this->addPixmap(_pic);
 
 
 }
